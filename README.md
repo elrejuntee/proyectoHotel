@@ -31,7 +31,6 @@ proyectoHotel/
 - `index.html` — Página de inicio
 - `quienes-somos.html` — Quiénes somos
 - `inicio-sesion.html` — Inicio de sesión
-- `registro.html` — Registro de usuario
 - `panel-usuario.html` — Panel del usuario
 - `panel-admin.html` — Panel de administración
 
