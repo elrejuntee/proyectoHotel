@@ -17,14 +17,14 @@ proyectoHotel/
 │   │   ├── panel-admin.css
 │   │   ├── panel-usuario.css
 │   │   ├── quienes-somos.css
-│   │   └── registro.css
+│   │   
 │   ├── imagenes/
 │   ├── index.html
 │   ├── inicio-sesion.html
 │   ├── panel-admin.html
 │   ├── panel-usuario.html
 │   ├── quienes-somos.html
-│   └── registro.html
+│   └── 
 └── README.md
 
 ## Vistas desarrolladas
