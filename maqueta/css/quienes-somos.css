@@ -4,7 +4,7 @@
 
 .quienes-somos__presentacion-fondo {
 
-    background-image: url('../imagenes/sobre\ nosotros\ general.png');
+    background-image: url('../imagenes/general.jpg');
     background-position: center top; /* Comienza a mostrarse desde arriba */
     background-repeat: no-repeat;
     background-size: cover; /* Estira para cubrir todo el bloque largo */
