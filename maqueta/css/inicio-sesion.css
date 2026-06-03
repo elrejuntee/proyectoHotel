@@ -16,12 +16,12 @@
 }
 
 /* ===== PANEL IZQUIERDO ===== */
-.login-panel--izquierdo {
+.login-panel-izquierdo {
     position: relative;
     overflow: hidden;
 }
 
-.login-panel__fondo {
+.login-panel-fondo {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -30,7 +30,7 @@
     object-position: center;
 }
 
-.login-panel__overlay {
+.login-panel-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -41,7 +41,7 @@
     );
 }
 
-.login-panel__contenido {
+.login-panel-contenido {
     position: relative;
     z-index: 1;
     height: 100%;
@@ -59,14 +59,14 @@
     color: white;
 }
 
-.login-bienvenida__titulo {
+.login-bienvenida-titulo {
     font-size: 2.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.login-bienvenida__desc {
+.login-bienvenida-desc {
     font-size: 1rem;
     opacity: 0.85;
     line-height: 1.6;
@@ -104,7 +104,7 @@
 }
 
 /* ===== PANEL DERECHO ===== */
-.login-panel--derecho {
+.login-panel-derecho {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -128,14 +128,14 @@
     margin-bottom: 2rem;
 }
 
-.login-form-header__titulo {
+.login-form-header-titulo {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--gris-900);
     margin-bottom: 0.4rem;
 }
 
-.login-form-header__subtitulo {
+.login-form-header-subtitulo {
     font-size: 0.9rem;
     color: var(--gris-500);
 }
@@ -160,13 +160,13 @@
     color: var(--gris-700);
 }
 
-.login-campo__input-wrapper {
+.login-campo-input-wrapper {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.login-campo__icono {
+.login-campo-icono {
     position: absolute;
     left: 0.875rem;
     color: var(--gris-400);
@@ -195,7 +195,7 @@
     color: var(--gris-400);
 }
 
-.login-campo__toggle-pass {
+.login-campo-toggle-pass {
     position: absolute;
     right: 0.875rem;
     background: none;
@@ -208,7 +208,7 @@
     transition: color 0.2s;
 }
 
-.login-campo__toggle-pass:hover {
+.login-campo-toggle-pass:hover {
     color: var(--gris-600);
 }
 
@@ -267,7 +267,7 @@
     font-size: 0.875rem;
 }
 
-.login-o__linea {
+.login-o-linea {
     flex: 1;
     height: 1px;
     background: var(--gris-200);
