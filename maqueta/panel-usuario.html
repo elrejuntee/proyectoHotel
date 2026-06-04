@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Panel — El Rejunte Hotel</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/panel-usuario.css">
+</head>
+<body>
+
+    <!-- HEADER --> 
+    <header class="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
+            </a>
+            <nav class="header__nav">
+                <a href="quienes-somos.html">Nosotros</a>
+                <a href="#">Servicios</a>
+                <a href="#">Reservas</a>
+                <a href="panel-usuario.html" class="perfil-nav-link activo">
+                    <img src="imagenes/juan-perez.jpg" alt="Juan Perez" class="perfil-nav-avatar">
+                    Juan Perez
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="panel">
+        <div class="panel__inner">
+
+            <!-- RUTA -->
+            <nav class="ruta">
+                <a href="index.html">Inicio</a>
+                <span>›</span>
+                <span class="activo">Mi Panel</span>
+            </nav>
+
+            <!-- ENCABEZADO DEL PANEL -->
+            <div class="panel__encabezado">
+                <h1 class="panel__titulo">Mi Panel</h1>
+                <a href="#" class="btn btn-secundario btn-chico">✏️ Editar perfil</a>
+            </div>
+
+            <!-- TARJETA DE PERFIL -->
+            <section class="perfil-card">
+                <div class="perfil-card__izq">
+                    <div class="perfil-card__avatar-wrap">
+                        <img src="imagenes/juan-perez.jpg" alt="Juan Perez" class="perfil-card__avatar">
+                        <span class="perfil-card__badge">Miembro Premium</span>
+                    </div>
+                    <div class="perfil-card__info">
+                        <h2 class="perfil-card__nombre">Juan Perez</h2>
+                        <ul class="perfil-card__datos">
+                            <li>📧 juan@rejunte.com</li>
+                            <li>📞 +1 202 555 0184</li>
+                            <li>📍 Buenos Aires, Argentina</li>
+                            <li>📅 Miembro desde enero 2026</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="perfil-card__stats">
+                    <div class="stat">
+                        <span class="stat__num">12</span>
+                        <span class="stat__label">Reservas totales</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">24</span>
+                        <span class="stat__label">Habitaciones vistas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">8</span>
+                        <span class="stat__label">Lista de deseos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">4.6</span>
+                        <span class="stat__label">Puntuación media</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1. INFORMACIÓN PERSONAL -->
+            <section class="seccion-panel">
+                <h2 class="seccion-panel__titulo">👤 Información personal</h2>
+                <div class="bloque">
+                    <dl class="bloque__lista">
+                        <dt>Nombre completo</dt>
+                        <dd>Juan Perez</dd>
+                        <dt>Correo electrónico</dt>
+                        <dd>juan@rejunte.com</dd>
+                        <dt>Teléfono</dt>
+                        <dd>+1 202 555 0184</dd>
+                        <dt>Fecha de nacimiento</dt>
+                        <dd>12 de enero de 1964</dd>
+                        <dt>País</dt>
+                        <dd>Argentina</dd>
+                        <dt>Idioma preferido</dt>
+                        <dd>Español</dd>
+                        <dt>Contraseña</dt>
+                        <dd>••••••••••</dd>
+                    </dl>
+                    <a href="#" class="btn btn-primario btn-chico panel-btn-mt">🔒 Cambiar contraseña</a>
+                </div>
+            </section>
+
+            <!-- 2. HABITACIONES VISTAS -->
+            <section class="seccion-panel">
+                <div class="seccion-panel__header">
+                    <h2 class="seccion-panel__titulo">🏨 Habitaciones vistas recientemente</h2>
+                    <a href="#" class="btn btn-blanco btn-chico">Ver todas</a>
+                </div>
+                <div class="habitaciones-lista">
+
+                    <div class="hab-item">
+                        <img src="imagenes/premier.jpg" alt="Suite Premier Garden" class="hab-item__img">
+                        <div class="hab-item__info">
+                            <div class="hab-item__header">
+                                <span class="hab-item__nombre">Suite Premier Garden</span>
+                                <span class="etiqueta etiqueta-suite">Suite</span>
+                            </div>
+                            <div class="hab-item__detalles">
+                                <span>📐 55 m²</span>
+                                <span>🛏 1 cama king</span>
+                                <span>👥 2 huéspedes</span>
+                            </div>
+                            <div class="hab-item__footer">
+                                <span class="hab-item__precio">$280 <small>/noche</small></span>
+                                <span class="hab-item__fecha">Vista el 24 may 2026</span>
+                                <a href="#" class="btn btn-primario btn-chico">Ver habitación</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hab-item">
+                        <img src="imagenes/deluxe.jpg" alt="Deluxe Vista al Mar" class="hab-item__img">
+                        <div class="hab-item__info">
+                            <div class="hab-item__header">
+                                <span class="hab-item__nombre">Deluxe Vista al Mar</span>
+                                <span class="etiqueta etiqueta-deluxe">Deluxe</span>
+                            </div>
+                            <div class="hab-item__detalles">
+                                <span>📐 45 m²</span>
+                                <span>🛏 1 cama king</span>
+                                <span>👥 2 huéspedes</span>
+                            </div>
+                            <div class="hab-item__footer">
+                                <span class="hab-item__precio">$220 <small>/noche</small></span>
+                                <span class="hab-item__fecha">Vista el 22 may 2026</span>
+                                <a href="#" class="btn btn-primario btn-chico">Ver habitación</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hab-item">
+                        <img src="imagenes/estandar.jpg" alt="Habitación Estándar" class="hab-item__img">
+                        <div class="hab-item__info">
+                            <div class="hab-item__header">
+                                <span class="hab-item__nombre">Habitación Estándar</span>
+                                <span class="etiqueta etiqueta-estandar">Estándar</span>
+                            </div>
+                            <div class="hab-item__detalles">
+                                <span>📐 30 m²</span>
+                                <span>🛏 1 cama queen</span>
+                                <span>👥 2 huéspedes</span>
+                            </div>
+                            <div class="hab-item__footer">
+                                <span class="hab-item__precio">$150 <small>/noche</small></span>
+                                <span class="hab-item__fecha">Vista el 20 may 2026</span>
+                                <a href="#" class="btn btn-primario btn-chico">Ver habitación</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hab-item">
+                        <img src="imagenes/ejecutiva.jpg" alt="Suite Ejecutiva" class="hab-item__img">
+                        <div class="hab-item__info">
+                            <div class="hab-item__header">
+                                <span class="hab-item__nombre">Suite Ejecutiva</span>
+                                <span class="etiqueta etiqueta-suite">Suite</span>
+                            </div>
+                            <div class="hab-item__detalles">
+                                <span>📐 60 m²</span>
+                                <span>🛏 1 cama king</span>
+                                <span>👥 2 huéspedes</span>
+                            </div>
+                            <div class="hab-item__footer">
+                                <span class="hab-item__precio">$320 <small>/noche</small></span>
+                                <span class="hab-item__fecha">Vista el 18 may 2026</span>
+                                <a href="#" class="btn btn-primario btn-chico">Ver habitación</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. HISTORIAL DE RESERVAS -->
+            <section class="seccion-panel">
+                <h2 class="seccion-panel__titulo">📋 Historial de reservas</h2>
+                <div class="bloque">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>Habitación</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Suite Premier Garden</td>
+                                <td>10 may 2026</td>
+                                <td>14 may 2026</td>
+                                <td>$1.120</td>
+                                <td><span class="etiqueta etiqueta-disponible">Completada</span></td>
+                            </tr>
+                            <tr>
+                                <td>Habitación Estándar</td>
+                                <td>02 mar 2026</td>
+                                <td>05 mar 2026</td>
+                                <td>$450</td>
+                                <td><span class="etiqueta etiqueta-disponible">Completada</span></td>
+                            </tr>
+                            <tr>
+                                <td>Suite Ejecutiva</td>
+                                <td>15 jun 2026</td>
+                                <td>18 jun 2026</td>
+                                <td>$960</td>
+                                <td><span class="etiqueta etiqueta-ocupado">Pendiente</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. LISTA DE DESEOS -->
+            <section class="seccion-panel">
+                <h2 class="seccion-panel__titulo">❤️ Lista de deseos</h2>
+                <div class="bloque bloque--vacio">
+                    <p>Tenés 8 habitaciones guardadas en tu lista de deseos.</p>
+                    <a href="#" class="btn btn-primario btn-chico">Ver lista completa</a>
+                </div>
+            </section>
+
+            <!-- 5. RESEÑAS -->
+            <section class="seccion-panel">
+                <h2 class="seccion-panel__titulo">⭐ Mis reseñas</h2>
+                <div class="bloque bloque--vacio">
+                    <p>Puntuación media: <strong>4.6</strong> sobre 5.</p>
+                    <a href="#" class="btn btn-primario btn-chico">Ver todas mis reseñas</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__grilla">
+                <div class="footer__marca">
+                    <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
+                    <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea perfecta.</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="quienes-somos.html">Nosotros</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="#">Reservas</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Sala Conferencia</a></li>
+                        <li><a href="#">Comedor</a></li>
+                        <li><a href="#">Sala Privada</a></li>
+                        <li><a href="#">Co-working</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="#">info@elrejuntehotel.com</a></li>
+                        <li><a href="#">+54 11 4567-8900</a></li>
+                        <li><a href="#">Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__pie">
+                <span>© 2026 El Rejunte Hotel. Todos los derechos reservados.</span>
+                <div class="footer__pie-links">
+                    <a href="#">Política de privacidad</a>
+                    <span>·</span>
+                    <a href="#">Términos y condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+
