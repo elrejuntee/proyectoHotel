@@ -1,7 +1,6 @@
 /* ================================================
    Login
    ================================================ */
-
 .login-body {
     min-height: 100vh;
     display: flex;
@@ -13,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     background-color: var(--gris-50);
 }
 
