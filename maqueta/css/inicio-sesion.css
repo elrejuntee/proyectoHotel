@@ -10,9 +10,11 @@
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .login-contenedor {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    background-color: var(--gris-50);
 }
 
 /* ===== PANEL DERECHO ===== */
@@ -22,6 +24,11 @@
     justify-content: space-between;
     background: var(--blanco);
     padding: 3rem 3rem 2rem;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid var(--gris-200);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra-md);
 }
 
 .login-form-contenedor {
