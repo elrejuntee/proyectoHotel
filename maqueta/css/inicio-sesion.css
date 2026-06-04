@@ -131,43 +131,6 @@
     color: var(--gris-600);
 }
 
-/* ===== OPCIONES ===== */
-.login-opciones {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.login-recordar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: var(--gris-600);
-    cursor: pointer;
-}
-
-.login-recordar input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--primario);
-    cursor: pointer;
-}
-
-.login-olvide {
-    font-size: 0.875rem;
-    color: var(--primario);
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.login-olvide:hover {
-    color: var(--primario-oscuro);
-    text-decoration: underline;
-}
-
 /* ===== BOTÓN INGRESAR ===== */
 .login-btn-ingresar {
     width: 100%;
@@ -190,47 +153,6 @@
     flex: 1;
     height: 1px;
     background: var(--gris-200);
-}
-
-/* ===== BOTÓN GOOGLE ===== */
-.login-btn-google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 0.8rem 1.5rem;
-    border: 1.5px solid var(--gris-300);
-    border-radius: var(--radio);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--gris-700);
-    background: var(--blanco);
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-.login-btn-google:hover {
-    background: var(--gris-50);
-    border-color: var(--gris-400);
-    box-shadow: var(--sombra-sm);
-}
-
-/* ===== SIN CUENTA ===== */
-.login-sin-cuenta {
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--gris-500);
-}
-
-.login-sin-cuenta a {
-    color: var(--primario);
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.login-sin-cuenta a:hover {
-    color: var(--primario-oscuro);
-    text-decoration: underline;
 }
 
 /* ===== ACCESO RÁPIDO ===== */
@@ -284,27 +206,4 @@
     background: var(--primario);
     color: white;
     box-shadow: var(--sombra-md);
-}
-
-/* ===== FOOTER LOGIN ===== */
-.login-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    font-size: 0.8rem;
-    color: var(--gris-400);
-    padding-top: 2rem;
-    border-top: 1px solid var(--gris-100);
-    margin-top: 2rem;
-}
-
-.login-footer a {
-    color: var(--gris-500);
-    transition: color 0.2s;
-}
-
-.login-footer a:hover {
-    color: var(--primario);
 }
