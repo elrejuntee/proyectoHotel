@@ -124,6 +124,7 @@ input, button, select, textarea {
     background: var(--primario-oscuro);
     box-shadow: var(--sombra-md);
     transform: translateY(-1px);
+    color: var(--blanco);
 }
 
 .btn-secundario {
