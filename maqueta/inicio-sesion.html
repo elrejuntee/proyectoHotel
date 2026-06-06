@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión — El Rejunte Hotel</title>
+    <meta name="description" content="Inicio de sesión para la pagina web El rejunte hotel">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/inicio-sesion.css">
@@ -19,96 +20,100 @@
             </a>
         </div>
     </header>
+    <main>
+        <section class="login-contenedor">
 
-    <section class="login-contenedor">
-
-        <div class="login-panel login-panel-derecho">
-            <div class="login-form-contenedor">
-                <div class="login-form-header">
-                    <h2 class="login-form-header-titulo">Bienvenido a El Rejunte Hotel</h2>
-                    <p class="login-form-header-subtitulo">Ingresá a tu cuenta de usuario</p>
-                </div>
-
-                <form class="login-form" action="index.html">
-                    <div class="login-campo">
-                        <label for="email">Correo electrónico</label>
-                        <div class="login-campo-input-wrapper">
-                            <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                </path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                            <input type="email" id="email" placeholder="Ingresá tu correo">
-                        </div>
+            <div class="login-panel login-panel-derecho">
+                <div class="login-form-contenedor">
+                    <div class="login-form-header">
+                        <h1 class="login-form-header-titulo">Bienvenido a El Rejunte Hotel</h1>
+                        <p class="login-form-header-subtitulo">Ingresá a tu cuenta de usuario</p>
                     </div>
 
-                    <div class="login-campo">
-                        <label for="password">Contraseña</label>
-                        <div class="login-campo-input-wrapper">
-                            <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                            <input type="password" id="password" placeholder="Ingresá tu contraseña">
-                            <button type="button" class="login-campo-toggle-pass" tabindex="-1">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
+                    <form class="login-form" action="index.html">
+                        <div class="login-campo">
+                            <label for="email">Correo electrónico</label>
+                            <div class="login-campo-input-wrapper">
+                                <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                    </path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primario btn-grande login-btn-ingresar">
-                        Ingresar
-                    </button>
-
-                    <div class="text-center my-2 small text-muted">
-                        ¿Aún no te registraste? <a href="registro.html"
-                            class="link-primary link-underline-opacity-0 link-underline-opacity-100-hover fw-semibold">Regístrate</a>
-                    </div>
-
-                    <div class="login-o">
-                        <div class="login-o-linea"></div>
-                        <span>acceso rápido</span>
-                        <div class="login-o-linea"></div>
-                    </div>
-
-                    <div>
-                        <div class="row g-2">
-                            <div class="col-12 col-md-6">
-                                <a href="panel-admin.html"
-                                    class="btn btn-acceso-admin w-100 d-inline-flex align-items-center justify-content-center gap-2">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    Iniciar como Admin
-                                </a>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <a href="panel-usuario.html"
-                                    class="btn btn-acceso-usuario w-100 d-inline-flex align-items-center justify-content-center gap-2">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    Iniciar como Usuario
-                                </a>
+                                <input type="email" id="email" placeholder="Ingresá tu correo" required>
                             </div>
                         </div>
-                    </div>
-                </form>
+
+                        <div class="login-campo">
+                            <label for="password">Contraseña</label>
+                            <div class="login-campo-input-wrapper">
+                                <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <input type="password" id="password" placeholder="Ingresá tu contraseña" required>
+                                <button type="button"
+                                    class="login-campo-toggle-pass p-3 d-inline-flex align-items-center justify-content-center"
+                                    aria-label="mostrar contraseña">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primario btn-grande login-btn-ingresar">
+                            Ingresar
+                        </button>
+
+                        <div class="text-center my-2 small text-dark">
+                            ¿Aún no te registraste? <a href="registro.html"
+                                class="link-primary link-underline-opacity-0 link-underline-opacity-100-hover fw-semibold">Regístrate</a>
+                        </div>
+
+                        <div class="login-o">
+                            <div class="login-o-linea"></div>
+                            <span class="text-dark">acceso rápido</span>
+                            <div class="login-o-linea"></div>
+                        </div>
+
+                        <div>
+                            <div class="row g-2">
+                                <div class="col-12 col-md-6">
+                                    <a href="panel-admin.html"
+                                        class="btn btn-acceso-admin w-100 d-inline-flex align-items-center justify-content-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        Iniciar como Admin
+                                    </a>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <a href="panel-usuario.html"
+                                        class="btn btn-acceso-usuario w-100 d-inline-flex align-items-center justify-content-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        Iniciar como Usuario
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
 
-    </section>
+        </section>
+    </main>
 
     <script src="/bootstrap/bootstrap.bundle.js"></script>
 </body>
