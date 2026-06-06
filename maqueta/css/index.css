@@ -14,6 +14,13 @@
     border: 2px solid var(--gris-200);
 }
 
+.navbar-toggler{
+    border: none;
+}
+
+.navbar-toggler:focus{
+    box-shadow: none;
+}
 /* HERO */
 
 .hero{
@@ -27,7 +34,7 @@
     object-fit:cover;
 }
 
-.hero__contenido{
+.hero-contenido{
     position:absolute;
     top:50%;
     left:50%;
@@ -47,40 +54,19 @@
 
 /* SERVICIOS */
 
-.seccion__titulo{
+.seccion-titulo{
     text-align:center;
     margin-bottom:2rem;
 }
 
-.servicios{
-    display:flex;
-    justify-content:space-around;
-    margin-top:2rem;
-}
-
-.servicio{
-    text-align:center;
-}
-
-.servicio span{
-    font-size:2rem;
-}
-
 /* HABITACIONES */
-
-.habitaciones{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:2rem;
-}
-
 .tarjeta img{
     height:250px;
     width:100%;
     object-fit:cover;
 }
 
-.habitacion__contenido{
+.habitacion-contenido{
     padding:1rem;
     display:flex;
     justify-content:space-between;
