@@ -24,7 +24,7 @@
 }
 
 .quienes-somos-hero-contenido-p {
-    color: var(--gris-400);
+    color: var(--gris-300);
     font-size: 1.2rem;
     padding-bottom: 2rem;          
     margin-bottom: 2rem;           
@@ -37,15 +37,15 @@
 /* 2. SECCIÓN HISTORIA */
 .quienes-somos-historia {
     padding: 5rem;
-    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura para leer bien el texto largo */
+    background-color: rgba(0, 0, 0, 0.6);
     color: var(--blanco);
 }
 
 .quienes-somos-historia-grilla {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: block;
+    /*grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: center;
+    align-items: center;*/
 }
 
 .quienes-somos-historia-texto-h2 {
@@ -62,9 +62,9 @@
 
 
 .quienes-somos-valores-grilla {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 1.2rem;
+    display: block;
+    /*grid-template-columns: repeat(2, 1fr); 
+    gap: 1.2rem;*/
 }
 
 .valor-tarjeta {
@@ -104,40 +104,37 @@
 }
 
 .quienes-somos-equipo-grilla {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    display: block;
 }
 
 .socio-tarjeta {
-    display: grid;
-    grid-template-columns: 250px 1fr; 
-    gap: 3rem;
-    text-align: center;
     background-color: var(--blanco);
     padding: 20px;
     margin-bottom: 20px;
-    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: 100%;
+
 }
 
-.socio-tarjeta-invertido {
-    direction: rtl;
-    background-color: var(--gris-50);
-    padding: 30px; 
-    border-radius: var(--radio-lg);
-}
-
-.socio-tarjeta-invertido .socio-tarjeta-contenido {
-    direction: ltr;
+.fila-invertida {
+    flex-direction: row-reverse !important;
 }
 
 .socio-tarjeta-img {
-    width: 90%;
+    width: 100%;
     height: auto;
-    object-fit: cover;
     border-radius: 15px;
     box-shadow: var(--sombra);
     border: 2px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.socio-tarjeta-img img {
+    width: 100%;           /* La imagen se ajusta al contenedor */
+    height: 100%;          /* Mantiene la altura del contenedor */
+    object-fit: cover;     /* Mantiene la proporción sin deformarse */
+    display: block;
 }
 
 .socio-tarjeta-contenido {
