@@ -1,8 +1,3 @@
-/* ================================================
-   Panel de Usuario — El Rejunte Hotel
-   ================================================ */
-
-/* ===== AVATAR NAV ===== */
 .perfil-nav-avatar {
     width: 32px;
     height: 32px;
@@ -79,16 +74,6 @@
     background: var(--gris-200);
 }
 
-.perfil-card__badge {
-    background: var(--primario-claro);
-    color: var(--primario);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.2rem 0.65rem;
-    border-radius: var(--radio-full);
-    white-space: nowrap;
-}
-
 .perfil-card__nombre {
     font-size: 1.3rem;
     font-weight: 700;
@@ -106,36 +91,6 @@
     font-size: 0.875rem;
     color: var(--gris-600);
 }
-
-/* ===== STATS ===== */
-.perfil-card__stats {
-    display: flex;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-}
-
-.stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    min-width: 70px;
-}
-
-.stat__num {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--gris-900);
-    line-height: 1;
-}
-
-.stat__label {
-    font-size: 0.78rem;
-    color: var(--gris-500);
-    text-align: center;
-    line-height: 1.3;
-}
-
 /* ===== SECCIONES DEL PANEL ===== */
 .seccion-panel {
     margin-bottom: 2rem;
@@ -155,10 +110,6 @@
     margin-bottom: 1rem;
 }
 
-.seccion-panel__header .seccion-panel__titulo {
-    margin-bottom: 0;
-}
-
 /* ===== BLOQUES ===== */
 .bloque {
     background: var(--blanco);
@@ -166,46 +117,12 @@
     box-shadow: var(--sombra);
     padding: 1.5rem;
 }
-
-.bloque--vacio {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.bloque--vacio p {
-    font-size: 0.9rem;
-    color: var(--gris-600);
-}
-
-/* ===== LISTA DL ===== */
 .bloque__lista {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.6rem 2rem;
     align-items: baseline;
 }
-
-.bloque__lista dt {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--gris-500);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
-
-.bloque__lista dd {
-    font-size: 0.9rem;
-    color: var(--gris-800);
-    font-weight: 500;
-}
-
-.panel-btn-mt {
-    margin-top: 1.25rem;
-    display: inline-flex;
-}
-
 /* ===== HABITACIONES LISTA ===== */
 .habitaciones-lista {
     display: flex;
@@ -273,50 +190,8 @@
     font-weight: 700;
     color: var(--gris-900);
 }
-
-.hab-item__precio small {
-    font-weight: 400;
-    color: var(--gris-500);
-    font-size: 0.78rem;
-}
-
 .hab-item__fecha {
     font-size: 0.78rem;
     color: var(--gris-400);
     margin-left: auto;
-}
-
-/* ===== TABLA ===== */
-.tabla {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-
-.tabla thead tr {
-    border-bottom: 2px solid var(--gris-200);
-}
-
-.tabla th {
-    text-align: left;
-    padding: 0.6rem 0.75rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--gris-500);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-.tabla td {
-    padding: 0.9rem 0.75rem;
-    color: var(--gris-700);
-    border-bottom: 1px solid var(--gris-100);
-}
-
-.tabla tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.tabla tbody tr:hover {
-    background: var(--gris-50);
 }
