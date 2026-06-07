@@ -94,33 +94,15 @@
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    height: 100%;
-}
-
-.fila-invertida {
-    flex-direction: row-reverse !important;
-}
-
-.socio-tarjeta-img {
-    width: 100%;
     height: auto;
-    border-radius: 15px;
-    box-shadow: var(--sombra);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .socio-tarjeta-contenido {
     text-align: left;
-}
-
-.socio-tarjeta-nombre {
-    display: block;
-    color: var(--primario);
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
 }
 
 .socio-tarjeta-descripcion {
