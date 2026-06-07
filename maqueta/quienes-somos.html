@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros — El Rejunte Hotel</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/quienes-somos.css">
 </head>
@@ -13,18 +14,43 @@
 
 <body>
     <header class="header">
-        <div class="header-inner">
-            <a href="index.html" class="header-logo">
-                <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand header-logo" href="index.html">
+                <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
             </a>
-            <nav class="header-nav">
-                <a href="quienes-somos.html" class="activo">Nosotros</a>
-                <a href="#">Servicios</a>
-                <a href="#">Reservas</a>
-                <a href="inicio-sesion.html" class="btn btn-primario">Loguearse</a>
-            </nav>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
+                <ul class="navbar-nav align-items-center gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quienes-somos.html">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="inicio-sesion.html" class="btn btn-primario">
+                            Loguearse
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="registro.html" class="btn btn-primario m-2">   
+                            Registrarse
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
+</header>
 
     <main class="quienes-somos">
 
@@ -188,6 +214,7 @@
             </div>
         </div>
     </footer>
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
