@@ -8,13 +8,12 @@
     
     color: var(--blanco);
     text-align: center;
-    height: 200px; 
+    height: 180px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura protectora */
-
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .quienes-somos-hero-h1 {
@@ -36,16 +35,9 @@
 
 /* 2. SECCIÓN HISTORIA */
 .quienes-somos-historia {
-    padding: 5rem;
+    padding: 2rem;
     background-color: rgba(0, 0, 0, 0.6);
     color: var(--blanco);
-}
-
-.quienes-somos-historia-grilla {
-    display: block;
-    /*grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;*/
 }
 
 .quienes-somos-historia-texto-h2 {
@@ -58,13 +50,6 @@
     color: var(--gris-200);
     margin-bottom: 1.2rem;
     font-size: 1.05rem;
-}
-
-
-.quienes-somos-valores-grilla {
-    display: block;
-    /*grid-template-columns: repeat(2, 1fr); 
-    gap: 1.2rem;*/
 }
 
 .valor-tarjeta {
@@ -85,7 +70,7 @@
 
 /* 4. SECCIÓN EQUIPO */
 .quienes-somos-equipo {
-    padding: 5rem 0;
+    padding: 2rem 0;
     max-width: 1200px; 
     margin: 0 auto;
 }
@@ -101,10 +86,6 @@
     display: inline-block;
     border-bottom: 2px solid var(--gris-500);
     padding-bottom: 0rem;
-}
-
-.quienes-somos-equipo-grilla {
-    display: block;
 }
 
 .socio-tarjeta {
@@ -155,4 +136,6 @@
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
+    text-align: justify;
+    text-justify: inter-word;
 }
