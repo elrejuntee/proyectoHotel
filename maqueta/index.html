@@ -1,60 +1,86 @@
-    <!-- HEADER -->
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> El Rejunte Hotel</title>
+    <title>El Rejunte Hotel</title>
+    <meta name="description" content="El Rejunte Hotel ofrece habitaciones cómodas, servicios de calidad y reservas online para una estadía inolvidable.">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <!-- HEADER -->
-    <header class="header">
-        <div class="header__inner">
-            <a href="index.html" class="header__logo">
-                <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand header-logo" href="index.html">
+                <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
             </a>
-            <nav class="header__nav">
-                <a href="quienes-somos.html" class="activo">Nosotros</a>
-                <a href="#">Servicios</a>
-                <a href="#">Reservas</a>
-                <a href="inicio-sesion.html" class="btn btn-primario">Loguearse</a>
-            </nav>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
+                <ul class="navbar-nav align-items-center gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quienes-somos.html">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="inicio-sesion.html" class="btn btn-primario">
+                            Loguearse
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="registro.html" class="btn btn-primario m-2">   
+                            Registrarse
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
+</header>
     <main>
         <!--HERO-->
         <section class="hero">
-            <img src="imagenes/fachada.jpg" alt="imagen del Hotel" class="hero__imagen">
-            <div class="hero__contenido">
+            <img src="imagenes/fachada.webp" alt="imagen del Hotel" class="hero-imagen">
+            <div class="hero-contenido container text-center">
                 <h1>BIENVENIDO REJUNTE HOTEL</h1>
-                <P>Buen lugar · Buena experiencia · Buen descanso</P>
+                <p>Buen lugar · Buena experiencia · Buen descanso</p>
                 <a href="#habitaciones" class="btn btn-primario">Explorar</a>
             </div>
         </section>
         <section class="seccion">
-            <div class="seccion__inner">
-                <h2 class="seccion__titulo">Servicios</h2>
-                <div class="servicios">
-                    <div class="servicio">
-                        <span>🍽️</span>
+            <div class="container seccion-inner">
+                <h2 class="seccion-titulo">Servicios</h2>
+                <div class="row text-center mt-4 gy-4">
+                    <div class="col-6 col-md">
+                        <span class="fs-1">🍽️</span>
                         <p>Comedor</p>
                     </div>
-                    <div class="servicio">
-                        <span>🏊</span>
+                    <div class="col-6 col-md">
+                        <span class="fs-1">🏊</span>
                         <p>Piscina</p>
                     </div>
-                    <div class="servicio">
-                        <span>📶</span>
+                    <div class="col-6 col-md">
+                        <span class="fs-1"  >📶</span>
                         <p>Wifi</p>
                     </div>
-                    <div class="servicio">
-                        <span>💪</span>
+                    <div class="col-6 col-md">
+                        <span class="fs-1">💪</span>
                         <p>Gimnasio</p>
                     </div>
-                    <div class="servicio">
-                        <span>🚕</span>
+                    <div class="col-6 col-md">
+                        <span class="fs-1">🚕</span>
                         <p>Traslado</p>
                     </div>
                 </div>
@@ -62,45 +88,53 @@
         </section>
         <!-- HABITACIONES -->
     <section class="seccion" id="habitaciones">
-        <div class="seccion__inner">
-            <h2 class="seccion__titulo">
+        <div class="container seccion-inner">
+            <h2 class="seccion-titulo">
                 Habitaciones y tarifas
             </h2>
-            <div class="habitaciones">
-                <div class="tarjeta">
-                    <img src="imagenes/estandar.jpg">
-                    <div class="habitacion__contenido">
-                        <h3>Habitación Estándar</h3>
-                        <a href="#" class="btn btn-primario btn-chico">
-                            Ver tarifas
-                        </a>
+            <div class="row g-4">
+                <div class="col-12 col-md-6">
+                    <div class="tarjeta h-100">
+                        <img src="imagenes/estandar.webp" alt="Habitación Estándar" loading="lazy">
+                        <div class="habitacion-contenido d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                            <h3>Habitación Estándar</h3>
+                            <a href="#" class="btn btn-primario btn-chico">
+                                Ver tarifas
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="tarjeta">
-                    <img src="imagenes/deluxe.jpg">
-                    <div class="habitacion__contenido">
-                        <h3>Habitación Deluxe</h3>
-                        <a href="#" class="btn btn-primario btn-chico">
-                            Ver tarifas
-                        </a>
+                <div class="col-12 col-md-6">
+                    <div class="tarjeta h-100">
+                        <img src="imagenes/deluxe.webp" alt="Habitación Deluxe" loading="lazy">
+                        <div class="habitacion-contenido d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                            <h3>Habitación Deluxe</h3>
+                            <a href="#" class="btn btn-primario btn-chico">
+                                Ver tarifas
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="tarjeta">
-                    <img src="imagenes/premium.jpg">
-                    <div class="habitacion__contenido">
-                        <h3>Suite Premium</h3>
-                        <a href="#" class="btn btn-primario btn-chico">
-                            Ver tarifas
-                        </a>
+                <div class="col-12 col-md-6">
+                    <div class="tarjeta h-100">
+                        <img src="imagenes/premium.webp" alt="Habitación Premium" loading="lazy">
+                        <div class="habitacion-contenido d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                            <h3>Suite Premium</h3>
+                            <a href="#" class="btn btn-primario btn-chico">
+                                Ver tarifas
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="tarjeta">
-                    <img src="imagenes/familiar.jpg">
-                    <div class="habitacion__contenido">
-                        <h3>Suite Familiar</h3>
-                        <a href="#" class="btn btn-primario btn-chico">
-                            Ver tarifas
-                        </a>
+                <div class="col-12 col-md-6">
+                    <div class="tarjeta h-100">
+                        <img src="imagenes/familiar.webp" alt="Habitación Familiar" loading="lazy">
+                        <div class="habitacion-contenido d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                            <h3>Suite Familiar</h3>
+                            <a href="#" class="btn btn-primario btn-chico">
+                                Ver tarifas
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,13 +143,13 @@
     </main>
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="footer__inner">
-            <div class="footer__grilla">
-                <div class="footer__marca">
-                    <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
+        <div class="container footer-inner">
+            <div class="row g-4">
+                <div class="col-12 col-lg-4 footer-marca">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
                     <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea perfecta.</p>
                 </div>
-                <div class="footer__col">
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
                     <h4>Navegación</h4>
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
@@ -124,7 +158,7 @@
                         <li><a href="#">Reservas</a></li>
                     </ul>
                 </div>
-                <div class="footer__col">
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
                     <h4>Servicios</h4>
                     <ul>
                         <li><a href="#">Sala Conferencia</a></li>
@@ -133,7 +167,7 @@
                         <li><a href="#">Co-working</a></li>
                     </ul>
                 </div>
-                <div class="footer__col">
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
                     <h4>Contacto</h4>
                     <ul>
                         <li><a href="#">info@elrejuntehotel.com</a></li>
@@ -142,9 +176,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="footer__pie">
+            <div class="footer-pie d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <span>© 2026 El Rejunte Hotel. Todos los derechos reservados.</span>
-                <div class="footer__pie-links">
+                <div class="footer-pie-links">
                     <a href="#">Política de privacidad</a>
                     <span>·</span>
                     <a href="#">Términos y condiciones</a>
@@ -152,5 +186,6 @@
             </div>
         </div>
     </footer>
+<script src="bootstrap/bootstrap.bundle.js"></script>
 </body>
 </html>
