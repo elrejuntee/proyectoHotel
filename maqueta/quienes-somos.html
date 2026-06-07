@@ -1,138 +1,286 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros — El Rejunte Hotel</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/quienes-somos.css">
-</head> 
- 
- <!-- HEADER -->
-    <header class="header">
-        <div class="header__inner">
-            <a href="index.html" class="header__logo">
-                <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
-            </a>
-            <nav class="header__nav">
-                <a href="quienes-somos.html" class="activo">Nosotros</a>
-                <a href="#">Servicios</a>
-                <a href="#">Reservas</a>
-                <a href="inicio-sesion.html" class="btn btn-primario">Loguearse</a>
-            </nav>
-        </div>
-    </header>
+</head>
+
+<!-- HEADER -->
+
 <body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand header-logo" href="index.html">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+                    aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
+                    <ul class="navbar-nav align-items-center gap-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="quienes-somos.html">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="inicio-sesion.html" class="btn btn-primario">
+                                Loguearse
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="registro.html" class="btn btn-primario m-2">
+                                Registrarse
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <main class="quienes-somos">
-        
-        <div class="quienes-somos__presentacion-fondo">
 
-        <section class="quienes-somos__hero">
-            <div class="quienes-somos__hero-contenido">
-                <h1>Sobre Nosotros</h1>
-                <p>Conocé la historia detrás de El Rejunte Hotel.</p>
-            </div>
+        <section class="quienes-somos-hero">
+            <h1 class="quienes-somos-hero-contenido"> Sobre Nosotros </h1>
+            <p class="quienes-somos-hero-contenido-p"> Conocé al equipo detrás de El Rejunte Hotel.</p>
         </section>
 
-        <section class="quienes-somos__historia">
-            <div class="seccion__inner">
-                <div class="quienes-somos__historia-grilla">
-                    <div class="quienes-somos__historia-texto">
-                        <p class="seccion__subtitulo" style="margin-bottom: 0.5rem; font-weight: 600; color: var(--blanco);">NUESTRA HISTORIA</p>
-                        <h2 class="seccion__titulo" style="color: var(--blanco);">Un hotel nacido de la pasión por la hospitalidad.</h2>
-                        <p><strong>El Rejunte Hotel</strong> nació de la idea de cuatro jóvenes estudiantes que soñaban con crear un espacio donde la comodidad, el diseño y el servicio se fusionen en una sola experiencia. Lo que comenzó como un proyecto estudiantil se transformó en un lugar real donde cada huésped encuentra su rincón perfecto.</p>
-                        <p>Nuestra filosofía es simple: tratamos a cada persona como si fuera la primera vez que viene a casa. Porque en El Rejunte, todos son bienvenidos.</p>
+        <section class="quienes-somos-historia">
+            <div class="seccion-inner">
+                <div class="row align-items-center g-5">
+
+                    <div class="col-12 col-lg-6">
+                        <div class="quienes-somos-historia-texto">
+                            <h1 class="seccion-subtitulo" style="color: var(--blanco)">PROPÓSITO Y VALORES</h1>
+                            <p>El Rejunte Hotel nace con el objetivo de optimizar la gestión hotelera mediante
+                                herramientas
+                                digitales que reduzcan la fricción operativa y mejoren la experiencia del huésped.</p>
+                            <p>Como equipo de desarrollo, nuestra meta es ofrecer una arquitectura de software que
+                                permita
+                                una administración ágil, segura y escalable, aplicando los conocimientos adquiridos en
+                                nuestro proceso de formación técnica para resolver problemas reales del sector.</p>
+                        </div>
                     </div>
-                <div class="quienes-somos__valores-grilla">
-                <div class="valor-tarjeta">
-                    <h3>4+</h3>
-                    <p>Años de experiencia</p>
+                    <div class="col-12 col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <p class="valor-tarjeta">Trabajo en Equipo</p>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <p class="valor-tarjeta">Innovación</p>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <p class="valor-tarjeta">Aprendizaje Continuo</p>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <p class="valor-tarjeta">Comunicación Asertiva</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="valor-tarjeta">
-                    <h3>120</h3>
-                    <p>Habitaciones</p>
-                </div>
-
-                <div class="valor-tarjeta">
-                    <h3>98%</h3>
-                    <p>Satisfacción de huéspedes</p>
-                </div>
-
-                <div class="valor-tarjeta">
-                    <h3>4</h3>
-                    <p>Socios Fundadores</p>
-                </div>    
-                </div>         
             </div>
-            
-    </main>
         </section>
+    </main>
 
-        <section class="quienes-somos__equipo">
-        <div class="seccion__inner">
-            <div class="quienes-somos__subtitulo-central">
-                <h3>LOS FUNDADORES</h3>
+    <section class="quienes-somos-equipo">
+        <div class="container">
+            <div class="text-center my-5">
+                <h2 class="h4">NUESTROS PERFILES PROFESIONALES</h2>
+                <hr class="mx-auto" style="width: 50%;">
             </div>
-            <div class="quienes-somos__equipo-grilla">
+        </div>
+        <div class="row g-4">
+            <div class="col-12 col-md-12 col-lg-6">
                 <div class="socio-tarjeta">
-                    <div class="socio-tarjeta__img">
-                    <img src="imagenes/agustin-perez.jpg" alt="Agustin Perez">
-                </div>
-                <div class="socio-tarjeta__contenido">
-                    <h4>Agustin Perez</h4>
-                    <span class="socio-tarjeta__puesto">Director de Operaciones</span>
-                    <p class="socio-tarjeta__descripcion">Agustin es estudiante de Hotelería y Turismo con una pasión innata por la atención al cliente. Desde chico soñaba con crear un espacio donde la gente pudiera sentirse completamente a gusto sin importar de dónde venía.
-                    Su especialidad es la gestión de operaciones y la experiencia del huésped. Bajo su liderazgo, El Rejunte desarrolló los estándares de servicio que nos distinguen hoy en día. Agustin cree firmemente que un hotel no vende camas, vende momentos.</p>
-                </div>
-                </div>
-                <div class="socio-tarjeta socio-tarjeta__invertido">
-                    <div class="socio-tarjeta__img">
-                    <img src="imagenes/adriel-delosanto.jpg" alt="Adriel Delosanto">
-                </div>
-                    <div class="socio-tarjeta__contenido">
-                    <h4>Adriel Delosanto</h4>
-                    <span class="socio-tarjeta__puesto">Director de Marketing y Comunicación</span>
-                    <p class="socio-tarjeta__descripcion">Adriel es el cerebro detrás de la identidad visual y la presencia digital de El Rejunte Hotel. Con estudios en Comunicación Social y Marketing Digital, logró posicionarnos como una de las propuestas más originales del sector hotelero local. Su enfoque creativo y su capacidad para contar historias hicieron que nuestra marca resuene en las redes sociales y en la mente de los viajeros. Para Adriel, cada imagen y cada palabra tiene que transmitir la esencia de nuestro hotel.</p>
-                </div>
-                </div>
-                <div class="socio-tarjeta">
-                    <div class="socio-tarjeta__img">
-                    <img src="imagenes/emilse-jimenez.jpg" alt="Emilse Jimenez">
-                </div>
-                <div class="socio-tarjeta__contenido">
-                    <h4>Emilse Jimenez</h4>
-                    <span class="socio-tarjeta__puesto">Directora de Diseño e Interiorismo</span>
-                    <p class="socio-tarjeta__descripcion">Emilse es quien le da alma y estética a cada rincón de El Rejunte Hotel. Con formación en Diseño de Interiores y una sensibilidad artística única, transformó espacios vacíos en ambientes acogedores y memorables. Cada habitación, cada pasillo y cada sala fue pensado y decorado por ella con un cuidado extraordinario por los detalles. Emilse cree que el entorno donde dormís influye directamente en cómo te sentís, y por eso cada espacio de nuestro hotel fue diseñado para generar bienestar.
-                    </p>
-                </div>
-                </div>
-                <div class="socio-tarjeta socio-tarjeta__invertido">
-                    <div class="socio-tarjeta__img">
-                    <img src="imagenes/alexis-lazarte.jpg" alt="Alexis Lazarte">
-                </div>
-                    <div class="socio-tarjeta__contenido">
-                    <h4>Alexis Lazarte</h4>
-                    <span class="socio-tarjeta__puesto">Director Financiero y Administrativo</span>
-                    <p class="socio-tarjeta__descripcion">Alexis es el pilar administrativo del hotel. Con estudios en Administración de Empresas y una visión clara del negocio hotelero, asegura que El Rejunte funcione de manera eficiente y sustentable sin perder nunca la calidad.Gracias a su gestión financiera rigurosa, logramos ofrecer precios competitivos sin resignar ni un gramo de experiencia. Alexis piensa que un hotel exitoso no solo hace felices a sus huéspedes, sino también a quienes trabajan en él.</p>
-                </div>
-                </div>
+                    <div class="row align-items-center g-3">
+                        <div class="col-4">
+                            <div class="socio-tarjeta-img">
+                                <img src="imagenes/agustin-perez.webp" alt="Agustin Perez" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="socio-tarjeta-contenido">
+                                <span class="socio-tarjeta-nombre">Agustin Perez</span>
+                                <p class="socio-tarjeta-descripcion">Desarrollador Full Stack apasionado por la
+                                    creación de soluciones tecnológicas integrales. Cuento con una sólida
+                                    trayectoria tanto en el trabajo independiente como en la colaboración dentro de
+                                    equipos multidisciplinarios. Mi enfoque se centra en la arquitectura de
+                                    aplicaciones orientadas a la gestión empresarial, desde la gestión de base de
+                                    datos la lógica del backend, hasta la creación de interfaces dinámicas. Mi
+                                    objetivo es combinar la fundamentación teórica con la práctica para transformar
+                                    ideas en aplicaciones webs.</p>
 
+                                <a href="https://github.com/AgussPerez" target="_blank"
+                                    rel="noopener noreferrer">
+                                    github.com/AgussPerez
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="socio-tarjeta">
+                    <div class="row align-items-center g-3 fila-invertida">
+                        <div class="col-4">
+                            <div class="socio-tarjeta-img">
+                                <img src="imagenes/adriel-delosanto.webp" alt="Adriel Delosanto" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="socio-tarjeta-contenido">
+                                <span class="socio-tarjeta-nombre">Adriel Delosanto</span>
+                                <p class="socio-tarjeta-descripcion">Desarrollador Full Stack en formación, con
+                                    orientación hacia la resolución de problemas complejos y el desarrollo de
+                                    soluciones tecnológicas de calidad. Actualmente cursando la Tecnicatura
+                                    Superior
+                                    en Desarrollo de Software, adquiriendo experiencia sólida en proyectos
+                                    reales
+                                    que integran diseño, funcionalidad y buenas prácticas de desarrollo. Me
+                                    caracterizo por la proactividad, el compromiso y la capacidad de adaptarme a
+                                    entornos dinámicos y de trabajo en equipo. Busco seguir creciendo
+                                    profesionalmente aportando valor en cada proyecto que integro.</p>
+                                <a href="https://github.com/adriel1364" target="_blank"
+                                    rel="noopener noreferrer">
+                                    github.com/adriel1364
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="socio-tarjeta">
+                    <div class="row align-items-center g-3">
+                        <div class="col-4">
+                            <div class="socio-tarjeta-img">
+                                <img src="imagenes/emilse-jimenez.webp" alt="Emilse Jimenez" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="socio-tarjeta-contenido">
+                                <span class="socio-tarjeta-nombre">Emilse Jimenez</span>
+                                <p class="socio-tarjeta-descripcion">Profesional con una sólida trayectoria en
+                                    educación, coordinación de equipos y gestión de proyectos, actualmente
+                                    enfocada
+                                    en mi transición estratégica hacia el desarrollo de software. Como
+                                    estudiante
+                                    avanzada de la Tecnicatura Superior en Desarrollo de Software (ISPC),
+                                    combino mi
+                                    experiencia técnica con una visión interdisciplinaria del negocio. Me
+                                    destaco
+                                    por mi capacidad de liderazgo, comunicación asertiva y el uso de
+                                    metodologías
+                                    ágiles para optimizar el trabajo en equipo y la entrega de soluciones. Busco
+                                    aportar una capacidad analítica diferenciada y un compromiso inquebrantable
+                                    con
+                                    el aprendizaje continuo en proyectos tecnológicos desafiantes.
+                                </p>
+                                <a href="https://github.com/Emijim" target="_blank"
+                                    rel="noopener noreferrer">
+                                    github.com/EmiJim
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="socio-tarjeta">
+                    <div class="row align-items-center g-3 fila-invertida">
+                        <div class="col-4">
+                            <div class="socio-tarjeta-img">
+                                <img src="imagenes/alexis-lazarte.webp" alt="Alexis Lazarte" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="socio-tarjeta-contenido">
+                                <span class="socio-tarjeta-nombre">Alexis Lazarte</span>
+                                <p class="socio-tarjeta-descripcion">Profesional con más de una década de
+                                    experiencia en el diagnóstico, instalación y mantenimiento de sistemas
+                                    físicos
+                                    complejos, lo que me ha permitido desarrollar una capacidad analítica
+                                    excepcional para la resolución de problemas. Actualmente, estoy integrando
+                                    esta
+                                    sólida trayectoria técnica con mi formación en Desarrollo de Software en el
+                                    ISPC. Mi enfoque combina la lógica aplicada de la automatización con la
+                                    arquitectura de soluciones digitales. Me destaco por mi adaptabilidad, el
+                                    compromiso con la eficiencia operativa y una mentalidad orientada a
+                                    resultados,
+                                    buscando siempre tender puentes entre la complejidad técnica y la usabilidad
+                                    práctica.</p>
+                                <a href="https://github.com/AlexisLazarte" target="_blank"
+                                    rel="noopener noreferrer">
+                                    github.com/AlexisLazarte
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        </section>
-</section>
-</body>
+
+        <div class="col-12 col-md-12 col-lg-6 mx-auto">
+            <div class="socio-tarjeta">
+                <div class="row align-items-center g-3">
+                    <div class="col-4">
+                        <div class="socio-tarjeta-img">
+                            <img src="imagenes/bruno-razzotti.webp" alt="Bruno Razzotti" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="socio-tarjeta-contenido">
+                            <span class="socio-tarjeta-nombre">Bruno Razzotti</span>
+                            <p class="socio-tarjeta-descripcion"> Desarrollador Full Stack con experiencia en el
+                                desarrollo de aplicaciones web modernas, participando tanto en la creación de interfaces
+                                de usuario como en la implementación de lógica de negocio e integración de APIs.
+                                Especializado en React, enfocado en construir experiencias dinámicas, responsivas y de
+                                alto rendimiento. Con conocimientos en tecnologías frontend y backend, bases de datos y
+                                desarrollo de soluciones escalables orientadas a las necesidades del usuario y del
+                                negocio.</p>
+                            <a href="https://github.com/BrunoRazzotti" target="_blank"
+                                rel="noopener noreferrer">
+                                github.com/BrunoRazzotti
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="footer__inner">
-            <div class="footer__grilla">
-                <div class="footer__marca">
-                    <img src="imagenes/logo-rejunte.jpg" alt="El Rejunte Hotel">
-                    <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea perfecta.</p>
+        <div class="container footer-inner">
+            <div class="row g-4">
+                <div class="col-12 col-lg-4 footer-marca">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                    <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea
+                        perfecta.</p>
                 </div>
-                <div class="footer__col">
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
                     <h4>Navegación</h4>
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
@@ -141,7 +289,7 @@
                         <li><a href="#">Reservas</a></li>
                     </ul>
                 </div>
-                <div class="footer__col">
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
                     <h4>Servicios</h4>
                     <ul>
                         <li><a href="#">Sala Conferencia</a></li>
@@ -150,7 +298,7 @@
                         <li><a href="#">Co-working</a></li>
                     </ul>
                 </div>
-                <div class="footer__col">
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
                     <h4>Contacto</h4>
                     <ul>
                         <li><a href="#">info@elrejuntehotel.com</a></li>
@@ -159,9 +307,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="footer__pie">
+            <div class="footer-pie d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <span>© 2026 El Rejunte Hotel. Todos los derechos reservados.</span>
-                <div class="footer__pie-links">
+                <div class="footer-pie-links">
                     <a href="#">Política de privacidad</a>
                     <span>·</span>
                     <a href="#">Términos y condiciones</a>
@@ -169,5 +317,7 @@
             </div>
         </div>
     </footer>
+    <script src="bootstrap/bootstrap.bundle.min.js" defer></script>
 </body>
+
 </html>

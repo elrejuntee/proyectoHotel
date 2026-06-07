@@ -2,19 +2,9 @@
    ESTILOS ESPECÍFICOS PARA LA PÁGINA "NOSOTROS" (MAQUETA FIJA)
    ========================================================================== */
 
-.quienes-somos__presentacion-fondo {
 
-    background-image: url('../imagenes/general.jpg');
-    background-position: center top; /* Comienza a mostrarse desde arriba */
-    background-repeat: no-repeat;
-    background-size: cover; /* Estira para cubrir todo el bloque largo */
-    background-attachment: scroll;
-    background-color: #1a1a1a;
-
-}
-
-/* 1. BANNER PRINCIPAL (HERO CON IMAGEN DE FONDO) */
-.quienes-somos__hero {
+/* 1. BANNER PRINCIPAL */
+.quienes-somos-hero {
     
     color: var(--blanco);
     text-align: center;
@@ -23,160 +13,122 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura protectora */
-
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-.quienes-somos__hero h1 {
+.quienes-somos-hero-h1 {
     font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
-.quienes-somos__hero-contenido p {
-    color: var(--gris-400);
+.quienes-somos-hero-contenido-p {
+    color: var(--gris-300);
     font-size: 1.2rem;
+    padding-bottom: 2rem;          
+    margin-bottom: 2rem;           
+    border-bottom: 1px solid rgba(255, 255, 255, 0.712);
+    width: 60%;                    
+    margin-left: auto;             
+    margin-right: auto;
 }
 
 /* 2. SECCIÓN HISTORIA */
-.quienes-somos__historia {
-    padding: 5rem;
-    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura para leer bien el texto largo */
+.quienes-somos-historia {
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.6);
     color: var(--blanco);
 }
 
-.quienes-somos__historia-grilla {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.quienes-somos__historia-texto h2 {
+.quienes-somos-historia-texto-h2 {
     color: var(--blanco);
     font-size: 2.2rem;
     margin-bottom: 1.5rem;
 }
 
-.quienes-somos__historia-texto p {
+.quienes-somos-historia-texto-p {
     color: var(--gris-200);
     margin-bottom: 1.2rem;
     font-size: 1.05rem;
-}
-
-
-.quienes-somos__valores-grilla {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 1.2rem;
 }
 
 .valor-tarjeta {
     background: rgba(0, 0, 0, 0.5);
     padding: 1.5rem 1rem;
     border-radius: var(--radio-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(114, 114, 114, 0.1);
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.valor-tarjeta h3 {
+.valor-tarjeta-p {
     color: var(--blanco);
-    margin-bottom: 1rem;
-    font-size: 1.9rem;
-    font-weight: 700;
-}
-
-.valor-tarjeta p {
-    color: var(--blanco);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.3;
     font-weight: 500;
 }
 
 /* 4. SECCIÓN EQUIPO */
-.quienes-somos__equipo {
-    padding: 5rem 0;
+.quienes-somos-equipo {
+    padding: 2rem 0;
     max-width: 1200px; 
     margin: 0 auto;
 }
 
-.quienes-somos__subtitulo-central {
+.quienes-somos-subtitulo-central {
     text-align: center;
     width: 100%;
-}
-
-.quienes-somos__subtitulo-central h3 {
-    text-align: center;
     color: var(--gris-500);
-    margin-top: -3.5rem;
-    margin-bottom: 5rem;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
+    margin-top: -5rem;
+    margin-bottom: 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
     display: inline-block;
     border-bottom: 2px solid var(--gris-500);
-    padding-bottom: 0.5rem;
-}
-
-.quienes-somos__equipo-grilla {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    padding-bottom: 0rem;
 }
 
 .socio-tarjeta {
-    display: grid;
-    grid-template-columns: 400px 1fr; 
-    gap: 3rem;
-    text-align: center;
     background-color: var(--blanco);
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: 1.5rem;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: 100%;
 }
 
-.socio-tarjeta__invertido {
-    direction: rtl;
-    background-color: var(--gris-50);
-    padding: 30px; 
-    border-radius: var(--radio-lg);
+.fila-invertida {
+    flex-direction: row-reverse !important;
 }
 
-.socio-tarjeta__invertido .socio-tarjeta__contenido {
-    direction: ltr;
-}
-
-.socio-tarjeta__img {
-    width: 90%;
+.socio-tarjeta-img {
+    width: 100%;
     height: auto;
-    object-fit: cover;
-    border-radius: var(--radio-lg);
+    border-radius: 15px;
     box-shadow: var(--sombra);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
 }
 
-.socio-tarjeta__contenido {
+.socio-tarjeta-contenido {
     text-align: left;
 }
 
-.socio-tarjeta h4 {
-    color: var(--gris-900);
-    font-size: 1.8rem;
-    margin-bottom: 0rem;
-    margin-top: 7rem;
-    font-weight: 700;
-}
-
-.socio-tarjeta__puesto {
+.socio-tarjeta-nombre {
     display: block;
     color: var(--primario);
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
 }
 
-.socio-tarjeta__descripcion {
+.socio-tarjeta-descripcion {
     color: var(--gris-600);
     font-size: 1rem;
     line-height: 1.6;
+    padding: 20px;
     margin-bottom: 1rem;
+    text-align: justify;
+    text-justify: inter-word;
 }
