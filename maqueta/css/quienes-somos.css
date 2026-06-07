@@ -8,7 +8,7 @@
     
     color: var(--blanco);
     text-align: center;
-    height: 180px; 
+    height: 200px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,12 +90,11 @@
 
 .socio-tarjeta {
     background-color: var(--blanco);
-    padding: 20px;
+    padding: 1.5rem;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     height: 100%;
-
 }
 
 .fila-invertida {
@@ -109,13 +108,6 @@
     box-shadow: var(--sombra);
     border: 2px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
-}
-
-.socio-tarjeta-img img {
-    width: 100%;           /* La imagen se ajusta al contenedor */
-    height: 100%;          /* Mantiene la altura del contenedor */
-    object-fit: cover;     /* Mantiene la proporción sin deformarse */
-    display: block;
 }
 
 .socio-tarjeta-contenido {
@@ -135,6 +127,7 @@
     color: var(--gris-600);
     font-size: 1rem;
     line-height: 1.6;
+    padding: 20px;
     margin-bottom: 1rem;
     text-align: justify;
     text-justify: inter-word;
