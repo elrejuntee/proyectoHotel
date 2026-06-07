@@ -3,49 +3,127 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registro - El Rejunte Hotel</title>
-    <meta name="description" content="Registro de usuarios para la  pagina web El rejunte hotel">
-    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro — El Rejunte Hotel</title>
+    <meta name="description" content="Registro de usuarios para la página web El Rejunte Hotel">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/inicio-sesion.css">
 </head>
 
-<body class="container-fluid">
-    <header class="row">
+<body class="login-body">
+
+    <header class="header">
         <div>
-            <a href="index.html">
-                <img src="imagenes/logo-rejunte.webp" alt="logo hotel">
+            <a href="index.html" class="header-logo">
+                <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="eager">
             </a>
         </div>
     </header>
 
     <main>
-        <section>
-            <form action="">
-                <h1>Bienvenido a El Rejunte Hotel</h1>
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center min-vh-100 py-3 px-3">
 
-                <div>
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" placeholder="Ingrese el nombre" required>
+                <div class="col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6" style="max-width: 620px;">
 
-                    <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" placeholder="Ingrese el apellido" required>
+                    <section class="login-contenedor">
+                        <div class="login-panel login-panel-derecho shadow p-4 py-md-4 px-md-5 bg-white rounded">
+                            <div class="login-form-contenedor">
 
-                    <label for="email">email</label>
-                    <input type="email" id="email" placeholder="Ingrese el email" required>
+                                <div class="login-form-header text-center mb-3">
+                                    <h1 class="login-form-header-titulo h2">Bienvenido a El Rejunte Hotel</h1>
+                                    <p class="login-form-header-subtitulo text-muted small">Creá tu cuenta de usuario
+                                        nuevo</p>
+                                </div>
 
-                    <label for="contraseña">Contraseña</label>
-                    <input type="contraseña" id="contraseña" placeholder="Ingrese el contraseña" required>
+                                <form class="login-form" action="index.html">
+
+                                    <div class="login-campo mb-2">
+                                        <label for="nombre" class="form-label small fw-semibold">Nombre</label>
+                                        <div class="login-campo-input-wrapper">
+                                            <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            <input type="text" id="nombre" placeholder="Ingresá tu nombre" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="login-campo mb-2">
+                                        <label for="apellido" class="form-label small fw-semibold">Apellido</label>
+                                        <div class="login-campo-input-wrapper">
+                                            <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            <input type="text" id="apellido" placeholder="Ingresá tu apellido" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="login-campo mb-2">
+                                        <label for="email" class="form-label small fw-semibold">Correo
+                                            electrónico</label>
+                                        <div class="login-campo-input-wrapper">
+                                            <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2">
+                                                <path
+                                                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                                </path>
+                                                <polyline points="22,6 12,13 2,6"></polyline>
+                                            </svg>
+                                            <input type="email" id="email" placeholder="Ingresá tu correo" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="login-campo mb-3">
+                                        <label for="password" class="form-label small fw-semibold">Contraseña</label>
+                                        <div class="login-campo-input-wrapper">
+                                            <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                            </svg>
+                                            <input type="password" id="password" placeholder="Ingresá tu contraseña"
+                                                required>
+
+                                            <button type="button"
+                                                class="login-campo-toggle-pass p-3 d-inline-flex align-items-center justify-content-center"
+                                                aria-label="mostrar contraseña">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit"
+                                        class="btn btn-primario btn-grande login-btn-ingresar w-100 mb-2">
+                                        Registrarse
+                                    </button>
+
+                                    <div class="text-center my-2 small text-dark">
+                                        ¿Ya tenés una cuenta? <a href="inicio-sesion.html"
+                                            class="link-primary link-underline-opacity-0 link-underline-opacity-100-hover fw-semibold">Iniciá
+                                            sesión</a>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </section>
+
                 </div>
-
-                <div>
-                    <button type="submit">Registrarse</button>
-                </div>
-
-            </form>
-        </section>
+            </div>
+        </div>
     </main>
 
-    <link rel="stylesheet" href="/bootstrap/bootstrap.bundle.min.js">
+    <script src="bootstrap/bootstrap.bundle.min.js" defer></script>
 </body>
 
 </html>
