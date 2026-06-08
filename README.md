@@ -2,9 +2,9 @@
 
 ## ¿Qué es este proyecto?
 
-Este es el sitio web del **El Rejunte Hotel**, un hotel ubicado en Buenos Aires, Argentina.
+**El Rejunte Hotel** es un sistema de gestión hotelera.
 
-El objetivo del sitio es permitir que cualquier persona pueda conocer el hotel desde internet: ver las habitaciones disponibles, los servicios que ofrece y ponerse en contacto. Además, cuenta con un área privada para que los huéspedes puedan ver sus reservas y un panel para que el personal del hotel administre las habitaciones.
+El propósito del desarrollo es permitir la optimización de procesos relacionados con reservas, control de habitaciones, registro de usuarios de hoteles y gestión de servicios adicionales. Además, contribuir a reducir errores administrativos, mejorar la organización interna y brindar información actualizada en tiempo real tanto a clientes como a administradores.
 
 
 ## ¿Qué páginas tiene el sitio?
@@ -13,6 +13,7 @@ El objetivo del sitio es permitir que cualquier persona pueda conocer el hotel d
 - **Inicio:** foto principal del hotel, lista de servicios (comedor, piscina, WiFi, gimnasio, traslado) y las habitaciones disponibles con sus precios.
 - **Nosotros:** historia del hotel y presentación de los desarolladores de la web.
 - **Iniciar sesión:** formulario para ingresar al área privada con correo y contraseña.
+- **Loguearse:** formulario para regitrarse al sistema.
 
 ### Para huéspedes registrados
 - **Mi panel:** el cliente puede ver su información personal, las habitaciones que visitó recientemente y su historial de reservas con fechas y montos.
