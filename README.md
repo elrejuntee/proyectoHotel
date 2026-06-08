@@ -21,6 +21,10 @@ El propósito del desarrollo es permitir la optimización de procesos relacionad
 ### Para el personal del hotel
 - **Panel de administración:** vista completa del estado de las habitaciones (cuántas están disponibles, ocupadas o en mantenimiento), con buscador, filtros y opción de agregar nuevas habitaciones.
 
+## Utilización de las siguientes IA:
+- Claude
+- Gemini
+
 ## ¿Cómo ver el sitio en tu computadora?
 
 ### Lo que necesitás tener instalado
