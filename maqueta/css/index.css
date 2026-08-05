@@ -9,34 +9,45 @@
 }
 /* HERO */
 
-.hero{
-    position:relative;
-    height:500px;
+.hero {
+    position: relative;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .hero-imagen {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    z-index: 0;
 }
 
-.hero-contenido{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-    color:white;
+.hero-contenido {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding-top: 4rem;
 }
 
-.hero h1{
-    font-size:3rem;
-    margin-bottom:1rem;
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.hero p{
-    margin-bottom:1.5rem;
+.hero p {
+    margin-bottom: 0;
+}
+
+.hero-filtro-wrapper {
+    position: relative;
+    z-index: 10;
+    margin-top: -4.5rem;
 }
 
 /* SERVICIO INFO */
@@ -101,4 +112,87 @@
 
 .footer-pie-links a:hover {
     color: var(--blanco);
+}
+
+/* FILTRO BUSQUEDA - hero */
+
+.hero-filtro {
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    padding: 1.25rem;
+    margin-top: 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: var(--sombra-lg);
+}
+
+.filtro-campos {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.filtro-grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 1rem;
+    text-align: left;
+}
+
+.filtro-grupo label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gris-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filtro-grupo input,
+.filtro-grupo select {
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--gris-800);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filtro-divisor {
+    width: 1px;
+    height: 40px;
+    background: var(--gris-200);
+    flex-shrink: 0;
+}
+
+@media (max-width: 575px) {
+
+    .filtro-campos {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .filtro-divisor {
+        display: none;
+    }
+
+    .filtro-grupo {
+        padding: 0;
+    }
+
+    .filtro-grupo input,
+    .filtro-grupo select {
+        border: 1px solid var(--gris-200);
+        border-radius: var(--radio);
+        padding: 0.5rem 0.75rem;
+    }
+
 }
