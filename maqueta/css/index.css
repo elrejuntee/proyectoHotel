@@ -234,3 +234,13 @@
 .servicio-card:hover img {
     transform: scale(1.05);
 }
+
+/* HOVER ICONOS SERVICIOS */
+.servicio-icono {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.servicio-icono:hover {
+    transform: translateY(-6px);
+}
