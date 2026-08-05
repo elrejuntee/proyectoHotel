@@ -11,7 +11,7 @@
 
 .hero {
     position: relative;
-    height: 500px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -47,7 +47,10 @@
 .hero-filtro-wrapper {
     position: relative;
     z-index: 10;
-    margin-top: -4.5rem;
+    margin-top: -5rem;
+    padding-top: 0;
+    background-color: transparent;
+    padding-bottom: 2rem;
 }
 
 /* SERVICIO INFO */
@@ -64,6 +67,7 @@
     border-radius: 12px;
     overflow: hidden;
     height: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .servicio-card img {
@@ -95,6 +99,25 @@
     color: rgba(255, 255, 255, 0.85);
     font-size: 13px;
     margin: 0;
+}
+
+.seccion-titulo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gris-900);
+    margin-bottom: 1.5rem;
+}
+
+.seccion-compacta {
+    padding-top: 2rem;
+}
+
+.seccion-gris {
+    background-color: var(--gris-50);
+}
+
+.seccion-gris + .seccion-gris {
+    border-top: 1px solid var(--gris-200);
 }
 
 /* FOOTER PIE LINKS */
@@ -195,4 +218,19 @@
         padding: 0.5rem 0.75rem;
     }
 
+}
+
+/* CARDS */
+
+.servicio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.servicio-card img {
+    transition: transform 0.3s ease;
+}
+
+.servicio-card:hover img {
+    transform: scale(1.05);
 }

@@ -55,7 +55,7 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: var(--gris-800);
-    background-color: var(--blanco);
+    background-color: var(--gris-50);
 }
 
 img {
@@ -393,3 +393,5 @@ input, button, select, textarea {
     color: var(--gris-800);
     font-weight: 500;
 }
+
+
