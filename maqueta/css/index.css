@@ -14,12 +14,6 @@
     height:500px;
 }
 
-.hero img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
 .hero-imagen {
     width: 100%;
     height: 100%;
