@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de pago — El Rejunte Hotel</title>
+    <meta name="description" content="Completá tus datos y elegí el método de pago para confirmar tu reserva en El Rejunte Hotel.">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/detalle-pago.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand header-logo" href="index.html">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
+                    <ul class="navbar-nav align-items-center gap-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="quienes-somos.html">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="resultados-busqueda.html">Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="inicio-sesion.html" class="btn btn-primario">
+                                Loguearse
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="registro.html" class="btn btn-primario m-2">
+                                Registrarse
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="detalle-pago-main">
+        <div class="detalle-pago-inner">
+
+            <!-- RUTA -->
+            <nav class="ruta" aria-label="ruta de navegación">
+                <a href="index.html">Inicio</a>
+                <span>/</span>
+                <a href="resultados-busqueda.html">Resultados de búsqueda</a>
+                <span>/</span>
+                <a href="detalle-habitacion.html">Suite Premium</a>
+                <span>/</span>
+                <span class="activo">Reserva</span>
+            </nav>
+
+            <h1 class="detalle-pago-titulo">Completá tu reserva</h1>
+
+            <form action="pago-confirmado.html" method="get" novalidate>
+                <div class="row g-4 detalle-pago-layout">
+
+                    <!-- COLUMNA IZQUIERDA: PASOS -->
+                    <div class="col-12 col-lg-7">
+
+                        <!-- PASO 1: DATOS DEL HUÉSPED -->
+                        <div class="paso">
+                            <div class="paso__header">
+                                <span class="paso__numero">1</span>
+                                <div>
+                                    <h2 class="paso__titulo">Datos del huésped</h2>
+                                    <p class="paso__subtitulo">Completá tus datos para confirmar la reserva</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-6 campo">
+                                    <label for="nombre">Nombre <span class="campo-requerido">*</span></label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Ingresá tu nombre" required>
+                                </div>
+                                <div class="col-12 col-sm-6 campo">
+                                    <label for="apellido">Apellido <span class="campo-requerido">*</span></label>
+                                    <input type="text" id="apellido" name="apellido" placeholder="Ingresá tu apellido" required>
+                                </div>
+                                <div class="col-12 col-sm-6 campo">
+                                    <label for="email">Correo electrónico <span class="campo-requerido">*</span></label>
+                                    <input type="email" id="email" name="email" placeholder="nombre@correo.com" required>
+                                </div>
+                                <div class="col-12 col-sm-6 campo">
+                                    <label for="telefono">Teléfono <span class="campo-requerido">*</span></label>
+                                    <input type="tel" id="telefono" name="telefono" placeholder="+54 9 11 1234-5678" pattern="[0-9+\-\s()]{6,20}" required>
+                                </div>
+                                <div class="col-12 col-sm-6 campo">
+                                    <label for="documento">DNI o Pasaporte <span class="campo-requerido">*</span></label>
+                                    <input type="text" id="documento" name="documento" placeholder="Número de documento" required>
+                                </div>
+                                <div class="col-12 campo">
+                                    <label for="comentarios">Comentarios o solicitudes especiales</label>
+                                    <textarea id="comentarios" name="comentarios" rows="3" placeholder="Ej: llegada tardía, cama adicional, piso alto, etc. (opcional)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PASO 2: MÉTODO DE PAGO -->
+                        <div class="paso">
+                            <div class="paso__header">
+                                <span class="paso__numero">2</span>
+                                <div>
+                                    <h2 class="paso__titulo">Método de pago</h2>
+                                    <p class="paso__subtitulo">Elegí cómo querés pagar tu reserva</p>
+                                </div>
+                            </div>
+
+                            <div class="pago-selector">
+                                <div class="pago-opciones">
+                                    <label class="pago-opcion">
+                                        <input type="radio" name="metodoPago" id="metodoTarjeta" checked>
+                                        <span class="pago-opcion__icono">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="1" y="4" width="22" height="16" rx="2"></rect>
+                                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                                            </svg>
+                                        </span>
+                                        <span class="pago-opcion__texto">
+                                            <span class="pago-opcion__label">Tarjeta</span>
+                                            <span class="pago-opcion__sub">Crédito o débito</span>
+                                        </span>
+                                    </label>
+
+                                    <label class="pago-opcion">
+                                        <input type="radio" name="metodoPago" id="metodoTransferencia">
+                                        <span class="pago-opcion__icono">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="pago-opcion__texto">
+                                            <span class="pago-opcion__label">Transferencia</span>
+                                            <span class="pago-opcion__sub">Bancaria (opcional)</span>
+                                        </span>
+                                    </label>
+
+                                    <label class="pago-opcion">
+                                        <input type="radio" name="metodoPago" id="metodoMercadoPago">
+                                        <span class="pago-opcion__icono">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M12 2a10 10 0 1 0 10 10"></path>
+                                                <path d="M12 7v5l3 3"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="pago-opcion__texto">
+                                            <span class="pago-opcion__label">Mercado Pago</span>
+                                            <span class="pago-opcion__sub">Próximamente</span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <!-- DETALLE: TARJETA -->
+                                <div class="pago-detalle pago-detalle--tarjeta">
+                                    <div class="row g-3">
+                                        <div class="col-12 campo">
+                                            <label for="numeroTarjeta">Número de tarjeta <span class="campo-requerido">*</span></label>
+                                            <input type="text" id="numeroTarjeta" name="numeroTarjeta" placeholder="0000 0000 0000 0000" inputmode="numeric" pattern="[0-9\s]{13,19}">
+                                        </div>
+                                        <div class="col-12 campo">
+                                            <label for="nombreTarjeta">Nombre en la tarjeta <span class="campo-requerido">*</span></label>
+                                            <input type="text" id="nombreTarjeta" name="nombreTarjeta" placeholder="Como figura en la tarjeta">
+                                        </div>
+                                        <div class="col-6 col-sm-4 campo">
+                                            <label for="vencimiento">Vencimiento <span class="campo-requerido">*</span></label>
+                                            <input type="text" id="vencimiento" name="vencimiento" placeholder="MM/AA" pattern="(0[1-9]|1[0-2])\/[0-9]{2}">
+                                        </div>
+                                        <div class="col-6 col-sm-4 campo">
+                                            <label for="cvv">CVV <span class="campo-requerido">*</span></label>
+                                            <input type="text" id="cvv" name="cvv" placeholder="123" inputmode="numeric" pattern="[0-9]{3,4}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- DETALLE: TRANSFERENCIA -->
+                                <div class="pago-detalle pago-detalle--transferencia">
+                                    <div class="pago-transferencia-datos">
+                                        <dl>
+                                            <dt>Banco</dt>
+                                            <dd>Banco El Rejunte</dd>
+                                            <dt>CBU</dt>
+                                            <dd>0000003100000000000000</dd>
+                                            <dt>Alias</dt>
+                                            <dd>REJUNTE.HOTEL.PAGOS</dd>
+                                            <dt>Titular</dt>
+                                            <dd>El Rejunte Hotel S.A.</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="pago-nota">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                        <span>Tu reserva quedará pendiente hasta que confirmemos la acreditación de la transferencia. Enviá el comprobante a reservas@elrejuntehotel.com.</span>
+                                    </div>
+                                </div>
+
+                                <!-- DETALLE: MERCADO PAGO -->
+                                <div class="pago-detalle pago-detalle--mercadopago">
+                                    <div class="pago-nota">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                        <span>El pago con Mercado Pago estará disponible próximamente. Serás redirigido a su plataforma para completar el pago de forma segura.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PASO 3: CONFIRMACIÓN -->
+                        <div class="paso">
+                            <div class="paso__header">
+                                <span class="paso__numero">3</span>
+                                <div>
+                                    <h2 class="paso__titulo">Confirmación</h2>
+                                    <p class="paso__subtitulo">Revisá el total antes de confirmar tu pago</p>
+                                </div>
+                            </div>
+
+                            <div class="confirmacion-resumen">
+                                <span class="confirmacion-resumen__label">Total a pagar · Suite Premium · 2 noches</span>
+                                <span class="confirmacion-resumen__total">$185.000</span>
+                            </div>
+
+                            <label class="confirmacion-check">
+                                <input type="checkbox" name="terminos" required>
+                                <span>Acepto los <a href="#">Términos y condiciones</a> y la <a href="#">Política de privacidad</a> de El Rejunte Hotel <span class="campo-requerido">*</span></span>
+                            </label>
+
+                            <button type="submit" class="btn btn-primario btn-grande w-100">Confirmar y pagar</button>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: RESUMEN DE LA RESERVA -->
+                    <aside class="col-12 col-lg-5">
+                        <div class="resumen-reserva">
+                            <div class="resumen-reserva__alojamiento">
+                                <img src="imagenes/premium.webp" srcset="imagenes/premier-mobile.webp" alt="Suite Premium" class="resumen-reserva__img" loading="lazy">
+                                <div>
+                                    <div class="resumen-reserva__nombre">Suite Premium</div>
+                                    <div class="resumen-reserva__ubicacion">El Rejunte Hotel, Av. Corrientes 1234, CABA</div>
+                                </div>
+                            </div>
+
+                            <div class="resumen-reserva__fechas">
+                                <div class="resumen-reserva__fecha-item">
+                                    <span class="resumen-reserva__fecha-label">Check-in</span>
+                                    <span class="resumen-reserva__fecha-valor">Vie 20/08</span>
+                                </div>
+                                <span class="resumen-reserva__flecha">→</span>
+                                <div class="resumen-reserva__fecha-item">
+                                    <span class="resumen-reserva__fecha-label">Check-out</span>
+                                    <span class="resumen-reserva__fecha-valor">Dom 22/08</span>
+                                </div>
+                            </div>
+
+                            <div class="resumen-reserva__fila">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                2 noches
+                            </div>
+
+                            <div class="resumen-reserva__fila">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                2 huéspedes, 1 habitación
+                            </div>
+
+                            <div class="resumen-reserva__precios">
+                                <div class="resumen-reserva__linea">
+                                    <span>$85.000 x 2 noches</span>
+                                    <span>$170.000</span>
+                                </div>
+                                <div class="resumen-reserva__linea">
+                                    <span>Impuestos y cargos</span>
+                                    <span>$15.000</span>
+                                </div>
+                                <div class="resumen-reserva__linea resumen-reserva__linea--total">
+                                    <span>Total</span>
+                                    <span>$185.000</span>
+                                </div>
+                            </div>
+
+                            <div class="resumen-reserva__seguridad">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                Pago 100% seguro. Tus datos están protegidos.
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="row g-4">
+                <div class="col-12 col-lg-4 footer-marca">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                    <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea perfecta.</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="quienes-somos.html">Nosotros</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="resultados-busqueda.html">Reservas</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Sala Conferencia</a></li>
+                        <li><a href="#">Comedor</a></li>
+                        <li><a href="#">Sala Privada</a></li>
+                        <li><a href="#">Co-working</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="#">info@elrejuntehotel.com</a></li>
+                        <li><a href="#">+54 11 4567-8900</a></li>
+                        <li><a href="#">Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-pie d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <span>© 2026 El Rejunte Hotel. Todos los derechos reservados.</span>
+                <div class="footer-pie-links">
+                    <a href="#">Política de privacidad</a>
+                    <span>·</span>
+                    <a href="#">Términos y condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
