@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de búsqueda — El Rejunte Hotel</title>
+    <meta name="description" content="Filtrá y elegí la habitación ideal en El Rejunte Hotel según tu presupuesto, calificación y servicios preferidos.">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/resultados-busqueda.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand header-logo" href="index.html">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
+                    <ul class="navbar-nav align-items-center gap-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="quienes-somos.html">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="resultados-busqueda.html">Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="inicio-sesion.html" class="btn btn-primario">
+                                Loguearse
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="registro.html" class="btn btn-primario m-2">
+                                Registrarse
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="resultados-main">
+        <div class="resultados-inner">
+
+            <!-- RUTA -->
+            <nav class="ruta" aria-label="ruta de navegación">
+                <a href="index.html">Inicio</a>
+                <span>/</span>
+                <span class="activo">Resultados de búsqueda</span>
+            </nav>
+
+            <!-- BARRA DE BÚSQUEDA -->
+            <div class="buscador-barra">
+                <div class="dropdown">
+                    <div class="buscador-campo">
+                        <label id="checkInLabel">Check In</label>
+                        <button type="button" class="buscador-campo__valor dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-labelledby="checkInLabel">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Vie 20/08
+                        </button>
+                    </div>
+                    <div class="dropdown-menu calendario-dropdown">
+                        <div class="calendario__header">
+                            <button type="button" class="calendario__nav" aria-label="Mes anterior">‹</button>
+                            <span class="calendario__mes">Agosto 2026</span>
+                            <button type="button" class="calendario__nav" aria-label="Mes siguiente">›</button>
+                        </div>
+                        <div class="calendario__semana">
+                            <span>Do</span><span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span>
+                        </div>
+                        <div class="calendario__grid">
+                            <button type="button" class="calendario__dia">1</button>
+                            <button type="button" class="calendario__dia">2</button>
+                            <button type="button" class="calendario__dia">3</button>
+                            <button type="button" class="calendario__dia">4</button>
+                            <button type="button" class="calendario__dia">5</button>
+                            <button type="button" class="calendario__dia">6</button>
+                            <button type="button" class="calendario__dia">7</button>
+                            <button type="button" class="calendario__dia">8</button>
+                            <button type="button" class="calendario__dia">9</button>
+                            <button type="button" class="calendario__dia">10</button>
+                            <button type="button" class="calendario__dia">11</button>
+                            <button type="button" class="calendario__dia">12</button>
+                            <button type="button" class="calendario__dia">13</button>
+                            <button type="button" class="calendario__dia">14</button>
+                            <button type="button" class="calendario__dia">15</button>
+                            <button type="button" class="calendario__dia">16</button>
+                            <button type="button" class="calendario__dia">17</button>
+                            <button type="button" class="calendario__dia">18</button>
+                            <button type="button" class="calendario__dia">19</button>
+                            <button type="button" class="calendario__dia calendario__dia--inicio">20</button>
+                            <button type="button" class="calendario__dia calendario__dia--rango">21</button>
+                            <button type="button" class="calendario__dia calendario__dia--fin">22</button>
+                            <button type="button" class="calendario__dia">23</button>
+                            <button type="button" class="calendario__dia">24</button>
+                            <button type="button" class="calendario__dia">25</button>
+                            <button type="button" class="calendario__dia">26</button>
+                            <button type="button" class="calendario__dia">27</button>
+                            <button type="button" class="calendario__dia">28</button>
+                            <button type="button" class="calendario__dia">29</button>
+                            <button type="button" class="calendario__dia">30</button>
+                            <button type="button" class="calendario__dia">31</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">1</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">2</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">3</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">4</button>
+                        </div>
+                        <div class="calendario__footer">
+                            <span>Entrada: <strong>20 ago</strong></span>
+                            <span>Salida: <strong>22 ago</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buscador-divisor"></div>
+
+                <div class="dropdown">
+                    <div class="buscador-campo">
+                        <label id="checkOutLabel">Check Out</label>
+                        <button type="button" class="buscador-campo__valor dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-labelledby="checkOutLabel">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Dom 22/08
+                        </button>
+                    </div>
+                    <div class="dropdown-menu calendario-dropdown">
+                        <div class="calendario__header">
+                            <button type="button" class="calendario__nav" aria-label="Mes anterior">‹</button>
+                            <span class="calendario__mes">Agosto 2026</span>
+                            <button type="button" class="calendario__nav" aria-label="Mes siguiente">›</button>
+                        </div>
+                        <div class="calendario__semana">
+                            <span>Do</span><span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span>
+                        </div>
+                        <div class="calendario__grid">
+                            <button type="button" class="calendario__dia">1</button>
+                            <button type="button" class="calendario__dia">2</button>
+                            <button type="button" class="calendario__dia">3</button>
+                            <button type="button" class="calendario__dia">4</button>
+                            <button type="button" class="calendario__dia">5</button>
+                            <button type="button" class="calendario__dia">6</button>
+                            <button type="button" class="calendario__dia">7</button>
+                            <button type="button" class="calendario__dia">8</button>
+                            <button type="button" class="calendario__dia">9</button>
+                            <button type="button" class="calendario__dia">10</button>
+                            <button type="button" class="calendario__dia">11</button>
+                            <button type="button" class="calendario__dia">12</button>
+                            <button type="button" class="calendario__dia">13</button>
+                            <button type="button" class="calendario__dia">14</button>
+                            <button type="button" class="calendario__dia">15</button>
+                            <button type="button" class="calendario__dia">16</button>
+                            <button type="button" class="calendario__dia">17</button>
+                            <button type="button" class="calendario__dia">18</button>
+                            <button type="button" class="calendario__dia">19</button>
+                            <button type="button" class="calendario__dia calendario__dia--inicio">20</button>
+                            <button type="button" class="calendario__dia calendario__dia--rango">21</button>
+                            <button type="button" class="calendario__dia calendario__dia--fin">22</button>
+                            <button type="button" class="calendario__dia">23</button>
+                            <button type="button" class="calendario__dia">24</button>
+                            <button type="button" class="calendario__dia">25</button>
+                            <button type="button" class="calendario__dia">26</button>
+                            <button type="button" class="calendario__dia">27</button>
+                            <button type="button" class="calendario__dia">28</button>
+                            <button type="button" class="calendario__dia">29</button>
+                            <button type="button" class="calendario__dia">30</button>
+                            <button type="button" class="calendario__dia">31</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">1</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">2</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">3</button>
+                            <button type="button" class="calendario__dia calendario__dia--ajena" tabindex="-1">4</button>
+                        </div>
+                        <div class="calendario__footer">
+                            <span>Entrada: <strong>20 ago</strong></span>
+                            <span>Salida: <strong>22 ago</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="buscador-noches">2 noches</span>
+
+                <div class="buscador-divisor"></div>
+
+                <div class="dropdown buscador-huespedes">
+                    <div class="buscador-campo">
+                        <label id="huespedesLabel">Habitaciones y huéspedes</label>
+                        <button type="button" class="buscador-campo__valor dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-labelledby="huespedesLabel">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            1 habitación, 2 huéspedes
+                        </button>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="contador-fila">
+                            <div>
+                                <div class="contador-fila__label">Habitaciones</div>
+                            </div>
+                            <div class="contador-controles">
+                                <button type="button" class="contador-btn">−</button>
+                                <span class="contador-valor">1</span>
+                                <button type="button" class="contador-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="contador-fila">
+                            <div>
+                                <div class="contador-fila__label">Adultos</div>
+                            </div>
+                            <div class="contador-controles">
+                                <button type="button" class="contador-btn">−</button>
+                                <span class="contador-valor">2</span>
+                                <button type="button" class="contador-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="contador-fila">
+                            <div>
+                                <div class="contador-fila__label">Niños</div>
+                                <div class="contador-fila__sub">0 a 12 años</div>
+                            </div>
+                            <div class="contador-controles">
+                                <button type="button" class="contador-btn">−</button>
+                                <span class="contador-valor">0</span>
+                                <button type="button" class="contador-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAYOUT: FILTROS + RESULTADOS -->
+            <div class="row g-4 resultados-layout">
+
+                <!-- FILTROS -->
+                <aside class="col-12 col-lg-3">
+                    <div class="filtros-panel">
+                        <div class="filtros-panel__header">
+                            <h2>Filtros</h2>
+                            <button type="button" class="filtros-limpiar">Limpiar</button>
+                        </div>
+
+                        <!-- PRECIO -->
+                        <div class="filtro-grupo">
+                            <button class="filtro-grupo__header" type="button" data-bs-toggle="collapse" data-bs-target="#filtroPrecio" aria-expanded="true" aria-controls="filtroPrecio">
+                                Precio
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                            </button>
+                            <div class="collapse show" id="filtroPrecio">
+                                <div class="filtro-grupo__body">
+                                    <div class="rango-precio">
+                                        <div class="rango-precio__track">
+                                            <input type="range" class="rango-precio__input" min="10000" max="200000" step="5000" value="60000" aria-label="Precio mínimo">
+                                            <input type="range" class="rango-precio__input" min="10000" max="200000" step="5000" value="140000" aria-label="Precio máximo">
+                                        </div>
+                                        <div class="rango-precio__valores">
+                                            <span>$10.000</span>
+                                            <span>$200.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primario w-100 mt-3">Aplicar filtros</button>
+                    </div>
+                </aside>
+
+                <!-- RESULTADOS -->
+                <div class="col-12 col-lg-9">
+                    <div class="resultados-encabezado">
+                        <p class="resultados-contador">Mostrando <strong>4</strong> de <strong>4</strong> habitaciones disponibles</p>
+
+                        <div class="dropdown">
+                            <button class="btn btn-blanco btn-chico dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ordenar por: Recomendadas
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Recomendadas</a></li>
+                                <li><a class="dropdown-item" href="#">Precio: menor a mayor</a></li>
+                                <li><a class="dropdown-item" href="#">Precio: mayor a menor</a></li>
+                                <li><a class="dropdown-item" href="#">Mejor calificadas</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="resultados-lista">
+
+                        <!-- RESULTADO: SUITE PREMIUM -->
+                        <article class="tarjeta resultado-card">
+                            <div class="resultado-card__img-wrap">
+                                <img src="imagenes/premium.webp" srcset="imagenes/premier-mobile.webp" alt="Suite Premium" loading="lazy">
+                                <span class="resultado-card__fotos">9 fotos</span>
+                            </div>
+                            <div class="resultado-card__info">
+                                <div class="resultado-card__top">
+                                    <div>
+                                        <h3 class="resultado-card__titulo">Suite Premium</h3>
+                                        <p class="resultado-card__ubicacion">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                            El Rejunte Hotel, Av. Corrientes 1234, CABA
+                                        </p>
+                                        <p class="resultado-card__amenities">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                            20+ comodidades
+                                        </p>
+                                    </div>
+                                    <div class="resultado-card__precio">
+                                        <span>Desde</span>
+                                        <strong>$85.000<small>/noche</small></strong>
+                                        <span class="resultado-card__impuestos">impuestos no incluidos</span>
+                                    </div>
+                                </div>
+                                <div class="resultado-card__bottom">
+                                    <button type="button" class="resultado-card__favorito" aria-label="Guardar en favoritos">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z"></path>
+                                        </svg>
+                                    </button>
+                                    <a href="detalle-habitacion.html" class="btn btn-primario resultado-card__btn">Ver habitación</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- RESULTADO: DELUXE -->
+                        <article class="tarjeta resultado-card">
+                            <div class="resultado-card__img-wrap">
+                                <img src="imagenes/deluxe.webp" srcset="imagenes/deluxe-mobile.webp" alt="Habitación Deluxe" loading="lazy">
+                                <span class="resultado-card__fotos">6 fotos</span>
+                            </div>
+                            <div class="resultado-card__info">
+                                <div class="resultado-card__top">
+                                    <div>
+                                        <h3 class="resultado-card__titulo">Habitación Deluxe</h3>
+                                        <p class="resultado-card__ubicacion">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                            El Rejunte Hotel, Av. Corrientes 1234, CABA
+                                        </p>
+                                        <p class="resultado-card__amenities">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                            15+ comodidades
+                                        </p>
+                                    </div>
+                                    <div class="resultado-card__precio">
+                                        <span>Desde</span>
+                                        <strong>$65.000<small>/noche</small></strong>
+                                        <span class="resultado-card__impuestos">impuestos no incluidos</span>
+                                    </div>
+                                </div>
+                                <div class="resultado-card__bottom">
+                                    <button type="button" class="resultado-card__favorito" aria-label="Guardar en favoritos">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z"></path>
+                                        </svg>
+                                    </button>
+                                    <a href="detalle-habitacion.html" class="btn btn-primario resultado-card__btn">Ver habitación</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- RESULTADO: SUITE FAMILIAR -->
+                        <article class="tarjeta resultado-card">
+                            <div class="resultado-card__img-wrap">
+                                <img src="imagenes/familiar.webp" srcset="imagenes/familiar-mobile.webp" alt="Suite Familiar" loading="lazy">
+                                <span class="resultado-card__fotos">8 fotos</span>
+                            </div>
+                            <div class="resultado-card__info">
+                                <div class="resultado-card__top">
+                                    <div>
+                                        <h3 class="resultado-card__titulo">Suite Familiar</h3>
+                                        <p class="resultado-card__ubicacion">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                            El Rejunte Hotel, Av. Corrientes 1234, CABA
+                                        </p>
+                                        <p class="resultado-card__amenities">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                            18+ comodidades
+                                        </p>
+                                    </div>
+                                    <div class="resultado-card__precio">
+                                        <span>Desde</span>
+                                        <strong>$95.000<small>/noche</small></strong>
+                                        <span class="resultado-card__impuestos">impuestos no incluidos</span>
+                                    </div>
+                                </div>
+                                <div class="resultado-card__bottom">
+                                    <button type="button" class="resultado-card__favorito" aria-label="Guardar en favoritos">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z"></path>
+                                        </svg>
+                                    </button>
+                                    <a href="detalle-habitacion.html" class="btn btn-primario resultado-card__btn">Ver habitación</a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- RESULTADO: ESTÁNDAR -->
+                        <article class="tarjeta resultado-card">
+                            <div class="resultado-card__img-wrap">
+                                <img src="imagenes/estandar.webp" srcset="imagenes/estandar-mobile.webp" alt="Habitación Estándar" loading="lazy">
+                                <span class="resultado-card__fotos">5 fotos</span>
+                            </div>
+                            <div class="resultado-card__info">
+                                <div class="resultado-card__top">
+                                    <div>
+                                        <h3 class="resultado-card__titulo">Habitación Estándar</h3>
+                                        <p class="resultado-card__ubicacion">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                            El Rejunte Hotel, Av. Corrientes 1234, CABA
+                                        </p>
+                                        <p class="resultado-card__amenities">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                            10+ comodidades
+                                        </p>
+                                    </div>
+                                    <div class="resultado-card__precio">
+                                        <span>Desde</span>
+                                        <strong>$45.000<small>/noche</small></strong>
+                                        <span class="resultado-card__impuestos">impuestos no incluidos</span>
+                                    </div>
+                                </div>
+                                <div class="resultado-card__bottom">
+                                    <button type="button" class="resultado-card__favorito" aria-label="Guardar en favoritos">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z"></path>
+                                        </svg>
+                                    </button>
+                                    <a href="detalle-habitacion.html" class="btn btn-primario resultado-card__btn">Ver habitación</a>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="row g-4">
+                <div class="col-12 col-lg-4 footer-marca">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                    <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea perfecta.</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="quienes-somos.html">Nosotros</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="resultados-busqueda.html">Reservas</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Sala Conferencia</a></li>
+                        <li><a href="#">Comedor</a></li>
+                        <li><a href="#">Sala Privada</a></li>
+                        <li><a href="#">Co-working</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="#">info@elrejuntehotel.com</a></li>
+                        <li><a href="#">+54 11 4567-8900</a></li>
+                        <li><a href="#">Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-pie d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <span>© 2026 El Rejunte Hotel. Todos los derechos reservados.</span>
+                <div class="footer-pie-links">
+                    <a href="#">Política de privacidad</a>
+                    <span>·</span>
+                    <a href="#">Términos y condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
