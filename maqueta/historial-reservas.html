@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial del usuario</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/panel-usuario.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand header-logo" href="index.html">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="menuPrincipal">
+                    <ul class="navbar-nav align-items-center gap-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="quienes-somos.html">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="resultados-busqueda.html">Reservas</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="perfil-nav-link activo dropdown-toggle d-flex align-items-center gap-2" href="#" id="navbarDropdownUsuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="imagenes/juan-perez.webp" alt="Juan Perez" class="perfil-nav-avatar">
+                                Juan Perez
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUsuario">
+                                <li>
+                                    <a class="dropdown-item" href="panel-usuario.html">Perfil</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#historial-reservas">Historial de reservas</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="inicio-sesion.html">Salir</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="panel">
+        <section class="seccion-panel">
+            <div class="seccion-panel-header">
+                <h2 class="seccion-panel-titulo">Historial de reservas</h2>  
+            </div>
+            <div class="hab-item">
+                <div class="row">
+                    <div class="col-auto d-flex">
+                        <img src="imagenes/premier.webp" alt="Suite Premier Garden" class="hab-item-img">
+                    </div>
+                    <div class="col">
+                        <div class="hab-item-header">
+                            <span class="hab-item-nombre">Suite Premier Garden</span>
+                            <span class="etiqueta etiqueta-premium">Premier</span>
+                        </div>
+                        <div class="hab-item-detalles">
+                            <span>1 cama king</span>
+                            <span>2 huéspedes</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
+                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
+                        </div>
+                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
+                        <div class="d-flex justify-content-end mt-2">
+                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hab-item">
+                <div class="row">
+                    <div class="col-auto d-flex">
+                        <img src="imagenes/deluxe.webp" alt="Deluxe Vista al Mar" class="hab-item-img">
+                    </div>
+                    <div class="col">
+                        <div class="hab-item-header">
+                            <span class="hab-item-nombre">Deluxe Vista al Mar</span>
+                            <span class="etiqueta etiqueta-deluxe">Deluxe</span>
+                        </div>
+                        <div class="hab-item-detalles">
+                            <span>1 cama king</span>
+                            <span>2 huéspedes</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
+                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
+                        </div>
+                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
+                        <div class="d-flex justify-content-end mt-2">
+                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="hab-item">
+                <div class="row">
+                    <div class="col-auto d-flex">
+                        <img src="imagenes/estandar.webp" alt="Habitación Estándar" class="hab-item-img">
+                    </div>
+                    <div class="col">
+                        <div class="hab-item-header">
+                            <span class="hab-item-nombre">Habitación Estándar</span>
+                            <span class="etiqueta etiqueta-estandar">Estándar</span>
+                        </div>
+                        <div class="hab-item-detalles">
+                            <span>1 cama queen</span>
+                            <span>2 huéspedes</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
+                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
+                        </div>
+                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
+                        <div class="d-flex justify-content-end mt-2">
+                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="hab-item">
+                <div class="row">
+                    <div class="col-auto d-flex">
+                        <img src="imagenes/ejecutiva.webp" alt="Suite Ejecutiva" class="hab-item-img">
+                    </div>
+                    <div class="col">
+                        <div class="hab-item-header">
+                            <span class="hab-item-nombre">Suite Ejecutiva</span>
+                            <span class="etiqueta etiqueta-suite">Suite</span>
+                        </div>
+                        <div class="hab-item-detalles">
+                            <span>1 cama king</span>
+                            <span>2 huéspedes</span>
+                        </div>
+                        <div class="mt-2">
+                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
+                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
+                        </div>
+                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
+                        <div class="d-flex justify-content-end mt-2">
+                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="row g-4">
+                <div class="col-12 col-lg-4 footer-marca">
+                    <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+                    <p>Tu hogar lejos de casa. Ofrecemos las mejores habitaciones y servicios para que tu estadía sea perfecta.</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="quienes-somos.html">Nosotros</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="#">Reservas</a></li>   
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Sala Conferencia</a></li>
+                        <li><a href="#">Comedor</a></li>
+                        <li><a href="#">Sala Privada</a></li>
+                        <li><a href="#">Co-working</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="#">info@elrejuntehotel.com</a></li>
+                        <li><a href="#">+54 11 4567-8900</a></li>
+                        <li><a href="#">Buenos Aires, Argentina</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-pie d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <span>© 2026 El Rejunte Hotel. Todos los derechos reservados.</span>
+                <div class="footer-pie-links">
+                    <a href="#">Política de privacidad</a>
+                    <span>·</span>
+                    <a href="#">Términos y condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="bootstrap/bootstrap.bundle.js"></script>
+</body>
+</html>
