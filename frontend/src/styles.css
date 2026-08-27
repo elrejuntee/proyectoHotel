@@ -1,1 +1,470 @@
-/* You can add global styles to this file, and also import other style files */
+/* ================================================
+   Estilos y tipografía globales
+   ================================================ */
+   
+/* ===== TIPGRAFÍA IMPORTADA ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ===== VARIABLES ===== */
+:root {
+    --primario: #1a56db;
+    --primario-oscuro: #1e429f;
+    --primario-claro: #e8f0fe;
+    --gris-50: #f9fafb;
+    --gris-100: #f3f4f6;
+    --gris-200: #e5e7eb;
+    --gris-300: #d1d5db;
+    --gris-400: #9ca3af;
+    --gris-500: #6b7280;
+    --gris-600: #4b5563;
+    --gris-700: #374151;
+    --gris-800: #1f2937;
+    --gris-900: #111827;
+    --verde: #059669;
+    --verde-claro: #d1fae5;
+    --amarillo: #d97706;
+    --amarillo-claro: #fef3c7;
+    --rojo: #dc2626;
+    --rojo-claro: #fee2e2;
+    --blanco: #ffffff;
+    --sombra-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --sombra: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --sombra-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --sombra-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --radio-sm: 4px;
+    --radio: 8px;
+    --radio-lg: 12px;
+    --radio-xl: 16px;
+    --radio-full: 9999px;
+    --fuente: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fuente);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--gris-800);
+    background-color: var(--gris-50);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* ===== HEADER ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radio);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.btn-primario {
+    background: var(--primario);
+    color: var(--blanco);
+}
+
+.btn-primario:hover {
+    background: var(--primario-oscuro);
+    box-shadow: var(--sombra-md);
+    transform: translateY(-1px);
+    color: var(--blanco);
+}
+
+.btn-secundario {
+    background: transparent;
+    color: var(--primario);
+    border: 2px solid var(--primario);
+}
+
+.btn-secundario:hover {
+    background: var(--primario);
+    color: var(--blanco);
+}
+
+.btn-blanco {
+    background: var(--blanco);
+    color: var(--primario);
+    border: 1px solid var(--gris-200);
+}
+
+.btn-blanco:hover {
+    background: var(--gris-100);
+}
+
+.btn-grande {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+}
+
+.btn-chico {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* ===== ETIQUETAS ===== */
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radio-full);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.etiqueta-disponible {
+    background: var(--verde-claro);
+    color: var(--verde);
+}
+
+.etiqueta-ocupado {
+    background: var(--amarillo-claro);
+    color: var(--amarillo);
+}
+
+.etiqueta-suite {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.etiqueta-deluxe {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.etiqueta-estandar {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.etiqueta-premium {
+    background: var(--amarillo-claro);
+    color: var(--amarillo);
+}
+
+/* ===== FORMULARIOS ===== */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.campo label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gris-700);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    padding: 0.65rem 1rem;
+    border: 1.5px solid var(--gris-300);
+    border-radius: var(--radio);
+    font-size: 0.9rem;
+    color: var(--gris-800);
+    background: var(--blanco);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    border-color: var(--primario);
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+}
+
+.campo input::placeholder {
+    color: var(--gris-400);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: var(--gris-900);
+    color: var(--gris-400);
+    padding: 3rem 2rem 2rem;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-marca {
+    padding-left: 0;
+}
+
+.footer-marca img {
+    height: 45px;
+    margin-bottom: 1rem;
+}
+
+.footer-marca p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    max-width: 280px;
+    color: var(--gris-400);
+}
+
+.footer-col {
+    padding-left: 0;
+}
+
+.footer-col h4 {
+    color: var(--blanco);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-col ul li a {
+    font-size: 0.875rem;
+    color: var(--gris-400);
+    transition: color 0.2s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--blanco);
+}
+
+.footer-pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gris-700);
+    margin-top: 2rem;
+    padding-left: 0;
+}
+
+.footer-pie span {
+    color: var(--gris-400);
+}
+
+.footer-pie a {
+    color: var(--gris-400);
+    transition: color 0.2s;
+}
+
+.footer-pie a:hover {
+    color: var(--blanco);
+}
+
+/* ===== SECCIÓN GENÉRICA ===== */
+.seccion {
+    padding: 4.5rem 2rem;
+}
+
+.seccion-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.seccion-titulo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gris-900);
+    margin-bottom: 0.5rem;
+}
+
+.seccion-subtitulo {
+    font-size: 1rem;
+    color: var(--gris-500);
+    margin-bottom: 2.5rem;
+}
+
+/* ===== TARJETA BASE ===== */
+.tarjeta {
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-lg);
+}
+
+/* ===== RUTA ===== */
+.ruta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--gris-500);
+    margin-bottom: 1.5rem;
+}
+
+.ruta a {
+    color: var(--gris-500);
+    transition: color 0.2s;
+}
+
+.ruta a:hover {
+    color: var(--primario);
+}
+
+.ruta span.activo {
+    color: var(--gris-800);
+    font-weight: 500;
+}
+
+
+/* ===== FILTRO BUSQUEDA PARA INDEX E BUSQUEDA ===== */
+
+.hero-filtro-wrapper {
+    position: relative;
+    z-index: 10;
+    margin-top: -5rem;
+    padding-top: 0;
+    padding-bottom: 2rem;
+    background-color: transparent;
+}
+
+.hero-filtro {
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    padding: 1.25rem;
+    margin-top: 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: var(--sombra-lg);
+}
+
+.filtro-campos {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.filtro-grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 1rem;
+    text-align: left;
+}
+
+.filtro-grupo label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gris-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filtro-grupo input,
+.filtro-grupo select {
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--gris-800);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filtro-divisor {
+    width: 1px;
+    height: 40px;
+    background: var(--gris-200);
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .filtro-campos {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    .filtro-divisor {
+        display: none;
+    }
+    .filtro-grupo {
+        padding: 0;
+    }
+    .filtro-grupo input,
+    .filtro-grupo select {
+        border: 1px solid var(--gris-200);
+        border-radius: var(--radio);
+        padding: 0.5rem 0.75rem;
+    }
+}
