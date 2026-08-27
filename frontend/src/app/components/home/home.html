@@ -1,0 +1,138 @@
+<main>
+
+    <!-- HERO -->
+    <section class="hero">
+        <img
+            src="imagenes/fachada.webp"
+            srcset="imagenes/fachada-mobile.webp 768w, imagenes/fachada.webp 1200w"
+            sizes="100vw"
+            alt="Fachada del Hotel"
+            class="hero-imagen"
+            fetchpriority="high"
+        >
+        <div class="hero-contenido container text-center">
+            <h1>BIENVENIDO REJUNTE HOTEL</h1>
+            <p>Buen lugar · Buena experiencia · Buen descanso</p>
+        </div>
+    </section>
+
+    <!-- FILTRO -->
+    <div class="hero-filtro-wrapper">
+        <div class="container">
+            <div class="hero-filtro">
+                <div class="filtro-campos">
+                    <div class="filtro-grupo">
+                        <label for="checkin">Check-in</label>
+                        <input type="date" id="checkin" name="checkin">
+                    </div>
+                    <div class="filtro-divisor"></div>
+                    <div class="filtro-grupo">
+                        <label for="checkout">Check-out</label>
+                        <input type="date" id="checkout" name="checkout">
+                    </div>
+                    <div class="filtro-divisor"></div>
+                    <div class="filtro-grupo">
+                        <label for="huespedes">Huéspedes</label>
+                        <select id="huespedes" name="huespedes">
+                            <option value="1">1 Huésped</option>
+                            <option value="2">2 Huéspedes</option>
+                            <option value="3">3 Huéspedes</option>
+                            <option value="4">4 Huéspedes</option>
+                        </select>
+                    </div>
+                </div>
+                <a routerLink="/reservas" class="btn btn-primario btn-grande w-100">🔍 Buscar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="seccion seccion-gris seccion-compacta">
+        <div class="container seccion-inner">
+            <h2 class="seccion-titulo text-center">Servicios</h2>
+            <div class="row text-center mt-4 gy-4 justify-content-center">
+                <div class="col-4 col-md-2">
+                    <span class="servicio-icono fs-1">🍽️</span>
+                    <p>Comedor</p>
+                </div>
+                <div class="col-4 col-md-2">
+                    <span class="servicio-icono fs-1">🏊</span>
+                    <p>Piscina</p>
+                </div>
+                <div class="col-4 col-md-2">
+                    <span class="servicio-icono fs-1">📶</span>
+                    <p>Wifi</p>
+                </div>
+                <div class="col-4 col-md-2">
+                    <span class="servicio-icono fs-1">💪</span>
+                    <p>Gimnasio</p>
+                </div>
+                <div class="col-4 col-md-2">
+                    <span class="servicio-icono fs-1">🚕</span>
+                    <p>Estacionamiento</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABITACIONES POPULARES -->
+    <section class="seccion seccion-gris seccion-compacta">
+        <div class="container seccion-inner">
+            <h2 class="seccion-titulo text-center">Habitaciones Populares</h2>
+            <div class="row g-3">
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="servicio-card">
+                        <img src="imagenes/estandar.webp" alt="Habitación Estándar" loading="lazy">
+                        <div class="servicio-overlay">
+                            <div class="servicio-info">
+                                <h3>Habitación Estándar</h3>
+                                <p>Comodidad asegurada</p>
+                            </div>
+                            <a routerLink="/reservas" class="btn btn-primario btn-chico w-100">Reservar ahora</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="servicio-card">
+                        <img src="imagenes/deluxe.webp" alt="Habitación Deluxe" loading="lazy">
+                        <div class="servicio-overlay">
+                            <div class="servicio-info">
+                                <h3>Habitación Deluxe</h3>
+                                <p>Lujo y comodidad</p>
+                            </div>
+                            <a routerLink="/reservas" class="btn btn-primario btn-chico w-100">Reservar ahora</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="servicio-card">
+                        <img src="imagenes/premium.webp" alt="Habitación Premium" loading="lazy">
+                        <div class="servicio-overlay">
+                            <div class="servicio-info">
+                                <h3>Habitación Premium</h3>
+                                <p>Experiencia de lujo</p>
+                            </div>
+                            <a routerLink="/reservas" class="btn btn-primario btn-chico w-100">Reservar ahora</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="servicio-card">
+                        <img src="imagenes/familiar.webp" alt="Habitación Familiar" loading="lazy">
+                        <div class="servicio-overlay">
+                            <div class="servicio-info">
+                                <h3>Habitación Familiar</h3>
+                                <p>Comodidades para toda la familia</p>
+                            </div>
+                            <a routerLink="/reservas" class="btn btn-primario btn-chico w-100">Reservar ahora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

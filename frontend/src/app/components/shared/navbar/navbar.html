@@ -1,0 +1,43 @@
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+
+            <a routerLink="/" class="navbar-brand header-logo">
+                <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel" loading="lazy">
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                (click)="toggleMenu()"
+                [attr.aria-expanded]="menuAbierto"
+                aria-label="Abrir menú"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse justify-content-end" [class.collapse]="!menuAbierto">
+                <ul class="navbar-nav align-items-center gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/quienes-somos" routerLinkActive="active">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/servicios" routerLinkActive="active">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/reservas" routerLinkActive="active">Reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/login" class="btn btn-primario">Loguearse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/registro" class="btn btn-primario m-2">Registrarse</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

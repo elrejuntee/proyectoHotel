@@ -1,0 +1,30 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.collapse {
+    display: none;
+}
