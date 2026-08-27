@@ -13,7 +13,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(252, 252, 252, 0.6);
 }
 
 .quienes-somos-hero-h1 {
@@ -36,7 +36,7 @@
 /* 2. SECCIÓN HISTORIA */
 .quienes-somos-historia {
     padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(83, 83, 83, 0.6);
     color: var(--blanco);
 }
 
