@@ -1,0 +1,100 @@
+/* ================================================
+   Servicios — El Rejunte Hotel
+   ================================================ */
+
+/* HERO */
+.servicios-hero {
+    background: var(--gris-900);
+    color: var(--blanco);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+}
+
+.servicios-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.servicios-hero p {
+    font-size: 1.1rem;
+    color: var(--gris-400);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.servicios-hero .ruta a {
+    color: var(--gris-400);
+}
+
+.servicios-hero .ruta .activo {
+    color: var(--blanco);
+}
+
+/* SERVICIO DETALLE */
+.servicio-detalle__img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: var(--radio-lg);
+}
+
+.servicio-detalle__info {
+    padding: 1rem 0;
+}
+
+.servicio-detalle__icono {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.servicio-detalle__info h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gris-900);
+    margin-bottom: 1rem;
+}
+
+.servicio-detalle__info p {
+    font-size: 1rem;
+    color: var(--gris-600);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.servicio-detalle__lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.servicio-detalle__lista li {
+    font-size: 0.95rem;
+    color: var(--gris-700);
+}
+
+.servicio-separador {
+    border-color: var(--gris-200);
+    margin-bottom: 3rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 767px) {
+
+    .servicios-hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .servicio-detalle__img {
+        height: 220px;
+    }
+
+    .servicio-detalle__info h3 {
+        font-size: 1.35rem;
+    }
+
+}
