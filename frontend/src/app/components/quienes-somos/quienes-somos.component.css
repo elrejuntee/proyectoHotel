@@ -1,0 +1,101 @@
+.quienes-somos-imagen {
+    position: relative;
+    background-image: url('/imagenes/quienes-somos.webp'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh
+}
+
+.quienes-somos-imagen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.quienes-somos-imagen > section {
+    position: relative;
+    z-index: 2;
+}
+
+/* 1. BANNER PRINCIPAL */
+.quienes-somos-hero {
+    
+    position: relative;
+    color: var(--blanco);
+    text-align: center;
+    height: 200px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    z-index: 2;
+}
+
+.quienes-somos-hero-contenido-p {
+    color: var(--gris-300);
+    font-size: 1.2rem;
+    padding-bottom: 2rem;          
+    margin-bottom: 2rem;           
+    border-bottom: 1px solid rgba(255, 255, 255, 0.712);
+    width: 60%;                    
+    margin-left: auto;             
+    margin-right: auto;
+}
+
+/* 2. SECCIÓN HISTORIA */
+.quienes-somos-historia {
+    padding: 2rem;
+    color: var(--blanco);
+    margin: 0;
+}
+
+.valor-tarjeta {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem 1rem;
+    border-radius: var(--radio-lg);
+    border: 1px solid rgba(114, 114, 114, 0.1);
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 4. SECCIÓN EQUIPO */
+.quienes-somos-equipo {
+    padding: 2rem 0;
+    max-width: 1200px; 
+    margin: 0 auto;
+}
+
+.socio-tarjeta {
+    background-color: var(--blanco);
+    padding: 1.5rem;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: auto;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.socio-tarjeta-contenido {
+    text-align: left;
+}
+
+.socio-tarjeta-descripcion {
+    color: var(--gris-600);
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 20px;
+    margin-bottom: 1rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
