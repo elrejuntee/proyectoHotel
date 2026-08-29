@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/panel-usuario.css">
+    <link rel="stylesheet" href="css/formulario-servicio.css">
 </head>
 <body>
     <header class="header">
@@ -56,53 +57,54 @@
         </nav>
     </header>
 
-    <main>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <form>
-                            <div>
-                                <h1>Complete los datos para su reserva</h1>
-                                <span>Servicio seleccionado - Comedor</span>
+        <main class="contenedor-formulario py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card tarjeta-formulario border-0 p-4 p-md-5">
+                        <form novalidate>
+                            <div class="text-center mb-4">
+                                <h1 class="titulo-formulario mb-2">Complete los datos del servicio</h1>
+                                <p class="text-muted mb-3">Reservá tu mesa en pocos pasos</p>
+                                <span class="distintivo-servicio">Servicio seleccionado - Comedor</span>
                             </div>
-
-                            <div>
-                                <div>
-                                    <label for="fecha">Fecha</label>
-                                    <input type="date" id="fecha" name="fecha" required>
+ 
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label for="fecha" class="form-label etiqueta-formulario">Fecha</label>
+                                    <input type="date" class="form-control campo-formulario" id="fecha" name="fecha" required>
                                 </div>
-                                <div>
-                                    <label for="hora">Hora</label>
-                                    <input type="time" id="hora" name="hora" required>
+                                <div class="col-sm-6">
+                                    <label for="hora" class="form-label etiqueta-formulario">Hora</label>
+                                    <input type="time" class="form-control campo-formulario" id="hora" name="hora" required>
                                 </div>
                             </div>
-
-                            <div>
-                                <label for="cantidad-personas">Cantidad de personas</label>
-                                <input type="number" min="1" id="cantidad-personas" name="cantidad-personas" placeholder="Ej: 4" required>
+ 
+                            <div class="mb-3">
+                                <label for="cantidad-personas" class="form-label etiqueta-formulario">Cantidad de personas</label>
+                                <input type="number" min="1" class="form-control campo-formulario" id="cantidad-personas" name="cantidad-personas" placeholder="Ej: 4" required>
                             </div>
-
-                            <hr>
-
-                            <h2>Datos de contacto</h2>
-
-                            <div>
-                                <label for="nombre-apellido">Nombre completo</label>
-                                <input type="text" id="nombre-apellido" name="nombre-apellido" placeholder="Ingresá tu nombre y apellido" required>
+ 
+                            <hr class="my-4">
+ 
+                            <h2 class="h5 subtitulo-formulario mb-3">Datos de contacto</h2>
+ 
+                            <div class="mb-3">
+                                <label for="nombre-apellido" class="form-label etiqueta-formulario">Nombre completo</label>
+                                <input type="text" class="form-control campo-formulario" id="nombre-apellido" name="nombre-apellido" placeholder="Ingresá tu nombre y apellido" required>
                             </div>
-
-                            <div>
-                                <label for="email">Correo electrónico</label>
-                                <input type="email" id="email" name="email" placeholder="Ingresá tu correo" required>
+ 
+                            <div class="mb-3">
+                                <label for="email" class="form-label etiqueta-formulario">Correo electrónico</label>
+                                <input type="email" class="form-control campo-formulario" id="email" name="email" placeholder="Ingresá tu correo" required>
                             </div>
-
-                            <div>
-                                <label for="informacion-adicional">Información adicional</label>
-                                <textarea id="informacion-adicional" name="informacion-adicional" rows="3" placeholder="Alergias, pedidos especiales, aclaraciones..."></textarea>
+ 
+                            <div class="mb-4">
+                                <label for="informacion-adicional" class="form-label etiqueta-formulario">Información adicional</label>
+                                <textarea class="form-control campo-formulario" id="informacion-adicional" name="informacion-adicional" rows="3" placeholder="Alergias, pedidos especiales, aclaraciones..."></textarea>
                             </div>
-
-                            <button type="submit">Completar reserva</button>
+ 
+                            <button type="submit" class="btn boton-formulario w-100">Completar reserva</button>
                         </form>
                     </div>
                 </div>
