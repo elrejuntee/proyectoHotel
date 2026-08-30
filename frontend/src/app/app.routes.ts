@@ -4,12 +4,17 @@ import { ServiciosComponent } from './components/servicios/servicios.component';
 import { ResultadosBusquedaComponent } from './components/resultados-busqueda/resultados-busqueda';
 import { PanelUsuarioComponent } from './components/panel-usuario/panel-usuario';
 import { HistorialReservasComponent } from './components/historial-reservas/historial-reservas';
-
+import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
+import { Pagina404Component } from './pages/pagina-404/pagina-404.component';
+import { ListasVaciasComponent } from './components/listas-vacias/listas-vacias.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'servicios', component: ServiciosComponent},
     { path: 'reservas', component: ResultadosBusquedaComponent },
     { path: 'panel-usuario', component: PanelUsuarioComponent },
-    { path: 'historial-reservas', component: HistorialReservasComponent }
+    { path: 'historial-reservas', component: HistorialReservasComponent },
+    { path: 'quienes-somos', component: QuienesSomosComponent},
+    { path: 'prueba-vacia', component: ListasVaciasComponent},
+    { path: '**', component: Pagina404Component}
 ];
