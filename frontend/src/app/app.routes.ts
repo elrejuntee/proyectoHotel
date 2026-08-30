@@ -6,6 +6,7 @@ import { PanelUsuarioComponent } from './components/panel-usuario/panel-usuario'
 import { HistorialReservasComponent } from './components/historial-reservas/historial-reservas';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { Pagina404Component } from './components/pagina-404/pagina-404.component';
+import { ListasVaciasComponent } from './components/listas-vacias/listas-vacias.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     { path: 'panel-usuario', component: PanelUsuarioComponent },
     { path: 'historial-reservas', component: HistorialReservasComponent },
     { path: 'quienes-somos', component: QuienesSomosComponent},
+    { path: 'prueba-vacia', component: ListasVaciasComponent},
     { path: '**', component: Pagina404Component}
 ];
