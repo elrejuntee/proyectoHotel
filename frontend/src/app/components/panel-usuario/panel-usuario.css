@@ -1,0 +1,207 @@
+.perfil-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radio-full);
+    object-fit: cover;
+    border: 2px solid var(--primario);
+}
+
+.perfil-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===== PANEL WRAPPER ===== */
+.panel {
+    background: var(--gris-50);
+    min-height: calc(100vh - 70px);
+    padding: 2.5rem 2rem;
+}
+
+.panel-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== ENCABEZADO ===== */
+.panel-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+}
+
+.panel-titulo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gris-900);
+}
+
+/* ===== TARJETA PERFIL ===== */
+.perfil-card {
+    background: var(--blanco);
+    border-radius: var(--radio-xl);
+    box-shadow: var(--sombra-md);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.perfil-card-izq {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.perfil-card-avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.perfil-card-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: var(--radio-full);
+    object-fit: cover;
+    border: 3px solid var(--primario-claro);
+    background: var(--gris-200);
+}
+
+.perfil-card-nombre {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gris-900);
+    margin-bottom: 0.6rem;
+}
+
+.perfil-card-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.perfil-card-datos li {
+    font-size: 0.875rem;
+    color: var(--gris-600);
+}
+/* ===== SECCIONES DEL PANEL ===== */
+.seccion-panel {
+    margin-bottom: 2rem;
+}
+
+.seccion-panel-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gris-800);
+    margin-bottom: 1rem;
+}
+
+.seccion-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+
+
+/* ===== BLOQUES ===== */
+.bloque {
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra);
+    padding: 1.5rem;
+}
+.bloque-lista {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem 2rem;
+    align-items: baseline;
+}
+/* ===== HABITACIONES LISTA ===== */
+.habitaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hab-item {
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra);
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--gris-200);
+    margin-bottom: 1rem;
+    transition: tranform 0.2s, box-shadow 0.25s;
+}
+
+.hab-item:hover {
+    transform: scale(1.03);
+    box-shadow: var(--sombra-lg);
+}
+
+.hab-item-img {
+    width: 120px;
+    min-height: 78px;
+    flex: 1 1 auto;
+    object-fit: cover;
+    border-radius: var(--radio);
+    flex-shrink: 0;
+    background: var(--gris-200);
+}
+
+.hab-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.hab-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.hab-item-nombre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gris-800);
+}
+
+.hab-item-detalles {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--gris-500);
+    flex-wrap: wrap;
+}
+.hab-item-boton {
+    display: flex;
+    align-items: center;
+}
+.hab-item-precio {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gris-900);
+}
+.hab-item-fecha {
+    font-size: 0.78rem;
+    color: var(--gris-400);
+    margin-left: auto;
+}
+
+.hab-item-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
