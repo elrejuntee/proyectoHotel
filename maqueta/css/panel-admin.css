@@ -34,6 +34,7 @@
     color: var(--gris-400);
     text-decoration: none;
     transition: all 0.2s;
+    cursor: pointer;
 }
 
 .sidebar-link:hover {
@@ -42,6 +43,35 @@
 }
 
 .sidebar-link-activo {
+    background: var(--primario);
+    color: var(--blanco);
+}
+
+.sidebar-link-activo:hover {
+    background: var(--primario);
+    color: var(--blanco);
+}
+
+/* ===== PESTAÑAS (Habitaciones / Servicios / Reservas)  ===== */
+.vista-radio {
+    display: none;
+}
+
+#vista-habitaciones,
+#vista-servicios,
+#vista-reservas {
+    display: none;
+}
+
+#tabHabitaciones:checked ~ main #vista-habitaciones,
+#tabServicios:checked ~ main #vista-servicios,
+#tabReservas:checked ~ main #vista-reservas {
+    display: block;
+}
+
+#tabHabitaciones:checked ~ aside label[for="tabHabitaciones"],
+#tabServicios:checked ~ aside label[for="tabServicios"],
+#tabReservas:checked ~ aside label[for="tabReservas"] {
     background: var(--primario);
     color: var(--blanco);
 }
@@ -153,6 +183,72 @@
     color: var(--gris-500); transition: all 0.2s;
 }
 .tabla-btn:hover { border-color: var(--primario); color: var(--primario); background: var(--primario-claro); }
+
+/* ===== MENÚ DE ACCIONES ===== */
+.dropdown-acciones {
+    position: relative;
+    display: inline-block;
+}
+
+.acciones-toggle {
+    display: none;
+}
+
+.dropdown-acciones .dropdown-overlay {
+    display: none;
+}
+
+.acciones-toggle:checked ~ .dropdown-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    cursor: default;
+    background: transparent;
+}
+
+.dropdown-acciones .dropdown-menu {
+    border: 1px solid var(--gris-200);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra-sm);
+    padding: 0.4rem;
+    min-width: 170px;
+    z-index: 1045;
+}
+
+.acciones-toggle:checked ~ .dropdown-menu {
+    display: block;
+}
+
+.dropdown-acciones .dropdown-item {
+    border-radius: var(--radio);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gris-700);
+    cursor: pointer;
+}
+
+.dropdown-acciones .dropdown-item:hover,
+.dropdown-acciones .dropdown-item:focus {
+    background: var(--primario-claro);
+    color: var(--primario);
+}
+
+.dropdown-acciones .dropdown-item.text-secondary:hover {
+    background: var(--gris-50);
+    color: var(--gris-700) !important;
+}
+
+/* ===== MODALES ===== */
+.modal {
+    display: none;
+}
+
+.modal:target {
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+}
 
 /* ===== PAGINACIÓN ===== */
 .admin-paginacion-controles { display: flex; gap: 0.3rem; }
