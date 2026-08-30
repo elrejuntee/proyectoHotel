@@ -42,7 +42,7 @@
                                     <a class="dropdown-item" href="panel-usuario.html">Perfil</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#historial-reservas">Historial de reservas</a>
+                                    <a class="dropdown-item" href="historial-reservas.html">Historial de reservas</a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
@@ -59,110 +59,136 @@
     <main class="panel">
         <section class="seccion-panel">
             <div class="seccion-panel-header">
-                <h2 class="seccion-panel-titulo">Historial de reservas</h2>  
+                <h2 class="seccion-panel-titulo mb-4">Historial de reservas</h2>  
             </div>
-            <div class="hab-item">
-                <div class="row">
-                    <div class="col-auto d-flex">
-                        <img src="imagenes/premier.webp" alt="Suite Premier Garden" class="hab-item-img">
+
+            <!-- NAVEGACIÓN DE PESTAÑAS (TABS) -->
+            <ul class="nav nav-tabs mb-4" id="historialTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active text-dark fw-semibold" id="hab-tab" data-bs-toggle="tab" data-bs-target="#hab" type="button" role="tab" aria-controls="hab" aria-selected="true">
+                        Habitaciones
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-dark fw-semibold" id="serv-tab" data-bs-toggle="tab" data-bs-target="#serv" type="button" role="tab" aria-controls="serv" aria-selected="false">
+                        Servicios
+                    </button>
+                </li>
+            </ul>
+
+            <!-- CONTENIDO DE LAS PESTAÑAS -->
+            <div class="tab-content" id="historialTabsContent">
+                
+                <!-- PESTAÑA: HABITACIONES -->
+                <div class="tab-pane fade show active" id="hab" role="tabpanel" aria-labelledby="hab-tab">
+                    
+                    <div class="hab-item">
+                        <div class="row">
+                            <div class="col-auto d-flex">
+                                <img src="imagenes/premier.webp" alt="Suite Premier Garden" class="hab-item-img">
+                            </div>
+                            <div class="col">
+                                <div class="hab-item-header">
+                                    <span class="hab-item-nombre">Suite Premier Garden</span>
+                                    <span class="etiqueta etiqueta-premium">Premier</span>
+                                </div>
+                                <div class="hab-item-detalles">
+                                    <span>1 cama king</span>
+                                    <span>2 huéspedes</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
+                                    <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
+                                </div>
+                                <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <div class="hab-item-header">
-                            <span class="hab-item-nombre">Suite Premier Garden</span>
-                            <span class="etiqueta etiqueta-premium">Premier</span>
-                        </div>
-                        <div class="hab-item-detalles">
-                            <span>1 cama king</span>
-                            <span>2 huéspedes</span>
-                        </div>
-                        <div class="mt-2">
-                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
-                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
-                        </div>
-                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
-                        <div class="d-flex justify-content-end mt-2">
-                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                    
+                    <div class="hab-item">
+                        <div class="row">
+                            <div class="col-auto d-flex">
+                                <img src="imagenes/deluxe.webp" alt="Deluxe Vista al Mar" class="hab-item-img">
+                            </div>
+                            <div class="col">
+                                <div class="hab-item-header">
+                                    <span class="hab-item-nombre">Deluxe Vista al Mar</span>
+                                    <span class="etiqueta etiqueta-deluxe">Deluxe</span>
+                                </div>
+                                <div class="hab-item-detalles">
+                                    <span>1 cama king</span>
+                                    <span>2 huéspedes</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
+                                    <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
+                                </div>
+                                <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="hab-item">
-                <div class="row">
-                    <div class="col-auto d-flex">
-                        <img src="imagenes/deluxe.webp" alt="Deluxe Vista al Mar" class="hab-item-img">
-                    </div>
-                    <div class="col">
-                        <div class="hab-item-header">
-                            <span class="hab-item-nombre">Deluxe Vista al Mar</span>
-                            <span class="etiqueta etiqueta-deluxe">Deluxe</span>
-                        </div>
-                        <div class="hab-item-detalles">
-                            <span>1 cama king</span>
-                            <span>2 huéspedes</span>
-                        </div>
-                        <div class="mt-2">
-                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
-                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
-                        </div>
-                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
-                        <div class="d-flex justify-content-end mt-2">
-                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
- 
-            <div class="hab-item">
-                <div class="row">
-                    <div class="col-auto d-flex">
-                        <img src="imagenes/estandar.webp" alt="Habitación Estándar" class="hab-item-img">
-                    </div>
-                    <div class="col">
-                        <div class="hab-item-header">
-                            <span class="hab-item-nombre">Habitación Estándar</span>
-                            <span class="etiqueta etiqueta-estandar">Estándar</span>
-                        </div>
-                        <div class="hab-item-detalles">
-                            <span>1 cama queen</span>
-                            <span>2 huéspedes</span>
-                        </div>
-                        <div class="mt-2">
-                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
-                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
-                        </div>
-                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
-                        <div class="d-flex justify-content-end mt-2">
-                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+
+                <!-- PESTAÑA: SERVICIOS -->
+                <div class="tab-pane fade" id="serv" role="tabpanel" aria-labelledby="serv-tab">
+                    
+                    <div class="hab-item">
+                        <div class="row">
+                            <div class="col-auto d-flex">
+                                <img src="imagenes/ejecutiva.webp" alt="Sala Conferencia" class="hab-item-img">
+                            </div>
+                            <div class="col">
+                                <div class="hab-item-header">
+                                    <span class="hab-item-nombre">Sala de Conferencia</span>
+                                    <span class="etiqueta etiqueta-estandar">Servicio</span>
+                                </div>
+                                <div class="hab-item-detalles">
+                                    <span>Capacidad: 50 personas</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="hab-item-fecha d-block">Fecha: 15/12/25</span>
+                                    <span class="hab-item-fecha d-block">Duración: 4 horas</span>
+                                </div>
+                                <span class="hab-item-precio d-block mt-1">Importe total: $45.000</span>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="servicios.html" class="btn btn-primario">Ver servicio</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
- 
-            <div class="hab-item">
-                <div class="row">
-                    <div class="col-auto d-flex">
-                        <img src="imagenes/ejecutiva.webp" alt="Suite Ejecutiva" class="hab-item-img">
-                    </div>
-                    <div class="col">
-                        <div class="hab-item-header">
-                            <span class="hab-item-nombre">Suite Ejecutiva</span>
-                            <span class="etiqueta etiqueta-suite">Suite</span>
-                        </div>
-                        <div class="hab-item-detalles">
-                            <span>1 cama king</span>
-                            <span>2 huéspedes</span>
-                        </div>
-                        <div class="mt-2">
-                            <span class="hab-item-fecha d-block">Check-in: 25/12/25</span>
-                            <span class="hab-item-fecha d-block">Check-out 27/12/25</span>
-                        </div>
-                        <span class="hab-item-precio d-block mt-1">Importe total: $280</span>
-                        <div class="d-flex justify-content-end mt-2">
-                            <a href="detalle-habitacion.html" class="btn btn-primario">Ver habitación</a>
+
+                    <div class="hab-item">
+                        <div class="row">
+                            <div class="col-auto d-flex">
+                                <img src="imagenes/familiar.webp" alt="Co-working" class="hab-item-img">
+                            </div>
+                            <div class="col">
+                                <div class="hab-item-header">
+                                    <span class="hab-item-nombre">Pase Co-working</span>
+                                    <span class="etiqueta etiqueta-estandar">Servicio</span>
+                                </div>
+                                <div class="hab-item-detalles">
+                                    <span>Escritorio individual</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="hab-item-fecha d-block">Fecha: 10/11/25</span>
+                                    <span class="hab-item-fecha d-block">Duración: Pase Diario</span>
+                                </div>
+                                <span class="hab-item-precio d-block mt-1">Importe total: $15.000</span>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="servicios.html" class="btn btn-primario">Ver servicio</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
     </main>
