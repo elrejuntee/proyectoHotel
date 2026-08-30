@@ -1,0 +1,62 @@
+# =========================
+# FRONTEND (Angular / Node)
+# =========================
+node_modules/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+.angular/
+
+# =========================
+# BACKEND (Python)
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+Backend/__pycache__/
+Backend/*/__pycache__/
+Backend/*/*/__pycache__/
+*.pyc
+entorno/
+venv/
+env/
+ENV/
+
+# =========================
+# VARIABLES DE ENTORNO
+# =========================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# =========================
+# HERRAMIENTAS E IDEs
+# =========================
+.qodo
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# =========================
+# LOGS Y SISTEMA OPERATIVO
+# =========================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db

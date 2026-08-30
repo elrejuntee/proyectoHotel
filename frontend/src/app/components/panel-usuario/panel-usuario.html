@@ -1,0 +1,89 @@
+<!-- CONTENIDO PRINCIPAL -->
+<main class="panel">
+    <div class="panel-inner">
+        <div class="panel-encabezado">
+            <h1 class="panel-titulo">Mi Panel</h1>
+        </div>
+
+        <section class="perfil-card">
+            <div class="perfil-card-izq">
+                <div class="perfil-card-avatar-wrap">
+                    <img src="imagenes/juan-perez.webp" alt="Juan Perez" class="perfil-card-avatar">    
+                </div>
+                <div class="perfil-card__info">
+                    <h2 class="perfil-card-nombre">{{ usuario.nombre }}</h2>
+                    <ul class="perfil-card-datos">
+                        <li>Miembro desde {{ usuario.miembroDesde }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion-panel">
+            <div class="seccion-panel-header">
+                <h2 class="seccion-panel-titulo mb-0">Información personal</h2>
+                <button type="button" class="btn btn-secundario btn-chico" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar perfil</button>
+            </div>
+            <div class="bloque">
+                <dl class="bloque-lista">
+                    <dt>Nombre completo</dt>
+                    <dd>{{ usuario.nombre }}</dd>
+                    <dt>Correo electrónico</dt>
+                    <dd>{{ usuario.email }}</dd>
+                    <dt>Teléfono</dt>
+                    <dd>{{ usuario.telefono }}</dd>
+                    <dt>Fecha de nacimiento</dt>
+                    <dd>{{ usuario.fechaNacimiento }}</dd>
+                    <dt>País</dt>
+                    <dd>{{ usuario.pais }}</dd>
+                </dl>      
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- MODAL EDITAR PERFIL -->
+<div class="modal fade" id="modalEditarPerfil" tabindex="-1" role="dialog" aria-labelledby="modalEditarPerfilLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditarPerfilLabel">Editar perfil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+                    <div class="mb-3 campo">
+                        <label class="form-label">Nombre completo</label>
+                        <input type="text" class="form-control" formControlName="nombre">
+                    </div>
+                    <div class="mb-3 campo">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" formControlName="email">
+                    </div>
+                    <div class="mb-3 campo">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" formControlName="telefono">
+                    </div>
+                    <div class="mb-3 campo">
+                        <label class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" formControlName="fechaNacimiento">
+                    </div>
+                    <div class="mb-3 campo">
+                        <label class="form-label">País</label>
+                        <select class="form-control" formControlName="pais">
+                            <option value="Argentina">Argentina</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Brasil">Brasil</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer border-0 px-0 pb-0">
+                        <button type="button" class="btn btn-secundario btn-chico" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primario btn-chico" data-bs-dismiss="modal" [disabled]="perfilForm.invalid">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

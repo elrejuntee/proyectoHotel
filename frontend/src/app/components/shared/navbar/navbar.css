@@ -28,3 +28,18 @@
 .collapse {
     display: none;
 }
+
+
+.perfil-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radio-full);
+    object-fit: cover;
+    border: 2px solid var(--primario);
+}
+
+.perfil-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
