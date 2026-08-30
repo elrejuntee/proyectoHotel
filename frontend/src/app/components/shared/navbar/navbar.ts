@@ -9,7 +9,7 @@ import { RouterLink, RouterLinkActive} from '@angular/router';
 })
 export class NavbarComponent {
   menuAbierto = false;
-
+  
   toggleMenu() {
     this.menuAbierto = !this.menuAbierto;
   }
