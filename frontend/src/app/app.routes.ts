@@ -8,6 +8,7 @@ import { PanelAdminComponent } from './components/panel-admin/panel-admin.compon
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { Pagina404Component } from './pages/pagina-404/pagina-404.component';
 import { ListasVaciasComponent } from './components/listas-vacias/listas-vacias.component';
+import { LoginComponent } from './auth/login/login.component';
 
 
 export const routes: Routes = [
@@ -17,7 +18,8 @@ export const routes: Routes = [
     { path: 'panel-usuario', component: PanelUsuarioComponent },
     { path: 'historial-reservas', component: HistorialReservasComponent },
     { path: 'panel-admin', component: PanelAdminComponent },
-    { path: 'quienes-somos', component: QuienesSomosComponent},
-    { path: 'prueba-vacia', component: ListasVaciasComponent},
+    { path: 'quienes-somos', component: QuienesSomosComponent },
+    { path: 'prueba-vacia', component: ListasVaciasComponent },
+    { path: 'login', component: LoginComponent },
     { path: '**', component: Pagina404Component}
 ];

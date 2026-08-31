@@ -1,0 +1,188 @@
+/* ================================================
+   Login
+   ================================================ */
+.login-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gris-50);
+}
+
+/* ===== PANEL DE LOGIN ===== */
+.login-panel {
+    background: var(--blanco);
+    padding: 3rem 3rem 2rem;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid var(--gris-200);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra-md);
+}
+
+.login-form-contenedor {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+/* ===== HEADER DEL FORMULARIO ===== */
+.login-form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-form-header-titulo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gris-900);
+    margin-bottom: 0.4rem;
+}
+
+.login-form-header-subtitulo {
+    font-size: 0.9rem;
+    color: var(--gris-500);
+}
+
+/* ===== FORMULARIO ===== */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ===== CAMPO DE LOGIN ===== */
+.login-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.login-campo label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gris-700);
+}
+
+.login-campo-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.login-campo-icono {
+    position: absolute;
+    left: 0.875rem;
+    color: var(--gris-400);
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+.login-campo input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border: 1.5px solid var(--gris-300);
+    border-radius: var(--radio);
+    font-size: 0.9rem;
+    color: var(--gris-800);
+    background: var(--blanco);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.login-campo input:focus {
+    border-color: var(--primario);
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+}
+
+.login-campo input::placeholder {
+    color: var(--gris-400);
+}
+
+.login-campo-toggle-pass {
+    position: absolute;
+    right: 0.875rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gris-400);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.login-campo-toggle-pass:hover {
+    color: var(--gris-600);
+}
+
+/* ===== BOTÓN INGRESAR ===== */
+.login-btn-ingresar {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    border-radius: var(--radio);
+}
+
+/* ===== DIVISOR "O" ===== */
+.login-o {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--gris-400);
+    font-size: 0.875rem;
+}
+
+.login-o-linea {
+    flex: 1;
+    height: 1px;
+    background: var(--gris-500);
+}
+
+/* ===== ACCESO RÁPIDO ===== */
+
+.btn-acceso-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radio);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid #7c3aed;
+    background: #ede9fe;
+    color: #7c3aed;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-acceso-admin:hover {
+    background: #7c3aed;
+    color: white;
+    box-shadow: var(--sombra-md);
+}
+
+.btn-acceso-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radio);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid var(--primario);
+    background: var(--primario-claro);
+    color: var(--primario);
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-acceso-usuario:hover {
+    background: var(--primario);
+    color: white;
+    box-shadow: var(--sombra-md);
+}
