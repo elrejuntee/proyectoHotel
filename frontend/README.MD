@@ -1,59 +1,73 @@
-# Frontend
+# El Rejunte Hotel — Aplicación Web (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+## ¿Qué es este proyecto?
 
-## Development server
+**El Rejunte Hotel** es una aplicación web desarrollada como sistema de gestión hotelera, construida utilizando componentes modernos y herramientas de desarrollo frontend.
 
-To start a local development server, run:
+El propósito del desarrollo es permitir la optimización de procesos relacionados con reservas, control de habitaciones, registro de usuarios y gestión de servicios adicionales, proporcionando una interfaz rápida, modular y mantenible.
 
+---
+
+## ¿Qué páginas tiene el sitio?
+
+### Para cualquier visitante
+- **Inicio:** foto principal del hotel, lista de servicios (comedor, piscina, WiFi, gimnasio, traslado) y las habitaciones disponibles con sus precios.
+- **Quiénes somos:** historia del hotel y presentación de los desarrolladores de la web.
+- **Iniciar sesión:** formulario para ingresar al área privada con correo y contraseña.
+- **Registrarse:** formulario para registrarse al sistema.
+
+### Para huéspedes registrados
+- **Mi panel:** el cliente puede ver su información personal, las habitaciones que visitó recientemente y su historial de reservas con fechas y montos.
+- **Reservas:** sección interactiva para consultar disponibilidad, seleccionar fechas, elegir tipos de habitación y gestionar o concretar nuevas reservas.
+
+### Para el personal del hotel
+- **Panel de administración:** vista completa del estado de las habitaciones (cuántas están disponibles, ocupadas o en mantenimiento), con buscador, filtros y opción de agregar nuevas habitaciones.
+
+### Control de errores y estados vacíos
+- **Error 404 / Listas vacías:** Componentes diseñados para mostrar una tarjeta centrada con imagen y mensaje descriptivo cuando una ruta no existe o cuando una búsqueda no arroja resultados.
+
+---
+
+## Tecnologías y Herramientas Utilizadas
+
+- **Framework:** [Angular](https://angular.dev/) (v19)
+- **Estilos:** Bootstrap / CSS
+- **Control de versiones:** Git y GitHub
+- **Metodología / Organización:** Scrum
+
+---
+
+## Utilización de las siguientes IA:
+- Claude
+- Gemini
+
+---
+
+## ¿Cómo ver y ejecutar el proyecto en tu computadora?
+
+### Lo que necesitás tener instalado
+- [Git](https://git-scm.com/) — para clonar el repositorio.
+- [Node.js](https://nodejs.org/) (versión LTS recomendada) — incluye npm para gestionar las dependencias.
+- [Visual Studio Code](https://code.visualstudio.com/) — el entorno de desarrollo recomendado.
+
+### Pasos para ponerlo en marcha
+
+**1. Clonar el repositorio**
+
+Abrí tu terminal (Git Bash o la consola de tu preferencia) y ejecutá el siguiente comando:
 ```bash
-ng serve
-```
+git clone [https://github.com/adriel1364/proyectoHotel.git](https://github.com/adriel1364/proyectoHotel.git)l1364/proyectoHotel.git)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+**2. Abrir la carpeta en Visual Studio Code:**
+Entra a Visual Studio Code, ve a Archivo > Abrir carpeta... y selecciona la carpeta del proyecto clonado.
 
-## Code scaffolding
+**3. Instalar las dependencias:**
+Abre la terminal integrada dentro de Visual Studio Code y ejecuta: npm install
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**4. Ejecutar el servidor de desarrollo:**
+Escribe el siguiente comando en la terminal para poner en marcha la aplicación: ng serve
 
-```bash
-ng generate component component-name
-```
+**5. Abrir el navegador**
+Una vez que el servidor compile correctamente, el mensaje en la terminal te indicará que la aplicación está lista. Abre tu navegador web de preferencia y entra a la dirección:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+http://localhost:4200/
