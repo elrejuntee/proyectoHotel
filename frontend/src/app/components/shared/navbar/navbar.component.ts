@@ -9,7 +9,7 @@ import { RouterLink, RouterLinkActive} from '@angular/router';
 })
 export class NavbarComponent {
   menuAbierto = false;
-  autenticado = true;
+  autenticado = false;
   toggleMenu() {
     this.menuAbierto = !this.menuAbierto;
   }
