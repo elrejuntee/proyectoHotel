@@ -30,12 +30,14 @@
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/reservas" routerLinkActive="active">Reservas</a>
                     </li>
-                    <li class="nav-item">
-                        <a routerLink="/login" class="btn btn-primario">Loguearse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/registro" class="btn btn-primario m-2">Registrarse</a>
-                    </li>
+                    @if (!autenticado) {
+                        <li class="nav-item">
+                            <a routerLink="/login" class="btn btn-primario">Loguearse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/registro" class="btn btn-primario m-2">Registrarse</a>
+                        </li>
+                    }
                 </ul>
                 @if (autenticado) {
                     <li class="nav-item dropdown">
