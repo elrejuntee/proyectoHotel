@@ -9,6 +9,7 @@ import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.
 import { Pagina404Component } from './pages/pagina-404/pagina-404.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { RegistroComponent } from './auth/registro/registro.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
         ]
     },
     { path: "login", component: LoginComponent },
+    { path: "registro", component: RegistroComponent },
     { path: "panel-admin", component: PanelAdminComponent },
     { path: "**", component: Pagina404Component },
 ];
