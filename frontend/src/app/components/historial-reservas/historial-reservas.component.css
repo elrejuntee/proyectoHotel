@@ -1,0 +1,96 @@
+/* ===== PANEL WRAPPER ===== */
+.panel {
+    background: var(--gris-50);
+    min-height: calc(100vh - 70px);
+    padding: 2.5rem 2rem;
+}
+
+.panel-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== SECCIONES DEL PANEL ===== */
+.seccion-panel {
+    margin-bottom: 2rem;
+}
+
+.seccion-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.seccion-panel-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gris-800);
+    margin-bottom: 1rem;
+}
+
+/* ===== HABITACIONES LISTA ===== */
+.habitaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hab-item {
+    background: var(--blanco);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra);
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--gris-200);
+    margin-bottom: 1rem;
+    transition: transform 0.2s, box-shadow 0.25s;
+}
+
+.hab-item:hover {
+    transform: scale(1.03);
+    box-shadow: var(--sombra-lg);
+}
+
+.hab-item-img {
+    width: 120px;
+    min-height: 78px;
+    flex: 1 1 auto;
+    object-fit: cover;
+    border-radius: var(--radio);
+    flex-shrink: 0;
+    background: var(--gris-200);
+}
+
+.hab-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.hab-item-nombre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gris-800);
+}
+
+.hab-item-detalles {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--gris-500);
+    flex-wrap: wrap;
+}
+
+.hab-item-fecha {
+    font-size: 0.78rem;
+    color: var(--gris-400);
+    margin-left: auto;
+}
+
+.hab-item-precio {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gris-900);
+}

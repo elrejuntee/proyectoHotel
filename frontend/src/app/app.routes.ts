@@ -7,19 +7,21 @@ import { HistorialReservasComponent } from './components/historial-reservas/hist
 import { PanelAdminComponent } from './components/panel-admin/panel-admin.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { Pagina404Component } from './pages/pagina-404/pagina-404.component';
-import { ListasVaciasComponent } from './components/listas-vacias/listas-vacias.component';
 import { LoginComponent } from './auth/login/login.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'servicios', component: ServiciosComponent},
-    { path: 'reservas', component: ResultadosBusquedaComponent },
-    { path: 'panel-usuario', component: PanelUsuarioComponent },
-    { path: 'historial-reservas', component: HistorialReservasComponent },
-    { path: 'panel-admin', component: PanelAdminComponent },
-    { path: 'quienes-somos', component: QuienesSomosComponent },
-    { path: 'prueba-vacia', component: ListasVaciasComponent },
-    { path: 'login', component: LoginComponent },
-    { path: '**', component: Pagina404Component}
+    { path: '', component: LandingComponent, children: [
+            { path: '', component: HomeComponent },
+            { path: 'servicios', component: ServiciosComponent },
+            { path: 'reservas', component: ResultadosBusquedaComponent },
+            { path: 'panel-usuario', component: PanelUsuarioComponent },
+            { path: 'historial-reservas', component: HistorialReservasComponent },
+            { path: 'quienes-somos', component: QuienesSomosComponent },
+        ]
+    },
+    { path: "login", component: LoginComponent },
+    { path: "panel-admin", component: PanelAdminComponent },
+    { path: "**", component: Pagina404Component },
 ];
