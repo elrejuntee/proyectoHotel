@@ -52,29 +52,9 @@
     color: var(--blanco);
 }
 
-/* ===== PESTAÑAS (Habitaciones / Servicios / Reservas)  ===== */
-.vista-radio {
-    display: none;
-}
-
-#vista-habitaciones,
-#vista-servicios,
-#vista-reservas {
-    display: none;
-}
-
-#tabHabitaciones:checked ~ main #vista-habitaciones,
-#tabServicios:checked ~ main #vista-servicios,
-#tabReservas:checked ~ main #vista-reservas {
-    display: block;
-}
-
-#tabHabitaciones:checked ~ aside label[for="tabHabitaciones"],
-#tabServicios:checked ~ aside label[for="tabServicios"],
-#tabReservas:checked ~ aside label[for="tabReservas"] {
-    background: var(--primario);
-    color: var(--blanco);
-}
+/* Nota: las reglas de #tabHabitaciones:checked, .vista-radio, etc. del HTML
+   original ya no hacen falta: la pestaña activa ahora se controla con
+   [class.sidebar-link-activo] y *ngIf en el componente. */
 
 .sidebar-usuario {
     padding: 1rem 1.25rem;
@@ -184,21 +164,17 @@
 }
 .tabla-btn:hover { border-color: var(--primario); color: var(--primario); background: var(--primario-claro); }
 
-/* ===== MENÚ DE ACCIONES ===== */
+/* ===== MENÚ DE ACCIONES =====
+   Antes esto se mostraba con el checkbox .acciones-toggle:checked ~ ...
+   Ahora el <div class="dropdown-overlay"> y el <ul class="dropdown-menu">
+   solo están en el DOM cuando dropdownAbiertoId() === id (gracias al *ngIf),
+   así que alcanza con forzar el display en vez de depender de :checked. */
 .dropdown-acciones {
     position: relative;
     display: inline-block;
 }
 
-.acciones-toggle {
-    display: none;
-}
-
 .dropdown-acciones .dropdown-overlay {
-    display: none;
-}
-
-.acciones-toggle:checked ~ .dropdown-overlay {
     display: block;
     position: fixed;
     inset: 0;
@@ -208,16 +184,13 @@
 }
 
 .dropdown-acciones .dropdown-menu {
+    display: block;
     border: 1px solid var(--gris-200);
     border-radius: var(--radio-lg);
     box-shadow: var(--sombra-sm);
     padding: 0.4rem;
     min-width: 170px;
     z-index: 1045;
-}
-
-.acciones-toggle:checked ~ .dropdown-menu {
-    display: block;
 }
 
 .dropdown-acciones .dropdown-item {
@@ -240,12 +213,12 @@
     color: var(--gris-700) !important;
 }
 
-/* ===== MODALES ===== */
+/* ===== MODALES =====
+   Antes: .modal { display:none } y .modal:target { display:block }.
+   Ahora el <div class="modal"> solo existe en el DOM cuando el signal
+   'modal' (o los getters derivados) lo indican, gracias al *ngIf,
+   así que directamente se muestra siempre que esté presente. */
 .modal {
-    display: none;
-}
-
-.modal:target {
     display: block;
     background: rgba(0, 0, 0, 0.5);
 }

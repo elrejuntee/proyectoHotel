@@ -12,7 +12,10 @@
 <body class="admin-body">
     <div class="container-fluid">
         <div class="row min-vh-100">
-            
+            <input type="radio" name="panel-vista" id="tabHabitaciones" class="vista-radio" hidden checked>
+            <input type="radio" name="panel-vista" id="tabServicios" class="vista-radio" hidden>
+            <input type="radio" name="panel-vista" id="tabReservas" class="vista-radio" hidden>
+
             <aside class="sidebar col-12 col-md-3 col-xl-2 p-0 d-md-flex flex-column">
                 <div class="sidebar-logo text-center py-3">
                     <a href="index.html">
@@ -20,7 +23,7 @@
                     </a>
                 </div>
                 <nav class="sidebar-nav nav flex-column flex-grow-1 px-3">
-                    <a href="#" class="sidebar-link nav-link sidebar-link-activo mb-1">
+                    <a href="#" class="sidebar-link nav-link mb-1">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="7" height="7"></rect>
                             <rect x="14" y="3" width="7" height="7"></rect>
@@ -29,13 +32,11 @@
                         </svg>
                         Dashboard
                     </a>
-                    <a href="#" class="sidebar-link nav-link mb-1">Habitaciones</a>
-                    <a href="#" class="sidebar-link nav-link mb-1">Reservas</a>
-                    <a href="#" class="sidebar-link nav-link mb-1">Servicios</a>
-                    <a href="#" class="sidebar-link nav-link mb-1">Huéspedes</a>
+                    <label for="tabHabitaciones" class="sidebar-link nav-link mb-1">Habitaciones</label>
+                    <label for="tabReservas" class="sidebar-link nav-link mb-1">Reservas</label>
+                    <label for="tabServicios" class="sidebar-link nav-link mb-1">Servicios</label>
                     <hr class="my-3 text-secondary">
                     <a href="#" class="sidebar-link nav-link mb-1">Mi perfil</a>
-                    <a href="#" class="sidebar-link nav-link mb-1">Configuración</a>
                 </nav>
                 <div class="sidebar-usuario d-flex align-items-center gap-2 p-3 mt-auto">
                     <img src="imagenes/luciano-paez.webp" class="sidebar-avatar img-fluid rounded-circle" alt="Usuario">
@@ -53,7 +54,8 @@
                 </div>
             </aside>
             <main class="admin-main col-12 col-md-9 col-xl-10 p-4">
-                
+
+                <div id="vista-habitaciones">
                 <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     <div>
                         <nav aria-label="breadcrumb">
@@ -65,13 +67,13 @@
                         </nav>
                         <h1 class="admin-titulo m-0">Habitaciones</h1>
                     </div>
-                    <button class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2" data-bs-toggle="modal" data-bs-target="#modalAgregarHabitacion">
+                    <a href="#modalAgregarHabitacion" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2" role="button">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                         Agregar habitación
-                    </button>
+                    </a>
                 </div>
                 <div class="row g-4 mb-4">
                     <div class="col-12 col-sm-6 col-xl-3">
@@ -142,6 +144,7 @@
                         <div class="col-12 col-lg-5 position-relative">
                             <input type="text" class="form-control" placeholder="Buscar habitaciones...">
                         </div>
+                        <div class="col-12 col-lg-4 d-none d-lg-block"></div>
                         <div class="col-12 col-md-4 col-lg-3">
                             <select class="admin-filtro form-select">
                                 <option>Todos los estados</option>
@@ -149,26 +152,6 @@
                                 <option>Ocupada</option>
                                 <option>Mantenimiento</option>
                             </select>
-                        </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="admin-tabla-acciones d-flex gap-2 justify-content-lg-end">
-                                <button type="button" class="btn btn-blanco border">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                        <polyline points="7 10 12 15 17 10"></polyline>
-                                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                                    </svg>
-                                    Exportar
-                                </button>
-                                <button type="button" class="btn btn-blanco border">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <line x1="4" y1="6" x2="20" y2="6"></line>
-                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                        <line x1="12" y1="18" x2="12" y2="18"></line>
-                                    </svg>
-                                    Filtros
-                                </button>
-                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -187,7 +170,7 @@
                                 <tr>
                                     <td>
                                         <div class="hab-celda">
-                                            <img src="imagenes/premier.webp" alt="Suite Premier" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <img src="imagenes/premier.webp" alt="Suite Premier Jardín" class="hab-celda-img img-fluid rounded" loading="lazy">
                                             <div>
                                                 <strong>Suite Premier Jardín</strong>
                                                 <span>Habitación 101</span>
@@ -206,13 +189,21 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="tabla-acciones">
-                                            <button type="button" class="tabla-btn" title="Editar">
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-hab101" class="acciones-toggle" hidden>
+                                            <label for="acc-hab101" class="tabla-btn" title="Acciones">
                                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                                </svg>
-                                            </button>
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-hab101" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-hab101">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-hab101">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-hab101">Cancelar</label></li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>
@@ -238,13 +229,21 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="tabla-acciones">
-                                            <button type="button" class="tabla-btn" title="Editar">
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-hab102" class="acciones-toggle" hidden>
+                                            <label for="acc-hab102" class="tabla-btn" title="Acciones">
                                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                                </svg>
-                                            </button>
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-hab102" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-hab102">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-hab102">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-hab102">Cancelar</label></li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>
@@ -261,33 +260,425 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
+                <div id="vista-servicios">
+                <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-2">
+                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Servicios</li>
+                            </ol>
+                        </nav>
+                        <h1 class="admin-titulo m-0">Servicios</h1>
+                    </div>
+                    <a href="#modalAgregarServicio" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2" role="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Agregar servicio
+                    </a>
+                </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stat-card stat-card-azul">
+                            <div class="stat-card-icono">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-numero">4</span>
+                                <span class="stat-card-label">Total de servicios</span>
+                                <span class="stat-card-sub">Todos los espacios</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stat-card stat-card-verde">
+                            <div class="stat-card-icono">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-numero">3</span>
+                                <span class="stat-card-label">Disponibles</span>
+                                <span class="stat-card-sub">Listos para reservar</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stat-card stat-card-amarillo">
+                            <div class="stat-card-icono">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-numero">1</span>
+                                <span class="stat-card-label">Ocupados</span>
+                                <span class="stat-card-sub">En uso actualmente</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="stat-card stat-card-rojo">
+                            <div class="stat-card-icono">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-numero">0</span>
+                                <span class="stat-card-label">Mantenimiento</span>
+                                <span class="stat-card-sub">En reparación</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-tabla-contenedor p-4 bg-white border rounded-3">
+                    <div class="row g-3 align-items-center mb-4">
+                        <div class="col-12 col-lg-5 position-relative">
+                            <input type="text" class="form-control" placeholder="Buscar servicios...">
+                        </div>
+                        <div class="col-12 col-lg-4 d-none d-lg-block"></div>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <select class="admin-filtro form-select">
+                                <option>Todos los estados</option>
+                                <option>Disponible</option>
+                                <option>Ocupado</option>
+                                <option>Mantenimiento</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-tabla table table-hover align-middle m-0">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del servicio</th>
+                                    <th>Categoría</th>
+                                    <th>Precio / Uso</th>
+                                    <th>Estado</th>
+                                    <th>Ocupación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="hab-celda">
+                                            <img src="imagenes/premier.webp" alt="Sala conferencia" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <div>
+                                                <strong>Sala conferencia</strong>
+                                                <span>Piso 1</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border fw-medium">Espacio de reuniones</span></td>
+                                    <td class="precio">$60</td>
+                                    <td><span class="etiqueta etiqueta-disponible">Disponible</span></td>
+                                    <td>
+                                        <div class="ocupacion">
+                                            <span>0%</span>
+                                            <div class="barra-ocupacion">
+                                                <div class="barra-ocupacion-fill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-servConf" class="acciones-toggle" hidden>
+                                            <label for="acc-servConf" class="tabla-btn" title="Acciones">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-servConf" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-servConf">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-servConf">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-servConf">Cancelar</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="hab-celda">
+                                            <img src="imagenes/premium.webp" alt="Comedor" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <div>
+                                                <strong>Comedor</strong>
+                                                <span>Piso 1</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border fw-medium">Gastronomía</span></td>
+                                    <td class="precio">$40</td>
+                                    <td><span class="etiqueta etiqueta-ocupado">Ocupado</span></td>
+                                    <td>
+                                        <div class="ocupacion">
+                                            <span>100%</span>
+                                            <div class="barra-ocupacion">
+                                                <div class="barra-ocupacion-fill barra-ocupacion-fill-llena" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-servComedor" class="acciones-toggle" hidden>
+                                            <label for="acc-servComedor" class="tabla-btn" title="Acciones">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-servComedor" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-servComedor">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-servComedor">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-servComedor">Cancelar</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="hab-celda">
+                                            <img src="imagenes/premier.webp" alt="Sala privada" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <div>
+                                                <strong>Sala privada</strong>
+                                                <span>Piso 2</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border fw-medium">Espacio de reuniones</span></td>
+                                    <td class="precio">$75</td>
+                                    <td><span class="etiqueta etiqueta-disponible">Disponible</span></td>
+                                    <td>
+                                        <div class="ocupacion">
+                                            <span>0%</span>
+                                            <div class="barra-ocupacion">
+                                                <div class="barra-ocupacion-fill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-servPrivada" class="acciones-toggle" hidden>
+                                            <label for="acc-servPrivada" class="tabla-btn" title="Acciones">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-servPrivada" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-servPrivada">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-servPrivada">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-servPrivada">Cancelar</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="hab-celda">
+                                            <img src="imagenes/premium.webp" alt="Co-working" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <div>
+                                                <strong>Co-working</strong>
+                                                <span>Piso 2</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border fw-medium">Espacio de trabajo</span></td>
+                                    <td class="precio">$25</td>
+                                    <td><span class="etiqueta etiqueta-disponible">Disponible</span></td>
+                                    <td>
+                                        <div class="ocupacion">
+                                            <span>0%</span>
+                                            <div class="barra-ocupacion">
+                                                <div class="barra-ocupacion-fill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-servCoworking" class="acciones-toggle" hidden>
+                                            <label for="acc-servCoworking" class="tabla-btn" title="Acciones">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-servCoworking" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-servCoworking">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-servCoworking">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-servCoworking">Cancelar</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="admin-paginacion d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 mt-3">
+                        <span class="admin-paginacion-info">Mostrando 1 a 4 de 4 servicios</span>
+                        <div class="admin-paginacion-controles">
+                            <button type="button" class="pag-btn" disabled>&laquo;</button>
+                            <button type="button" class="pag-btn pag-btn--activo">1</button>
+                            <button type="button" class="pag-btn" disabled>&raquo;</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div id="vista-reservas">
+                <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-2">
+                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Reservas</li>
+                            </ol>
+                        </nav>
+                        <h1 class="admin-titulo m-0">Reservas</h1>
+                    </div>
+                </div>
+                <div class="admin-tabla-contenedor p-4 bg-white border rounded-3">
+                    <div class="table-responsive">
+                        <table class="admin-tabla table table-hover align-middle m-0">
+                            <thead>
+                                <tr>
+                                    <th>Nombre habitación</th>
+                                    <th>Huésped</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Fecha fin</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="hab-celda">
+                                            <img src="imagenes/premier.webp" alt="Suite Premier Jardín" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <div>
+                                                <strong>Suite Premier Jardín</strong>
+                                                <span>Habitación 101</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Martina Gómez</td>
+                                    <td>05/09/2026</td>
+                                    <td>10/09/2026</td>
+                                    <td>
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-res1" class="acciones-toggle" hidden>
+                                            <label for="acc-res1" class="tabla-btn" title="Acciones">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-res1" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-res1">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-res1">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-res1">Cancelar</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="hab-celda">
+                                            <img src="imagenes/premium.webp" alt="Habitación Superior" class="hab-celda-img img-fluid rounded" loading="lazy">
+                                            <div>
+                                                <strong>Habitación Superior</strong>
+                                                <span>Habitación 102</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Ezequiel Torres</td>
+                                    <td>12/09/2026</td>
+                                    <td>15/09/2026</td>
+                                    <td>
+                                        <div class="tabla-acciones dropdown-acciones">
+                                            <input type="checkbox" id="acc-res2" class="acciones-toggle" hidden>
+                                            <label for="acc-res2" class="tabla-btn" title="Acciones">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="5" r="1"></circle>
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                            </label>
+                                            <label for="acc-res2" class="dropdown-overlay" aria-hidden="true"></label>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item" href="#modalVer-res2">Ver</a></li>
+                                                <li><a class="dropdown-item" href="#modalEstado-res2">Cambiar estado</a></li>
+                                                <li><label class="dropdown-item text-secondary" for="acc-res2">Cancelar</label></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
             </main>
         </div>
     </div>
-    <div class="modal fade" id="modalAgregarHabitacion" tabindex="-1" role="dialog" aria-labelledby="modalAgregarHabitacionLabel" aria-hidden="true">
+    <div class="modal" id="modalAgregarHabitacion">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
                 <div class="modal-header border-bottom px-4 py-3">
-                    <h2 class="modal-title fs-5 fw-bold text-dark" id="modalAgregarHabitacionLabel">Agregar habitación</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Agregar habitación</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
                 </div>
                 <div class="modal-body p-4">
                     <form>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
+                                <input type="text" class="form-control" id="habPiso" placeholder="Ej: 1">
+                            </div>
+                            <div class="col-6">
+                                <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
+                                <input type="text" class="form-control" id="habNumero" placeholder="Ej: 101">
+                            </div>
+                        </div>
                         <div class="mb-3">
-                            <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo de habitación</label>
+                            <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
                             <select class="form-select text-dark" id="habTipo">
                                 <option value="" disabled selected>Seleccioná un tipo</option>
-                                <option value="estandar">Habitación Estándar</option>
-                                <option value="deluxe">Habitación Deluxe</option>
-                                <option value="suite-premium">Suite Premium</option>
-                                <option value="suite-familiar">Suite Familiar</option>
+                                <option value="estandar">Habitación estándar</option>
+                                <option value="deluxe">Deluxe</option>
+                                <option value="premium">Premium</option>
+                                <option value="familiar">Familiar</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
                             <input type="number" class="form-control" id="habPrecio" placeholder="Ej: 85">
                             <div class="form-text text-muted" style="font-size: 0.75rem;">
-                                Referencia: Estándar $85 · Deluxe $140 · Suite Premium $220 · Suite Familiar $180
+                                Referencia: Estándar $85 · Deluxe $140 · Premium $220 · Familiar $180
                             </div>
                         </div>
                         <div class="mb-3">
@@ -305,12 +696,617 @@
                     </form>
                 </div>
                 <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
-                    <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium">Guardar habitación</button>
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar habitación</a>
                 </div>
             </div>
         </div>
     </div>
-    <script src="bootstrap/bootstrap.bundle.min.js"></script>
+    <div class="modal" id="modalAgregarServicio">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Agregar servicio</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label for="servPiso" class="form-label fw-semibold text-secondary small">Piso</label>
+                                <input type="text" class="form-control" id="servPiso" placeholder="Ej: 1">
+                            </div>
+                            <div class="col-6">
+                                <label for="servNombre" class="form-label fw-semibold text-secondary small">Nombre del servicio</label>
+                                <input type="text" class="form-control" id="servNombre" placeholder="Ej: Sala conferencia">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
+                            <select class="form-select text-dark" id="servTipo">
+                                <option value="" disabled selected>Seleccioná un tipo</option>
+                                <option value="sala-conferencia">Sala conferencia</option>
+                                <option value="comedor">Comedor</option>
+                                <option value="sala-privada">Sala privada</option>
+                                <option value="co-working">Co-working</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servPrecio" class="form-label fw-semibold text-secondary small">Precio / Uso ($)</label>
+                            <input type="number" class="form-control" id="servPrecio" placeholder="Ej: 60">
+                        </div>
+                        <div class="mb-3">
+                            <label for="servDescripcion" class="form-label fw-semibold text-secondary small">Descripción</label>
+                            <textarea class="form-control" id="servDescripcion" rows="3" placeholder="Describí las características del servicio..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
+                            <select class="form-select text-dark" id="servEstado">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar servicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-hab101">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Suite Premier Jardín</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Habitación 101</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Suite</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$280</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Disponible</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">0%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-hab101">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Suite Premier Jardín" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible" selected>Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-hab102">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Habitación Superior</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Habitación 102</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Deluxe</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$190</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Ocupada</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">100%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-hab102">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Habitación Superior" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupado" selected>Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-servConf">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Sala conferencia</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Piso 1</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Espacio de reuniones</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$60</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Disponible</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">0%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-servConf">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Sala conferencia" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible" selected>Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-servComedor">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Comedor</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Piso 1</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Gastronomía</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$40</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Ocupado</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">100%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-servComedor">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Comedor" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupado" selected>Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-servPrivada">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Sala privada</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Piso 2</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Espacio de reuniones</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$75</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Disponible</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">0%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-servPrivada">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Sala privada" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible" selected>Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-servCoworking">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Co-working</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Piso 2</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Espacio de trabajo</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$25</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Disponible</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">0%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-servCoworking">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Co-working" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible" selected>Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-res1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Suite Premier Jardín</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Habitación 101</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Huésped</span>
+                        <p class="mb-0 text-dark">Martina Gómez</p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Reserva</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$280</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Confirmada</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">05/09/2026 - 10/09/2026</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-res1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Suite Premier Jardín" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible" selected>Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalVer-res2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+                        <p class="mb-0 fw-semibold text-dark">Habitación Superior</p>
+                        <span class="text-muted" style="font-size: 0.8rem;">Habitación 102</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="form-label fw-semibold text-secondary small d-block">Huésped</span>
+                        <p class="mb-0 text-dark">Ezequiel Torres</p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+                            <p class="mb-0 text-dark">Reserva</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+                            <p class="mb-0 text-dark">$190</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+                            <p class="mb-0 text-dark">Confirmada</p>
+                        </div>
+                        <div class="col-6">
+                            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+                            <p class="mb-0 text-dark">12/09/2026 - 15/09/2026</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cerrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalEstado-res2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                <div class="modal-header border-bottom px-4 py-3">
+                    <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+                    <a href="#!" class="btn-close" aria-label="Cerrar"></a>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <div class="mb-1">
+                            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+                            <input type="text" class="form-control" value="Habitación Superior" readonly>
+                        </div>
+                        <div class="mb-1 mt-3">
+                            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+                            <select class="form-select text-dark">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupado" selected>Ocupado</option>
+                                <option value="mantenimiento">En mantenimiento</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+                    <a href="#!" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" role="button">Cancelar</a>
+                    <a href="#!" class="btn btn-primary px-3 py-2 btn-sm fw-medium" role="button">Guardar cambios</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,726 @@
+<div class="admin-body">
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+
+      <aside class="sidebar col-12 col-md-3 col-xl-2 p-0 d-md-flex flex-column">
+        <div class="sidebar-logo text-center py-3">
+          <a href="index.html">
+            <img src="imagenes/logo-rejunte.webp" alt="El Rejunte Hotel">
+          </a>
+        </div>
+        <nav class="sidebar-nav nav flex-column flex-grow-1 px-3">
+          <a href="#" class="sidebar-link nav-link mb-1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            Dashboard
+          </a>
+          <a class="sidebar-link nav-link mb-1"
+             [class.sidebar-link-activo]="vistaActiva() === 'habitaciones'"
+             (click)="cambiarVista('habitaciones')">Habitaciones</a>
+          <a class="sidebar-link nav-link mb-1"
+             [class.sidebar-link-activo]="vistaActiva() === 'reservas'"
+             (click)="cambiarVista('reservas')">Reservas</a>
+          <a class="sidebar-link nav-link mb-1"
+             [class.sidebar-link-activo]="vistaActiva() === 'servicios'"
+             (click)="cambiarVista('servicios')">Servicios</a>
+          <hr class="my-3 text-secondary">
+          <a href="#" class="sidebar-link nav-link mb-1">Mi perfil</a>
+        </nav>
+        <div class="sidebar-usuario d-flex align-items-center gap-2 p-3 mt-auto">
+          <img src="imagenes/luciano-paez.webp" class="sidebar-avatar img-fluid rounded-circle" alt="Usuario">
+          <div class="sidebar-usuario-info">
+            <strong>Luciano Paez</strong>
+            <span>Administrador</span>
+          </div>
+          <a href="inicio-sesion.html" class="sidebar-salir" aria-label="Cerrar sesión">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </a>
+        </div>
+      </aside>
+
+      <main class="admin-main col-12 col-md-9 col-xl-10 p-4">
+
+        <!-- ===== HABITACIONES ===== -->
+        <div *ngIf="vistaActiva() === 'habitaciones'">
+          <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="#">Habitaciones</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Todas las habitaciones</li>
+                </ol>
+              </nav>
+              <h1 class="admin-titulo m-0">Habitaciones</h1>
+            </div>
+            <button type="button" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2" (click)="abrirModalAgregarHabitacion()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Agregar habitación
+            </button>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-azul">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">120</span>
+                  <span class="stat-card-label">Total de habitaciones</span>
+                  <span class="stat-card-sub">Todas las habitaciones</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-verde">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">86</span>
+                  <span class="stat-card-label">Disponibles</span>
+                  <span class="stat-card-sub">Listas para reservar</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-amarillo">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">24</span>
+                  <span class="stat-card-label">Ocupadas</span>
+                  <span class="stat-card-sub">Actualmente reservadas</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-rojo">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">10</span>
+                  <span class="stat-card-label">Mantenimiento</span>
+                  <span class="stat-card-sub">En reparación</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-tabla-contenedor p-4 bg-white border rounded-3">
+            <div class="row g-3 align-items-center mb-4">
+              <div class="col-12 col-lg-5 position-relative">
+                <input type="text" class="form-control" placeholder="Buscar habitaciones...">
+              </div>
+              <div class="col-12 col-lg-4 d-none d-lg-block"></div>
+              <div class="col-12 col-md-4 col-lg-3">
+                <select class="admin-filtro form-select">
+                  <option>Todos los estados</option>
+                  <option>Disponible</option>
+                  <option>Ocupada</option>
+                  <option>Mantenimiento</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-tabla table table-hover align-middle m-0">
+                <thead>
+                  <tr>
+                    <th>Nombre de habitación</th>
+                    <th>Categoría</th>
+                    <th>Precio / Noche</th>
+                    <th>Estado</th>
+                    <th>Ocupación</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let hab of habitaciones">
+                    <td>
+                      <div class="hab-celda">
+                        <img [src]="hab.imagen" [alt]="hab.nombre" class="hab-celda-img img-fluid rounded" loading="lazy">
+                        <div>
+                          <strong>{{ hab.nombre }}</strong>
+                          <span>{{ hab.subtitulo }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="etiqueta" [ngClass]="'etiqueta-' + hab.categoriaSlug">{{ hab.categoriaLabel }}</span></td>
+                    <td class="precio">${{ hab.precio }}</td>
+                    <td><span class="etiqueta" [ngClass]="'etiqueta-' + hab.estado">{{ hab.estadoTexto }}</span></td>
+                    <td>
+                      <div class="ocupacion">
+                        <span>{{ hab.ocupacionPorcentaje }}%</span>
+                        <div class="barra-ocupacion">
+                          <div class="barra-ocupacion-fill"
+                               [class.barra-ocupacion-fill-llena]="hab.ocupacionPorcentaje === 100"
+                               [style.width.%]="hab.ocupacionPorcentaje"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="tabla-acciones dropdown-acciones">
+                        <button type="button" class="tabla-btn" title="Acciones" (click)="toggleDropdown(hab.id)">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                          </svg>
+                        </button>
+                        <div class="dropdown-overlay" *ngIf="dropdownAbiertoId() === hab.id" (click)="cerrarDropdown()"></div>
+                        <ul class="dropdown-menu dropdown-menu-end" *ngIf="dropdownAbiertoId() === hab.id">
+                          <li><a class="dropdown-item" (click)="verItem(hab)">Ver</a></li>
+                          <li><a class="dropdown-item" (click)="cambiarEstadoItem(hab)">Cambiar estado</a></li>
+                          <li><label class="dropdown-item text-secondary" (click)="cerrarDropdown()">Cancelar</label></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="admin-paginacion d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 mt-3">
+              <span class="admin-paginacion-info">Mostrando 1 a {{ habitaciones.length }} de 120 habitaciones</span>
+              <div class="admin-paginacion-controles">
+                <button type="button" class="pag-btn" disabled>&laquo;</button>
+                <button type="button" class="pag-btn pag-btn--activo">1</button>
+                <button type="button" class="pag-btn">2</button>
+                <button type="button" class="pag-btn">&raquo;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== SERVICIOS ===== -->
+        <div *ngIf="vistaActiva() === 'servicios'">
+          <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Servicios</li>
+                </ol>
+              </nav>
+              <h1 class="admin-titulo m-0">Servicios</h1>
+            </div>
+            <button type="button" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2" (click)="abrirModalAgregarServicio()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Agregar servicio
+            </button>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-azul">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">4</span>
+                  <span class="stat-card-label">Total de servicios</span>
+                  <span class="stat-card-sub">Todos los espacios</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-verde">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">3</span>
+                  <span class="stat-card-label">Disponibles</span>
+                  <span class="stat-card-sub">Listos para reservar</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-amarillo">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">1</span>
+                  <span class="stat-card-label">Ocupados</span>
+                  <span class="stat-card-sub">En uso actualmente</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="stat-card stat-card-rojo">
+                <div class="stat-card-icono">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <div class="stat-card-info">
+                  <span class="stat-card-numero">0</span>
+                  <span class="stat-card-label">Mantenimiento</span>
+                  <span class="stat-card-sub">En reparación</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-tabla-contenedor p-4 bg-white border rounded-3">
+            <div class="row g-3 align-items-center mb-4">
+              <div class="col-12 col-lg-5 position-relative">
+                <input type="text" class="form-control" placeholder="Buscar servicios...">
+              </div>
+              <div class="col-12 col-lg-4 d-none d-lg-block"></div>
+              <div class="col-12 col-md-4 col-lg-3">
+                <select class="admin-filtro form-select">
+                  <option>Todos los estados</option>
+                  <option>Disponible</option>
+                  <option>Ocupado</option>
+                  <option>Mantenimiento</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-tabla table table-hover align-middle m-0">
+                <thead>
+                  <tr>
+                    <th>Nombre del servicio</th>
+                    <th>Categoría</th>
+                    <th>Precio / Uso</th>
+                    <th>Estado</th>
+                    <th>Ocupación</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let serv of servicios">
+                    <td>
+                      <div class="hab-celda">
+                        <img [src]="serv.imagen" [alt]="serv.nombre" class="hab-celda-img img-fluid rounded" loading="lazy">
+                        <div>
+                          <strong>{{ serv.nombre }}</strong>
+                          <span>{{ serv.subtitulo }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="badge bg-light text-dark border fw-medium">{{ serv.categoriaLabel }}</span></td>
+                    <td class="precio">${{ serv.precio }}</td>
+                    <td><span class="etiqueta" [ngClass]="'etiqueta-' + serv.estado">{{ serv.estadoTexto }}</span></td>
+                    <td>
+                      <div class="ocupacion">
+                        <span>{{ serv.ocupacionPorcentaje }}%</span>
+                        <div class="barra-ocupacion">
+                          <div class="barra-ocupacion-fill"
+                               [class.barra-ocupacion-fill-llena]="serv.ocupacionPorcentaje === 100"
+                               [style.width.%]="serv.ocupacionPorcentaje"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="tabla-acciones dropdown-acciones">
+                        <button type="button" class="tabla-btn" title="Acciones" (click)="toggleDropdown(serv.id)">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                          </svg>
+                        </button>
+                        <div class="dropdown-overlay" *ngIf="dropdownAbiertoId() === serv.id" (click)="cerrarDropdown()"></div>
+                        <ul class="dropdown-menu dropdown-menu-end" *ngIf="dropdownAbiertoId() === serv.id">
+                          <li><a class="dropdown-item" (click)="verItem(serv)">Ver</a></li>
+                          <li><a class="dropdown-item" (click)="cambiarEstadoItem(serv)">Cambiar estado</a></li>
+                          <li><label class="dropdown-item text-secondary" (click)="cerrarDropdown()">Cancelar</label></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="admin-paginacion d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 mt-3">
+              <span class="admin-paginacion-info">Mostrando 1 a {{ servicios.length }} de {{ servicios.length }} servicios</span>
+              <div class="admin-paginacion-controles">
+                <button type="button" class="pag-btn" disabled>&laquo;</button>
+                <button type="button" class="pag-btn pag-btn--activo">1</button>
+                <button type="button" class="pag-btn" disabled>&raquo;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RESERVAS ===== -->
+        <div *ngIf="vistaActiva() === 'reservas'">
+          <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Reservas</li>
+                </ol>
+              </nav>
+              <h1 class="admin-titulo m-0">Reservas</h1>
+            </div>
+          </div>
+
+          <div class="admin-tabla-contenedor p-4 bg-white border rounded-3">
+            <div class="table-responsive">
+              <table class="admin-tabla table table-hover align-middle m-0">
+                <thead>
+                  <tr>
+                    <th>Nombre habitación</th>
+                    <th>Huésped</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let res of reservas">
+                    <td>
+                      <div class="hab-celda">
+                        <img [src]="res.imagen" [alt]="res.itemNombre" class="hab-celda-img img-fluid rounded" loading="lazy">
+                        <div>
+                          <strong>{{ res.itemNombre }}</strong>
+                          <span>{{ res.itemSubtitulo }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ res.huesped }}</td>
+                    <td>{{ res.fechaInicio }}</td>
+                    <td>{{ res.fechaFin }}</td>
+                    <td>
+                      <div class="tabla-acciones dropdown-acciones">
+                        <button type="button" class="tabla-btn" title="Acciones" (click)="toggleDropdown(res.id)">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                          </svg>
+                        </button>
+                        <div class="dropdown-overlay" *ngIf="dropdownAbiertoId() === res.id" (click)="cerrarDropdown()"></div>
+                        <ul class="dropdown-menu dropdown-menu-end" *ngIf="dropdownAbiertoId() === res.id">
+                          <li><a class="dropdown-item" (click)="verReserva(res)">Ver</a></li>
+                          <li><a class="dropdown-item" (click)="cambiarEstadoReserva(res)">Cambiar estado</a></li>
+                          <li><label class="dropdown-item text-secondary" (click)="cerrarDropdown()">Cancelar</label></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: AGREGAR HABITACIÓN ===== -->
+<div class="modal" *ngIf="mostrarAgregarHabitacion">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h2 class="modal-title fs-5 fw-bold text-dark">Agregar habitación</h2>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form (ngSubmit)="guardarHabitacion()">
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
+              <input type="text" class="form-control" id="habPiso" name="habPiso" placeholder="Ej: 1" [(ngModel)]="nuevaHabitacion.piso">
+            </div>
+            <div class="col-6">
+              <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
+              <input type="text" class="form-control" id="habNumero" name="habNumero" placeholder="Ej: 101" [(ngModel)]="nuevaHabitacion.numero">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
+            <select class="form-select text-dark" id="habTipo" name="habTipo" [(ngModel)]="nuevaHabitacion.tipo">
+              <option value="" disabled selected>Seleccioná un tipo</option>
+              <option value="estandar">Habitación estándar</option>
+              <option value="deluxe">Deluxe</option>
+              <option value="premium">Premium</option>
+              <option value="familiar">Familiar</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
+            <input type="number" class="form-control" id="habPrecio" name="habPrecio" placeholder="Ej: 85" [(ngModel)]="nuevaHabitacion.precio">
+            <div class="form-text text-muted" style="font-size: 0.75rem;">
+              Referencia: Estándar $85 · Deluxe $140 · Premium $220 · Familiar $180
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="habDescripcion" class="form-label fw-semibold text-secondary small">Descripción</label>
+            <textarea class="form-control" id="habDescripcion" name="habDescripcion" rows="3" placeholder="Describí las características de la habitación..." [(ngModel)]="nuevaHabitacion.descripcion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="habEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
+            <select class="form-select text-dark" id="habEstado" name="habEstado" [(ngModel)]="nuevaHabitacion.estado">
+              <option value="disponible">Disponible</option>
+              <option value="ocupado">Ocupado</option>
+              <option value="mantenimiento">En mantenimiento</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="guardarHabitacion()">Guardar habitación</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: AGREGAR SERVICIO ===== -->
+<div class="modal" *ngIf="mostrarAgregarServicio">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h2 class="modal-title fs-5 fw-bold text-dark">Agregar servicio</h2>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form (ngSubmit)="guardarServicio()">
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label for="servPiso" class="form-label fw-semibold text-secondary small">Piso</label>
+              <input type="text" class="form-control" id="servPiso" name="servPiso" placeholder="Ej: 1" [(ngModel)]="nuevoServicio.piso">
+            </div>
+            <div class="col-6">
+              <label for="servNombre" class="form-label fw-semibold text-secondary small">Nombre del servicio</label>
+              <input type="text" class="form-control" id="servNombre" name="servNombre" placeholder="Ej: Sala conferencia" [(ngModel)]="nuevoServicio.nombre">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="servTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
+            <select class="form-select text-dark" id="servTipo" name="servTipo" [(ngModel)]="nuevoServicio.tipo">
+              <option value="" disabled selected>Seleccioná un tipo</option>
+              <option value="sala-conferencia">Sala conferencia</option>
+              <option value="comedor">Comedor</option>
+              <option value="sala-privada">Sala privada</option>
+              <option value="co-working">Co-working</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="servPrecio" class="form-label fw-semibold text-secondary small">Precio / Uso ($)</label>
+            <input type="number" class="form-control" id="servPrecio" name="servPrecio" placeholder="Ej: 60" [(ngModel)]="nuevoServicio.precio">
+          </div>
+          <div class="mb-3">
+            <label for="servDescripcion" class="form-label fw-semibold text-secondary small">Descripción</label>
+            <textarea class="form-control" id="servDescripcion" name="servDescripcion" rows="3" placeholder="Describí las características del servicio..." [(ngModel)]="nuevoServicio.descripcion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="servEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
+            <select class="form-select text-dark" id="servEstado" name="servEstado" [(ngModel)]="nuevoServicio.estado">
+              <option value="disponible">Disponible</option>
+              <option value="ocupado">Ocupado</option>
+              <option value="mantenimiento">En mantenimiento</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="guardarServicio()">Guardar servicio</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: VER HABITACIÓN / SERVICIO (compartido) ===== -->
+<div class="modal" *ngIf="modalVerItem as item">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="mb-3">
+          <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+          <p class="mb-0 fw-semibold text-dark">{{ item.nombre }}</p>
+          <span class="text-muted" style="font-size: 0.8rem;">{{ item.subtitulo }}</span>
+        </div>
+        <div class="row g-3">
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+            <p class="mb-0 text-dark">{{ item.categoriaLabel }}</p>
+          </div>
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+            <p class="mb-0 text-dark">${{ item.precio }}</p>
+          </div>
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+            <p class="mb-0 text-dark">{{ item.estadoTexto }}</p>
+          </div>
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+            <p class="mb-0 text-dark">{{ item.ocupacionPorcentaje }}%</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: CAMBIAR ESTADO HABITACIÓN / SERVICIO (compartido) ===== -->
+<div class="modal" *ngIf="modalEstadoItem as item">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form>
+          <div class="mb-1">
+            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+            <input type="text" class="form-control" [value]="item.nombre" readonly>
+          </div>
+          <div class="mb-1 mt-3">
+            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+            <select class="form-select text-dark" #nuevoEstadoSelect [value]="item.estado">
+              <option value="disponible">Disponible</option>
+              <option value="ocupado">Ocupado</option>
+              <option value="mantenimiento">En mantenimiento</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="guardarNuevoEstado(nuevoEstadoSelect.value)">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: VER RESERVA ===== -->
+<div class="modal" *ngIf="modalVerReserva as reserva">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="mb-3">
+          <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+          <p class="mb-0 fw-semibold text-dark">{{ reserva.itemNombre }}</p>
+          <span class="text-muted" style="font-size: 0.8rem;">{{ reserva.itemSubtitulo }}</span>
+        </div>
+        <div class="mb-3">
+          <span class="form-label fw-semibold text-secondary small d-block">Huésped</span>
+          <p class="mb-0 text-dark">{{ reserva.huesped }}</p>
+        </div>
+        <div class="row g-3">
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+            <p class="mb-0 text-dark">Reserva</p>
+          </div>
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+            <p class="mb-0 text-dark">${{ reserva.precio }}</p>
+          </div>
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+            <p class="mb-0 text-dark">{{ reserva.estadoTexto }}</p>
+          </div>
+          <div class="col-6">
+            <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+            <p class="mb-0 text-dark">{{ reserva.fechaInicio }} - {{ reserva.fechaFin }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: CAMBIAR ESTADO RESERVA ===== -->
+<div class="modal" *ngIf="modalEstadoReserva as reserva">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+      <div class="modal-header border-bottom px-4 py-3">
+        <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form>
+          <div class="mb-1">
+            <label class="form-label fw-semibold text-secondary small">Elemento</label>
+            <input type="text" class="form-control" [value]="reserva.itemNombre" readonly>
+          </div>
+          <div class="mb-1 mt-3">
+            <label class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+            <select class="form-select text-dark">
+              <option value="disponible" selected>Disponible</option>
+              <option value="ocupado">Ocupado</option>
+              <option value="mantenimiento">En mantenimiento</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+        <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
