@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   imports: [RouterLink],
   selector: 'app-footer',
-  styleUrl: './footer.css',
-  templateUrl: './footer.html',
+  styleUrl: './footer.component.css',
+  templateUrl: './footer.component.html',
 })
 export class FooterComponent {
 }

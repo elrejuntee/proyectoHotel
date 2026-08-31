@@ -6,8 +6,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
   selector: 'app-panel-usuario',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './panel-usuario.html',
-  styleUrl: './panel-usuario.css'
+  templateUrl: './panel-usuario.component.html',
+  styleUrl: './panel-usuario.component.css'
 })
 export class PanelUsuarioComponent implements OnInit {
   perfilForm!: FormGroup;

@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FooterComponent } from './footer.component';
 
-import { PanelUsuario } from './panel-usuario';
-
-describe('PanelUsuario', () => {
-  let component: PanelUsuario;
-  let fixture: ComponentFixture<PanelUsuario>;
+describe('FooterComponent', () => {
+  let component: FooterComponent;
+  let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PanelUsuario]
+      imports: [FooterComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(PanelUsuario);
+    fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
