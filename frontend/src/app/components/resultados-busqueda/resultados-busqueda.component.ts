@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-resultados-busqueda',
   standalone: true,
   imports: [],
-  templateUrl: './resultados-busqueda.html',
-  styleUrl: './resultados-busqueda.css'
+  templateUrl: './resultados-busqueda.component.html',
+  styleUrl: './resultados-busqueda.component.css'
 })
 export class ResultadosBusquedaComponent {
   // Acá irá la lógica del componente más adelante

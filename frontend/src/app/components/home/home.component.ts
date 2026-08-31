@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   imports: [RouterLink],
   selector: 'app-home',
-  styleUrl: './home.css',
-  templateUrl: './home.html',
+  styleUrl: './home.component.css',
+  templateUrl: './home.component.html',
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent {
