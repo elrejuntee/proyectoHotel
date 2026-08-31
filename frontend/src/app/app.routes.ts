@@ -10,16 +10,18 @@ import { Pagina404Component } from './pages/pagina-404/pagina-404.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { RegistroComponent } from './auth/registro/registro.component';
+import { FormularioServiciosComponent } from './components/formulario-servicios/formulario-servicios.component';
 
 
 export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
             { path: '', component: HomeComponent },
             { path: 'servicios', component: ServiciosComponent },
+            { path: 'formulario-servicio', component: FormularioServiciosComponent },
             { path: 'reservas', component: ResultadosBusquedaComponent },
             { path: 'panel-usuario', component: PanelUsuarioComponent },
             { path: 'historial-reservas', component: HistorialReservasComponent },
-            { path: 'quienes-somos', component: QuienesSomosComponent },
+            { path: 'quienes-somos', component: QuienesSomosComponent }
         ]
     },
     { path: "login", component: LoginComponent },
