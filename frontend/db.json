@@ -1,0 +1,57 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "nombre": "Juan",
+            "apellido": "lopez",
+            "email": "juan.perez@example.com",
+            "password": "123456",
+            "rol": "user"
+        }
+    ],
+
+    "habitaciones": [
+        {
+            "id": 1,
+            "numero": 101,
+            "piso": 1,
+            "tipo": "deluxe",
+            "precio": 500.0,
+            "disponible": true
+        }
+    ],
+
+    "reservas": [
+        {
+            "id": 1,
+            "usuarioId": 1,
+            "id_estado_reserva": 1,
+            "fecha_reserva": "23-09-2026",
+            "fecha_checkin": "25-09-2026",
+            "fecha_checkout": "28-09-2026",
+            "cant_huespedes": 5
+        }
+    ],
+
+    "estado_reserva": [
+        {
+            "id": 1,
+            "estado": "pendiente"
+        },
+        {
+            "id": 2,
+            "estado": "confirmada"
+        },
+        {
+            "id": 3,
+            "estado": "cancelada"
+        }
+    ],
+
+    "reserva_habitacion": [
+        {
+            "id_reserva": 1,
+            "id_habitacion": 1
+        }
+    ]
+}
