@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarAuthComponent, ReactiveFormsModule],
+  imports: [NavbarAuthComponent, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
