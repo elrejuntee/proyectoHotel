@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-
+import { FormBuilder,Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 @Component({
   selector: 'app-login',
   imports: [NavbarAuthComponent, ReactiveFormsModule, RouterLink],
@@ -24,8 +24,13 @@ export class LoginComponent {
   get password(){
     return this.loginForm.get("password")
   }
-
+  constructor(private authService: AuthService, private router: Router) {}
   enviar() {
     
   }
+  iniciarSesionRapido() {
+    this.authService.login();
+    this.router.navigate(['/panel-usuario']);
+  } 
 }
+
