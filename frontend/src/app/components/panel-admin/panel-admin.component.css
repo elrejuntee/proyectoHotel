@@ -219,3 +219,8 @@
 }
 .pag-btn--activo { background: var(--primario); border-color: var(--primario); color: var(--blanco); }
 .pag-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.etiqueta-mantenimiento {
+    background-color: #fff3cd;
+    color: #856404;
+}  
