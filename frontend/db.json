@@ -50,6 +50,10 @@
         {
             "id": 2,
             "nombre": "Ocupada"
+        },
+        {
+            "id": 3,
+            "nombre": "Mantenimiento"
         }
     ],
 
@@ -61,14 +65,41 @@
         {
             "id": 2,
             "nombre": "Baño privado"
+        },
+        {
+            "id": 3,
+            "nombre": "Aire acondicionado"
+        },
+        {
+            "id": 4,
+            "nombre": "TV con cable"
+        },
+        {
+            "id": 5,
+            "nombre": "Cocina equipada"
         }
     ],
 
     "tipos_habitacion": [
         {
             "id": 1,
-            "nombre": "Suite",
+            "nombre": "Suite Premium",
             "cant_cama": 2
+        },
+        {
+            "id": 2,
+            "nombre": "Suite Familiar",
+            "cant_cama": 4
+        },
+        {
+            "id": 3,
+            "nombre": "Habitación Deluxe",
+            "cant_cama": 1
+        },
+        {
+            "id": 4,
+            "nombre": "Habitación Estándar",
+            "cant_cama": 1
         }
     ],
 
@@ -76,12 +107,22 @@
         {
             "id": 1,
             "id_tipo_habitacion": 1,
-            "id_comodidad": 1
+            "id_comodidad": [1, 2, 3,4,5]
         },
         {
             "id": 2,
-            "id_tipo_habitacion": 1,
-            "id_comodidad": 2
+            "id_tipo_habitacion": 2,
+            "id_comodidad": [1, 2, 3,4]
+        },
+        {
+            "id": 3,
+            "id_tipo_habitacion": 3,
+            "id_comodidad": [1, 2, 3]
+        },
+        {
+            "id": 4,
+            "id_tipo_habitacion": 4,
+            "id_comodidad": [1, 2]
         }
     ],
 
@@ -93,7 +134,39 @@
             "numero": 101,
             "piso": 1,
             "precio": 80000.0,
-            "capacidad": 2
+            "capacidad": 2,
+            "imagen_principal": "imagenes/premium.webp",
+            "imagenes_complementarias": [
+                "imagenes/premier-mobile.webp",
+                "imagenes/deluxe.webp"
+            ] 
+        },
+        {
+            "id": 2,
+            "id_tipo_habitacion": 2,
+            "id_estado_habitacion": 1,
+            "numero": 102,
+            "piso": 1,
+            "precio": 120000.0,
+            "capacidad": 4
+        },
+        {
+            "id": 3,
+            "id_tipo_habitacion": 3,
+            "id_estado_habitacion": 1,
+            "numero": 201,
+            "piso": 2,
+            "precio": 60000.0,
+            "capacidad": 1
+        },
+        {
+            "id": 4,
+            "id_tipo_habitacion": 4,
+            "id_estado_habitacion": 1,
+            "numero": 202,
+            "piso": 2,
+            "precio": 40000.0,
+            "capacidad": 1
         }
     ],
 
