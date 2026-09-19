@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private loginService = inject(LoginService);
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   mensajeError = '';
 
@@ -124,9 +125,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm.valueChanges.subscribe(() => {
-    if (this.mensajeError) {
-      this.mensajeError = '';
-    }
-  });
+      if (this.mensajeError) {
+        this.mensajeError = '';
+      }
+    });
+  }
+
+  // Método para el acceso rápido y el botón del template
+  iniciarSesionRapido() {
+    this.authService.login();
+    this.router.navigate(['/panel-usuario']);
   }
 }
