@@ -43,7 +43,7 @@
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg>
                                         <input formControlName="password" type="password" id="password" placeholder="Ingresá tu contraseña">
-                                         @if (password?.errors && password?.touched) {
+                                        @if (password?.errors && password?.touched) {
                                             @if (password?.hasError('required')) {
                                                 <span class="text-danger">Debe ingresar la contraseña</span>
                                             }
@@ -82,8 +82,7 @@
                                         </div>
 
                                         <div class="col-12 col-sm-6">
-                                            <a routerLink="/panel-usuario"
-                                                class="btn btn-acceso-usuario w-100 d-inline-flex align-items-center justify-content-center gap-2 py-2">
+                                            <a (click)="iniciarSesionRapido()" class="btn btn-acceso-usuario w-100 d-inline-flex align-items-center justify-content-center" style="cursor: pointer;">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2">
                                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
