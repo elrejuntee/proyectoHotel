@@ -91,6 +91,21 @@ export class PanelAdminComponent {
 
   // ===== Habitaciones: vienen de json-server a través de HabitacionesService =====
   habitaciones: Habitacion[] = [];
+  get totalHabitaciones(): number {
+  return this.habitaciones.length;
+  }
+
+  get totalDisponibles(): number {
+    return this.habitaciones.filter(h => h.estado === 'disponible').length;
+  }
+
+  get totalOcupadas(): number {
+    return this.habitaciones.filter(h => h.estado === 'ocupado').length;
+  }
+
+  get totalMantenimiento(): number {
+    return this.habitaciones.filter(h => h.estado === 'mantenimiento').length;
+  }
   tiposHabitacion: TipoHabitacionApi[] = [];
   estadosHabitacion: EstadoHabitacionApi[] = [];
   errorHabitaciones: string | null = null;
@@ -260,18 +275,49 @@ export class PanelAdminComponent {
   }
 
   guardarNuevoEstado(nuevoEstado: string): void {
-    const estado = nuevoEstado as EstadoDisponibilidad;
-    const textos: Record<EstadoDisponibilidad, string> = {
-      disponible: 'Disponible',
-      ocupado: 'Ocupado',
-      mantenimiento: 'En mantenimiento'
-    };
+    console.log('nuevoEstado recibido:', nuevoEstado);
+    console.log('estadosHabitacion:', this.estadosHabitacion);
+    console.log('modal:', this.modal());
     const m = this.modal();
-    if (m?.tipo === 'estado') {
-      m.item.estado = estado;
-      m.item.estadoTexto = textos[estado];
+    if (m?.tipo !== 'estado') { 
+      this.cerrarModal(); 
+      return; 
     }
-    this.cerrarModal();
+
+    const item = m.item;
+
+    if ('idApi' in item) {
+      // Es una habitación — persistir en db.json
+      const estadoApi = this.estadosHabitacion.find(
+        e => this.estadoSlug(e.nombre) === nuevoEstado
+      );
+      if (estadoApi) {
+        const cuerpo: HabitacionApi = {
+          ...item.original,
+          id_estado_habitacion: this.aIdApi(estadoApi.id)
+        };
+        this.habitacionesService.actualizarHabitacion(item.idApi, cuerpo).subscribe({
+          next: () => {
+            this.cerrarModal();
+            this.cargarHabitaciones();
+          },
+          error: (error) => {
+            this.errorHabitaciones = error.message;
+            this.cerrarModal();
+          }
+        });
+      }
+    } else {
+      // Es un servicio — solo en memoria por ahora
+      const textos: Record<EstadoDisponibilidad, string> = {
+        disponible: 'Disponible',
+        ocupado: 'Ocupado',
+        mantenimiento: 'En mantenimiento'
+      };
+      item.estado = nuevoEstado as EstadoDisponibilidad;
+      item.estadoTexto = textos[nuevoEstado as EstadoDisponibilidad];
+      this.cerrarModal();
+    }
   }
 
   // ===== Modales: Ver / Cambiar estado (reservas) =====
