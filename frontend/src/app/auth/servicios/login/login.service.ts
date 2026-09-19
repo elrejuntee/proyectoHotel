@@ -30,7 +30,6 @@ export class LoginService {
         );
 
         this.usuarioLogueado = usuario ?? null;
-
         return usuario;
       })
     );

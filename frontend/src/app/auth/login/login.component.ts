@@ -103,6 +103,7 @@ export class LoginComponent implements OnInit {
       next: (usuario) => {
         if (!usuario) {
           this.mensajeError = 'Correo o contraseña incorrectos.';
+          console.log(this.mensajeError);
           return;
         }
 
