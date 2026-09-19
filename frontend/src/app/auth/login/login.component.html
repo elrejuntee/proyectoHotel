@@ -10,7 +10,7 @@
                                 <p class="login-form-header-subtitulo text-muted small">Ingresá a tu cuenta de
                                     usuario</p>
                             </div>
-                            <form class="login-form" action="index.html" [formGroup]="loginForm" (ngSubmit)="enviar()">
+                            <form class="login-form" action="index.html" [formGroup]="loginForm" (ngSubmit)="enviar($event)">
                                 <div class="login-campo mb-2">
                                     <label for="email" class="form-label small fw-semibold">Correo
                                         electrónico</label>
@@ -43,8 +43,8 @@
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg>
                                         <input formControlName="password" type="password" id="password" placeholder="Ingresá tu contraseña">
-                                         @if (password?.errors && password?.touched) {
-                                            @if (password?.hasError('required')) {
+                                         @if (Password?.errors && Password?.touched) {
+                                            @if (Password?.hasError('required')) {
                                                 <span class="text-danger">Debe ingresar la contraseña</span>
                                             }
                                         }

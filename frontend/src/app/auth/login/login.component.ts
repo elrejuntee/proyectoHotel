@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -21,11 +21,13 @@ export class LoginComponent {
     return this.loginForm.get("email")
   }
 
-  get password(){
+  get Password(){
     return this.loginForm.get("password")
   }
 
-  enviar() {
-    
+  enviar(event: Event){
+    event.preventDefault()
+
+    this.loginForm.markAllAsTouched()
   }
 }
