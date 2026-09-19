@@ -122,5 +122,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm.valueChanges.subscribe(() => {
+    if (this.mensajeError) {
+      this.mensajeError = '';
+    }
+  });
+  }
 }

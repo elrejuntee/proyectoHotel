@@ -35,6 +35,11 @@
                                             }
                                         </div>
                                     }
+                                    @if( mensajeError ) {
+                                        <div class="login-campo-error">
+                                            <span>{{ mensajeError }}</span>
+                                        </div>
+                                    }
                                 </div>
 
                                 <div class="login-campo mb-3">
@@ -53,6 +58,11 @@
                                             @if (Password?.hasError('required')) {
                                                 <span>Debe ingresar la contraseña</span>
                                             }
+                                        </div>
+                                    }
+                                    @if( mensajeError ) {
+                                        <div class="login-campo-error">
+                                            <span>{{ mensajeError }}</span>
                                         </div>
                                     }
                                 </div>
