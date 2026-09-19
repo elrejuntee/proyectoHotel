@@ -50,6 +50,10 @@
     {
       "id": "3",
       "nombre": "Mantenimiento"
+    },
+    {
+      "id": "4",
+      "nombre": "Inactiva"
     }
   ],
   "comodidades": [
