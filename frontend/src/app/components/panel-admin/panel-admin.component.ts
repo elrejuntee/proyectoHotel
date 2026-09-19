@@ -15,25 +15,25 @@ export type Vista = 'habitaciones' | 'servicios' | 'reservas';
 const IMAGEN_POR_DEFECTO = 'imagenes/premium.webp';
 
 export interface Habitacion {
-  id: string;             // id de vista (lo usa el dropdown), ej: "hab1"
-  idApi: number | string; // id real en db.json (se usa en las llamadas HTTP)
+  id: string;             
+  idApi: number | string; 
   imagen: string;
   nombre: string;
-  subtitulo: string; // ej: "Habitación 101"
+  subtitulo: string; 
   categoriaSlug: 'suite' | 'deluxe';
   categoriaLabel: string;
   precio: number;
   estado: EstadoDisponibilidad;
   estadoTexto: string;
   ocupacionPorcentaje: number;
-  original: HabitacionApi; // registro tal como está en db.json (para precargar y editar)
+  original: HabitacionApi; 
 }
 
 export interface Servicio {
   id: string;
   imagen: string;
   nombre: string;
-  subtitulo: string; // ej: "Piso 1"
+  subtitulo: string; 
   categoriaLabel: string;
   precio: number;
   estado: EstadoDisponibilidad;
@@ -80,13 +80,13 @@ type ModalActivo =
 })
 export class PanelAdminComponent {
 
-  // ===== Estado de la pestaña activa (reemplaza los <input type="radio">) =====
+  // ===== Estado de la pestaña activa  =====
   vistaActiva = signal<Vista>('habitaciones');
 
-  // ===== Estado del dropdown de acciones abierto (reemplaza los checkbox .acciones-toggle) =====
+  // ===== Estado del dropdown de acciones abierto  =====
   dropdownAbiertoId = signal<string | null>(null);
 
-  // ===== Estado del modal abierto (reemplaza los .modal:target) =====
+  // ===== Estado del modal abierto  =====
   modal = signal<ModalActivo>(null);
 
   // ===== Habitaciones: vienen de json-server a través de HabitacionesService =====
@@ -307,11 +307,7 @@ export class PanelAdminComponent {
     this.modal.set({ tipo: 'editarHabitacion', item: hab });
   }
 
-  /**
-   * Al elegir el tipo de habitación, precio y capacidad se toman del propio tipo
-   * (colección tipos_habitacion); ambos campos son de solo lectura en el formulario.
-   * En edición, si vuelve al tipo original se restauran los valores de la propia habitación.
-   */
+  
   alCambiarTipoHabitacion(idTipo: string): void {
     this.errorFormularioHabitacion = null;
 
@@ -323,12 +319,12 @@ export class PanelAdminComponent {
       precio = editando.original.precio;
       capacidad = editando.original.capacidad;
     } else {
-      const tipo = this.tiposHabitacion.find(t => this.mismoId(t.id, idTipo));
-      if (tipo && tipo.precio != null && tipo.capacidad != null) {
-        precio = tipo.precio;
-        capacidad = tipo.capacidad;
+      const referencia = this.habitaciones.find(h => this.mismoId(h.original.id_tipo_habitacion, idTipo));
+      if (referencia) {
+        precio = referencia.original.precio;
+        capacidad = referencia.original.capacidad;
       } else {
-        this.errorFormularioHabitacion = 'Este tipo de habitación no tiene precio o capacidad definidos en tipos_habitacion.';
+        this.errorFormularioHabitacion = 'No hay ninguna habitación de este tipo en la base de datos de la cual tomar precio y capacidad.';
       }
     }
 
@@ -336,7 +332,7 @@ export class PanelAdminComponent {
     this.Capacidad?.setValue(capacidad);
   }
 
-  /** Guarda el formulario: POST si es alta, PUT si es edición. Luego recarga el listado. */
+  /** Guarda el formulario */
   guardarHabitacion(): void {
     if (this.guardandoHabitacion) {
       return;
@@ -346,7 +342,7 @@ export class PanelAdminComponent {
       const f = this.formHabitacion.value;
       const editando = this.modalEditarHabitacion;
 
-      // En edición se parte del registro original para no perder campos (ej. imágenes) al hacer PUT
+      
       const cuerpo: HabitacionApi = editando
         ? { ...editando.original }
         : { id_tipo_habitacion: '', id_estado_habitacion: '', numero: 0, piso: 0, precio: 0, capacidad: 0 };
@@ -368,7 +364,7 @@ export class PanelAdminComponent {
         next: () => {
           this.guardandoHabitacion = false;
           this.cerrarModal();
-          this.cargarHabitaciones(); // refresca el listado con lo que quedó guardado en db.json
+          this.cargarHabitaciones(); 
         },
         error: (error) => {
           this.guardandoHabitacion = false;
@@ -412,7 +408,6 @@ export class PanelAdminComponent {
     });
   }
 
-  /** Convierte un registro de db.json en el modelo que consume la tabla. */
   private aVistaHabitacion(h: HabitacionApi): Habitacion {
     const tipo = this.tiposHabitacion.find(t => this.mismoId(t.id, h.id_tipo_habitacion));
     const estadoApi = this.estadosHabitacion.find(e => this.mismoId(e.id, h.id_estado_habitacion));
@@ -425,7 +420,6 @@ export class PanelAdminComponent {
       imagen: h.imagen_principal ?? IMAGEN_POR_DEFECTO,
       nombre: tipoNombre,
       subtitulo: `Habitación ${h.numero}`,
-      // Las únicas etiquetas con estilo son 'suite' y 'deluxe'
       categoriaSlug: tipoNombre.toLowerCase().includes('suite') ? 'suite' : 'deluxe',
       categoriaLabel: tipoNombre,
       precio: h.precio,

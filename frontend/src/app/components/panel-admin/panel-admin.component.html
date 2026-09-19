@@ -70,7 +70,7 @@
             </button>
           </div>
 
-          <div class="alert alert-danger" *ngIf="errorHabitaciones() as error">{{ error }}</div>
+          <div class="alert alert-danger" *ngIf="errorHabitaciones">{{ errorHabitaciones }}</div>
 
           <div class="row g-4 mb-4">
             <div class="col-12 col-sm-6 col-xl-3">
@@ -166,7 +166,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let hab of habitaciones()">
+                  <tr *ngFor="let hab of habitaciones">
                     <td>
                       <div class="hab-celda">
                         <img [src]="hab.imagen" [alt]="hab.nombre" class="hab-celda-img img-fluid rounded" loading="lazy">
@@ -213,7 +213,7 @@
             </div>
 
             <div class="admin-paginacion d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 mt-3">
-              <span class="admin-paginacion-info">Mostrando 1 a {{ habitaciones().length }} de 120 habitaciones</span>
+              <span class="admin-paginacion-info">Mostrando 1 a {{ habitaciones.length }} de 120 habitaciones</span>
               <div class="admin-paginacion-controles">
                 <button type="button" class="pag-btn" disabled>&laquo;</button>
                 <button type="button" class="pag-btn pag-btn--activo">1</button>
@@ -474,46 +474,57 @@
         <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body p-4">
-        <div class="alert alert-danger py-2 small" *ngIf="errorFormularioHabitacion() as error">{{ error }}</div>
-        <form (ngSubmit)="guardarHabitacion()">
+        <div class="alert alert-danger py-2 small" *ngIf="errorFormularioHabitacion">{{ errorFormularioHabitacion }}</div>
+        <form [formGroup]="formHabitacion" (ngSubmit)="guardarHabitacion()">
           <div class="row g-3 mb-3">
             <div class="col-6">
               <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
-              <input type="number" class="form-control" id="habPiso" name="habPiso" placeholder="Ej: 1" [(ngModel)]="formHabitacion.piso" [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+              <input type="number" class="form-control" id="habPiso" formControlName="piso" placeholder="Ej: 1"
+                     [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+              <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('required')">El piso es requerido.</p>
+              <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('min')">El piso no puede ser negativo.</p>
             </div>
             <div class="col-6">
               <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
-              <input type="number" class="form-control" id="habNumero" name="habNumero" placeholder="Ej: 101" [(ngModel)]="formHabitacion.numero" [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+              <input type="number" class="form-control" id="habNumero" formControlName="numero" placeholder="Ej: 101"
+                     [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+              <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('required')">El número es requerido.</p>
+              <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('min')">El número debe ser mayor a 0.</p>
             </div>
           </div>
           <div class="mb-3">
             <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
-            <select class="form-select text-dark" id="habTipo" name="habTipo" [ngModel]="formHabitacion.id_tipo_habitacion" (ngModelChange)="alCambiarTipoHabitacion($event)">
-              <option [ngValue]="null" disabled>Seleccioná un tipo</option>
-              <option *ngFor="let tipo of tiposHabitacion()" [ngValue]="tipo.id">{{ tipo.nombre }}</option>
+            <select #selTipo class="form-select text-dark" id="habTipo" formControlName="tipo" (change)="alCambiarTipoHabitacion(selTipo.value)">
+              <option value="" disabled>Seleccioná un tipo</option>
+              <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">{{ tipo.nombre }}</option>
             </select>
+            <p class="text-danger small mb-0" *ngIf="Tipo?.touched && Tipo?.hasError('required')">Elegí un tipo de habitación.</p>
           </div>
           <div class="row g-3 mb-3">
             <div class="col-6">
               <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
-              <input type="number" class="form-control bg-light" id="habPrecio" name="habPrecio" placeholder="Según el tipo" [(ngModel)]="formHabitacion.precio" readonly>
+              <input type="number" class="form-control bg-light" id="habPrecio" formControlName="precio" placeholder="Según el tipo" readonly>
+              <p class="text-danger small mb-0" *ngIf="Precio?.touched && Precio?.hasError('required')">El precio se completa al elegir el tipo.</p>
             </div>
             <div class="col-6">
               <label for="habCapacidad" class="form-label fw-semibold text-secondary small">Capacidad</label>
-              <input type="number" class="form-control bg-light" id="habCapacidad" name="habCapacidad" placeholder="Según el tipo" [(ngModel)]="formHabitacion.capacidad" readonly>
+              <input type="number" class="form-control bg-light" id="habCapacidad" formControlName="capacidad" placeholder="Según el tipo" readonly>
+              <p class="text-danger small mb-0" *ngIf="Capacidad?.touched && Capacidad?.hasError('required')">La capacidad se completa al elegir el tipo.</p>
             </div>
           </div>
           <div class="mb-3">
             <label for="habEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
-            <select class="form-select text-dark" id="habEstado" name="habEstado" [(ngModel)]="formHabitacion.id_estado_habitacion">
-              <option *ngFor="let estado of estadosHabitacion()" [ngValue]="estado.id">{{ estado.nombre }}</option>
+            <select class="form-select text-dark" id="habEstado" formControlName="estado">
+              <option value="" disabled>Seleccioná un estado</option>
+              <option *ngFor="let estado of estadosHabitacion" [value]="estado.id">{{ estado.nombre }}</option>
             </select>
+            <p class="text-danger small mb-0" *ngIf="Estado?.touched && Estado?.hasError('required')">Elegí un estado.</p>
           </div>
         </form>
       </div>
       <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
         <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
-        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" [disabled]="guardandoHabitacion()" (click)="guardarHabitacion()">
+        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" [disabled]="guardandoHabitacion" (click)="guardarHabitacion()">
           {{ esEdicionHabitacion ? 'Guardar cambios' : 'Guardar habitación' }}
         </button>
       </div>

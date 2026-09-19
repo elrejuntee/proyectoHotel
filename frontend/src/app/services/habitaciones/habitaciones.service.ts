@@ -2,11 +2,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 
-// Interfaces que reflejan las colecciones de db.json (json-server)
+// Interfaces 
 
 /** Colección "habitaciones". */
 export interface HabitacionApi {
-  id?: number | string; // json-server lo genera al crear (POST); a veces viene como número y a veces como texto
+  id?: number | string; 
   id_tipo_habitacion: number | string;
   id_estado_habitacion: number | string;
   numero: number;
@@ -22,8 +22,6 @@ export interface TipoHabitacionApi {
   id: number | string;
   nombre: string;
   cant_cama: number;
-  precio?: number;    // precio por noche definido para el tipo
-  capacidad?: number; // capacidad definida para el tipo
 }
 
 /** Colección "estados_habitacion". */
@@ -60,21 +58,21 @@ export class HabitacionesService {
     );
   }
 
-  // ----- POST: crea la habitación (json-server genera el id y la guarda en db.json) -----
+  // ----- POST -----
   crearHabitacion(habitacion: HabitacionApi): Observable<HabitacionApi> {
     return this.http.post<HabitacionApi>(this.url + '/habitaciones', habitacion).pipe(
       catchError(this.handleError)
     );
   }
 
-  // ----- PUT: reemplaza la habitación completa, por eso se envía el objeto entero -----
+  // ----- PUT -----
   actualizarHabitacion(id: number | string, habitacion: HabitacionApi): Observable<HabitacionApi> {
     return this.http.put<HabitacionApi>(this.url + '/habitaciones/' + id, habitacion).pipe(
       catchError(this.handleError)
     );
   }
 
-  // ----- Manejo de errores (mismo esquema que en los apuntes) -----
+  // ----- Manejo de errores  -----
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // Error del lado del cliente, como un error de red, etc.
