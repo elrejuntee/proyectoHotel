@@ -1,57 +1,175 @@
 {
+    "roles_usuario": [
+        {
+            "id": 1,
+            "rol": "Administrador"
+        },
+        {
+            "id": 2,
+            "rol": "Huesped"
+        }
+    ],
+
     "usuarios": [
         {
             "id": 1,
+            "id_rol": 2,
             "nombre": "Juan",
-            "apellido": "lopez",
-            "email": "juan.perez@example.com",
-            "password": "123456",
-            "rol": "user"
+            "apellido": "Pérez",
+            "email": "juan@email.com",
+            "contraseña": "hash123"
+        }
+    ],
+
+    "tipos_servicio": [
+        {
+            "id": 1,
+            "nombre_servicio": "Espacio de Trabajo"
+        },
+        {
+            "id": 2,
+            "nombre_servicio": "Sala de Reuniones"
+        }
+    ],
+
+    "servicios": [
+        {
+            "id": 1,
+            "id_tipo_servicio": 1,
+            "precio": 5000.0,
+            "capacidad_maxima": 10,
+            "cantidad_invitados": 2
+        }
+    ],
+
+    "estados_habitacion": [
+        {
+            "id": 1,
+            "nombre": "Disponible"
+        },
+        {
+            "id": 2,
+            "nombre": "Ocupada"
+        }
+    ],
+
+    "comodidades": [
+        {
+            "id": 1,
+            "nombre": "Wi-Fi gratis"
+        },
+        {
+            "id": 2,
+            "nombre": "Baño privado"
+        }
+    ],
+
+    "tipos_habitacion": [
+        {
+            "id": 1,
+            "nombre": "Suite",
+            "cant_cama": 2
+        }
+    ],
+
+    "tipos_habitacion_comodidad": [
+        {
+            "id": 1,
+            "id_tipo_habitacion": 1,
+            "id_comodidad": 1
+        },
+        {
+            "id": 2,
+            "id_tipo_habitacion": 1,
+            "id_comodidad": 2
         }
     ],
 
     "habitaciones": [
         {
             "id": 1,
+            "id_tipo_habitacion": 1,
+            "id_estado_habitacion": 1,
             "numero": 101,
             "piso": 1,
-            "tipo": "deluxe",
-            "precio": 500.0,
-            "disponible": true
+            "precio": 80000.0,
+            "capacidad": 2
+        }
+    ],
+
+    "estados_reserva": [
+        {
+            "id": 1,
+            "nombre": "Confirmada"
+        },
+        {
+            "id": 2,
+            "nombre": "Cancelada"
         }
     ],
 
     "reservas": [
         {
             "id": 1,
-            "usuarioId": 1,
+            "id_usuario": 1,
             "id_estado_reserva": 1,
-            "fecha_reserva": "23-09-2026",
-            "fecha_checkin": "25-09-2026",
-            "fecha_checkout": "28-09-2026",
-            "cant_huespedes": 5
+            "numero_reserva": 55901,
+            "fecha_hora_reserva": "2026-09-18T10:00:00Z"
         }
     ],
 
-    "estado_reserva": [
+    "reservas_habitacion": [
         {
             "id": 1,
-            "estado": "pendiente"
+            "id_reserva": 1,
+            "id_habitacion": 1,
+            "pago_acordado": 80000.0,
+            "fecha_hora_checkin": "2026-10-01T14:00:00Z",
+            "fecha_hora_checkout": "2026-10-10T10:00:00Z"
+        }
+    ],
+
+    "reservas_servicio": [
+        {
+            "id": 1,
+            "id_reserva": 1,
+            "id_servicio": 1,
+            "pago_acordado": 5000.0,
+            "fecha_hora_inicio": "2026-10-02T09:00:00Z",
+            "fecha_hora_fin": "2026-10-02T18:00:00Z"
+        }
+    ],
+
+    "estados_pago": [
+        {
+            "id": 1,
+            "nombre": "Aprobado"
         },
         {
             "id": 2,
-            "estado": "confirmada"
-        },
-        {
-            "id": 3,
-            "estado": "cancelada"
+            "nombre": "Pendiente"
         }
     ],
 
-    "reserva_habitacion": [
+    "metodos_pago": [
         {
+            "id": 1,
+            "nombre": "Tarjeta de Crédito"
+        },
+        {
+            "id": 2,
+            "nombre": "Transferencia"
+        }
+    ],
+    
+    "pagos": [
+        {
+            "id": 1,
             "id_reserva": 1,
-            "id_habitacion": 1
+            "id_estado_pago": 1,
+            "id_metodo_pago": 1,
+            "monto_total": 85000.0,
+            "fecha": "2026-09-18"
         }
     ]
 }
