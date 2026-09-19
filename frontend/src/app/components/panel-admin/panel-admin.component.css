@@ -224,3 +224,11 @@
     background-color: #fff3cd;
     color: #856404;
 }  
+
+.table-responsive {
+    overflow: visible;
+}
+
+.admin-tabla-contenedor {
+    overflow: visible;
+}
