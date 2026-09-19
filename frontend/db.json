@@ -144,7 +144,7 @@
     {
       "id": "1",
       "id_tipo_habitacion": 1,
-      "id_estado_habitacion": 2,
+      "id_estado_habitacion": 4,
       "numero": 101,
       "piso": 1,
       "precio": 80000,

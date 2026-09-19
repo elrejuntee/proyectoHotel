@@ -255,7 +255,7 @@ export class PanelAdminComponent {
   cargarHabitaciones(): void {
     this.habitacionesService.obtenerHabitaciones().subscribe({
       next: (lista) => {
-        this.habitaciones = lista.map(h => this.aVistaHabitacion(h));
+        this.habitaciones = lista.map(h => this.aVistaHabitacion(h)) .filter(h => h.estado !== 'inactiva');
       },
       error: (error) => {
         this.errorHabitaciones = error.message;
