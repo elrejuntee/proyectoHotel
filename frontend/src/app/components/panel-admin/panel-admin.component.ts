@@ -8,7 +8,7 @@ import {
   TipoHabitacionApi
 } from '../../services/habitaciones/habitaciones.service';
 
-export type EstadoDisponibilidad = 'disponible' | 'ocupado' | 'mantenimiento';
+export type EstadoDisponibilidad = 'disponible' | 'ocupado' | 'mantenimiento' | 'inactiva';
 export type Vista = 'habitaciones' | 'servicios' | 'reservas';
 
 /** Imagen que se muestra cuando la habitación no tiene imagen_principal en db.json. */
@@ -274,6 +274,23 @@ export class PanelAdminComponent {
     this.modal.set({ tipo: 'estado', item });
   }
 
+  darDeBaja(hab: Habitacion): void {
+  this.cerrarDropdown();
+  const estadoInactiva = this.estadosHabitacion.find(
+    e => e.nombre.toLowerCase() === 'inactiva'
+  );
+  if (estadoInactiva) {
+    const cuerpo: HabitacionApi = {
+      ...hab.original,
+      id_estado_habitacion: this.aIdApi(estadoInactiva.id)
+    };
+    this.habitacionesService.actualizarHabitacion(hab.idApi, cuerpo).subscribe({
+      next: () => this.cargarHabitaciones(),
+      error: (error) => this.errorHabitaciones = error.message
+    });
+  }
+}
+
   guardarNuevoEstado(nuevoEstado: string): void {
     console.log('nuevoEstado recibido:', nuevoEstado);
     console.log('estadosHabitacion:', this.estadosHabitacion);
@@ -312,7 +329,8 @@ export class PanelAdminComponent {
       const textos: Record<EstadoDisponibilidad, string> = {
         disponible: 'Disponible',
         ocupado: 'Ocupado',
-        mantenimiento: 'En mantenimiento'
+        mantenimiento: 'En mantenimiento',
+        inactiva: 'Inactiva'
       };
       item.estado = nuevoEstado as EstadoDisponibilidad;
       item.estadoTexto = textos[nuevoEstado as EstadoDisponibilidad];
@@ -492,6 +510,7 @@ export class PanelAdminComponent {
     const n = nombre.toLowerCase();
     if (n.startsWith('ocup')) return 'ocupado';
     if (n.startsWith('mant')) return 'mantenimiento';
+    if (n.startsWith('inact')) return 'inactiva';
     return 'disponible';
   }
 
