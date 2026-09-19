@@ -140,7 +140,7 @@
     {
       "id": "1",
       "id_tipo_habitacion": 1,
-      "id_estado_habitacion": 1,
+      "id_estado_habitacion": 2,
       "numero": 101,
       "piso": 1,
       "precio": 80000,
@@ -186,6 +186,15 @@
       "precio": 8000,
       "capacidad": 2,
       "id": "gT5QDTrJ-7o"
+    },
+    {
+      "id_tipo_habitacion": 4,
+      "id_estado_habitacion": 1,
+      "numero": 3,
+      "piso": 11,
+      "precio": 40000,
+      "capacidad": 1,
+      "id": "_Eph04pD8fQ"
     }
   ],
   "estados_reserva": [
