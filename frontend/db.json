@@ -17,6 +17,14 @@
       "apellido": "Pérez",
       "email": "juan@email.com",
       "contraseña": "hash123"
+    },
+    {
+      "id": "2",
+      "id_rol": 1,
+      "nombre": "Admin",
+      "apellido": "Admin",
+      "email": "admin@gmail.com",
+      "contraseña": "admin123"
     }
   ],
   "tipos_servicio": [
