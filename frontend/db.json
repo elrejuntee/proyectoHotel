@@ -1,248 +1,261 @@
 {
-    "roles_usuario": [
-        {
-            "id": 1,
-            "rol": "Administrador"
-        },
-        {
-            "id": 2,
-            "rol": "Huesped"
-        }
-    ],
-
-    "usuarios": [
-        {
-            "id": 1,
-            "id_rol": 2,
-            "nombre": "Juan",
-            "apellido": "Pérez",
-            "email": "juan@email.com",
-            "contraseña": "hash123"
-        }
-    ],
-
-    "tipos_servicio": [
-        {
-            "id": 1,
-            "nombre_servicio": "Espacio de Trabajo"
-        },
-        {
-            "id": 2,
-            "nombre_servicio": "Sala de Reuniones"
-        }
-    ],
-
-    "servicios": [
-        {
-            "id": 1,
-            "id_tipo_servicio": 1,
-            "precio": 5000.0,
-            "capacidad_maxima": 10,
-            "cantidad_invitados": 2
-        }
-    ],
-
-    "estados_habitacion": [
-        {
-            "id": 1,
-            "nombre": "Disponible"
-        },
-        {
-            "id": 2,
-            "nombre": "Ocupada"
-        },
-        {
-            "id": 3,
-            "nombre": "Mantenimiento"
-        }
-    ],
-
-    "comodidades": [
-        {
-            "id": 1,
-            "nombre": "Wi-Fi gratis"
-        },
-        {
-            "id": 2,
-            "nombre": "Baño privado"
-        },
-        {
-            "id": 3,
-            "nombre": "Aire acondicionado"
-        },
-        {
-            "id": 4,
-            "nombre": "TV con cable"
-        },
-        {
-            "id": 5,
-            "nombre": "Cocina equipada"
-        }
-    ],
-
-    "tipos_habitacion": [
-        {
-            "id": 1,
-            "nombre": "Suite Premium",
-            "cant_cama": 2
-        },
-        {
-            "id": 2,
-            "nombre": "Suite Familiar",
-            "cant_cama": 4
-        },
-        {
-            "id": 3,
-            "nombre": "Habitación Deluxe",
-            "cant_cama": 1
-        },
-        {
-            "id": 4,
-            "nombre": "Habitación Estándar",
-            "cant_cama": 1
-        }
-    ],
-
-    "tipos_habitacion_comodidad": [
-        {
-            "id": 1,
-            "id_tipo_habitacion": 1,
-            "id_comodidad": [1, 2, 3,4,5]
-        },
-        {
-            "id": 2,
-            "id_tipo_habitacion": 2,
-            "id_comodidad": [1, 2, 3,4]
-        },
-        {
-            "id": 3,
-            "id_tipo_habitacion": 3,
-            "id_comodidad": [1, 2, 3]
-        },
-        {
-            "id": 4,
-            "id_tipo_habitacion": 4,
-            "id_comodidad": [1, 2]
-        }
-    ],
-
-    "habitaciones": [
-        {
-            "id": 1,
-            "id_tipo_habitacion": 1,
-            "id_estado_habitacion": 1,
-            "numero": 101,
-            "piso": 1,
-            "precio": 80000.0,
-            "capacidad": 2,
-            "imagen_principal": "imagenes/premium.webp",
-            "imagenes_complementarias": [
-                "imagenes/premier-mobile.webp",
-                "imagenes/deluxe.webp"
-            ] 
-        },
-        {
-            "id": 2,
-            "id_tipo_habitacion": 2,
-            "id_estado_habitacion": 1,
-            "numero": 102,
-            "piso": 1,
-            "precio": 120000.0,
-            "capacidad": 4
-        },
-        {
-            "id": 3,
-            "id_tipo_habitacion": 3,
-            "id_estado_habitacion": 1,
-            "numero": 201,
-            "piso": 2,
-            "precio": 60000.0,
-            "capacidad": 1
-        },
-        {
-            "id": 4,
-            "id_tipo_habitacion": 4,
-            "id_estado_habitacion": 1,
-            "numero": 202,
-            "piso": 2,
-            "precio": 40000.0,
-            "capacidad": 1
-        }
-    ],
-
-    "estados_reserva": [
-        {
-            "id": 1,
-            "nombre": "Confirmada"
-        },
-        {
-            "id": 2,
-            "nombre": "Cancelada"
-        }
-    ],
-
-    "reservas": [
-        {
-            "id": 1,
-            "id_usuario": 1,
-            "id_estado_reserva": 1,
-            "numero_reserva": 55901,
-            "fecha_hora_reserva": "2026-09-18T10:00:00Z"
-        }
-    ],
-
-    "reservas_habitacion": [
-        {
-            "id": 1,
-            "id_reserva": 1,
-            "id_habitacion": 1,
-            "pago_acordado": 80000.0,
-            "fecha_hora_checkin": "2026-10-01T14:00:00Z",
-            "fecha_hora_checkout": "2026-10-10T10:00:00Z"
-        }
-    ],
-
-    "reservas_servicio": [
-        {
-            "id": 1,
-            "id_reserva": 1,
-            "id_servicio": 1,
-            "pago_acordado": 5000.0,
-            "fecha_hora_inicio": "2026-10-02T09:00:00Z",
-            "fecha_hora_fin": "2026-10-02T18:00:00Z"
-        }
-    ],
-
-    "estados_pago": [
-        {
-            "id": 1,
-            "nombre": "Aprobado"
-        },
-        {
-            "id": 2,
-            "nombre": "Pendiente"
-        }
-    ],
-
-    "metodos_pago": [
-        {
-            "id": 1,
-            "nombre": "Tarjeta de Crédito"
-        },
-        {
-            "id": 2,
-            "nombre": "Transferencia"
-        }
-    ],
-    
-    "pagos": [
-        {
-            "id": 1,
-            "id_reserva": 1,
-            "id_estado_pago": 1,
-            "id_metodo_pago": 1,
-            "monto_total": 85000.0,
-            "fecha": "2026-09-18"
-        }
-    ]
+  "roles_usuario": [
+    {
+      "id": "1",
+      "rol": "Administrador"
+    },
+    {
+      "id": "2",
+      "rol": "Huesped"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "id_rol": 2,
+      "nombre": "Juan",
+      "apellido": "Pérez",
+      "email": "juan@email.com",
+      "contraseña": "hash123"
+    }
+  ],
+  "tipos_servicio": [
+    {
+      "id": "1",
+      "nombre_servicio": "Espacio de Trabajo"
+    },
+    {
+      "id": "2",
+      "nombre_servicio": "Sala de Reuniones"
+    }
+  ],
+  "servicios": [
+    {
+      "id": "1",
+      "id_tipo_servicio": 1,
+      "precio": 5000,
+      "capacidad_maxima": 10,
+      "cantidad_invitados": 2
+    }
+  ],
+  "estados_habitacion": [
+    {
+      "id": "1",
+      "nombre": "Disponible"
+    },
+    {
+      "id": "2",
+      "nombre": "Ocupada"
+    },
+    {
+      "id": "3",
+      "nombre": "Mantenimiento"
+    }
+  ],
+  "comodidades": [
+    {
+      "id": "1",
+      "nombre": "Wi-Fi gratis"
+    },
+    {
+      "id": "2",
+      "nombre": "Baño privado"
+    },
+    {
+      "id": "3",
+      "nombre": "Aire acondicionado"
+    },
+    {
+      "id": "4",
+      "nombre": "TV con cable"
+    },
+    {
+      "id": "5",
+      "nombre": "Cocina equipada"
+    }
+  ],
+  "tipos_habitacion": [
+    {
+      "id": "1",
+      "nombre": "Suite Premium",
+      "cant_cama": 2
+    },
+    {
+      "id": "2",
+      "nombre": "Suite Familiar",
+      "cant_cama": 4
+    },
+    {
+      "id": "3",
+      "nombre": "Habitación Deluxe",
+      "cant_cama": 1
+    },
+    {
+      "id": "4",
+      "nombre": "Habitación Estándar",
+      "cant_cama": 1
+    }
+  ],
+  "tipos_habitacion_comodidad": [
+    {
+      "id": "1",
+      "id_tipo_habitacion": 1,
+      "id_comodidad": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "2",
+      "id_tipo_habitacion": 2,
+      "id_comodidad": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": "3",
+      "id_tipo_habitacion": 3,
+      "id_comodidad": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "4",
+      "id_tipo_habitacion": 4,
+      "id_comodidad": [
+        1,
+        2
+      ]
+    }
+  ],
+  "habitaciones": [
+    {
+      "id": "1",
+      "id_tipo_habitacion": 1,
+      "id_estado_habitacion": 1,
+      "numero": 101,
+      "piso": 1,
+      "precio": 80000,
+      "capacidad": 2,
+      "imagen_principal": "imagenes/premium.webp",
+      "imagenes_complementarias": [
+        "imagenes/premier-mobile.webp",
+        "imagenes/deluxe.webp"
+      ]
+    },
+    {
+      "id": "2",
+      "id_tipo_habitacion": 2,
+      "id_estado_habitacion": 1,
+      "numero": 102,
+      "piso": 1,
+      "precio": 120000,
+      "capacidad": 4
+    },
+    {
+      "id": "3",
+      "id_tipo_habitacion": 3,
+      "id_estado_habitacion": 1,
+      "numero": 201,
+      "piso": 2,
+      "precio": 60000,
+      "capacidad": 1
+    },
+    {
+      "id": "4",
+      "id_tipo_habitacion": 4,
+      "id_estado_habitacion": 1,
+      "numero": 202,
+      "piso": 2,
+      "precio": 40000,
+      "capacidad": 1
+    },
+    {
+      "id_tipo_habitacion": "2",
+      "id_estado_habitacion": "1",
+      "numero": 303,
+      "piso": 5,
+      "precio": 8000,
+      "capacidad": 2,
+      "id": "gT5QDTrJ-7o"
+    }
+  ],
+  "estados_reserva": [
+    {
+      "id": "1",
+      "nombre": "Confirmada"
+    },
+    {
+      "id": "2",
+      "nombre": "Cancelada"
+    }
+  ],
+  "reservas": [
+    {
+      "id": "1",
+      "id_usuario": 1,
+      "id_estado_reserva": 1,
+      "numero_reserva": 55901,
+      "fecha_hora_reserva": "2026-09-18T10:00:00Z"
+    }
+  ],
+  "reservas_habitacion": [
+    {
+      "id": "1",
+      "id_reserva": 1,
+      "id_habitacion": 1,
+      "pago_acordado": 80000,
+      "fecha_hora_checkin": "2026-10-01T14:00:00Z",
+      "fecha_hora_checkout": "2026-10-10T10:00:00Z"
+    }
+  ],
+  "reservas_servicio": [
+    {
+      "id": "1",
+      "id_reserva": 1,
+      "id_servicio": 1,
+      "pago_acordado": 5000,
+      "fecha_hora_inicio": "2026-10-02T09:00:00Z",
+      "fecha_hora_fin": "2026-10-02T18:00:00Z"
+    }
+  ],
+  "estados_pago": [
+    {
+      "id": "1",
+      "nombre": "Aprobado"
+    },
+    {
+      "id": "2",
+      "nombre": "Pendiente"
+    }
+  ],
+  "metodos_pago": [
+    {
+      "id": "1",
+      "nombre": "Tarjeta de Crédito"
+    },
+    {
+      "id": "2",
+      "nombre": "Transferencia"
+    }
+  ],
+  "pagos": [
+    {
+      "id": "1",
+      "id_reserva": 1,
+      "id_estado_pago": 1,
+      "id_metodo_pago": 1,
+      "monto_total": 85000,
+      "fecha": "2026-09-18"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

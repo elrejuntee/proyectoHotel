@@ -24,9 +24,9 @@ export class LoginService {
     return this.httpClient.get<Usuario[]>(this.apiUrl).pipe(
       map((usuarios: Usuario[]) => {
         const usuario = usuarios.find(
-          (usuario: Usuario) =>
-            usuario.email === email &&
-            usuario.contraseña === password
+          (u: Usuario) =>
+            u.email === email &&
+            u.contraseña === password
         );
 
         this.usuarioLogueado = usuario ?? null;
