@@ -25,6 +25,14 @@
       "apellido": "Admin",
       "email": "admin@gmail.com",
       "password": "admin123"
+    },
+    {
+      "nombre": "adriel",
+      "apellido": "delosanto",
+      "email": "adridelosanto@gmail.com",
+      "password": "1234",
+      "id_rol": 2,
+      "id": "oXBFYWu1wp0"
     }
   ],
   "tipos_servicio": [
@@ -155,7 +163,8 @@
       "capacidad": 2,
       "imagen_principal": "imagenes/premium.webp",
       "imagenes_complementarias": [
-        "imagenes/ejecutiva.webp", "imagenes/baño.webp"
+        "imagenes/ejecutiva.webp",
+        "imagenes/baño.webp"
       ]
     },
     {
@@ -168,7 +177,8 @@
       "capacidad": 4,
       "imagen_principal": "imagenes/familiar.webp",
       "imagenes_complementarias": [
-      "imagenes/familiar-2.webp", "imagenes/comedor-hab.webp"
+        "imagenes/familiar-2.webp",
+        "imagenes/comedor-hab.webp"
       ]
     },
     {
@@ -181,7 +191,8 @@
       "capacidad": 1,
       "imagen_principal": "imagenes/deluxe.webp",
       "imagenes_complementarias": [
-        "imagenes/tv.webp", "imagenes/baño-2.webp"
+        "imagenes/tv.webp",
+        "imagenes/baño-2.webp"
       ]
     },
     {
@@ -194,7 +205,8 @@
       "capacidad": 1,
       "imagen_principal": "imagenes/estandar.webp",
       "imagenes_complementarias": [
-      "imagenes/tv.webp", "imagenes/baño.webp"
+        "imagenes/tv.webp",
+        "imagenes/baño.webp"
       ]
     }
   ],

@@ -12,7 +12,7 @@
                         <img src="imagenes/juan-perez.webp" alt="Juan Perez" class="perfil-card-avatar">    
                     </div>
                     <div class="perfil-card__info">
-                        <h2 class="perfil-card-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+                        <h2 class="perfil-card-nombre">{{ loginService.usuarioLogueado?.nombre }} {{ loginService.usuarioLogueado?.apellido }}</h2>
                         <ul class="perfil-card-datos">
                             <li>Huésped registrado</li>
                         </ul>
@@ -28,11 +28,11 @@
                 <div class="bloque">
                     <dl class="bloque-lista">
                         <dt>Nombre</dt>
-                        <dd>{{ usuario.nombre }}</dd>
+                        <dd>{{ loginService.usuarioLogueado?.nombre }}</dd>
                         <dt>Apellido</dt>
-                        <dd>{{ usuario.apellido }}</dd>
+                        <dd>{{ loginService.usuarioLogueado?.apellido }}</dd>
                         <dt>Correo electrónico</dt>
-                        <dd>{{ usuario.email }}</dd>
+                        <dd>{{ loginService.usuarioLogueado?.email }}</dd>
                     </dl>      
                 </div>
             </section>
