@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-resultados-busqueda',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './resultados-busqueda.component.html',
   styleUrl: './resultados-busqueda.component.css'
 })
