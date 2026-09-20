@@ -155,8 +155,7 @@
       "capacidad": 2,
       "imagen_principal": "imagenes/premium.webp",
       "imagenes_complementarias": [
-        "imagenes/premier-mobile.webp",
-        "imagenes/deluxe.webp"
+        "imagenes/ejecutiva.webp", "imagenes/baño.webp"
       ]
     },
     {
@@ -166,7 +165,11 @@
       "numero": 102,
       "piso": 1,
       "precio": 120000,
-      "capacidad": 4
+      "capacidad": 4,
+      "imagen_principal": "imagenes/familiar.webp",
+      "imagenes_complementarias": [
+      "imagenes/familiar-2.webp", "imagenes/comedor-hab.webp"
+      ]
     },
     {
       "id": "3",
@@ -175,7 +178,11 @@
       "numero": 201,
       "piso": 2,
       "precio": 60000,
-      "capacidad": 1
+      "capacidad": 1,
+       "imagen_principal": "imagenes/deluxe.webp",
+      "imagenes_complementarias": [
+        "imagenes/tv.webp", "imagenes/baño-2.webp"
+      ]
     },
     {
       "id": "4",
@@ -184,7 +191,20 @@
       "numero": 202,
       "piso": 2,
       "precio": 40000,
-      "capacidad": 1
+      "capacidad": 1,
+       "imagen_principal": "imagenes/estandar.webp",
+      "imagenes_complementarias": [
+      "imagenes/tv.webp", "imagenes/baño.webp"
+      ]
+    },
+    {
+      "id_tipo_habitacion": "2",
+      "id_estado_habitacion": "1",
+      "numero": 303,
+      "piso": 5,
+      "precio": 8000,
+      "capacidad": 2,
+      "id": "gT5QDTrJ-7o"
     }
   ],
   "estados_reserva": [
