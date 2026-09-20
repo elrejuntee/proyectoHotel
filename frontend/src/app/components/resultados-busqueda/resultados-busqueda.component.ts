@@ -1,21 +1,13 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-=======
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
 import { ListasVaciasComponent } from '../listas-vacias/listas-vacias.component';
->>>>>>> emilse
 
 @Component({
   selector: 'app-resultados-busqueda',
   standalone: true,
-<<<<<<< HEAD
-  imports: [RouterLink],
-=======
-  imports: [CommonModule, ListasVaciasComponent],
->>>>>>> emilse
+  imports: [CommonModule, ListasVaciasComponent, RouterLink],
   templateUrl: './resultados-busqueda.component.html',
   styleUrl: './resultados-busqueda.component.css'
 })
