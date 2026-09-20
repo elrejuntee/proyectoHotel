@@ -8,7 +8,7 @@ import {
   TipoHabitacionApi
 } from '../../services/habitaciones/habitaciones.service';
 
-export type EstadoDisponibilidad = 'disponible' | 'ocupado' | 'mantenimiento' | 'inactiva';
+export type EstadoDisponibilidad = 'disponible' | 'ocupado' | 'mantenimiento';
 export type Vista = 'habitaciones' | 'servicios' | 'reservas';
 
 /** Imagen que se muestra cuando la habitación no tiene imagen_principal en db.json. */
@@ -255,7 +255,7 @@ export class PanelAdminComponent {
   cargarHabitaciones(): void {
     this.habitacionesService.obtenerHabitaciones().subscribe({
       next: (lista) => {
-        this.habitaciones = lista.map(h => this.aVistaHabitacion(h)) .filter(h => h.estado !== 'inactiva');
+        this.habitaciones = lista.map(h => this.aVistaHabitacion(h));
       },
       error: (error) => {
         this.errorHabitaciones = error.message;
@@ -330,7 +330,6 @@ export class PanelAdminComponent {
         disponible: 'Disponible',
         ocupado: 'Ocupado',
         mantenimiento: 'En mantenimiento',
-        inactiva: 'Inactiva'
       };
       item.estado = nuevoEstado as EstadoDisponibilidad;
       item.estadoTexto = textos[nuevoEstado as EstadoDisponibilidad];
@@ -510,7 +509,6 @@ export class PanelAdminComponent {
     const n = nombre.toLowerCase();
     if (n.startsWith('ocup')) return 'ocupado';
     if (n.startsWith('mant')) return 'mantenimiento';
-    if (n.startsWith('inact')) return 'inactiva';
     return 'disponible';
   }
 
