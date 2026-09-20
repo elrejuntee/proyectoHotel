@@ -184,8 +184,8 @@
                         <span>{{ hab.ocupacionPorcentaje }}%</span>
                         <div class="barra-ocupacion">
                           <div class="barra-ocupacion-fill"
-                               [class.barra-ocupacion-fill-llena]="hab.ocupacionPorcentaje === 100"
-                               [style.width.%]="hab.ocupacionPorcentaje"></div>
+                                [class.barra-ocupacion-fill-llena]="hab.ocupacionPorcentaje === 100"
+                                [style.width.%]="hab.ocupacionPorcentaje"></div>
                         </div>
                       </div>
                     </td>
@@ -480,14 +480,14 @@
             <div class="col-6">
               <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
               <input type="number" class="form-control" id="habPiso" formControlName="piso" placeholder="Ej: 1"
-                     [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
               <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('required')">El piso es requerido.</p>
               <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('min')">El piso no puede ser negativo.</p>
             </div>
             <div class="col-6">
               <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
               <input type="number" class="form-control" id="habNumero" formControlName="numero" placeholder="Ej: 101"
-                     [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
               <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('required')">El número es requerido.</p>
               <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('min')">El número debe ser mayor a 0.</p>
             </div>
