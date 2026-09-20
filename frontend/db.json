@@ -16,7 +16,7 @@
       "nombre": "Juan",
       "apellido": "Pérez",
       "email": "juan@email.com",
-      "contraseña": "hash123"
+      "password": "hash123"
     },
     {
       "id": "2",
@@ -24,7 +24,7 @@
       "nombre": "Admin",
       "apellido": "Admin",
       "email": "admin@gmail.com",
-      "contraseña": "admin123"
+      "password": "admin123"
     }
   ],
   "tipos_servicio": [
