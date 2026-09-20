@@ -58,6 +58,18 @@ export class HabitacionesService {
     );
   }
 
+    obtenerHabitacionPorId(id: number | string): Observable<HabitacionApi> {
+    return this.http.get<HabitacionApi>(this.url + '/habitaciones/' + id).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  obtenerTipoHabitacionPorId(id: number | string): Observable<TipoHabitacionApi> {
+    return this.http.get<TipoHabitacionApi>(this.url + '/tipos_habitacion/' + id).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   // ----- POST -----
   crearHabitacion(habitacion: HabitacionApi): Observable<HabitacionApi> {
     return this.http.post<HabitacionApi>(this.url + '/habitaciones', habitacion).pipe(
