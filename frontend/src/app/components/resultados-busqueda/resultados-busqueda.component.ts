@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
+import { ListasVaciasComponent } from '../listas-vacias/listas-vacias.component';
 
 @Component({
   selector: 'app-resultados-busqueda',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ListasVaciasComponent],
   templateUrl: './resultados-busqueda.component.html',
   styleUrl: './resultados-busqueda.component.css'
 })
