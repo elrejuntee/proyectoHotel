@@ -130,10 +130,4 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
-  // Método para el acceso rápido y el botón del template
-  iniciarSesionRapido() {
-    this.authService.login();
-    this.router.navigate(['/panel-usuario']);
-  }
 }
