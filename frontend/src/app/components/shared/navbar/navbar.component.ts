@@ -1,16 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive} from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, Router} from '@angular/router';
+import { AuthService } from '../../../service/auth.service';
 @Component({
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   selector: 'app-navbar',
   styleUrl: './navbar.component.css',
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   menuAbierto = false;
-  autenticado = false;
-  toggleMenu() {
+  autenticado = true;
+
+  toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
+  }
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.authService.autenticado$.subscribe((estado: boolean) => {
+      this.autenticado = estado;
+    });
+  }
+
+  cerrarSesion(event: Event): void {
+    event.preventDefault();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
