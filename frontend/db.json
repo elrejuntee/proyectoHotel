@@ -16,7 +16,7 @@
       "nombre": "Juan",
       "apellido": "Pérez",
       "email": "juan@email.com",
-      "contraseña": "hash123"
+      "password": "hash123"
     },
     {
       "id": "2",
@@ -24,7 +24,7 @@
       "nombre": "Admin",
       "apellido": "Admin",
       "email": "admin@gmail.com",
-      "contraseña": "admin123"
+      "password": "admin123"
     }
   ],
   "tipos_servicio": [
@@ -179,7 +179,7 @@
       "piso": 2,
       "precio": 60000,
       "capacidad": 1,
-       "imagen_principal": "imagenes/deluxe.webp",
+      "imagen_principal": "imagenes/deluxe.webp",
       "imagenes_complementarias": [
         "imagenes/tv.webp", "imagenes/baño-2.webp"
       ]
@@ -192,7 +192,7 @@
       "piso": 2,
       "precio": 40000,
       "capacidad": 1,
-       "imagen_principal": "imagenes/estandar.webp",
+      "imagen_principal": "imagenes/estandar.webp",
       "imagenes_complementarias": [
       "imagenes/tv.webp", "imagenes/baño.webp"
       ]
