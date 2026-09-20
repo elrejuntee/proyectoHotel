@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/reservas" routerLinkActive="active">Reservas</a>
                     </li>
-                    @if (!autenticado) {
+                    @if (!loginService.usuarioLogueado) {
                         <li class="nav-item">
                             <a routerLink="/login" class="btn btn-primario">Loguearse</a>
                         </li>
@@ -39,7 +39,7 @@
                         </li>
                     }
                 
-                    @if (autenticado) {
+                    @if (loginService.usuarioLogueado) {
                         <li class="nav-item dropdown">
                             <a  class="perfil-nav-link activo dropdown-toggle d-flex align-items-center gap-2" href="#"
                                 id="navbarDropdownUsuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +54,7 @@
                                 </li>
                                     <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item text-danger" href="#" (click)="cerrarSesion($event)">Salir</a>
+                                    <a class="dropdown-item text-danger" href="#">Salir</a>
                                 </li>
                             </ul>
                         </li>

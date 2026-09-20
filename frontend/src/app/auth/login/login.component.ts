@@ -3,7 +3,7 @@ import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { LoginService } from '../servicios/login/login.service';
-import { AuthService } from '../../service/auth.service';
+
 @Component({
   selector: 'app-login',
   imports: [NavbarAuthComponent, ReactiveFormsModule, RouterLink],
@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private loginService = inject(LoginService);
   private router = inject(Router);
-  private authService = inject(AuthService);
 
   mensajeError = '';
 
