@@ -11,6 +11,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 import { FormularioServiciosComponent } from './components/formulario-servicios/formulario-servicios.component';
+import { DetalleHabitacionComponent } from './components/detalle-habitacion/detalle-habitacion.component';
 
 
 export const routes: Routes = [
@@ -21,7 +22,8 @@ export const routes: Routes = [
             { path: 'reservas', component: ResultadosBusquedaComponent },
             { path: 'panel-usuario', component: PanelUsuarioComponent },
             { path: 'historial-reservas', component: HistorialReservasComponent },
-            { path: 'quienes-somos', component: QuienesSomosComponent }
+            { path: 'quienes-somos', component: QuienesSomosComponent },
+            { path: 'detalle-habitacion/:id', component: DetalleHabitacionComponent }
         ]
     },
     { path: "login", component: LoginComponent },
