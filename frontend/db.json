@@ -196,15 +196,6 @@
       "imagenes_complementarias": [
       "imagenes/tv.webp", "imagenes/baño.webp"
       ]
-    },
-    {
-      "id_tipo_habitacion": "2",
-      "id_estado_habitacion": "1",
-      "numero": 303,
-      "piso": 5,
-      "precio": 8000,
-      "capacidad": 2,
-      "id": "gT5QDTrJ-7o"
     }
   ],
   "estados_reserva": [
