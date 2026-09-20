@@ -8,7 +8,7 @@ export interface Usuario {
   nombre: string;
   apellido: string;
   email: string;
-  contraseña?: string;
+  password?: string;
 }
 
 @Injectable({
@@ -26,7 +26,7 @@ export class LoginService {
         const usuario = usuarios.find(
           (u: Usuario) =>
             u.email === email &&
-            u.contraseña === password
+            u.password === password
         );
 
         this.usuarioLogueado = usuario ?? null;

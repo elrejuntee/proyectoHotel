@@ -2,17 +2,17 @@
         <div class="detalle-inner">
             <!-- RUTA -->
             <nav class="ruta" aria-label="ruta de navegación">
-                <a routerLink="/">Incio</a>
+                <a routerLink="/">Inicio</a>
                 <span>/</span>
                 <a routerLink="/reservas">Resultados de búsqueda</a>
                 <span>/</span>
-                <span class="activo">Suite Premium</span>
+                <span class="activo">{{ tipo?.nombre }}</span>
             </nav>
             <!-- ENCABEZADO -->
             <div class="detalle-header">
                 <div>
                     <div class="detalle-titulo-row">
-                        <h1 class="detalle-titulo">Suite Premium</h1>
+                        <h1 class="detalle-titulo">{{ tipo?.nombre }}</h1>
                     </div>
                     <p class="detalle-ubicacion">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -25,7 +25,7 @@
                 <div class="detalle-columna-derecha">
                     <div class="detalle-precio-box">
                         <span class="desde">Desde</span>
-                        <strong>$85.000<small>/noche</small></strong>
+                        <strong>${{ habitacion?.precio | number:'1.0-0' }}<small>/noche</small></strong>
                     </div>
                     <div class="detalle-acciones">
                         <a href="detalle-pago.html" class="btn btn-primario btn-grande">Reservar ahora</a>
@@ -34,28 +34,23 @@
             </div>
             <!-- GALERÍA -->
             <div class="detalle-galeria">
-                <img class="detalle-galeria__principal" src="imagenes/premium.webp" srcset="imagenes/premier-mobile.webp" alt="Suite Premium, vista principal" loading="lazy">
-                <div class="detalle-galeria__miniatura">
-                    <img src="imagenes/estandar.webp" alt="Suite Premium, sala de estar" loading="lazy">
-                </div>
-                <div class="detalle-galeria__miniatura">
-                    <img src="imagenes/ejecutiva.webp" alt="Suite Premium, escritorio" loading="lazy">
-                </div>
-                <div class="detalle-galeria__miniatura">
-                    <img src="imagenes/deluxe.webp" alt="Suite Premium, baño" loading="lazy">
-                </div>
-                <div class="detalle-galeria__miniatura">
-                    <img src="imagenes/familiar.webp" alt="Suite Premium, vista nocturna" loading="lazy">
-                </div>
+                <img class="detalle-galeria__principal"
+                    [src]="habitacion?.imagen_principal || 'imagenes/premium.webp'"
+                    [alt]="tipo?.nombre + ', vista principal'"
+                    loading="lazy">
+                @for (img of habitacion?.imagenes_complementarias; track $index) {
+                    <div class="detalle-galeria__miniatura">
+                        <img [src]="img" [alt]="tipo?.nombre + ', foto ' + ($index + 1)" loading="lazy">
+                    </div>
+                }
             </div>
             <!-- DESCRIPCIÓN -->
             <section class="detalle-seccion">
                 <h2>Descripción</h2>
                 <p class="detalle-descripcion">
-                    La Suite Premium de El Rejunte Hotel combina amplitud y confort en el corazón de Buenos Aires.
-                    Pensada para estadías que buscan un plus de comodidad, cuenta con una sala de estar independiente,
-                    vistas a la ciudad y una decoración cálida que invita a descansar después de un largo día.
-                    Ideal para viajes de placer o de negocios, ofrece todo lo necesario para una estadía inolvidable,
+                    La {{ tipo?.nombre }} de El Rejunte Hotel se encuentra en el piso {{ habitacion?.piso }}
+                    y tiene capacidad para hasta {{ habitacion?.capacidad }} huéspedes.
+                    Ideal para viajes de placer o de negocios, ofrece todo lo necesario para una estadía cómoda,
                     con acceso directo a los servicios y comodidades del hotel.
                 </p>
             </section>
@@ -74,7 +69,7 @@
                         </span>
                         <span class="comodidad-item__texto">
                             <span class="comodidad-item__label">Capacidad</span>
-                            <span class="comodidad-item__valor">Hasta 4 huéspedes</span>
+                            <span class="comodidad-item__valor">Hasta {{ habitacion?.capacidad }} huéspedes</span>
                         </span>
                     </div>
                     <div class="comodidad-item">
@@ -88,7 +83,7 @@
                         </span>
                         <span class="comodidad-item__texto">
                             <span class="comodidad-item__label">Camas</span>
-                            <span class="comodidad-item__valor">2 camas queen</span>
+                            <span class="comodidad-item__valor">{{ tipo?.cant_cama }} {{ tipo?.cant_cama === 1 ? 'cama' : 'camas' }}</span>
                         </span>
                     </div>
                     <div class="comodidad-item">
