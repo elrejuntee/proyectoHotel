@@ -37,18 +37,6 @@
                                     <label for="email">Correo electrónico <span class="campo-requerido">*</span></label>
                                     <input type="email" id="email" formControlName="email" placeholder="nombre@correo.com" required>
                                 </div>
-                                <div class="col-12 col-sm-6 campo">
-                                    <label for="telefono">Teléfono <span class="campo-requerido">*</span></label>
-                                    <input type="tel" id="telefono" formControlName="telefono" placeholder="+54 9 11 1234-5678" pattern="[0-9+\-\s()]{6,20}" required>
-                                </div>
-                                <div class="col-12 col-sm-6 campo">
-                                    <label for="documento">DNI o Pasaporte <span class="campo-requerido">*</span></label>
-                                    <input type="text" id="documento" formControlName="documento" placeholder="Número de documento" required>
-                                </div>
-                                <div class="col-12 campo">
-                                    <label for="comentarios">Comentarios o solicitudes especiales</label>
-                                    <textarea id="comentarios" formControlName="comentarios" rows="3" placeholder="Ej: llegada tardía, cama adicional, piso alto, etc. (opcional)"></textarea>
-                                </div>
                             </div>
                         </div>
                         <!-- PASO 2: MÉTODO DE PAGO -->
@@ -172,11 +160,6 @@
                                 <span class="confirmacion-resumen__label">Total a pagar · {{ tipo?.nombre }} · {{ noches }} {{ noches === 1 ? 'noche' : 'noches' }}</span>
                                 <span class="confirmacion-resumen__total">${{ total | number:'1.0-0' }}</span>
                             </div>
-
-                            <label class="confirmacion-check">
-                                <input type="checkbox" formControlName="terminos">
-                                <span>Acepto los <a href="#">Términos y condiciones</a> y la <a href="#">Política de privacidad</a> de El Rejunte Hotel <span class="campo-requerido">*</span></span>
-                            </label>
                             @if (mensajeError) {
                                 <p class="text-danger mt-2">{{ mensajeError }}</p>
                             }
@@ -191,17 +174,6 @@
                                 <div>
                                     <div class="resumen-reserva__nombre">{{ tipo?.nombre }}</div>
                                     <div class="resumen-reserva__ubicacion">El Rejunte Hotel, Av. Corrientes 1234, CABA</div>
-                                </div>
-                            </div>
-                            <div class="resumen-reserva__fechas">
-                                <div class="resumen-reserva__fecha-item">
-                                    <span class="resumen-reserva__fecha-label">Check-in</span>
-                                    <input type="date" formControlName="fechaCheckin" class="resumen-reserva__fecha-valor">
-                                </div>
-                                <span class="resumen-reserva__flecha">→</span>
-                                <div class="resumen-reserva__fecha-item">
-                                    <span class="resumen-reserva__fecha-label">Check-out</span>
-                                    <input type="date" formControlName="fechaCheckout" class="resumen-reserva__fecha-valor">
                                 </div>
                             </div>
                             <div class="resumen-reserva__fila">
@@ -231,12 +203,6 @@
                                     <span>Total</span>
                                     <span>${{ total | number:'1.0-0' }}</span>
                                 </div>
-                            </div>
-                            <div class="resumen-reserva__seguridad">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                </svg>
-                                Pago 100% seguro. Tus datos están protegidos.
                             </div>
                         </div>
                     </aside>
