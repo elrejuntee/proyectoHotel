@@ -28,7 +28,7 @@
                         <strong>${{ habitacion?.precio | number:'1.0-0' }}<small>/noche</small></strong>
                     </div>
                     <div class="detalle-acciones">
-                        <a routerLink="/detalle-pago/{{ id }}" class="btn btn-primario btn-grande">Reservar ahora</a>
+                        <a routerLink="/detalle-pago/{{ id }}" [queryParams]="{ checkin: checkin, checkout: checkout }" class="btn btn-primario btn-grande">Reservar ahora</a>
                     </div>
                 </div>
             </div>

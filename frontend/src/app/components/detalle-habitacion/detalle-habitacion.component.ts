@@ -11,6 +11,8 @@ import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../ser
 })
 export class DetalleHabitacionComponent implements OnInit {
   @Input() id!: string; // llega desde la ruta /detalle-habitacion/:id
+  @Input() checkin?: string;  // llega desde la URL: ?checkin=YYYY-MM-DD
+  @Input() checkout?: string; // llega desde la URL: ?checkout=YYYY-MM-DD
 
   habitacion?: HabitacionApi;
   tipo?: TipoHabitacionApi;
