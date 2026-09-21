@@ -43,6 +43,15 @@ export class DetallePagoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Si hay un usuario logueado, se precargan sus datos en el formulario
+    const usuario = this.loginService.usuarioLogueado;
+    if (usuario) {
+      this.form.patchValue({
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        email: usuario.email
+      });
+    }
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
         this.habitacion = habitacion;
