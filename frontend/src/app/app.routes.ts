@@ -12,6 +12,7 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 import { FormularioServiciosComponent } from './components/formulario-servicios/formulario-servicios.component';
 import { DetalleHabitacionComponent } from './components/detalle-habitacion/detalle-habitacion.component';
+import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
 
 
 export const routes: Routes = [
@@ -23,7 +24,8 @@ export const routes: Routes = [
             { path: 'panel-usuario', component: PanelUsuarioComponent },
             { path: 'historial-reservas', component: HistorialReservasComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
-            { path: 'detalle-habitacion/:id', component: DetalleHabitacionComponent }
+            { path: 'detalle-habitacion/:id', component: DetalleHabitacionComponent },
+            { path: 'detalle-pago/:id', component: DetallePagoComponent }
         ]
     },
     { path: "login", component: LoginComponent },
