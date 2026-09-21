@@ -12,16 +12,16 @@
             <div class="row g-0 align-items-stretch">
                 <div class="col-12 col-md-4 filtro-grupo">
                     <label for="checkin">Check-in</label>
-                    <input type="date" id="checkin" name="checkin">
+                    <input type="date" id="checkin" name="checkin" #checkinInput>
                 </div>
                 <div class="col-12 col-md-4 filtro-grupo"
                     style="border-left: 1px solid var(--gris-200); border-right: 1px solid var(--gris-200);">
                     <label for="checkout">Check-out</label>
-                    <input type="date" id="checkout" name="checkout">
+                    <input type="date" id="checkout" name="checkout" #checkoutInput>
                 </div>
                 <div class="col-12 col-md-4 filtro-grupo">
                     <label for="huespedes">Huéspedes</label>
-                    <select name="huespedes" id="huespedes">
+                    <select name="huespedes" id="huespedes" #huespedesInput>
                         <option value="1">1 Huésped</option>
                         <option value="2">2 Huéspedes</option>
                         <option value="3">3 Huéspedes</option>
@@ -29,7 +29,10 @@
                     </select>
                 </div>
             </div>
-            <button class="btn btn-primario btn-grande w-100">🔍 Buscar</button>
+            <button type="button" class="btn btn-primario btn-grande w-100" (click)="buscarFechas(checkinInput.value, checkoutInput.value, huespedesInput.value)">🔍 Buscar</button>
+            @if (mensajeFechas) {
+                <p class="text-danger mt-2 mb-0">{{ mensajeFechas }}</p>
+                }
         </div>
 
         <!-- LAYOUT: FILTROS + RESULTADOS -->
@@ -88,7 +91,7 @@
                                         </div>
                                     </div>
                                     <div class="resultado-card__bottom">
-                                        <a routerLink="/detalle-habitacion/{{ hab.id }}" class="btn btn-primario resultado-card__btn w-100">Ver habitación</a>
+                                        <a routerLink="/detalle-habitacion/{{ hab.id }}" [queryParams]="{ checkin: checkin, checkout: checkout }" class="btn btn-primario resultado-card__btn w-100">Ver habitación</a>
                                     </div>
                             </div>
                     
