@@ -1,1 +1,278 @@
-<p>pago-confirmado works!</p>
+<main class="confirmacion-main">
+    <div class="confirmacion-inner">
+
+        @if (mensajeError) {
+            <p class="text-danger text-center">{{ mensajeError }}</p>
+        }
+
+        <!-- ENCABEZADO -->
+        <section class="confirmacion-encabezado confirmacion-animar">
+            <div class="confirmacion-icono-wrap">
+                <span class="confirmacion-icono-anillo"></span>
+                <span class="confirmacion-icono-anillo confirmacion-icono-anillo--2"></span>
+                <span class="confirmacion-icono">
+                    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </span>
+            </div>
+            @if (pagoAprobado) {
+                <h1 class="confirmacion-titulo">¡Pago realizado con éxito!</h1>
+                <p class="confirmacion-subtitulo">
+                    Gracias por elegir Hotel El Rejunte. Tu reserva fue confirmada correctamente y ya estamos
+                    preparando todo para recibirte.
+                </p>
+            } @else {
+                <h1 class="confirmacion-titulo">¡Reserva confirmada!</h1>
+                <p class="confirmacion-subtitulo">
+                    Gracias por elegir Hotel El Rejunte. Tu reserva fue registrada y estamos esperando
+                    la acreditación de tu pago.
+                </p>
+            }
+        </section>
+
+        <!-- TARJETA PRINCIPAL -->
+        <section class="confirmacion-tarjeta confirmacion-animar">
+            <img [src]="habitacion?.imagen_principal || 'imagenes/premium.webp'" [alt]="tipo?.nombre" class="confirmacion-tarjeta__img" loading="lazy">
+            <div class="confirmacion-tarjeta__body">
+                <div class="confirmacion-tarjeta__top">
+                    <span class="confirmacion-tarjeta__nombre">{{ tipo?.nombre }}</span>
+                    <span class="confirmacion-tarjeta__codigo">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Reserva #ERH-{{ reserva?.numero_reserva }}
+                    </span>
+                </div>
+
+                <div class="confirmacion-datos">
+                    <div class="confirmacion-dato">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">Huésped</span>
+                            <span class="confirmacion-dato__valor">{{ huesped || 'Huésped' }}</span>
+                        </span>
+                    </div>
+
+                    <div class="confirmacion-dato">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">Huéspedes</span>
+                            <span class="confirmacion-dato__valor">Hasta {{ habitacion?.capacidad }} {{ habitacion?.capacidad === 1 ? 'huésped' : 'huéspedes' }}, 1 habitación</span>
+                        </span>
+                    </div>
+
+                    <div class="confirmacion-dato">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">Fecha de ingreso</span>
+                            <span class="confirmacion-dato__valor">{{ formatearFecha(reservaHabitacion?.fecha_hora_checkin) }}</span>
+                        </span>
+                    </div>
+
+                    <div class="confirmacion-dato">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">Fecha de salida</span>
+                            <span class="confirmacion-dato__valor">{{ formatearFecha(reservaHabitacion?.fecha_hora_checkout) }}</span>
+                        </span>
+                    </div>
+
+                    <div class="confirmacion-dato">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">Duración</span>
+                            <span class="confirmacion-dato__valor">{{ noches }} {{ noches === 1 ? 'noche' : 'noches' }}</span>
+                        </span>
+                    </div>
+
+                    <div class="confirmacion-dato">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">Método de pago</span>
+                            <span class="confirmacion-dato__valor">{{ metodoPago?.nombre }}</span>
+                        </span>
+                    </div>
+
+                    <div class="confirmacion-dato confirmacion-dato--total">
+                        <span class="confirmacion-dato__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </span>
+                        <span class="confirmacion-dato__texto">
+                            <span class="confirmacion-dato__label">
+                                @if (pagoAprobado) { Importe abonado } @else { Importe a abonar }
+                            </span>
+                            <span class="confirmacion-dato__valor">${{ pago?.monto_total | number:'1.0-0' }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRÓXIMOS PASOS -->
+        <section class="seccion-confirmacion confirmacion-pasos confirmacion-animar">
+            <h2 class="seccion-confirmacion__titulo">Próximos pasos</h2>
+            <ol class="pasos-timeline">
+                <li class="pasos-timeline__item pasos-timeline__item--activo">
+                    <span class="pasos-timeline__icono">✔️</span>
+                    <span class="pasos-timeline__label">Reserva confirmada</span>
+                    <span class="pasos-timeline__desc">
+                        @if (pagoAprobado) { Tu pago fue aprobado correctamente. } @else { Estamos esperando la acreditación de tu pago. }
+                    </span>
+                </li>
+                <li class="pasos-timeline__item">
+                    <span class="pasos-timeline__icono">📋</span>
+                    <span class="pasos-timeline__label">Revisá tu reserva</span>
+                    <span class="pasos-timeline__desc">Encontrás los detalles en tu historial de reservas.</span>
+                </li>
+                <li class="pasos-timeline__item">
+                    <span class="pasos-timeline__icono">🧳</span>
+                    <span class="pasos-timeline__label">Preparar tu viaje</span>
+                    <span class="pasos-timeline__desc">Solo queda armar las valijas.</span>
+                </li>
+                <li class="pasos-timeline__item">
+                    <span class="pasos-timeline__icono">🏨</span>
+                    <span class="pasos-timeline__label">Te esperamos</span>
+                    <span class="pasos-timeline__desc">Nos vemos en El Rejunte Hotel.</span>
+                </li>
+            </ol>
+        </section>
+
+        <!-- INFORMACIÓN ÚTIL -->
+        <section class="seccion-confirmacion confirmacion-info confirmacion-animar">
+            <h2 class="seccion-confirmacion__titulo">Información útil</h2>
+            <div class="info-util">
+                <div class="info-util-grid">
+                    <div class="info-util-item">
+                        <span class="info-util-item__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </span>
+                        <span>
+                            <span class="info-util-item__label">Check-in</span>
+                            <span class="info-util-item__valor">A partir de las 14:00</span>
+                        </span>
+                    </div>
+
+                    <div class="info-util-item">
+                        <span class="info-util-item__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </span>
+                        <span>
+                            <span class="info-util-item__label">Check-out</span>
+                            <span class="info-util-item__valor">Hasta las 11:00</span>
+                        </span>
+                    </div>
+
+                    <div class="info-util-item">
+                        <span class="info-util-item__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </span>
+                        <span>
+                            <span class="info-util-item__label">Dirección</span>
+                            <span class="info-util-item__valor">Av. Corrientes 1234, CABA, Buenos Aires</span>
+                        </span>
+                    </div>
+
+                    <div class="info-util-item">
+                        <span class="info-util-item__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </span>
+                        <span>
+                            <span class="info-util-item__label">Teléfono de contacto</span>
+                            <span class="info-util-item__valor">+54 11 4567-8900</span>
+                        </span>
+                    </div>
+
+                    <div class="info-util-item">
+                        <span class="info-util-item__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </span>
+                        <span>
+                            <span class="info-util-item__label">Correo electrónico</span>
+                            <span class="info-util-item__valor">info&#64;elrejuntehotel.com</span>
+                        </span>
+                    </div>
+
+                    <div class="info-util-item">
+                        <span class="info-util-item__icono">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </span>
+                        <span>
+                            <span class="info-util-item__label">Políticas principales</span>
+                            <span class="info-util-item__valor">Cancelación gratuita hasta 48 h antes del check-in. No se admiten mascotas.</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCIONES -->
+        <section class="confirmacion-acciones confirmacion-animar">
+            <a routerLink="/historial-reservas" class="btn btn-primario btn-grande">Ver mi reserva</a>
+            <a routerLink="/" class="btn btn-secundario btn-grande">Volver al inicio</a>
+            <a href="mailto:info@elrejuntehotel.com" class="btn btn-blanco btn-grande">Contactar al hotel</a>
+        </section>
+
+    </div>
+</main>
