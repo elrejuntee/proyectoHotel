@@ -13,6 +13,7 @@ import { RegistroComponent } from './auth/registro/registro.component';
 import { FormularioServiciosComponent } from './components/formulario-servicios/formulario-servicios.component';
 import { DetalleHabitacionComponent } from './components/detalle-habitacion/detalle-habitacion.component';
 import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
+import { PagoConfirmadoComponent } from './components/pago-confirmado/pago-confirmado.component';
 
 
 export const routes: Routes = [
@@ -25,7 +26,8 @@ export const routes: Routes = [
             { path: 'historial-reservas', component: HistorialReservasComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'detalle-habitacion/:id', component: DetalleHabitacionComponent },
-            { path: 'detalle-pago/:id', component: DetallePagoComponent }
+            { path: 'detalle-pago/:id', component: DetallePagoComponent },
+            { path: 'pago-confirmado/:id', component: PagoConfirmadoComponent }
         ]
     },
     { path: "login", component: LoginComponent },
