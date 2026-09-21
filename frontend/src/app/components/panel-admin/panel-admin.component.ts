@@ -282,7 +282,7 @@ export class PanelAdminComponent {
   if (estadoInactiva) {
     const cuerpo: HabitacionApi = {
       ...hab.original,
-      id_estado_habitacion: this.aIdApi(estadoInactiva.id)
+      id_estado_habitacion: estadoInactiva.id   //this.aIdApi(estadoInactiva.id)
     };
     this.habitacionesService.actualizarHabitacion(hab.idApi, cuerpo).subscribe({
       next: () => this.cargarHabitaciones(),
@@ -311,7 +311,7 @@ export class PanelAdminComponent {
       if (estadoApi) {
         const cuerpo: HabitacionApi = {
           ...item.original,
-          id_estado_habitacion: this.aIdApi(estadoApi.id)
+          id_estado_habitacion: estadoApi.id   //this.aIdApi(estadoApi.id)
         };
         this.habitacionesService.actualizarHabitacion(item.idApi, cuerpo).subscribe({
           next: () => {
@@ -409,8 +409,8 @@ export class PanelAdminComponent {
       const cuerpo: HabitacionApi = editando
         ? { ...editando.original }
         : { id_tipo_habitacion: '', id_estado_habitacion: '', numero: 0, piso: 0, precio: 0, capacidad: 0 };
-      cuerpo.id_tipo_habitacion = this.aIdApi(f.tipo);
-      cuerpo.id_estado_habitacion = this.aIdApi(f.estado);
+      cuerpo.id_tipo_habitacion = f.tipo;    //this.aIdApi(f.tipo);
+      cuerpo.id_estado_habitacion = f.estado;   //this.aIdApi(f.estado);
       cuerpo.numero = Number(f.numero);
       cuerpo.piso = Number(f.piso);
       cuerpo.precio = Number(f.precio);
