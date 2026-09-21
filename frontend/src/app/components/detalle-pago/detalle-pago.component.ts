@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
 import { ReservasService, ReservaApi, ReservaHabitacionApi, PagoApi } from '../../services/reservas/reservas.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
@@ -14,6 +14,8 @@ import { LoginService } from '../../auth/servicios/login/login.service';
 })
 export class DetallePagoComponent implements OnInit {
   @Input() id!: string; // llega desde la ruta /detalle-pago/:id
+  @Input() checkin?: string;  // llega desde la URL: ?checkin=YYYY-MM-DD
+  @Input() checkout?: string; // llega desde la URL: ?checkout=YYYY-MM-DD
 
   habitacion?: HabitacionApi;
   tipo?: TipoHabitacionApi;
@@ -25,24 +27,19 @@ export class DetallePagoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private habitacionesService: HabitacionesService,
     private reservasService: ReservasService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {
-    this.form = this.formBuilder.group({
-      nombre: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required]],
-      documento: ['', [Validators.required]],
-      comentarios: [''],
-      fechaCheckin: ['', [Validators.required]],
-      fechaCheckout: ['', [Validators.required]],
-      metodoPago: ['1'], // 1 = Tarjeta, 2 = Transferencia (ids de metodos_pago)
-      numeroTarjeta: [''],
-      nombreTarjeta: [''],
-      vencimiento: [''],
-      cvv: [''],
-      terminos: [false, [Validators.requiredTrue]]
-    });
+      this.form = this.formBuilder.group({
+        nombre: ['', [Validators.required]],
+        apellido: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        metodoPago: ['1'], // 1 = Tarjeta, 2 = Transferencia (ids de metodos_pago)
+        numeroTarjeta: [''],
+        nombreTarjeta: [''],
+        vencimiento: [''],
+        cvv: ['']
+      });
   }
 
   ngOnInit(): void {
@@ -69,14 +66,13 @@ export class DetallePagoComponent implements OnInit {
   }
 
   // Cantidad de noches entre check-in y check-out
-  get noches(): number {
-    const { fechaCheckin, fechaCheckout } = this.form.value;
-    if (!fechaCheckin || !fechaCheckout) {
-      return 0;
+    get noches(): number {
+      if (!this.checkin || !this.checkout) {
+        return 0;
+      }
+      const diferencia = new Date(this.checkout).getTime() - new Date(this.checkin).getTime();
+      return Math.max(0, Math.round(diferencia / (1000 * 60 * 60 * 24)));
     }
-    const diferencia = new Date(fechaCheckout).getTime() - new Date(fechaCheckin).getTime();
-    return Math.max(0, Math.round(diferencia / (1000 * 60 * 60 * 24)));
-  }
 
   get total(): number {
     return (this.habitacion?.precio ?? 0) * this.noches;
@@ -91,7 +87,7 @@ export class DetallePagoComponent implements OnInit {
       return;
     }
     if (!this.habitacion || this.noches <= 0) {
-      this.mensajeError = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
+      this.mensajeError = 'Elegí las fechas de tu estadía desde la búsqueda de reservas (el check-out debe ser posterior al check-in).';
       return;
     }
     if (!this.loginService.usuarioLogueado) {
@@ -122,13 +118,12 @@ export class DetallePagoComponent implements OnInit {
 
   // 2) Vincula la habitación y las fechas a la reserva
   private guardarReservaHabitacion(idReserva: number | string): void {
-    const { fechaCheckin, fechaCheckout } = this.form.value;
     const reservaHabitacion: ReservaHabitacionApi = {
       id_reserva: idReserva,
       id_habitacion: this.habitacion!.id!,
       pago_acordado: this.total,
-      fecha_hora_checkin: fechaCheckin + 'T14:00:00Z',
-      fecha_hora_checkout: fechaCheckout + 'T10:00:00Z'
+      fecha_hora_checkin: this.checkin + 'T14:00:00Z',
+      fecha_hora_checkout: this.checkout + 'T10:00:00Z'
     };
 
     this.reservasService.crearReservaHabitacion(reservaHabitacion).subscribe({
@@ -152,20 +147,8 @@ export class DetallePagoComponent implements OnInit {
 
     this.reservasService.crearPago(pago).subscribe({
       next: () => {
-        this.ocuparHabitacion();
-      },
-      error: (error: Error) => this.mostrarError(error)
-    });
-  }
-
-  // 4) Cambia el estado de la habitación a "Ocupada" (id 2)
-  private ocuparHabitacion(): void {
-    const ocupada: HabitacionApi = { ...this.habitacion!, id_estado_habitacion: 2 };
-
-    this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
-      next: () => {
         this.guardando = false;
-        alert('¡Reserva confirmada! Gracias por elegir El Rejunte Hotel.');
+        this.router.navigate(['/pago-confirmado', idReserva]);
       },
       error: (error: Error) => this.mostrarError(error)
     });
