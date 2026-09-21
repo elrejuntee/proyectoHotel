@@ -1,6 +1,6 @@
 <!-- CONTENIDO PRINCIPAL -->
 <main class="panel">
-    @if (usuario && usuario.id) {
+    @if (loginService.usuarioLogueado) {
         <div class="panel-inner">
             <div class="panel-encabezado">
                 <h1 class="panel-titulo">Mi Panel</h1>
@@ -55,7 +55,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+                <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
                     <div class="mb-3 campo">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" formControlName="nombre">
