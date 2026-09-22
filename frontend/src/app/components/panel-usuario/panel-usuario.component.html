@@ -1,6 +1,6 @@
 <!-- CONTENIDO PRINCIPAL -->
 <main class="panel">
-    @if (usuario && usuario.id) {
+    @if (loginService.usuarioLogueado) {
         <div class="panel-inner">
             <div class="panel-encabezado">
                 <h1 class="panel-titulo">Mi Panel</h1>
@@ -12,7 +12,7 @@
                         <img src="imagenes/juan-perez.webp" alt="Juan Perez" class="perfil-card-avatar">    
                     </div>
                     <div class="perfil-card__info">
-                        <h2 class="perfil-card-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+                        <h2 class="perfil-card-nombre">{{ loginService.usuarioLogueado.nombre }} {{ loginService.usuarioLogueado.apellido }}</h2>
                         <ul class="perfil-card-datos">
                             <li>Huésped registrado</li>
                         </ul>
@@ -28,11 +28,11 @@
                 <div class="bloque">
                     <dl class="bloque-lista">
                         <dt>Nombre</dt>
-                        <dd>{{ usuario.nombre }}</dd>
+                        <dd>{{ loginService.usuarioLogueado.nombre }}</dd>
                         <dt>Apellido</dt>
-                        <dd>{{ usuario.apellido }}</dd>
+                        <dd>{{ loginService.usuarioLogueado.apellido }}</dd>
                         <dt>Correo electrónico</dt>
-                        <dd>{{ usuario.email }}</dd>
+                        <dd>{{ loginService.usuarioLogueado.email }}</dd>
                     </dl>      
                 </div>
             </section>
@@ -55,7 +55,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+                <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
                     <div class="mb-3 campo">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" formControlName="nombre">

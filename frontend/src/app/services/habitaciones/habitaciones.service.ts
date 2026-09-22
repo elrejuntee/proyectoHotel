@@ -6,9 +6,9 @@ import { Observable, catchError, throwError } from 'rxjs';
 
 /** Colección "habitaciones". */
 export interface HabitacionApi {
-  id?: number | string; 
-  id_tipo_habitacion: number | string;
-  id_estado_habitacion: number | string;
+  id?: string; 
+  id_tipo_habitacion: string;
+  id_estado_habitacion: string;
   numero: number;
   piso: number;
   precio: number;
@@ -19,14 +19,14 @@ export interface HabitacionApi {
 
 /** Colección "tipos_habitacion". */
 export interface TipoHabitacionApi {
-  id: number | string;
+  id: string;
   nombre: string;
   cant_cama: number;
 }
 
 /** Colección "estados_habitacion". */
 export interface EstadoHabitacionApi {
-  id: number | string;
+  id: string;
   nombre: string;
 }
 

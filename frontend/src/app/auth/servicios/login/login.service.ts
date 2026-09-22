@@ -35,6 +35,10 @@ export class LoginService {
     );
   }
 
+  setUsuarioLogueado(usuario: Usuario) {
+    this.usuarioLogueado = usuario;
+  }
+
   logout(): void {
     this.usuarioLogueado = null;
   }

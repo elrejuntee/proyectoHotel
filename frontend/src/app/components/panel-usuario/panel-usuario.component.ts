@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PanelUsuarioService } from '../../service/panel-usuario.service';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../../auth/servicios/login/login.service';
+import { PanelUsuarioService } from '../../services/panel-usuario/panel-usuario.service';
 
 @Component({
   selector: 'app-panel-usuario',
@@ -11,65 +12,59 @@ import { PanelUsuarioService } from '../../service/panel-usuario.service';
   styleUrl: './panel-usuario.component.css'
 })
 export class PanelUsuarioComponent implements OnInit {
-  
-  usuario: any = { nombre: '', apellido: '', email: '', rol: '' };
-  reservas: any[] = [];
-  perfilForm!: FormGroup;
+  public loginService = inject(LoginService);
+  private formBuilder = inject(FormBuilder);
+  private usuarioservice = inject(PanelUsuarioService);
 
-  constructor(
-    private fb: FormBuilder,
-    private panelService: PanelUsuarioService
-  ) {}
+  perfilForm = this.formBuilder.group({
+    nombre: [''],
+    apellido: [''],
+    email: ['', [Validators.email]]
+  });
 
-  ngOnInit(): void {
-    // Inicializamos el formulario con las validaciones
-    this.perfilForm = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
-    });
-
-    // Petición para traer a Juan Pérez (ID 1)
-    this.panelService.getUsuario(1).subscribe({
-      next: (data: any) => {
-        this.usuario = data;
-        if (this.perfilForm) {
-          // Llenamos el formulario con los datos que llegaron del json-server
-          this.perfilForm.patchValue({
-            nombre: data.nombre,
-            apellido: data.apellido,
-            email: data.email
-          });
-        }
-      },
-      error: (err: any) => console.error('Error al cargar perfil:', err)
-    });
-
-    // Petición para traer las reservas de Juan Pérez
-    this.panelService.getReservasUsuario(1).subscribe({
-      next: (data: any[]) => {
-        this.reservas = data;
-      },
-      error: (err: any) => console.error('Error al cargar reservas:', err)
-    });
+  ngOnInit() {
+    this.cargarDatosFormulario();
   }
 
-  guardarCambios(): void {
-    if (this.perfilForm && this.perfilForm.valid) {
-      const datosActualizados = { ...this.usuario, ...this.perfilForm.value };
+  cargarDatosFormulario() {
+    const usuario = this.loginService.usuarioLogueado;
+    if (usuario) {
+      this.perfilForm.patchValue({
+        nombre: usuario.nombre || '',
+        apellido: usuario.apellido || '',
+        email: usuario.email || ''
+      });
+    }
+  }
 
-      if (this.usuario && this.usuario.id) {
-        this.panelService.actualizarUsuario(this.usuario.id, datosActualizados).subscribe({
-          next: (response: any) => {
-            this.usuario = response;
-            alert('¡Perfil actualizado con éxito!');
-          },
-          error: (err: any) => {
-            console.error('Error al actualizar:', err);
-            alert('Hubo un error al guardar los cambios.');
-          }
-        });
-      }
+  actualizarPerfil() {
+    if (this.perfilForm.valid) {
+      const usuarioActual = this.loginService.usuarioLogueado;
+      if (!usuarioActual) return;
+
+      const formValues = this.perfilForm.value;
+
+      const datosAActualizar = {
+        nombre: formValues.nombre ? formValues.nombre : usuarioActual.nombre,
+        apellido: formValues.apellido ? formValues.apellido : usuarioActual.apellido,
+        email: formValues.email ? formValues.email : usuarioActual.email,
+      };
+
+      const usuarioActualizado = {
+        ...usuarioActual,
+        ...datosAActualizar
+      };
+
+      this.usuarioservice.actualizarUsuario(usuarioActual.id, usuarioActualizado).subscribe({
+        next: (usuarioNuevo) => {
+          console.log('Usuario actualizado en BD:', usuarioNuevo);
+          this.loginService.setUsuarioLogueado(usuarioActualizado);
+          this.perfilForm.patchValue(usuarioActualizado);
+        },
+        error: (error) => {
+          console.error('Error al actualizar el usuario:', error);
+        }
+      });
     }
   }
 }
