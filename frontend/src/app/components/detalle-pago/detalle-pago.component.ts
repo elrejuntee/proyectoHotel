@@ -144,7 +144,7 @@ export class DetallePagoComponent implements OnInit {
     }
       // Cambia el estado de la habitación a "Ocupada" (id 2) y navega a la confirmación
   private ocuparHabitacion(idReserva: number | string): void {
-    const ocupada: HabitacionApi = { ...this.habitacion!, id_estado_habitacion: 2 };
+    const ocupada: HabitacionApi = { ...this.habitacion!, id_estado_habitacion: '2' };
 
     this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
       next: () => {
