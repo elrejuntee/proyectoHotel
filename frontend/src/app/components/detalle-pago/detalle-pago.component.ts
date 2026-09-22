@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
-import { ReservasService, ReservaApi, ReservaHabitacionApi, PagoApi } from '../../services/reservas/reservas.service';
+import { ReservasService, ReservaApi, ReservaHabitacionApi} from '../../services/reservas/reservas.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
 
 @Component({
@@ -135,26 +135,18 @@ export class DetallePagoComponent implements OnInit {
       fecha_hora_checkout: this.checkout + 'T10:00:00Z'
     };
 
-    this.reservasService.crearReservaHabitacion(reservaHabitacion).subscribe({
-      next: () => {
-        this.guardarPago(idReserva);
-      },
-      error: (error: Error) => this.mostrarError(error)
-    });
-  }
+      this.reservasService.crearReservaHabitacion(reservaHabitacion).subscribe({
+        next: () => {
+          this.ocuparHabitacion(idReserva);
+        },
+        error: (error: Error) => this.mostrarError(error)
+      });
+    }
+      // Cambia el estado de la habitación a "Ocupada" (id 2) y navega a la confirmación
+  private ocuparHabitacion(idReserva: number | string): void {
+    const ocupada: HabitacionApi = { ...this.habitacion!, id_estado_habitacion: 2 };
 
-  // 3) Registra el pago: Aprobado (1) con tarjeta, Pendiente (2) con transferencia
-  private guardarPago(idReserva: number | string): void {
-    const metodo = this.form.value.metodoPago;
-    const pago: PagoApi = {
-      id_reserva: idReserva,
-      id_estado_pago: metodo === '1' ? 1 : 2,
-      id_metodo_pago: Number(metodo),
-      monto_total: this.total,
-      fecha: new Date().toISOString().slice(0, 10)
-    };
-
-    this.reservasService.crearPago(pago).subscribe({
+    this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
       next: () => {
         this.guardando = false;
         this.router.navigate(['/pago-confirmado', idReserva]);
