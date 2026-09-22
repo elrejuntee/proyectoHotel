@@ -19,20 +19,6 @@ export interface ReservaHabitacionApi {
   fecha_hora_checkout: string;
 }
 
-export interface PagoApi {
-  id?: number | string;
-  id_reserva: number | string;
-  id_estado_pago: number | string;
-  id_metodo_pago: number | string;
-  monto_total: number;
-  fecha: string;
-}
-
-export interface MetodoPagoApi {
-  id: number | string;
-  nombre: string;
-}
-
 // Servicio = Modelo (MVC): concentra las llamadas HTTP a json-server.
 @Injectable({
   providedIn: 'root'
@@ -55,12 +41,7 @@ export class ReservasService {
     );
   }
 
-  crearPago(pago: PagoApi): Observable<PagoApi> {
-    return this.http.post<PagoApi>(this.url + '/pagos', pago).pipe(
-      catchError(this.handleError)
-    );
-  }
-
+  // ----- GET -----
   obtenerReservas(): Observable<ReservaApi[]> {
     return this.http.get<ReservaApi[]>(this.url + '/reservas').pipe(
       catchError(this.handleError)
@@ -69,37 +50,6 @@ export class ReservasService {
 
   obtenerReservasHabitacion(): Observable<ReservaHabitacionApi[]> {
     return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas_habitacion').pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  obtenerPagos(): Observable<PagoApi[]> {
-    return this.http.get<PagoApi[]>(this.url + '/pagos').pipe(
-      catchError(this.handleError)
-    );
-  }
-
-    obtenerReservaPorId(id: number | string): Observable<ReservaApi> {
-    return this.http.get<ReservaApi>(this.url + '/reservas/' + id).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  // json-server filtra por campo con ?campo=valor y devuelve una lista
-  obtenerReservaHabitacionPorReserva(idReserva: number | string): Observable<ReservaHabitacionApi[]> {
-    return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas_habitacion?id_reserva=' + idReserva).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  obtenerPagoPorReserva(idReserva: number | string): Observable<PagoApi[]> {
-    return this.http.get<PagoApi[]>(this.url + '/pagos?id_reserva=' + idReserva).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  obtenerMetodoPagoPorId(id: number | string): Observable<MetodoPagoApi> {
-    return this.http.get<MetodoPagoApi>(this.url + '/metodos_pago/' + id).pipe(
       catchError(this.handleError)
     );
   }
