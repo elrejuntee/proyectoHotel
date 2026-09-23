@@ -71,3 +71,19 @@ Escribe el siguiente comando en la terminal para poner en marcha la aplicación:
 Una vez que el servidor compile correctamente, el mensaje en la terminal te indicará que la aplicación está lista. Abre tu navegador web de preferencia y entra a la dirección:
 
 http://localhost:4200/
+
+**6. Ejecutar la base de datos con json-server**
+En una nueva terminal escribe el siguiente comando: npm run db o con cualquier otro gestor de paquetes: <gestor-paquetes> db
+
+**7. Credenciales para el acceso**
+Administrador:
+Email: admin@gmail.com
+Password: admin123
+
+Usuario 1:
+Email: adridelosanto@gmail.com
+Password: 1234
+
+Usuario 2:
+Email: aguss.97@outlook.com
+password: 123456
