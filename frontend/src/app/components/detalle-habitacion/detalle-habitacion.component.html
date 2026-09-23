@@ -35,10 +35,10 @@
             <!-- GALERÍA -->
             <div class="detalle-galeria">
                 <img class="detalle-galeria__principal"
-                    [src]="habitacion?.imagen_principal || 'imagenes/premium.webp'"
+                    [src]="imagenPrincipal()"
                     [alt]="tipo?.nombre + ', vista principal'"
                     loading="lazy">
-                @for (img of habitacion?.imagenes_complementarias; track $index) {
+                @for (img of imagenesComplementarias(); track $index) {
                     <div class="detalle-galeria__miniatura">
                         <img [src]="img" [alt]="tipo?.nombre + ', foto ' + ($index + 1)" loading="lazy">
                     </div>

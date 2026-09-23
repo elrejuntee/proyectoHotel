@@ -42,4 +42,12 @@ export class DetalleHabitacionComponent implements OnInit {
       }
     });
   }
+  imagenPrincipal(): string {
+    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion) : '';
+  }
+
+  imagenesComplementarias(): string[] {
+    return this.habitacion ? this.habitacionesService.obtenerImagenesComplementarias(this.habitacion.id_tipo_habitacion) : [];
+  }
+  
 }
