@@ -73,6 +73,10 @@ export class DetallePagoComponent implements OnInit {
       }
     });
   }
+  
+  imagenPrincipal(): string {
+    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion) : '';
+  }
 
   // Cantidad de noches entre check-in y check-out
     get noches(): number {

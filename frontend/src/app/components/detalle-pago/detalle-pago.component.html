@@ -170,7 +170,7 @@
                     <aside class="col-12 col-lg-5">
                         <div class="resumen-reserva">
                             <div class="resumen-reserva__alojamiento">
-                                <img [src]="habitacion?.imagen_principal || 'imagenes/premium.webp'" [alt]="tipo?.nombre" class="resumen-reserva__img" loading="lazy">
+                                <img [src]="imagenPrincipal()" [alt]="tipo?.nombre" class="resumen-reserva__img" loading="lazy">
                                 <div>
                                     <div class="resumen-reserva__nombre">{{ tipo?.nombre }}</div>
                                     <div class="resumen-reserva__ubicacion">El Rejunte Hotel, Av. Corrientes 1234, CABA</div>
