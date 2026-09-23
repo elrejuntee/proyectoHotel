@@ -69,7 +69,7 @@
                         @for (hab of habitaciones; track hab.id) {
                             <article class="tarjeta resultado-card">
                                 <div class="resultado-card__img-wrap">
-                                    <img [src]="hab.imagen_principal || 'imagenes/premium.webp'" [alt]="'Habitación ' + hab.numero" loading="lazy">
+                                    <img [src]="imagenPrincipal(hab)" [alt]="'Habitación ' + hab.numero" loading="lazy">
                                     </div>
                                 <div class="resultado-card__info">
                                     <div class="resultado-card__top">

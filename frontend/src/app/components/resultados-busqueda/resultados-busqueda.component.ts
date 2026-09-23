@@ -69,6 +69,11 @@ export class ResultadosBusquedaComponent {
     const tipoEncontrado = this.tiposHabitacion.find(t => t.id == idTipo);
     return tipoEncontrado ? tipoEncontrado.nombre : 'Habitación';
   }
+
+    imagenPrincipal(hab: HabitacionApi): string {
+    return this.habitacionesService.obtenerImagenPrincipal(hab.id_tipo_habitacion);
+  }
+  
   buscarFechas(checkin: string, checkout: string, huespedes: string): void {
     if (!checkin || !checkout || checkout <= checkin) {
       this.checkin = null;
