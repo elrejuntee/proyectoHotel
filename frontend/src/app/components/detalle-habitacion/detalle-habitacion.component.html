@@ -1,0 +1,169 @@
+    <main class="detalle-main">
+        <div class="detalle-inner">
+            <!-- RUTA -->
+            <nav class="ruta" aria-label="ruta de navegación">
+                <a routerLink="/">Inicio</a>
+                <span>/</span>
+                <a routerLink="/reservas">Resultados de búsqueda</a>
+                <span>/</span>
+                <span class="activo">{{ tipo?.nombre }}</span>
+            </nav>
+            <!-- ENCABEZADO -->
+            <div class="detalle-header">
+                <div>
+                    <div class="detalle-titulo-row">
+                        <h1 class="detalle-titulo">{{ tipo?.nombre }}</h1>
+                    </div>
+                    <p class="detalle-ubicacion">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        El Rejunte Hotel, Av. Corrientes 1234, CABA, Buenos Aires
+                    </p>
+                </div>
+                <div class="detalle-columna-derecha">
+                    <div class="detalle-precio-box">
+                        <span class="desde">Desde</span>
+                        <strong>${{ habitacion?.precio | number:'1.0-0' }}<small>/noche</small></strong>
+                    </div>
+                    <div class="detalle-acciones">
+                        <a routerLink="/detalle-pago/{{ id }}" [queryParams]="{ checkin: checkin, checkout: checkout }" class="btn btn-primario btn-grande">Reservar ahora</a>
+                    </div>
+                </div>
+            </div>
+            <!-- GALERÍA -->
+            <div class="detalle-galeria">
+                <img class="detalle-galeria__principal"
+                    [src]="imagenPrincipal()"
+                    [alt]="tipo?.nombre + ', vista principal'"
+                    loading="lazy">
+                @for (img of imagenesComplementarias(); track $index) {
+                    <div class="detalle-galeria__miniatura">
+                        <img [src]="img" [alt]="tipo?.nombre + ', foto ' + ($index + 1)" loading="lazy">
+                    </div>
+                }
+            </div>
+            <!-- DESCRIPCIÓN -->
+            <section class="detalle-seccion">
+                <h2>Descripción</h2>
+                <p class="detalle-descripcion">
+                    La {{ tipo?.nombre }} de El Rejunte Hotel se encuentra en el piso {{ habitacion?.piso }}
+                    y tiene capacidad para hasta {{ habitacion?.capacidad }} huéspedes.
+                    Ideal para viajes de placer o de negocios, ofrece todo lo necesario para una estadía cómoda,
+                    con acceso directo a los servicios y comodidades del hotel.
+                </p>
+            </section>
+            <!-- COMODIDADES -->
+            <section class="detalle-seccion">
+                <h2>Comodidades</h2>
+                <div class="comodidades-grid">
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Capacidad</span>
+                            <span class="comodidad-item__valor">Hasta {{ habitacion?.capacidad }} huéspedes</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 20v-7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v7"></path>
+                                <path d="M2 20v-3h20v3"></path>
+                                <path d="M6 13V9a2 2 0 0 1 2-2h3v6"></path>
+                                <path d="M2 9V6a1 1 0 0 1 1-1h1"></path>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Camas</span>
+                            <span class="comodidad-item__valor">{{ tipo?.cant_cama }} {{ tipo?.cant_cama === 1 ? 'cama' : 'camas' }}</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 12h16"></path>
+                                <path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path>
+                                <path d="M9 12V5a2 2 0 0 1 4 0"></path>
+                                <line x1="7" y1="20" x2="7" y2="22"></line>
+                                <line x1="17" y1="20" x2="17" y2="22"></line>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Baño privado</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9.6 4.6A2 2 0 1 1 11 8H2"></path>
+                                <path d="M12.6 19.4A2 2 0 1 0 14 16H2"></path>
+                                <path d="M17.4 7.4A2 2 0 1 1 19 11H2"></path>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Aire acondicionado</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 13a10 10 0 0 1 14 0"></path>
+                                <path d="M8.5 16.5a5 5 0 0 1 7 0"></path>
+                                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Wi-Fi gratis</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">TV por cable</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"></path>
+                                <line x1="6" y1="1" x2="6" y2="4"></line>
+                                <line x1="10" y1="1" x2="10" y2="4"></line>
+                                <line x1="14" y1="1" x2="14" y2="4"></line>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Desayuno incluido</span>
+                        </span>
+                    </div>
+                    <div class="comodidad-item">
+                        <span class="comodidad-item__icono">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 2l1.5 1.5"></path>
+                                <path d="M3 6h18"></path>
+                                <path d="M18 2l-1.5 1.5"></path>
+                                <path d="M4 6l1 13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l1-13"></path>
+                            </svg>
+                        </span>
+                        <span class="comodidad-item__texto">
+                            <span class="comodidad-item__label">Cocina equipada</span>
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>

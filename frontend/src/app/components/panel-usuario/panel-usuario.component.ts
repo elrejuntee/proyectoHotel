@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../../auth/servicios/login/login.service';
+import { PanelUsuarioService } from '../../services/panel-usuario/panel-usuario.service';
 
 @Component({
   selector: 'app-panel-usuario',
@@ -10,37 +12,59 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
   styleUrl: './panel-usuario.component.css'
 })
 export class PanelUsuarioComponent implements OnInit {
-  perfilForm!: FormGroup;
+  public loginService = inject(LoginService);
+  private formBuilder = inject(FormBuilder);
+  private usuarioservice = inject(PanelUsuarioService);
 
-  // Datos dinámicos del usuario simulando una base de datos
-  usuario = {
-    nombre: 'Juan Perez',
-    email: 'juan@rejunte.com',
-    telefono: '+54 3532417835',
-    fechaNacimiento: '1964-01-12',
-    pais: 'Argentina',
-    miembroDesde: 'enero 2026'
-  };
+  perfilForm = this.formBuilder.group({
+    nombre: [''],
+    apellido: [''],
+    email: ['', [Validators.email]]
+  });
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    // Inicializamos el formulario reactivo con validaciones obligatorias
-    this.perfilForm = this.fb.group({
-      nombre: [this.usuario.nombre, [Validators.required, Validators.minLength(3)]],
-      email: [this.usuario.email, [Validators.required, Validators.email]],
-      telefono: [this.usuario.telefono, Validators.required],
-      fechaNacimiento: [this.usuario.fechaNacimiento, Validators.required],
-      pais: [this.usuario.pais, Validators.required]
-    });
+  ngOnInit() {
+    this.cargarDatosFormulario();
   }
 
-  guardarCambios(): void {
+  cargarDatosFormulario() {
+    const usuario = this.loginService.usuarioLogueado;
+    if (usuario) {
+      this.perfilForm.patchValue({
+        nombre: usuario.nombre || '',
+        apellido: usuario.apellido || '',
+        email: usuario.email || ''
+      });
+    }
+  }
+
+  actualizarPerfil() {
     if (this.perfilForm.valid) {
-      this.usuario = { ...this.usuario, ...this.perfilForm.value };
-      alert('¡Perfil actualizado con éxito!');
-    } else {
-      this.perfilForm.markAllAsTouched();
+      const usuarioActual = this.loginService.usuarioLogueado;
+      if (!usuarioActual) return;
+
+      const formValues = this.perfilForm.value;
+
+      const datosAActualizar = {
+        nombre: formValues.nombre ? formValues.nombre : usuarioActual.nombre,
+        apellido: formValues.apellido ? formValues.apellido : usuarioActual.apellido,
+        email: formValues.email ? formValues.email : usuarioActual.email,
+      };
+
+      const usuarioActualizado = {
+        ...usuarioActual,
+        ...datosAActualizar
+      };
+
+      this.usuarioservice.actualizarUsuario(usuarioActual.id, usuarioActualizado).subscribe({
+        next: (usuarioNuevo) => {
+          console.log('Usuario actualizado en BD:', usuarioNuevo);
+          this.loginService.setUsuarioLogueado(usuarioActualizado);
+          this.perfilForm.patchValue(usuarioActualizado);
+        },
+        error: (error) => {
+          console.error('Error al actualizar el usuario:', error);
+        }
+      });
     }
   }
 }

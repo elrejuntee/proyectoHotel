@@ -70,6 +70,8 @@
             </button>
           </div>
 
+          <div class="alert alert-danger" *ngIf="errorHabitaciones">{{ errorHabitaciones }}</div>
+
           <div class="row g-4 mb-4">
             <div class="col-12 col-sm-6 col-xl-3">
               <div class="stat-card stat-card-azul">
@@ -80,7 +82,7 @@
                   </svg>
                 </div>
                 <div class="stat-card-info">
-                  <span class="stat-card-numero">120</span>
+                  <span class="stat-card-numero">{{totalHabitaciones}}</span>
                   <span class="stat-card-label">Total de habitaciones</span>
                   <span class="stat-card-sub">Todas las habitaciones</span>
                 </div>
@@ -94,7 +96,7 @@
                   </svg>
                 </div>
                 <div class="stat-card-info">
-                  <span class="stat-card-numero">86</span>
+                  <span class="stat-card-numero">{{totalDisponibles}}</span>
                   <span class="stat-card-label">Disponibles</span>
                   <span class="stat-card-sub">Listas para reservar</span>
                 </div>
@@ -111,7 +113,7 @@
                   </svg>
                 </div>
                 <div class="stat-card-info">
-                  <span class="stat-card-numero">24</span>
+                  <span class="stat-card-numero">{{totalOcupadas}}</span>
                   <span class="stat-card-label">Ocupadas</span>
                   <span class="stat-card-sub">Actualmente reservadas</span>
                 </div>
@@ -127,7 +129,7 @@
                   </svg>
                 </div>
                 <div class="stat-card-info">
-                  <span class="stat-card-numero">10</span>
+                  <span class="stat-card-numero">{{totalMantenimiento}}</span>
                   <span class="stat-card-label">Mantenimiento</span>
                   <span class="stat-card-sub">En reparación</span>
                 </div>
@@ -182,8 +184,8 @@
                         <span>{{ hab.ocupacionPorcentaje }}%</span>
                         <div class="barra-ocupacion">
                           <div class="barra-ocupacion-fill"
-                               [class.barra-ocupacion-fill-llena]="hab.ocupacionPorcentaje === 100"
-                               [style.width.%]="hab.ocupacionPorcentaje"></div>
+                                [class.barra-ocupacion-fill-llena]="hab.ocupacionPorcentaje === 100"
+                                [style.width.%]="hab.ocupacionPorcentaje"></div>
                         </div>
                       </div>
                     </td>
@@ -199,6 +201,7 @@
                         <div class="dropdown-overlay" *ngIf="dropdownAbiertoId() === hab.id" (click)="cerrarDropdown()"></div>
                         <ul class="dropdown-menu dropdown-menu-end" *ngIf="dropdownAbiertoId() === hab.id">
                           <li><a class="dropdown-item" (click)="verItem(hab)">Ver</a></li>
+                          <li><a class="dropdown-item" (click)="editarHabitacion(hab)">Editar</a></li>
                           <li><a class="dropdown-item" (click)="cambiarEstadoItem(hab)">Cambiar estado</a></li>
                           <li><label class="dropdown-item text-secondary" (click)="cerrarDropdown()">Cancelar</label></li>
                         </ul>
@@ -462,60 +465,68 @@
   </div>
 </div>
 
-<!-- ===== MODAL: AGREGAR HABITACIÓN ===== -->
-<div class="modal" *ngIf="mostrarAgregarHabitacion">
+<!-- ===== MODAL: AGREGAR / EDITAR HABITACIÓN ===== -->
+<div class="modal" *ngIf="mostrarFormularioHabitacion">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
       <div class="modal-header border-bottom px-4 py-3">
-        <h2 class="modal-title fs-5 fw-bold text-dark">Agregar habitación</h2>
+        <h2 class="modal-title fs-5 fw-bold text-dark">{{ esEdicionHabitacion ? 'Editar habitación' : 'Agregar habitación' }}</h2>
         <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body p-4">
-        <form (ngSubmit)="guardarHabitacion()">
+        <div class="alert alert-danger py-2 small" *ngIf="errorFormularioHabitacion">{{ errorFormularioHabitacion }}</div>
+        <form [formGroup]="formHabitacion" (ngSubmit)="guardarHabitacion()">
           <div class="row g-3 mb-3">
             <div class="col-6">
               <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
-              <input type="text" class="form-control" id="habPiso" name="habPiso" placeholder="Ej: 1" [(ngModel)]="nuevaHabitacion.piso">
+              <input type="number" class="form-control" id="habPiso" formControlName="piso" placeholder="Ej: 1"
+                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+              <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('required')">El piso es requerido.</p>
+              <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('min')">El piso no puede ser negativo.</p>
             </div>
             <div class="col-6">
               <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
-              <input type="text" class="form-control" id="habNumero" name="habNumero" placeholder="Ej: 101" [(ngModel)]="nuevaHabitacion.numero">
+              <input type="number" class="form-control" id="habNumero" formControlName="numero" placeholder="Ej: 101"
+                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+              <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('required')">El número es requerido.</p>
+              <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('min')">El número debe ser mayor a 0.</p>
             </div>
           </div>
           <div class="mb-3">
             <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
-            <select class="form-select text-dark" id="habTipo" name="habTipo" [(ngModel)]="nuevaHabitacion.tipo">
-              <option value="" disabled selected>Seleccioná un tipo</option>
-              <option value="estandar">Habitación estándar</option>
-              <option value="deluxe">Deluxe</option>
-              <option value="premium">Premium</option>
-              <option value="familiar">Familiar</option>
+            <select #selTipo class="form-select text-dark" id="habTipo" formControlName="tipo" (change)="alCambiarTipoHabitacion(selTipo.value)">
+              <option value="" disabled>Seleccioná un tipo</option>
+              <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">{{ tipo.nombre }}</option>
             </select>
+            <p class="text-danger small mb-0" *ngIf="Tipo?.touched && Tipo?.hasError('required')">Elegí un tipo de habitación.</p>
           </div>
-          <div class="mb-3">
-            <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
-            <input type="number" class="form-control" id="habPrecio" name="habPrecio" placeholder="Ej: 85" [(ngModel)]="nuevaHabitacion.precio">
-            <div class="form-text text-muted" style="font-size: 0.75rem;">
-              Referencia: Estándar $85 · Deluxe $140 · Premium $220 · Familiar $180
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
+              <input type="number" class="form-control bg-light" id="habPrecio" formControlName="precio" placeholder="Según el tipo" readonly>
+              <p class="text-danger small mb-0" *ngIf="Precio?.touched && Precio?.hasError('required')">El precio se completa al elegir el tipo.</p>
+            </div>
+            <div class="col-6">
+              <label for="habCapacidad" class="form-label fw-semibold text-secondary small">Capacidad</label>
+              <input type="number" class="form-control bg-light" id="habCapacidad" formControlName="capacidad" placeholder="Según el tipo" readonly>
+              <p class="text-danger small mb-0" *ngIf="Capacidad?.touched && Capacidad?.hasError('required')">La capacidad se completa al elegir el tipo.</p>
             </div>
           </div>
           <div class="mb-3">
-            <label for="habDescripcion" class="form-label fw-semibold text-secondary small">Descripción</label>
-            <textarea class="form-control" id="habDescripcion" name="habDescripcion" rows="3" placeholder="Describí las características de la habitación..." [(ngModel)]="nuevaHabitacion.descripcion"></textarea>
-          </div>
-          <div class="mb-3">
             <label for="habEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
-            <select class="form-select text-dark" id="habEstado" name="habEstado" [(ngModel)]="nuevaHabitacion.estado">
-              <option value="disponible">Disponible</option>
-              <option value="ocupado">Ocupado</option>
-              <option value="mantenimiento">En mantenimiento</option>
+            <select class="form-select text-dark" id="habEstado" formControlName="estado">
+              <option value="" disabled>Seleccioná un estado</option>
+              <option *ngFor="let estado of estadosHabitacion" [value]="estado.id">{{ estado.nombre }}</option>
             </select>
+            <p class="text-danger small mb-0" *ngIf="Estado?.touched && Estado?.hasError('required')">Elegí un estado.</p>
           </div>
         </form>
       </div>
       <div class="modal-footer border-top px-4 py-3 bg-light" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
         <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
-        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="guardarHabitacion()">Guardar habitación</button>
+        <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" [disabled]="guardandoHabitacion" (click)="guardarHabitacion()">
+          {{ esEdicionHabitacion ? 'Guardar cambios' : 'Guardar habitación' }}
+        </button>
       </div>
     </div>
   </div>
