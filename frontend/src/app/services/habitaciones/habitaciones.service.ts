@@ -13,8 +13,6 @@ export interface HabitacionApi {
   piso: number;
   precio: number;
   capacidad: number;
-  imagen_principal?: string;
-  imagenes_complementarias?: string[];
 }
 
 /** Colección "tipos_habitacion". */
@@ -29,6 +27,16 @@ export interface EstadoHabitacionApi {
   id: string;
   nombre: string;
 }
+
+// Imágenes de las habitaciones: no vienen de la base de datos (el diagrama no las modela),
+// así que quedan fijas en el código, indexadas por tipo de habitación.
+const IMAGENES_POR_TIPO: Record<string, { principal: string; complementarias: string[] }> = {
+  '1': { principal: 'imagenes/premium.webp', complementarias: ['imagenes/ejecutiva.webp', 'imagenes/baño.webp'] },
+  '2': { principal: 'imagenes/familiar.webp', complementarias: ['imagenes/familiar-2.webp', 'imagenes/comedor-hab.webp'] },
+  '3': { principal: 'imagenes/deluxe.webp', complementarias: ['imagenes/tv.webp', 'imagenes/baño-2.webp'] },
+  '4': { principal: 'imagenes/estandar.webp', complementarias: ['imagenes/tv.webp', 'imagenes/baño.webp'] },
+};
+const IMAGEN_POR_DEFECTO = 'imagenes/premium.webp';
 
 // Servicio = Modelo (MVC): concentra las llamadas HTTP a json-server.
 @Injectable({
@@ -82,6 +90,15 @@ export class HabitacionesService {
     return this.http.put<HabitacionApi>(this.url + '/habitaciones/' + id, habitacion).pipe(
       catchError(this.handleError)
     );
+  }
+
+    // ----- Imágenes (fijas en el código, no en la API) -----
+  obtenerImagenPrincipal(idTipoHabitacion: number | string): string {
+    return IMAGENES_POR_TIPO[String(idTipoHabitacion)]?.principal ?? IMAGEN_POR_DEFECTO;
+  }
+
+  obtenerImagenesComplementarias(idTipoHabitacion: number | string): string[] {
+    return IMAGENES_POR_TIPO[String(idTipoHabitacion)]?.complementarias ?? [];
   }
 
   // ----- Manejo de errores  -----

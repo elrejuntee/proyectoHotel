@@ -28,17 +28,17 @@
                         <strong>${{ habitacion?.precio | number:'1.0-0' }}<small>/noche</small></strong>
                     </div>
                     <div class="detalle-acciones">
-                        <a href="detalle-pago.html" class="btn btn-primario btn-grande">Reservar ahora</a>
+                        <a routerLink="/detalle-pago/{{ id }}" [queryParams]="{ checkin: checkin, checkout: checkout }" class="btn btn-primario btn-grande">Reservar ahora</a>
                     </div>
                 </div>
             </div>
             <!-- GALERÍA -->
             <div class="detalle-galeria">
                 <img class="detalle-galeria__principal"
-                    [src]="habitacion?.imagen_principal || 'imagenes/premium.webp'"
+                    [src]="imagenPrincipal()"
                     [alt]="tipo?.nombre + ', vista principal'"
                     loading="lazy">
-                @for (img of habitacion?.imagenes_complementarias; track $index) {
+                @for (img of imagenesComplementarias(); track $index) {
                     <div class="detalle-galeria__miniatura">
                         <img [src]="img" [alt]="tipo?.nombre + ', foto ' + ($index + 1)" loading="lazy">
                     </div>
