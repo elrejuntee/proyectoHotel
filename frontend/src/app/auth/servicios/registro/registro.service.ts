@@ -6,7 +6,8 @@ export interface UsuarioRegistro {
   apellido: string;
   email: string;
   password: string;
-  id_rol: number;
+  id_rol: string;
+  fecha_registro: Date;
 }
 
 @Injectable({

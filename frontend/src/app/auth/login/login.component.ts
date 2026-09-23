@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
           return;
         }
 
-        if (usuario.id_rol === 2) {
+        if (usuario.id_rol === "2") {
           console.log('Login exitoso (Cliente):', usuario);
           this.router.navigate(['/reservas']);
         } else {
