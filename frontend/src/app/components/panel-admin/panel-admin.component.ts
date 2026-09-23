@@ -480,7 +480,7 @@ export class PanelAdminComponent {
     return {
       id: 'hab' + h.id,
       idApi: h.id as number | string,
-      imagen: h.imagen_principal ?? IMAGEN_POR_DEFECTO,
+      imagen: this.habitacionesService.obtenerImagenPrincipal(h.id_tipo_habitacion),
       nombre: tipoNombre,
       subtitulo: `Habitación ${h.numero}`,
       categoriaSlug: tipoNombre.toLowerCase().includes('suite') ? 'suite' : 'deluxe',
