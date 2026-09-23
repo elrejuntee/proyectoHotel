@@ -1,9 +1,14 @@
 {
   "roles_usuario": [
-    { "id": "1", "rol": "Administrador" },
-    { "id": "2", "rol": "Huesped" }
+    {
+      "id": "1",
+      "rol": "Administrador"
+    },
+    {
+      "id": "2",
+      "rol": "Huesped"
+    }
   ],
-
   "usuarios": [
     {
       "id": "oXBFAWu1wp1",
@@ -22,16 +27,34 @@
       "email": "adridelosanto@gmail.com",
       "password": "1234",
       "fecha_registro": "2026-09-18"
+    },
+    {
+      "nombre": "fernando",
+      "apellido": "perez",
+      "email": "aguss.97@outlook.com",
+      "password": "123456",
+      "id_rol": "2",
+      "id": "jvUg-g3dhos"
     }
   ],
-
   "tipos_servicio": [
-    { "id": "1", "nombre_servicio": "Co-working" },
-    { "id": "2", "nombre_servicio": "Sala de conferencias" },
-    { "id": "3", "nombre_servicio": "Sala privada" },
-    { "id": "4", "nombre_servicio": "Comedor" }
+    {
+      "id": "1",
+      "nombre_servicio": "Co-working"
+    },
+    {
+      "id": "2",
+      "nombre_servicio": "Sala de conferencias"
+    },
+    {
+      "id": "3",
+      "nombre_servicio": "Sala privada"
+    },
+    {
+      "id": "4",
+      "nombre_servicio": "Comedor"
+    }
   ],
-
   "servicios": [
     {
       "id": "1",
@@ -58,54 +81,149 @@
       "capacidad_maxima": 25
     }
   ],
-
   "estados_habitacion": [
-    { "id": "1", "nombre": "Disponible" },
-    { "id": "2", "nombre": "Ocupada" },
-    { "id": "3", "nombre": "Mantenimiento" },
-    { "id": "4", "nombre": "Reservada" }
+    {
+      "id": "1",
+      "nombre": "Disponible"
+    },
+    {
+      "id": "2",
+      "nombre": "Ocupada"
+    },
+    {
+      "id": "3",
+      "nombre": "Mantenimiento"
+    },
+    {
+      "id": "4",
+      "nombre": "Reservada"
+    }
   ],
-
   "comodidades": [
-    { "id": "1", "nombre": "Wi-Fi gratis" },
-    { "id": "2", "nombre": "Baño privado" },
-    { "id": "3", "nombre": "Aire acondicionado" },
-    { "id": "4", "nombre": "TV con cable" },
-    { "id": "5", "nombre": "Cocina equipada" }
+    {
+      "id": "1",
+      "nombre": "Wi-Fi gratis"
+    },
+    {
+      "id": "2",
+      "nombre": "Baño privado"
+    },
+    {
+      "id": "3",
+      "nombre": "Aire acondicionado"
+    },
+    {
+      "id": "4",
+      "nombre": "TV con cable"
+    },
+    {
+      "id": "5",
+      "nombre": "Cocina equipada"
+    }
   ],
-
   "tipos_habitacion": [
-    { "id": "1", "nombre": "Suite Premium", "cant_cama": 2, "descripcion": "Suite de lujo con vista al mar" },
-    { "id": "2", "nombre": "Suite Familiar", "cant_cama": 4, "descripcion": "Suite ideal para familias" },
-    { "id": "3", "nombre": "Habitación Deluxe", "cant_cama": 1, "descripcion": "Habitación deluxe con vista al río" },
-    { "id": "4", "nombre": "Habitación Estándar", "cant_cama": 1, "descripcion": "Habitación estándar con vista al patio" }
+    {
+      "id": "1",
+      "nombre": "Suite Premium",
+      "cant_cama": 2,
+      "descripcion": "Suite de lujo con vista al mar"
+    },
+    {
+      "id": "2",
+      "nombre": "Suite Familiar",
+      "cant_cama": 4,
+      "descripcion": "Suite ideal para familias"
+    },
+    {
+      "id": "3",
+      "nombre": "Habitación Deluxe",
+      "cant_cama": 1,
+      "descripcion": "Habitación deluxe con vista al río"
+    },
+    {
+      "id": "4",
+      "nombre": "Habitación Estándar",
+      "cant_cama": 1,
+      "descripcion": "Habitación estándar con vista al patio"
+    }
   ],
-
   "tipos_habitacion_comodidad": [
-    { "id": "1", "id_tipo_habitacion": "1", "id_comodidad": "1" },
-    { "id": "2", "id_tipo_habitacion": "1", "id_comodidad": "2" },
-    { "id": "3", "id_tipo_habitacion": "1", "id_comodidad": "3" },
-    { "id": "4", "id_tipo_habitacion": "1", "id_comodidad": "4" },
-    { "id": "5", "id_tipo_habitacion": "1", "id_comodidad": "5" },
-
-    { "id": "6", "id_tipo_habitacion": "2", "id_comodidad": "1" },
-    { "id": "7", "id_tipo_habitacion": "2", "id_comodidad": "2" },
-    { "id": "8", "id_tipo_habitacion": "2", "id_comodidad": "3" },
-    { "id": "9", "id_tipo_habitacion": "2", "id_comodidad": "4" },
-
-    { "id": "10", "id_tipo_habitacion": "3", "id_comodidad": "1" },
-    { "id": "11", "id_tipo_habitacion": "3", "id_comodidad": "2" },
-    { "id": "12", "id_tipo_habitacion": "3", "id_comodidad": "3" },
-
-    { "id": "13", "id_tipo_habitacion": "4", "id_comodidad": "1" },
-    { "id": "14", "id_tipo_habitacion": "4", "id_comodidad": "2" }
+    {
+      "id": "1",
+      "id_tipo_habitacion": "1",
+      "id_comodidad": "1"
+    },
+    {
+      "id": "2",
+      "id_tipo_habitacion": "1",
+      "id_comodidad": "2"
+    },
+    {
+      "id": "3",
+      "id_tipo_habitacion": "1",
+      "id_comodidad": "3"
+    },
+    {
+      "id": "4",
+      "id_tipo_habitacion": "1",
+      "id_comodidad": "4"
+    },
+    {
+      "id": "5",
+      "id_tipo_habitacion": "1",
+      "id_comodidad": "5"
+    },
+    {
+      "id": "6",
+      "id_tipo_habitacion": "2",
+      "id_comodidad": "1"
+    },
+    {
+      "id": "7",
+      "id_tipo_habitacion": "2",
+      "id_comodidad": "2"
+    },
+    {
+      "id": "8",
+      "id_tipo_habitacion": "2",
+      "id_comodidad": "3"
+    },
+    {
+      "id": "9",
+      "id_tipo_habitacion": "2",
+      "id_comodidad": "4"
+    },
+    {
+      "id": "10",
+      "id_tipo_habitacion": "3",
+      "id_comodidad": "1"
+    },
+    {
+      "id": "11",
+      "id_tipo_habitacion": "3",
+      "id_comodidad": "2"
+    },
+    {
+      "id": "12",
+      "id_tipo_habitacion": "3",
+      "id_comodidad": "3"
+    },
+    {
+      "id": "13",
+      "id_tipo_habitacion": "4",
+      "id_comodidad": "1"
+    },
+    {
+      "id": "14",
+      "id_tipo_habitacion": "4",
+      "id_comodidad": "2"
+    }
   ],
-
   "habitaciones": [
     {
       "id": "1",
       "id_tipo_habitacion": "1",
-      "id_estado_habitacion": "1",
+      "id_estado_habitacion": "4",
       "numero": 101,
       "piso": 1,
       "precio": 80000,
@@ -132,19 +250,23 @@
     {
       "id": "4",
       "id_tipo_habitacion": "4",
-      "id_estado_habitacion": "1",
+      "id_estado_habitacion": "4",
       "numero": 202,
       "piso": 2,
       "precio": 40000,
       "capacidad": 1
     }
   ],
-
   "estados_reserva": [
-    { "id": "1", "nombre": "Confirmada" },
-    { "id": "2", "nombre": "Cancelada" }
+    {
+      "id": "1",
+      "nombre": "Confirmada"
+    },
+    {
+      "id": "2",
+      "nombre": "Cancelada"
+    }
   ],
-
   "reservas": [
     {
       "id": "1",
@@ -152,9 +274,22 @@
       "id_estado_reserva": "1",
       "numero_reserva": 55901,
       "fecha_hora_reserva": "2026-09-18T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "id_usuario": "jvUg-g3dhos",
+      "id_estado_reserva": "1",
+      "numero_reserva": 88402,
+      "fecha_hora_reserva": "2026-09-20T11:30:00Z"
+    },
+    {
+      "id": "3",
+      "id_usuario": "jvUg-g3dhos",
+      "id_estado_reserva": "1",
+      "numero_reserva": 88403,
+      "fecha_hora_reserva": "2026-09-21T15:00:00Z"
     }
   ],
-
   "reservas_habitacion": [
     {
       "id": "1",
@@ -163,9 +298,24 @@
       "pago_acordado": 80000,
       "fecha_hora_checkin": "2026-10-01T14:00:00Z",
       "fecha_hora_checkout": "2026-10-10T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "id_reserva": "2",
+      "id_habitacion": "1",
+      "pago_acordado": 80000,
+      "fecha_hora_checkin": "2026-10-05T14:00:00Z",
+      "fecha_hora_checkout": "2026-10-08T10:00:00Z"
+    },
+    {
+      "id": "3",
+      "id_reserva": "3",
+      "id_habitacion": "4",
+      "pago_acordado": 40000,
+      "fecha_hora_checkin": "2026-10-12T14:00:00Z",
+      "fecha_hora_checkout": "2026-10-15T10:00:00Z"
     }
   ],
-
   "reservas_servicio": [
     {
       "id": "1",
@@ -177,6 +327,5 @@
       "fecha_hora_fin": "2026-10-02T18:00:00Z"
     }
   ],
-
   "$schema": "./node_modules/json-server/schema.json"
 }
