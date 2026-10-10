@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 })
 export class DetalleHabitacionComponent implements OnInit {
   @Input() id!: string; // llega desde la ruta /detalle-habitacion/:id
-  @Input() checkin?: string;  // llega desde la URL: ?checkin=YYYY-MM-DD
-  @Input() checkout?: string; // llega desde la URL: ?checkout=YYYY-MM-DD
+  @Input() checkin?: string;  // llega como parametro de ruta: /detalle-habitacion/:Id/:checkin/:checkout
+  @Input() checkout?: string; // llega como parametro de ruta: /detalle-habitacion/:Id/:checkin/:checkout
 
   habitacion?: HabitacionApi;
   tipo?: TipoHabitacionApi;
@@ -79,13 +79,8 @@ export class DetalleHabitacionComponent implements OnInit {
     }
     if (this.loginService.usuarioLogueado) {
       console.log('Usuario autenticado, avanzando...');
-    // Redirigimos por código usando el Router, pasando los parámetros de la URL
-      this.router.navigate(['/detalle-pago', this.id], { 
-        queryParams: { 
-          checkin: this.checkin, 
-          checkout: this.checkout 
-        } 
-      });
+    // Redirigimos por código usando el Router, pasando checkin y checkout como parametros de ruta
+      this.router.navigate(['/detalle-pago', this.id, this.checkin, this.checkout]);
     } else {
       // Si NO está logueado, abrimos el modal de Bootstrap
       const modalElement = document.getElementById('authModal');

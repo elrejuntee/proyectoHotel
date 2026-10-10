@@ -91,7 +91,7 @@
                                         </div>
                                     </div>
                                     <div class="resultado-card__bottom">
-                                        <a routerLink="/detalle-habitacion/{{ hab.id }}" [queryParams]="{ checkin: checkin, checkout: checkout }" class="btn btn-primario resultado-card__btn w-100">Ver habitación</a>
+                                        <a [routerLink]="checkin && checkout ? ['/detalle-habitacion', hab.id, checkin, checkout] : ['/detalle-habitacion', hab.id]" class="btn btn-primario resultado-card__btn w-100">Ver habitación</a>
                                     </div>
                             </div>
                     
