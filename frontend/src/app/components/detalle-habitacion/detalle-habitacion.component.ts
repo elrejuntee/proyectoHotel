@@ -18,9 +18,14 @@ export class DetalleHabitacionComponent implements OnInit {
   tipo?: TipoHabitacionApi;
   mensajeError: string = '';
 
+  mensajeFechas: string = '';
+  mostrarFiltroFechas: boolean = false;
+
   constructor(private habitacionesService: HabitacionesService) {}
 
   ngOnInit(): void {
+    this.mostrarFiltroFechas = !this.checkin || !this.checkout;
+
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
         this.habitacion = habitacion;
@@ -49,5 +54,14 @@ export class DetalleHabitacionComponent implements OnInit {
   imagenesComplementarias(): string[] {
     return this.habitacion ? this.habitacionesService.obtenerImagenesComplementarias(this.habitacion.id_tipo_habitacion) : [];
   }
-  
+
+  buscarFechas(checkin: string, checkout: string): void {
+    if (!checkin || !checkout || checkout <= checkin) {
+      this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
+      return;
+    }
+    this.mensajeFechas = '';
+    this.checkin = checkin;
+    this.checkout = checkout;
+  }
 }

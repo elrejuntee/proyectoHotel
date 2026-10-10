@@ -32,6 +32,25 @@
                     </div>
                 </div>
             </div>
+            <!-- FILTRO DE FECHAS DE RESPALDO: solo si no llegaron checkin/checkout por queryParams -->
+                @if (mostrarFiltroFechas) {
+                    <div class="hero-filtro">
+                        <div class="row g-0 align-items-stretch">
+                            <div class="col-12 col-md-6 filtro-grupo">
+                                <label for="checkin">Check-in</label>
+                                <input type="date" id="checkin" name="checkin" #checkinInput>
+                            </div>
+                            <div class="col-12 col-md-6 filtro-grupo" style="border-left: 1px solid var(--gris-200);">
+                                <label for="checkout">Check-out</label>
+                                <input type="date" id="checkout" name="checkout" #checkoutInput>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primario btn-grande w-100" (click)="buscarFechas(checkinInput.value, checkoutInput.value)">🔍 Elegir fechas</button>
+                        @if (mensajeFechas) {
+                            <p class="text-danger mt-2 mb-0">{{ mensajeFechas }}</p>
+                        }
+                    </div>
+                }
             <!-- GALERÍA -->
             <div class="detalle-galeria">
                 <img class="detalle-galeria__principal"
