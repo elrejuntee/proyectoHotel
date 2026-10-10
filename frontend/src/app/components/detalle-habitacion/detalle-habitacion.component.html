@@ -45,7 +45,7 @@
                                 <input type="date" id="checkout" name="checkout" #checkoutInput>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primario btn-grande w-100" (click)="buscarFechas(checkinInput.value, checkoutInput.value)">🔍 Elegir fechas</button>
+                        <button type="button" class="btn btn-primario btn-grande w-100" (click)="buscarFechas(checkinInput.value, checkoutInput.value)">🔍 Confirmar fechas</button>
                         @if (mensajeFechas) {
                             <p class="text-danger mt-2 mb-0">{{ mensajeFechas }}</p>
                         }

@@ -73,6 +73,10 @@ export class DetalleHabitacionComponent implements OnInit {
   }
 
   intentarReservar() {
+    if (!this.checkin || !this.checkout) {
+      this.mensajeFechas = 'Elegí un check-in y un check-out válidos antes de reservar.';
+      return;
+    }
     if (this.loginService.usuarioLogueado) {
       console.log('Usuario autenticado, avanzando...');
     // Redirigimos por código usando el Router, pasando los parámetros de la URL
