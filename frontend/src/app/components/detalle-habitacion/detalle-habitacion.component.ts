@@ -2,10 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
+import { ModalReservaComponent } from '../modal-reserva/modal-reserva.component';
+import { LoginService } from '../../auth/servicios/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-habitacion',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ModalReservaComponent ],
   templateUrl: './detalle-habitacion.component.html',
   styleUrl: './detalle-habitacion.component.css'
 })
@@ -21,7 +24,11 @@ export class DetalleHabitacionComponent implements OnInit {
   mensajeFechas: string = '';
   mostrarFiltroFechas: boolean = false;
 
-  constructor(private habitacionesService: HabitacionesService) {}
+  constructor(
+    private habitacionesService: HabitacionesService,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.mostrarFiltroFechas = !this.checkin || !this.checkout;
@@ -63,5 +70,25 @@ export class DetalleHabitacionComponent implements OnInit {
     this.mensajeFechas = '';
     this.checkin = checkin;
     this.checkout = checkout;
+  }
+
+  intentarReservar() {
+    if (this.loginService.usuarioLogueado) {
+      console.log('Usuario autenticado, avanzando...');
+    // Redirigimos por código usando el Router, pasando los parámetros de la URL
+      this.router.navigate(['/detalle-pago', this.id], { 
+        queryParams: { 
+          checkin: this.checkin, 
+          checkout: this.checkout 
+        } 
+      });
+    } else {
+      // Si NO está logueado, abrimos el modal de Bootstrap
+      const modalElement = document.getElementById('authModal');
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+      }
+    }
   }
 }
