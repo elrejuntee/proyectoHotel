@@ -23,14 +23,14 @@
                                             <polyline points="22,6 12,13 2,6"></polyline>
                                         </svg>
                                         <input formControlName="email" type="email" id="email" placeholder="Ingresá tu correo"
-                                            [class.is-invalid]="Email?.errors && Email.touched" [class.is-valid]="Email?.valid && Email.touched">
+                                            [class.is-invalid]="Email?.errors && Email?.touched" [class.is-valid]="Email?.valid && Email?.touched">
                                     </div>
-                                    @if (Email?.errors && Email.touched) {
+                                    @if (Email?.errors && Email?.touched) {
                                         <div class="login-campo-error">
-                                            @if (Email.hasError('required')) {
+                                            @if (Email?.hasError('required')) {
                                                 <span>Debe ingresar el email</span>
                                             }
-                                            @if (Email.hasError('email')) {
+                                            @if (Email?.hasError('email')) {
                                                 <span>El formato de email no es válido</span>
                                             }
                                         </div>
@@ -51,11 +51,11 @@
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg>
                                         <input formControlName="password" type="password" id="password" placeholder="Ingresá tu contraseña"
-                                            [class.is-invalid]="Password?.errors && Password.touched" [class.is-valid]="Password?.valid && Password.touched">
+                                            [class.is-invalid]="Password?.errors && Password?.touched" [class.is-valid]="Password?.valid && Password?.touched">
                                     </div>
-                                    @if (Password?.errors && Password.touched) {
+                                    @if (Password?.errors && Password?.touched) {
                                         <div class="login-campo-error">
-                                            @if (Password.hasError('required')) {
+                                            @if (Password?.hasError('required')) {
                                                 <span>Debe ingresar la contraseña</span>
                                             }
                                         </div>
