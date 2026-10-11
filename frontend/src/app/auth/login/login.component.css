@@ -204,3 +204,11 @@
     border-color: #dc2626;
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
 }
+
+.login-campo input.is-valid {
+    border-left: 5px solid #42A948;
+}
+
+.login-campo input.is-valid:focus {
+    border-left: 5px solid #a94442
+}

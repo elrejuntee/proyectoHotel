@@ -26,7 +26,9 @@ export const routes: Routes = [
             { path: 'historial-reservas', component: HistorialReservasComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'detalle-habitacion/:id', component: DetalleHabitacionComponent },
+            { path: 'detalle-habitacion/:id/:checkin/:checkout', component: DetalleHabitacionComponent },
             { path: 'detalle-pago/:id', component: DetallePagoComponent },
+            { path: 'detalle-pago/:id/:checkin/:checkout', component: DetallePagoComponent },
             { path: 'pago-confirmado/:id', component: PagoConfirmadoComponent }
         ]
     },

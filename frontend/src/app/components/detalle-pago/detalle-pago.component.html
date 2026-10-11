@@ -27,15 +27,24 @@
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6 campo">
                                     <label for="nombre">Nombre <span class="campo-requerido">*</span></label>
-                                    <input type="text" id="nombre" formControlName="nombre" placeholder="Ingresá tu nombre" required>
+                                    <input type="text" id="nombre" formControlName="nombre" placeholder="Ingresá tu nombre">
+                                    @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+                                        <p class="text-danger mt-1 mb-0">El nombre es requerido.</p>
+                                    }
                                 </div>
                                 <div class="col-12 col-sm-6 campo">
                                     <label for="apellido">Apellido <span class="campo-requerido">*</span></label>
-                                    <input type="text" id="apellido" formControlName="apellido" placeholder="Ingresá tu apellido" required>
+                                    <input type="text" id="apellido" formControlName="apellido" placeholder="Ingresá tu apellido">
+                                    @if (form.get('apellido')?.invalid && form.get('apellido')?.touched) {
+                                        <p class="text-danger mt-1 mb-0">El apellido es requerido.</p>
+                                    }
                                 </div>
                                 <div class="col-12 col-sm-6 campo">
                                     <label for="email">Correo electrónico <span class="campo-requerido">*</span></label>
-                                    <input type="email" id="email" formControlName="email" placeholder="nombre@correo.com" required>
+                                    <input type="email" id="email" formControlName="email" placeholder="nombre@correo.com">
+                                    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                                        <p class="text-danger mt-1 mb-0">Ingresá un correo electrónico válido.</p>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -96,18 +105,30 @@
                                         <div class="col-12 campo">
                                             <label for="numeroTarjeta">Número de tarjeta <span class="campo-requerido">*</span></label>
                                             <input type="text" id="numeroTarjeta" formControlName="numeroTarjeta" placeholder="0000 0000 0000 0000" inputmode="numeric">
+                                            @if (form.get('numeroTarjeta')?.invalid && form.get('numeroTarjeta')?.touched) {
+                                                <p class="text-danger mt-1 mb-0">El número de tarjeta es requerido.</p>
+                                            }
                                         </div>
                                         <div class="col-12 campo">
                                             <label for="nombreTarjeta">Nombre en la tarjeta <span class="campo-requerido">*</span></label>
                                             <input type="text" id="nombreTarjeta" formControlName="nombreTarjeta" placeholder="Como figura en la tarjeta">
+                                            @if (form.get('nombreTarjeta')?.invalid && form.get('nombreTarjeta')?.touched) {
+                                                <p class="text-danger mt-1 mb-0">El nombre en la tarjeta es requerido.</p>
+                                            }
                                         </div>
                                         <div class="col-6 col-sm-4 campo">
                                             <label for="vencimiento">Vencimiento <span class="campo-requerido">*</span></label>
                                             <input type="text" id="vencimiento" formControlName="vencimiento" placeholder="MM/AA">
+                                            @if (form.get('vencimiento')?.invalid && form.get('vencimiento')?.touched) {
+                                                <p class="text-danger mt-1 mb-0">El vencimiento es requerido.</p>
+                                            }
                                         </div>
                                         <div class="col-6 col-sm-4 campo">
                                             <label for="cvv">CVV <span class="campo-requerido">*</span></label>
                                             <input type="text" id="cvv" formControlName="cvv" placeholder="123" inputmode="numeric">
+                                            @if (form.get('cvv')?.invalid && form.get('cvv')?.touched) {
+                                                <p class="text-danger mt-1 mb-0">El CVV es requerido.</p>
+                                            }
                                         </div>
                                     </div>
                                 </div>

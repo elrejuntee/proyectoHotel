@@ -128,11 +128,14 @@ export class ResultadosBusquedaComponent {
   private aplicarFiltros(): void {
     this.habitaciones = this.habitacionesOriginales.filter(h =>
       (this.precioMaximo <= 0 || h.precio <= this.precioMaximo) &&
-      (!this.busquedaHecha || (
-        !this.idsOcupadas.includes(String(h.id)) &&
-        String(h.id_estado_habitacion) !== '3' && // 3 = Mantenimiento
-        h.capacidad >= this.huespedesMinimos
-      ))
+      (this.busquedaHecha
+        ? (
+            !this.idsOcupadas.includes(String(h.id)) &&
+            String(h.id_estado_habitacion) !== '3' && // 3 = Mantenimiento
+            h.capacidad >= this.huespedesMinimos
+          )
+        : String(h.id_estado_habitacion) === '1' // Sin fechas elegidas: solo mostramos las Disponibles
+      )
     );
   }
 }
