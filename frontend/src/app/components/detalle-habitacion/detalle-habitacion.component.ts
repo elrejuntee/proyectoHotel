@@ -23,6 +23,7 @@ export class DetalleHabitacionComponent implements OnInit {
   mensajeError: string = '';
 
   mensajeFechas: string = '';
+  mensajeExitoFecha: string = '';
   mostrarFiltroFechas: boolean = false;
 
   constructor(
@@ -67,6 +68,7 @@ export class DetalleHabitacionComponent implements OnInit {
   buscarFechas(checkin: string, checkout: string): void {
     if (!checkin || !checkout || checkout <= checkin) {
       this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
+      this.mensajeExitoFecha = '';
       return;
     }
     // Antes de aceptar las fechas, chequeamos que nadie haya reservado esta habitación para ese rango
@@ -85,10 +87,12 @@ export class DetalleHabitacionComponent implements OnInit {
 
             if (estaOcupada) {
               this.mensajeFechas = 'Esta habitación ya está reservada para esas fechas. Elegí otras fechas.';
+              this.mensajeExitoFecha = '';
               return;
             }
 
             this.mensajeFechas = '';
+            this.mensajeExitoFecha = 'Fechas confirmadas.';
             this.checkin = checkin;
             this.checkout = checkout;
           },
