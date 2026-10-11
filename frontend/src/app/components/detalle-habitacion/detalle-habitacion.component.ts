@@ -24,6 +24,8 @@ export class DetalleHabitacionComponent implements OnInit {
   mensajeFechas: string = '';
   mostrarFiltroFechas: boolean = false;
 
+  mostrarModal: boolean = false;
+
   constructor(
     private habitacionesService: HabitacionesService,
     private loginService: LoginService,
@@ -82,12 +84,11 @@ export class DetalleHabitacionComponent implements OnInit {
     // Redirigimos por código usando el Router, pasando checkin y checkout como parametros de ruta
       this.router.navigate(['/detalle-pago', this.id, this.checkin, this.checkout]);
     } else {
-      // Si NO está logueado, abrimos el modal de Bootstrap
-      const modalElement = document.getElementById('authModal');
-      if (modalElement) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show();
-      }
+      // Si NO está logueado, activamos la variable para que se muestre el modal
+      this.mostrarModal = true;
     }
+  }
+  cerrarModal(): void {
+    this.mostrarModal = false;
   }
 }
