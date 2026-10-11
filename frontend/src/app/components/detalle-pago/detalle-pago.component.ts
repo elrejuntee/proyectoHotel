@@ -51,6 +51,9 @@ export class DetallePagoComponent implements OnInit {
         apellido: usuario.apellido,
         email: usuario.email
       });
+      this.form.get('nombre')?.markAllAsTouched();
+      this.form.get('apellido')?.markAllAsTouched();
+      this.form.get('email')?.markAllAsTouched();
     }
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
