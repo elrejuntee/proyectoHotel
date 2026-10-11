@@ -25,12 +25,12 @@
                                         type="text" 
                                         id="nombre" 
                                         placeholder="Ingresá tu nombre"
-                                        [class.is-invalid]="Nombre?.errors && Nombre?.touched"
-                                        [class.is-valid]="Nombre?.valid && Nombre?.touched">
+                                        [class.is-invalid]="Nombre?.errors && Nombre.touched"
+                                        [class.is-valid]="Nombre?.valid && Nombre.touched">
                                 </div>
-                                @if (Nombre?.errors && Nombre?.touched) {
+                                @if (Nombre?.errors && Nombre.touched) {
                                     <div class="login-campo-error">
-                                        @if (Nombre?.hasError('required')) {
+                                        @if (Nombre.hasError('required')) {
                                             <span>Debe ingresar el nombre</span>
                                         }
                                     </div>
@@ -49,12 +49,12 @@
                                         type="text" 
                                         id="apellido" 
                                         placeholder="Ingresá tu apellido"
-                                        [class.is-invalid]="Apellido?.errors && Apellido?.touched" 
-                                        [class.is-valid]="Apellido?.valid && Apellido?.touched">
+                                        [class.is-invalid]="Apellido?.errors && Apellido.touched" 
+                                        [class.is-valid]="Apellido?.valid && Apellido.touched">
                                 </div>
-                                @if (Apellido?.errors && Apellido?.touched) {
+                                @if (Apellido?.errors && Apellido.touched) {
                                     <div class="login-campo-error">
-                                        @if (Apellido?.hasError('required')) {
+                                        @if (Apellido.hasError('required')) {
                                             <span>Debe ingresar el apellido</span>
                                         }
                                     </div>
@@ -73,15 +73,15 @@
                                         type="email" 
                                         id="email" 
                                         placeholder="Ingresá tu correo"
-                                        [class.is-invalid]="Email?.errors && Email?.touched"
-                                        [class.is-valid]="Email?.valid && Email?.touched">
+                                        [class.is-invalid]="Email?.errors && Email.touched"
+                                        [class.is-valid]="Email?.valid && Email.touched">
                                 </div>
-                                @if (Email?.errors && Email?.touched) {
+                                @if (Email?.errors && Email.touched) {
                                     <div class="login-campo-error">
-                                        @if (Email?.hasError('required')) {
+                                        @if (Email.hasError('required')) {
                                             <span>Debe ingresar un correo electrónico</span>
                                         }
-                                        @if (Email?.hasError('email')) {
+                                        @if (Email.hasError('email')) {
                                             <span>El formato del correo no es válido</span>
                                         }
                                     </div>
@@ -100,15 +100,15 @@
                                         type="password" 
                                         id="password" 
                                         placeholder="Ingresá tu contraseña"
-                                        [class.is-invalid]="Password?.errors && Password?.touched"
-                                        [class.is-valid]="Password?.valid && Password?.touched">
+                                        [class.is-invalid]="Password?.errors && Password.touched"
+                                        [class.is-valid]="Password?.valid && Password.touched">
                                 </div>
-                                @if (Password?.errors && Password?.touched) {
+                                @if (Password?.errors && Password.touched) {
                                     <div class="login-campo-error">
-                                        @if (Password?.hasError('required')) {
+                                        @if (Password.hasError('required')) {
                                             <span>Debe ingresar una contraseña</span>
                                         }
-                                        @if (Password?.hasError('minlength')) {
+                                        @if (Password.hasError('minlength')) {
                                             <span>La contraseña debe tener al menos 6 caracteres</span>
                                         }
                                     </div>
