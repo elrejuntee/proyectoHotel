@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
+import { ReservasService } from '../../services/reservas/reservas.service';
 import { ModalReservaComponent } from '../modal-reserva/modal-reserva.component';
 import { LoginService } from '../../auth/servicios/login/login.service';
 import { Router } from '@angular/router';
@@ -26,6 +27,7 @@ export class DetalleHabitacionComponent implements OnInit {
 
   constructor(
     private habitacionesService: HabitacionesService,
+    private reservasService: ReservasService,
     private loginService: LoginService,
     private router: Router
   ) {}
@@ -67,9 +69,38 @@ export class DetalleHabitacionComponent implements OnInit {
       this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
       return;
     }
-    this.mensajeFechas = '';
-    this.checkin = checkin;
-    this.checkout = checkout;
+    // Antes de aceptar las fechas, chequeamos que nadie haya reservado esta habitación para ese rango
+    this.reservasService.obtenerReservas().subscribe({
+      next: (reservas) => {
+        this.reservasService.obtenerReservasHabitacion().subscribe({
+          next: (reservasHabitacion) => {
+            const idsConfirmadas = reservas
+              .filter(r => String(r.id_estado_reserva) === '1')
+              .map(r => String(r.id));
+
+            const estaOcupada = reservasHabitacion
+              .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
+              .filter(rh => String(rh.id_habitacion) === String(this.id))
+              .some(rh => rh.fecha_hora_checkin.slice(0, 10) < checkout && rh.fecha_hora_checkout.slice(0, 10) > checkin);
+
+            if (estaOcupada) {
+              this.mensajeFechas = 'Esta habitación ya está reservada para esas fechas. Elegí otras fechas.';
+              return;
+            }
+
+            this.mensajeFechas = '';
+            this.checkin = checkin;
+            this.checkout = checkout;
+          },
+          error: (error: Error) => {
+            this.mensajeFechas = error.message;
+          }
+        });
+      },
+      error: (error: Error) => {
+        this.mensajeFechas = error.message;
+      }
+    });
   }
 
   intentarReservar() {
