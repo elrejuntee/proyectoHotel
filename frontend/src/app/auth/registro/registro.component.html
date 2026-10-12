@@ -114,15 +114,38 @@
                                     </div>
                                 }
                             </div>
-
+                            <div class="login-campo mb-3">
+                                <label for="passwordConfirmacion" class="form-label small fw-semibold">Confirmar contraseña</label>
+                                <div class="login-campo-input-wrapper">
+                                    <svg class="login-campo-icono" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                    <input 
+                                        formControlName="passwordConfirmacion" 
+                                        type="password" 
+                                        id="passwordConfirmacion" 
+                                        placeholder="Repetí tu contraseña"
+                                        [class.is-invalid]="(PasswordConfirmacion?.errors || registroForm.hasError('passwordsNoCoinciden')) && PasswordConfirmacion?.touched"
+                                        [class.is-valid]="PasswordConfirmacion?.valid && !registroForm.hasError('passwordsNoCoinciden') && PasswordConfirmacion?.touched">
+                                </div>
+                                @if (PasswordConfirmacion?.touched) {
+                                    <div class="login-campo-error">
+                                        @if (PasswordConfirmacion?.hasError('required')) {
+                                            <span>Debe confirmar la contraseña</span>
+                                        }
+                                        @if (!PasswordConfirmacion?.hasError('required') && registroForm.hasError('passwordsNoCoinciden')) {
+                                            <span>Las contraseñas no coinciden</span>
+                                        }
+                                    </div>
+                                }
+                            </div>
                             <button type="submit" class="btn btn-primario btn-grande login-btn-ingresar w-100 mb-2">
                                 Registrarse
                             </button>
-
                             <div class="text-center my-2 small text-dark">
                                 ¿Ya tenés una cuenta? <a routerLink="/login" class="link-primary link-underline-opacity-0 link-underline-opacity-100-hover fw-semibold">Iniciá sesión</a>
                             </div>
-
                         </form>
                     </div>
                 </div>
