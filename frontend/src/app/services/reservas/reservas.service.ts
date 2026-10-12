@@ -19,6 +19,16 @@ export interface ReservaHabitacionApi {
   fecha_hora_checkout: string;
 }
 
+export interface ReservaServicioApi {
+  id?: number | string;
+  id_reserva: number | string;
+  id_servicio: number | string;
+  capacidad_invitados: number;
+  pago_acordado: number;
+  fecha_hora_inicio: string;
+  fecha_hora_fin: string;
+}
+
 // Servicio = Modelo (MVC): concentra las llamadas HTTP a json-server.
 @Injectable({
   providedIn: 'root'
@@ -37,6 +47,12 @@ export class ReservasService {
 
   crearReservaHabitacion(reservaHabitacion: ReservaHabitacionApi): Observable<ReservaHabitacionApi> {
     return this.http.post<ReservaHabitacionApi>(this.url + '/reservas_habitacion', reservaHabitacion).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  crearReservaServicio(reservaServicio: ReservaServicioApi): Observable<ReservaServicioApi> {
+    return this.http.post<ReservaServicioApi>(this.url + '/reservas_servicio', reservaServicio).pipe(
       catchError(this.handleError)
     );
   }

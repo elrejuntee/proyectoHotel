@@ -11,7 +11,7 @@
                             <h1 class="titulo-formulario mb-2">Complete los datos</h1>
                             <p class="text-muted mb-3">Reservá tu servicio en pocos pasos</p>
                             <span class="distintivo-servicio">Servicio seleccionado - {{ tipo?.nombre_servicio }}</span>
-                            <span class="distintivo-precio">Precio - ${{ servicio?.precio | number:'1.0-0' }}</span>
+                            <span class="distintivo-precio">Precio - ${{ precioTotal | number:'1.0-0' }}</span>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="cantidad-personas" class="form-label etiqueta-formulario">Cantidad de personas</label>
-                            <input type="number" min="1" formControlName="cantidadPersonas" class="form-control campo-formulario" id="cantidad-personas" placeholder="Ej: 4"
+                            <input type="number" min="1" [attr.max]="servicio?.capacidad_maxima" formControlName="cantidadPersonas" class="form-control campo-formulario" id="cantidad-personas" placeholder="Ej: 4"
                                 [class.is-invalid]="CantidadPersonas?.errors && CantidadPersonas?.touched"
                                 [class.is-valid]="CantidadPersonas?.valid && CantidadPersonas?.touched">
                             @if (CantidadPersonas?.errors && CantidadPersonas?.touched) {
@@ -53,6 +53,9 @@
                                     }
                                     @if (CantidadPersonas?.hasError('min')) {
                                         <span>Debe ser al menos 1 persona</span>
+                                    }
+                                    @if (CantidadPersonas?.hasError('max')) {
+                                        <span>La capacidad máxima para este servicio es {{ servicio?.capacidad_maxima }} personas</span>
                                     }
                                 </div>
                             }
@@ -88,7 +91,7 @@
                                 </div>
                             }
                         </div>
-                        <button type="submit" class="btn boton-formulario w-100">Completar reserva</button>
+                        <button type="submit" class="btn boton-formulario w-100" [disabled]="guardando"> {{ guardando ? 'Guardando...' : 'Completar reserva' }}</button>
                     </form>
                 </div>
             </div>
