@@ -47,6 +47,14 @@ export class FormularioServiciosComponent implements OnInit {
       next: (servicio) => {
         this.servicio = servicio;
         this.obtenerTipo(servicio.id_tipo_servicio);
+
+        const cantidadPersonas = this.formulario.get('cantidadPersonas');
+        cantidadPersonas?.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(servicio.capacidad_maxima)
+        ]);
+        cantidadPersonas?.updateValueAndValidity();
       },
       error: (error) => {
         this.mensajeError = error.message;
@@ -64,6 +72,22 @@ export class FormularioServiciosComponent implements OnInit {
       }
     });
   }
+
+  get precioTotal(): number {
+    const checkin = this.formulario.get('checkin')?.value;
+    const checkout = this.formulario.get('checkout')?.value;
+    if (!checkin || !checkout || !this.servicio) {
+      return this.servicio?.precio ?? 0;
+    }
+    const dias = this.calcularDias(checkin, checkout);
+    return dias > 0 ? this.servicio.precio * dias : this.servicio.precio;
+}
+
+  private calcularDias(checkin: string, checkout: string): number {
+    const msPorDia = 1000 * 60 * 60 * 24;
+    const diferencia = new Date(checkout).getTime() - new Date(checkin).getTime();
+    return Math.round(diferencia / msPorDia);
+}
 
   get Checkin() { return this.formulario.get('checkin'); }
   get Checkout() { return this.formulario.get('checkout'); }
