@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -10,7 +10,9 @@ import { Router, RouterLink } from '@angular/router';
 export class ModalReservaComponent {
   private router = inject(Router);
 
+  @Input() returnUrl?: string;
+
   get urlActual(): string {
-    return this.router.url;
+    return this.returnUrl ?? this.router.url;
   }
 }
