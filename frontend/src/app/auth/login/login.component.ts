@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../servicios/login/login.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private loginService = inject(LoginService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   mensajeError = '';
 
@@ -53,7 +54,8 @@ export class LoginComponent implements OnInit {
 
         if (usuario.id_rol === "2") {
           console.log('Login exitoso (Cliente):', usuario);
-          this.router.navigate(['/reservas']);
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          this.router.navigateByUrl(returnUrl || '/reservas');
         } else {
           console.log('Login exitoso (Admin):', usuario);
           this.router.navigate(['/panel-admin']);
