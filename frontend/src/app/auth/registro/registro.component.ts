@@ -3,6 +3,14 @@ import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { RegistroService, UsuarioRegistro } from '../servicios/registro/registro.service';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+function passwordsIgualesValidator(form: AbstractControl): ValidationErrors | null {
+  const password = form.get('password')?.value;
+  const confirmacion = form.get('passwordConfirmacion')?.value;
+  return password === confirmacion ? null : { passwordsNoCoinciden: true };
+}
+
 
 @Component({
   selector: 'app-registro',
@@ -20,6 +28,9 @@ export class RegistroComponent {
     apellido: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
+    passwordConfirmacion: ['', [Validators.required]]
+  }, {
+    validators: passwordsIgualesValidator
   })
 
   get Nombre() {
@@ -38,14 +49,19 @@ export class RegistroComponent {
     return this.registroForm.get('password');
   }
 
+  get PasswordConfirmacion() {
+    return this.registroForm.get('passwordConfirmacion');
+  }
+
   enviar() {
     this.registroForm.markAllAsTouched();
 
     if (this.registroForm.valid) {
+      const { passwordConfirmacion, ...datosUsuario } = this.registroForm.value;
       const nuevoUsuario: UsuarioRegistro = {
-        ...this.registroForm.value,
-        id_rol: "2" 
-      };
+    ...datosUsuario,
+    id_rol: "2" 
+    };
 
       this.registroService.registrarUsuario(nuevoUsuario).subscribe({
         next: (usuario) => {
