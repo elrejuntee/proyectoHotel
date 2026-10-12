@@ -13,15 +13,16 @@ export class ServiciosComponent {
   private loginService = inject(LoginService);
   private router = inject(Router);
 
-  intentarReservar(idServicio: string | number): void {
+mostrarModal = false;
+
+idServicioSeleccionado?: string | number;
+
+intentarReservar(idServicio: string | number): void {
     if (this.loginService.usuarioLogueado) {
       this.router.navigate(['/formulario-servicio', idServicio]);
     } else {
-      const modalElement = document.getElementById('authModal');
-      if (modalElement) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show();
-      }
+      this.idServicioSeleccionado = idServicio;
+      this.mostrarModal = true;
     }
   }
 }
