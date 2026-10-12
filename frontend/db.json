@@ -35,6 +35,14 @@
       "password": "123456",
       "id_rol": "2",
       "id": "jvUg-g3dhos"
+    },
+    {
+      "nombre": "Alexis",
+      "apellido": "Lazarte",
+      "email": "ale@gmail.com",
+      "password": "asdasd",
+      "id_rol": "2",
+      "id": "GqBVECer6aE"
     }
   ],
   "tipos_servicio": [
@@ -66,7 +74,7 @@
       "id": "2",
       "id_tipo_servicio": "2",
       "precio": 10000,
-      "capacidad_maxima": 20
+      "capacidad_maxima": 50
     },
     {
       "id": "3",
@@ -78,7 +86,7 @@
       "id": "4",
       "id_tipo_servicio": "4",
       "precio": 8000,
-      "capacidad_maxima": 25
+      "capacidad_maxima": 50
     }
   ],
   "estados_habitacion": [
