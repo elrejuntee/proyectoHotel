@@ -1,12 +1,27 @@
-import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../../auth/servicios/login/login.service';
+import { ModalReservaComponent } from '../modal-reserva/modal-reserva.component';
 
 @Component({
   selector: 'app-servicios',
-  imports: [RouterLink],
+  imports: [ModalReservaComponent],
   templateUrl: './servicios.component.html',
   styleUrl: './servicios.component.css'
 })
 export class ServiciosComponent {
+  private loginService = inject(LoginService);
+  private router = inject(Router);
 
+  intentarReservar(idServicio: string | number): void {
+    if (this.loginService.usuarioLogueado) {
+      this.router.navigate(['/formulario-servicio', idServicio]);
+    } else {
+      const modalElement = document.getElementById('authModal');
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+      }
+    }
+  }
 }

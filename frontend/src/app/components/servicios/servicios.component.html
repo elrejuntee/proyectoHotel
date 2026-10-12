@@ -52,7 +52,7 @@
                                 <li>✓ Servicio de catering disponible</li>
                                 <li>✓ Capacidad hasta 50 personas</li>
                             </ul>
-                            <a [routerLink]="['/formulario-servicio', 2]" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(2)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                                 <li>✓ Opciones vegetarianas y veganas</li>
                                 <li>✓ Servicio a la habitación disponible</li>
                             </ul>
-                            <a [routerLink]="['/formulario-servicio', 4]" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(4)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                                 <li>✓ Decoración incluida para eventos</li>
                                 <li>✓ Acceso exclusivo durante la reserva</li>
                             </ul>
-                            <a [routerLink]="['/formulario-servicio', 3]" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(3)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
@@ -118,11 +118,11 @@
                                 <li>✓ Sala de reuniones reservable</li>
                                 <li>✓ Impresora y escáner disponibles</li>
                             </ul>
-                            <a [routerLink]="['/formulario-servicio', 1]" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(1)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
+    <app-modal-reserva></app-modal-reserva>
