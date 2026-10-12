@@ -80,7 +80,7 @@
       "id": "3",
       "id_tipo_servicio": "3",
       "precio": 15000,
-      "capacidad_maxima": 15
+      "capacidad_maxima": 12
     },
     {
       "id": "4",
@@ -231,7 +231,7 @@
     {
       "id": "1",
       "id_tipo_habitacion": "1",
-      "id_estado_habitacion": "4",
+      "id_estado_habitacion": "2",
       "numero": 101,
       "piso": 1,
       "precio": 80000,
@@ -296,6 +296,13 @@
       "id_estado_reserva": "1",
       "numero_reserva": 88403,
       "fecha_hora_reserva": "2026-09-21T15:00:00Z"
+    },
+    {
+      "id_usuario": "GqBVECer6aE",
+      "id_estado_reserva": 1,
+      "numero_reserva": 75092,
+      "fecha_hora_reserva": "2026-10-12T17:02:02.847Z",
+      "id": "pFUY48M_lNE"
     }
   ],
   "reservas_habitacion": [
@@ -322,6 +329,14 @@
       "pago_acordado": 40000,
       "fecha_hora_checkin": "2026-10-12T14:00:00Z",
       "fecha_hora_checkout": "2026-10-15T10:00:00Z"
+    },
+    {
+      "id_reserva": "pFUY48M_lNE",
+      "id_habitacion": "1",
+      "pago_acordado": 160000,
+      "fecha_hora_checkin": "2026-10-12T14:00:00Z",
+      "fecha_hora_checkout": "2026-10-14T10:00:00Z",
+      "id": "n9lBQ1DuSuE"
     }
   ],
   "reservas_servicio": [
