@@ -190,6 +190,6 @@
             </section>
         </div>
     </main>
-@if (mostrarModal) {
-        <app-modal-reserva></app-modal-reserva>
+    @if (mostrarModal) {
+        <app-modal-reserva [returnUrl]="'/detalle-pago/' + id + '/' + checkin + '/' + checkout"></app-modal-reserva>
     }
