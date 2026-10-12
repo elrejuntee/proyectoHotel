@@ -19,14 +19,14 @@
             Dashboard
           </a>
           <a class="sidebar-link nav-link mb-1"
-             [class.sidebar-link-activo]="vistaActiva() === 'habitaciones'"
-             (click)="cambiarVista('habitaciones')">Habitaciones</a>
+            [class.sidebar-link-activo]="vistaActiva() === 'habitaciones'"
+            (click)="cambiarVista('habitaciones')">Habitaciones</a>
           <a class="sidebar-link nav-link mb-1"
-             [class.sidebar-link-activo]="vistaActiva() === 'reservas'"
-             (click)="cambiarVista('reservas')">Reservas</a>
+            [class.sidebar-link-activo]="vistaActiva() === 'reservas'"
+            (click)="cambiarVista('reservas')">Reservas</a>
           <a class="sidebar-link nav-link mb-1"
-             [class.sidebar-link-activo]="vistaActiva() === 'servicios'"
-             (click)="cambiarVista('servicios')">Servicios</a>
+            [class.sidebar-link-activo]="vistaActiva() === 'servicios'"
+            (click)="cambiarVista('servicios')">Servicios</a>
           <hr class="my-3 text-secondary">
           <a href="#" class="sidebar-link nav-link mb-1">Mi perfil</a>
         </nav>
@@ -211,16 +211,6 @@
                 </tbody>
               </table>
             </div>
-
-            <div class="admin-paginacion d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 mt-3">
-              <span class="admin-paginacion-info">Mostrando 1 a {{ habitaciones.length }} de 120 habitaciones</span>
-              <div class="admin-paginacion-controles">
-                <button type="button" class="pag-btn" disabled>&laquo;</button>
-                <button type="button" class="pag-btn pag-btn--activo">1</button>
-                <button type="button" class="pag-btn">2</button>
-                <button type="button" class="pag-btn">&raquo;</button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -358,8 +348,8 @@
                         <span>{{ serv.ocupacionPorcentaje }}%</span>
                         <div class="barra-ocupacion">
                           <div class="barra-ocupacion-fill"
-                               [class.barra-ocupacion-fill-llena]="serv.ocupacionPorcentaje === 100"
-                               [style.width.%]="serv.ocupacionPorcentaje"></div>
+                              [class.barra-ocupacion-fill-llena]="serv.ocupacionPorcentaje === 100"
+                              [style.width.%]="serv.ocupacionPorcentaje"></div>
                         </div>
                       </div>
                     </td>
@@ -480,21 +470,24 @@
             <div class="col-6">
               <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
               <input type="number" class="form-control" id="habPiso" formControlName="piso" placeholder="Ej: 1"
-                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion"
+                      [class.is-invalid]="Piso?.invalid && Piso?.touched" [class.is-valid]="Piso?.valid && Piso?.touched">
               <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('required')">El piso es requerido.</p>
               <p class="text-danger small mb-0" *ngIf="Piso?.touched && Piso?.hasError('min')">El piso no puede ser negativo.</p>
             </div>
             <div class="col-6">
               <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
               <input type="number" class="form-control" id="habNumero" formControlName="numero" placeholder="Ej: 101"
-                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion">
+                      [readonly]="esEdicionHabitacion" [class.bg-light]="esEdicionHabitacion"
+                      [class.is-invalid]="Numero?.invalid && Numero?.touched" [class.is-valid]="Numero?.valid && Numero?.touched">
               <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('required')">El número es requerido.</p>
               <p class="text-danger small mb-0" *ngIf="Numero?.touched && Numero?.hasError('min')">El número debe ser mayor a 0.</p>
             </div>
           </div>
           <div class="mb-3">
             <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
-            <select #selTipo class="form-select text-dark" id="habTipo" formControlName="tipo" (change)="alCambiarTipoHabitacion(selTipo.value)">
+            <select #selTipo class="form-select text-dark" id="habTipo" formControlName="tipo" (change)="alCambiarTipoHabitacion(selTipo.value)"
+                    [class.is-invalid]="Tipo?.invalid && Tipo?.touched" [class.is-valid]="Tipo?.valid && Tipo?.touched">
               <option value="" disabled>Seleccioná un tipo</option>
               <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">{{ tipo.nombre }}</option>
             </select>
@@ -503,18 +496,21 @@
           <div class="row g-3 mb-3">
             <div class="col-6">
               <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
-              <input type="number" class="form-control bg-light" id="habPrecio" formControlName="precio" placeholder="Según el tipo" readonly>
+              <input type="number" class="form-control bg-light" id="habPrecio" formControlName="precio" placeholder="Según el tipo" readonly
+                      [class.is-invalid]="Precio?.invalid && Precio?.touched" [class.is-valid]="Precio?.valid && Precio?.touched">
               <p class="text-danger small mb-0" *ngIf="Precio?.touched && Precio?.hasError('required')">El precio se completa al elegir el tipo.</p>
             </div>
             <div class="col-6">
               <label for="habCapacidad" class="form-label fw-semibold text-secondary small">Capacidad</label>
-              <input type="number" class="form-control bg-light" id="habCapacidad" formControlName="capacidad" placeholder="Según el tipo" readonly>
+              <input type="number" class="form-control bg-light" id="habCapacidad" formControlName="capacidad" placeholder="Según el tipo" readonly
+                      [class.is-invalid]="Capacidad?.invalid && Capacidad?.touched" [class.is-valid]="Capacidad?.valid && Capacidad?.touched">
               <p class="text-danger small mb-0" *ngIf="Capacidad?.touched && Capacidad?.hasError('required')">La capacidad se completa al elegir el tipo.</p>
             </div>
           </div>
           <div class="mb-3">
             <label for="habEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
-            <select class="form-select text-dark" id="habEstado" formControlName="estado">
+            <select class="form-select text-dark" id="habEstado" formControlName="estado"
+                    [class.is-invalid]="Estado?.invalid && Estado?.touched" [class.is-valid]="Estado?.valid && Estado?.touched">
               <option value="" disabled>Seleccioná un estado</option>
               <option *ngFor="let estado of estadosHabitacion" [value]="estado.id">{{ estado.nombre }}</option>
             </select>
