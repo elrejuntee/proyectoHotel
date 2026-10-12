@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServiciosService, ServicioApi, TipoServicioApi } from '../../services/servicios/servicios.service';
+import { LoginService } from '../../auth/servicios/login/login.service';
 
 @Component({
   selector: 'app-formulario-servicios',
@@ -16,6 +17,7 @@ export class FormularioServiciosComponent implements OnInit {
   private serviciosService = inject(ServiciosService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private loginService = inject(LoginService);
 
   servicio?: ServicioApi;
   tipo?: TipoServicioApi;
@@ -30,6 +32,17 @@ export class FormularioServiciosComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    // Si hay un usuario logueado, se precargan sus datos en el formulario
+    const usuario = this.loginService.usuarioLogueado;
+    if (usuario) {
+      this.formulario.patchValue({
+        nombreCompleto: usuario.nombre + ' ' + usuario.apellido,
+        email: usuario.email
+      });
+      this.formulario.get('nombreCompleto')?.markAllAsTouched();
+      this.formulario.get('email')?.markAllAsTouched();
+    }
+
     this.serviciosService.obtenerServicioPorId(this.id).subscribe({
       next: (servicio) => {
         this.servicio = servicio;
