@@ -289,3 +289,27 @@
         grid-template-columns: 1fr;
     }
 }
+/* ===== FILTRO DE FECHAS DE RESPALDO: más chico que el buscador grande de Resultados ===== */
+.hero-filtro {
+    max-width: 420px;
+    padding: 0.85rem 1rem;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-filtro .filtro-grupo {
+    padding: 0 0.6rem;
+}
+
+.hero-filtro .filtro-grupo label {
+    font-size: 0.65rem;
+}
+
+.hero-filtro .filtro-grupo input {
+    font-size: 0.78rem;
+}
+
+.hero-filtro .btn-grande {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+}

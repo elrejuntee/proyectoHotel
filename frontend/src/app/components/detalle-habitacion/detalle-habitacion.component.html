@@ -22,17 +22,7 @@
                         El Rejunte Hotel, Av. Corrientes 1234, CABA, Buenos Aires
                     </p>
                 </div>
-                <div class="detalle-columna-derecha">
-                    <div class="detalle-precio-box">
-                        <span class="desde">Desde</span>
-                        <strong>${{ habitacion?.precio | number:'1.0-0' }}<small>/noche</small></strong>
-                    </div>
-                    <div class="detalle-acciones">
-                        <button type="button" class="btn btn-primario btn-grande w-100" (click)="intentarReservar()"> Reservar ahora </button>
-                    </div>
-                </div>
-            </div>
-            <!-- FILTRO DE FECHAS DE RESPALDO: solo si no llegaron checkin/checkout por queryParams -->
+                <!-- FILTRO DE FECHAS DE RESPALDO: solo si no llegaron checkin/checkout por queryParams -->
                 @if (mostrarFiltroFechas) {
                     <div class="hero-filtro">
                         <div class="row g-0 align-items-stretch">
@@ -54,6 +44,17 @@
                         }
                     </div>
                 }
+                <div class="detalle-columna-derecha">
+                    <div class="detalle-precio-box">
+                        <span class="desde">Desde</span>
+                        <strong>${{ habitacion?.precio | number:'1.0-0' }}<small>/noche</small></strong>
+                    </div>
+                    <div class="detalle-acciones">
+                        <button type="button" class="btn btn-primario btn-grande w-100" (click)="intentarReservar()"> Reservar ahora </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- GALERÍA -->
             <div class="detalle-galeria">
                 <img class="detalle-galeria__principal"
