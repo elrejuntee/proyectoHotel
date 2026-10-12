@@ -20,7 +20,7 @@ export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
             { path: '', component: HomeComponent },
             { path: 'servicios', component: ServiciosComponent },
-            { path: 'formulario-servicio', component: FormularioServiciosComponent },
+            { path: 'formulario-servicio/:id', component: FormularioServiciosComponent },
             { path: 'reservas', component: ResultadosBusquedaComponent },
             { path: 'panel-usuario', component: PanelUsuarioComponent },
             { path: 'historial-reservas', component: HistorialReservasComponent },
