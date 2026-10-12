@@ -91,7 +91,7 @@
                                 </div>
                             }
                         </div>
-                        <button type="submit" class="btn boton-formulario w-100">Completar reserva</button>
+                        <button type="submit" class="btn boton-formulario w-100" [disabled]="guardando"> {{ guardando ? 'Guardando...' : 'Completar reserva' }}</button>
                     </form>
                 </div>
             </div>
