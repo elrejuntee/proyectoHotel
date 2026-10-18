@@ -35,3 +35,15 @@ class Habitacion(models.Model):
 
     def __str__(self): 
         return f'Habitación {self.numero} - Piso {self.piso} - Capacidad {self.capacidad}'
+
+
+class EstadoHabitacion(models.Model):
+    nombre = models.CharField(
+        choices = [
+            ('Disponible', 'disponibel'),
+            ('Ocupada', 'ocupada'),
+            ('Mantenimiento', 'mantenimiento'),
+            ('Reservada', 'reservada'),
+        ],
+        default = 'Disponible'
+    )
