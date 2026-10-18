@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class TipoServicio(models.Model):
     nombre_servicio = models.CharField(max_length=100)
