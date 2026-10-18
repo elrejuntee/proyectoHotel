@@ -303,6 +303,13 @@
       "numero_reserva": 75092,
       "fecha_hora_reserva": "2026-10-12T17:02:02.847Z",
       "id": "pFUY48M_lNE"
+    },
+    {
+      "id_usuario": "GqBVECer6aE",
+      "id_estado_reserva": 1,
+      "numero_reserva": 83307,
+      "fecha_hora_reserva": "2026-10-12T23:04:05.530Z",
+      "id": "merxZAOx6lg"
     }
   ],
   "reservas_habitacion": [
@@ -348,6 +355,15 @@
       "pago_acordado": 5000,
       "fecha_hora_inicio": "2026-10-02T09:00:00Z",
       "fecha_hora_fin": "2026-10-02T18:00:00Z"
+    },
+    {
+      "id_reserva": "merxZAOx6lg",
+      "id_servicio": "2",
+      "capacidad_invitados": 25,
+      "pago_acordado": 30000,
+      "fecha_hora_inicio": "2026-10-12T09:00:00Z",
+      "fecha_hora_fin": "2026-10-15T18:00:00Z",
+      "id": "7TsNToYqL-A"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
