@@ -42,8 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+<<<<<<< HEAD
     'rest_framework',
     'habitaciones',
+=======
+    
+    
+    'servicios',
+>>>>>>> edcbe520e56c4b9ed026fad6f396cdcb1b70fd0a
 ]
 
 MIDDLEWARE = [
