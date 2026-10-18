@@ -41,16 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'rest_framework',
+    'reservas',
     'corsheaders',
-    'reservas'
-=======
-    'corsheaders',
-    'rest_framework',
     'habitaciones',
     'servicios',
->>>>>>> 49374ce44100b665738650714e0eedc007e393f5
 ]
 
 MIDDLEWARE = [
