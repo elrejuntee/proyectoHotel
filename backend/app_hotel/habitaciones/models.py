@@ -72,10 +72,10 @@ class TipoHabitacion(models.Model):
     nombre = models.CharField(
         unique = True,
         choices = [
-            ('Suite Premium', 'Suite Premium')
-            ('Suite ideal para familias', 'Suite ideal para familias')
-            ('Habitación Deluxe', 'Habitación Deluxe')
-            ('Habitación Estándar', 'Habitación Estándar')
+            ('Suite Premium', 'Suite Premium'),
+            ('Suite ideal para familias', 'Suite ideal para familias'),
+            ('Habitación Deluxe', 'Habitación Deluxe'),
+            ('Habitación Estándar', 'Habitación Estándar'),
         ]
     )
     cant_cama = models.IntegerField(
