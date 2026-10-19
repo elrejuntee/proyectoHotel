@@ -1,4 +1,4 @@
-from .models import Habitacion, EstadoHabitacion, Comodidad
+from .models import Habitacion, EstadoHabitacion, Comodidad, TipoHabitacion
 from rest_framework import serializers
 
 class HabitacionSerializer(serializers.ModelSerializer):
@@ -15,4 +15,9 @@ class EstadoHabitacionSerializer(serializers.ModelSerializer):
 class ComodidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comodidad
+        fields = '__all__'
+
+class TipoHabitacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TipoHabitacion
         fields = '__all__'
