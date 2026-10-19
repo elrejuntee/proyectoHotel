@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView as ApiView
-from .models import EstadoReserva, Reserva, ReservaHabitacion
-from .serializers import (EstadoReservaSerializer, ReservaSerializer, ReservaHabitacionSerializer,)
+from .models import EstadoReserva, Reserva, ReservaHabitacion, ReservaServicio
+from .serializers import (EstadoReservaSerializer, ReservaSerializer, ReservaHabitacionSerializer, ReservaServicioSerializer)
 
 
 # ===== Estado Reserva =====
@@ -117,4 +117,40 @@ class ReservaHabitacionDetailView(ApiView):
     def delete(self, request, pk):
         reserva_habitacion = get_object_or_404(ReservaHabitacion, pk=pk)
         reserva_habitacion.delete()
+        return Response(status=204)
+
+# ===== Reserva Servicio =====
+class ReservaServicioView(ApiView):
+
+    def get(self, request):
+        reservas_servicio = ReservaServicio.objects.all()
+        serializer = ReservaServicioSerializer(reservas_servicio, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ReservaServicioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class ReservaServicioDetailView(ApiView):
+
+    def get(self, request, pk):
+        reserva_servicio = get_object_or_404(ReservaServicio, pk=pk)
+        serializer = ReservaServicioSerializer(reserva_servicio)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        reserva_servicio = get_object_or_404(ReservaServicio, pk=pk)
+        serializer = ReservaServicioSerializer(reserva_servicio, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    def delete(self, request, pk):
+        reserva_servicio = get_object_or_404(ReservaServicio, pk=pk)
+        reserva_servicio.delete()
         return Response(status=204)
