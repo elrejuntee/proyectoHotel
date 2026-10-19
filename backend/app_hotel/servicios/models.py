@@ -1,10 +1,24 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class TipoServicio(models.Model):
-    nombre_servicio = models.CharField(max_length=100)
+    # Definimos la lista de opciones permitidas según el frontend
+    OPCIONES_TIPO_SERVICIO = [
+        ('Sala Conferencia', 'Sala Conferencia'),
+        ('Comedor', 'Comedor'),
+        ('Sala Privada', 'Sala Privada'),
+        ('Co-working', 'Co-working'),
+    ]
+
+    nombre_servicio = models.CharField(
+        max_length=100, 
+        unique=True, 
+        choices=OPCIONES_TIPO_SERVICIO, # Acá aplicamos el límite
+        help_text="Nombre único del tipo de servicio."
+    )
 
     class Meta:
-        db_table = 'TIPO_SERVICIOS'
+        db_table = 'TIPO_SERVICIOS'       
 
     def __str__(self):
         return self.nombre_servicio
