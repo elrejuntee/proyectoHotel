@@ -59,3 +59,10 @@ class Comodidad(models.Model):
             ('Cocina equipada', 'Cocina equipada')
         ]
     )
+    
+class TipoHabitacion(models.Model):
+    nombre = models.CharField(max_length=100)
+    cant_cama = models.IntegerField() 
+
+    def __str__(self):
+        return self.nombre
