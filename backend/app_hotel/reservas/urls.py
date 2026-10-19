@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    EstadoReservaView, EstadoReservaDetailView,
+    EstadoReservaView, EstadoReservaDetailView, ReservaServicioView, ReservaServicioDetailView,
     ReservaView, ReservaDetailView,
     ReservaHabitacionView, ReservaHabitacionDetailView,
 )
@@ -12,4 +12,6 @@ urlpatterns = [
     path('reservas/<int:pk>', ReservaDetailView.as_view()),
     path('reservas-habitacion', ReservaHabitacionView.as_view()),
     path('reservas-habitacion/<int:pk>', ReservaHabitacionDetailView.as_view()),
+    path('reservas-servicio', ReservaServicioView.as_view()),
+    path('reservas-servicio/<int:pk>', ReservaServicioDetailView.as_view()),
 ]
