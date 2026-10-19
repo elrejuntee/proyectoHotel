@@ -48,7 +48,7 @@ class EstadoHabitacion(models.Model):
         default = 'Disponible'
     )
 
-class Comodidades(models.Model):
+class Comodidad(models.Model):
     nombre = models.CharField(
         unique =  True,
         choices=[
