@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EstadoReserva, Reserva, ReservaHabitacion
+from .models import EstadoReserva, Reserva, ReservaHabitacion, ReservaServicio
 
 
 class EstadoReservaSerializer(serializers.ModelSerializer):
@@ -17,4 +17,9 @@ class ReservaSerializer(serializers.ModelSerializer):
 class ReservaHabitacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReservaHabitacion
+        fields = '__all__'
+
+class ReservaServicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReservaServicio
         fields = '__all__'

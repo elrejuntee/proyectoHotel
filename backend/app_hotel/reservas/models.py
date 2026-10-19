@@ -17,7 +17,7 @@ class EstadoReserva(models.Model):
 class Reserva(models.Model):
 
     id_usuario = models.ForeignKey(
-        'usuarios.Usuario',
+        'usuario.Usuario',
         on_delete=models.PROTECT,
         related_name='reservas',
         help_text="Usuario que realizó la reserva.",
@@ -74,3 +74,24 @@ class ReservaHabitacion(models.Model):
 
     def __str__(self):
         return f"Habitación de la reserva Nº{self.id_reserva.numero_reserva}"
+
+class ReservaServicio(models.Model):
+    id_reserva = models.ForeignKey(
+        Reserva,
+        on_delete=models.PROTECT,
+        related_name='servicios',
+        help_text="Reserva a la que pertenece el servicio.",
+    )
+    id_servicio = models.ForeignKey(
+        'servicios.Servicio',
+        on_delete=models.PROTECT,
+        related_name='reservas_servicio',
+        help_text="Servicio reservado.",
+    )
+    capacidad_invitados = models.IntegerField(help_text="Cantidad de invitados para el servicio.")
+    pago_acordado = models.IntegerField(help_text="Monto acordado por el servicio.")
+    fecha_hora_inicio = models.DateTimeField(help_text="Fecha y hora de inicio del servicio.")
+    fecha_hora_fin = models.DateTimeField(help_text="Fecha y hora de fin del servicio.")
+
+    def __str__(self):
+        return f"Servicio reservado para Reserva Nº{self.id_reserva.numero_reserva}"

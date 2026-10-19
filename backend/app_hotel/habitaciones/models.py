@@ -39,6 +39,7 @@ class Habitacion(models.Model):
 
 class EstadoHabitacion(models.Model):
     nombre = models.CharField(
+        max_length=50,
         choices = [
             ('Disponible', 'disponibel'),
             ('Ocupada', 'ocupada'),
@@ -49,11 +50,12 @@ class EstadoHabitacion(models.Model):
     )
 
     def __str__(self):
-           return f'{self.nombre}'
+            return f'{self.nombre}'
 
 
 class Comodidad(models.Model):
     nombre = models.CharField(
+        max_length=50,
         unique =  True,
         choices=[
             ('Wi-Fi gratis', 'Wi-Fi gratis'),
@@ -70,6 +72,7 @@ class Comodidad(models.Model):
 
 class TipoHabitacion(models.Model):
     nombre = models.CharField(
+        max_length=50,
         unique = True,
         choices = [
             ('Suite Premium', 'Suite Premium'),
@@ -85,6 +88,7 @@ class TipoHabitacion(models.Model):
         ]
     ) 
     descripcion = models.CharField(
+        max_length=200,
         unique = True,
         choices = [
             ('Suite de lujo con vista al mar', 'Suite de lujo con vista al mar'),
