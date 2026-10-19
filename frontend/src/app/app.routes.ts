@@ -20,13 +20,15 @@ export const routes: Routes = [
     { path: '', component: LandingComponent, children: [
             { path: '', component: HomeComponent },
             { path: 'servicios', component: ServiciosComponent },
-            { path: 'formulario-servicio', component: FormularioServiciosComponent },
+            { path: 'formulario-servicio/:id', component: FormularioServiciosComponent },
             { path: 'reservas', component: ResultadosBusquedaComponent },
             { path: 'panel-usuario', component: PanelUsuarioComponent },
             { path: 'historial-reservas', component: HistorialReservasComponent },
             { path: 'quienes-somos', component: QuienesSomosComponent },
             { path: 'detalle-habitacion/:id', component: DetalleHabitacionComponent },
+            { path: 'detalle-habitacion/:id/:checkin/:checkout', component: DetalleHabitacionComponent },
             { path: 'detalle-pago/:id', component: DetallePagoComponent },
+            { path: 'detalle-pago/:id/:checkin/:checkout', component: DetallePagoComponent },
             { path: 'pago-confirmado/:id', component: PagoConfirmadoComponent }
         ]
     },

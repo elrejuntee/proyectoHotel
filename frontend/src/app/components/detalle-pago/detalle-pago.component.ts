@@ -35,10 +35,10 @@ export class DetallePagoComponent implements OnInit {
         apellido: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         metodoPago: ['1'], // 1 = Tarjeta, 2 = Transferencia (ids de metodos_pago)
-        numeroTarjeta: [''],
-        nombreTarjeta: [''],
-        vencimiento: [''],
-        cvv: ['']
+        numeroTarjeta: ['', [Validators.required,]],
+        nombreTarjeta: ['', [Validators.required]],
+        vencimiento: ['', [Validators.required]],
+        cvv: ['', [Validators.required]]
       });
   }
 
@@ -51,6 +51,9 @@ export class DetallePagoComponent implements OnInit {
         apellido: usuario.apellido,
         email: usuario.email
       });
+      this.form.get('nombre')?.markAllAsTouched();
+      this.form.get('apellido')?.markAllAsTouched();
+      this.form.get('email')?.markAllAsTouched();
     }
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
@@ -109,7 +112,38 @@ export class DetallePagoComponent implements OnInit {
     }
 
     this.guardando = true;
-    this.guardarReserva();
+    this.verificarDisponibilidad();
+  }
+
+// 0) Antes de guardar, chequea que nadie haya reservado esta habitación para estas fechas
+//    (por si la habitación se ocupó después de que se armó el listado de resultados)
+  private verificarDisponibilidad(): void {
+    this.reservasService.obtenerReservas().subscribe({
+      next: (reservas) => {
+        this.reservasService.obtenerReservasHabitacion().subscribe({
+          next: (reservasHabitacion) => {
+            const idsConfirmadas = reservas
+              .filter(r => String(r.id_estado_reserva) === '1')
+              .map(r => String(r.id));
+
+            const yaReservada = reservasHabitacion
+              .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
+              .filter(rh => String(rh.id_habitacion) === String(this.habitacion!.id))
+              .some(rh => rh.fecha_hora_checkin.slice(0, 10) < this.checkout! && rh.fecha_hora_checkout.slice(0, 10) > this.checkin!);
+
+            if (yaReservada) {
+              this.mensajeError = 'Esta habitación ya fue reservada para esas fechas. Volvé a los resultados y elegí otra.';
+              this.guardando = false;
+              return;
+            }
+
+            this.guardarReserva();
+          },
+          error: (error: Error) => this.mostrarError(error)
+        });
+      },
+      error: (error: Error) => this.mostrarError(error)
+    });
   }
 
   // 1) Crea la reserva con estado "Confirmada" (id 1)

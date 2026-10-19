@@ -23,7 +23,7 @@
                                             <polyline points="22,6 12,13 2,6"></polyline>
                                         </svg>
                                         <input formControlName="email" type="email" id="email" placeholder="Ingresá tu correo"
-                                            [class.is-invalid]="Email?.errors && Email?.touched">
+                                            [class.is-invalid]="Email?.errors && Email?.touched" [class.is-valid]="Email?.valid && Email?.touched">
                                     </div>
                                     @if (Email?.errors && Email?.touched) {
                                         <div class="login-campo-error">
@@ -51,7 +51,7 @@
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg>
                                         <input formControlName="password" type="password" id="password" placeholder="Ingresá tu contraseña"
-                                            [class.is-invalid]="Password?.errors && Password?.touched">
+                                            [class.is-invalid]="Password?.errors && Password?.touched" [class.is-valid]="Password?.valid && Password?.touched">
                                     </div>
                                     @if (Password?.errors && Password?.touched) {
                                         <div class="login-campo-error">

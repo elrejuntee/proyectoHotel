@@ -3,47 +3,64 @@
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                 <div class="card tarjeta-formulario border-0 p-4 p-md-5">
-                    <form>
+                    @if (mensajeError) {
+                        <p class="text-danger">{{ mensajeError }}</p>
+                    }
+                    <form [formGroup]="formulario" (ngSubmit)="enviar()">
                         <div class="text-center mb-4">
                             <h1 class="titulo-formulario mb-2">Complete los datos</h1>
                             <p class="text-muted mb-3">Reservá tu servicio en pocos pasos</p>
-                            <span class="distintivo-servicio">Servicio seleccionado - Comedor</span>
-                            <span class="distintivo-precio">Precio - $3500</span>
+                            <span class="distintivo-servicio">Servicio seleccionado - {{ tipo?.nombre_servicio }}</span>
+                            <span class="distintivo-precio">Precio - ${{ precioTotal | number:'1.0-0' }}</span>
                         </div>
-
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
-                                <label for="fecha" class="form-label etiqueta-formulario">Fecha</label>
-                                <input type="date" class="form-control campo-formulario" id="fecha" name="fecha" required>
+                                <label for="fecha_inicio" class="form-label etiqueta-formulario">Fecha inicio</label>
+                                <input type="date" class="form-control campo-formulario" id="fecha_inicio" name="fecha_inicio" required>
                             </div>
                             <div class="col-sm-6">
-                                <label for="hora" class="form-label etiqueta-formulario">Hora</label>
-                                <input type="time" class="form-control campo-formulario" id="hora" name="hora" required>
+                                <label for="fecha_fin" class="form-label etiqueta-formulario">Fecha fin</label>
+                                <input type="date" class="form-control campo-formulario" id="fecha_fin" name="fecha_fin" required>
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label for="cantidad-personas" class="form-label etiqueta-formulario">Cantidad de personas</label>
-                            <input type="number" min="1" class="form-control campo-formulario" id="cantidad-personas" name="cantidad-personas" placeholder="Ej: 4" required>
+                            <input type="number" min="1" [attr.max]="servicio?.capacidad_maxima" formControlName="cantidadPersonas" class="form-control campo-formulario" id="cantidad-personas" placeholder="Ej: 4"
+                                [class.is-invalid]="CantidadPersonas?.errors && CantidadPersonas?.touched"
+                                [class.is-valid]="CantidadPersonas?.valid && CantidadPersonas?.touched">
+                            @if (CantidadPersonas?.errors && CantidadPersonas?.touched) {
+                                <div class="login-campo-error">
+                                    @if (CantidadPersonas?.hasError('required')) {
+                                        <span>Debe ingresar la cantidad de personas</span>
+                                    }
+                                    @if (CantidadPersonas?.hasError('min')) {
+                                        <span>Debe ser al menos 1 persona</span>
+                                    }
+                                    @if (CantidadPersonas?.hasError('max')) {
+                                        <span>La capacidad máxima para este servicio es {{ servicio?.capacidad_maxima }} personas</span>
+                                    }
+                                </div>
+                            }
                         </div>
-
                         <hr class="my-4">
-
                         <h2 class="h5 subtitulo-formulario mb-3">Datos de contacto</h2>
-
                         <div class="mb-3">
                             <label for="nombre-apellido" class="form-label etiqueta-formulario">Nombre completo</label>
-                            <input type="text" class="form-control campo-formulario" id="nombre-apellido" name="nombre-apellido" placeholder="Ingresá tu nombre y apellido" required>
+                            <input type="text" formControlName="nombreCompleto" class="form-control campo-formulario" id="nombre-apellido" placeholder="Ingresá tu nombre y apellido"
+                                [class.is-invalid]="NombreCompleto?.errors && NombreCompleto?.touched"
+                                [class.is-valid]="NombreCompleto?.valid && NombreCompleto?.touched">
+                            @if (NombreCompleto?.errors && NombreCompleto?.touched) {
+                                <div class="login-campo-error">
+                                    @if (NombreCompleto?.hasError('required')) {
+                                        <span>Debe ingresar su nombre y apellido</span>
+                                    }
+                                </div>
+                            }
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label etiqueta-formulario">Correo electrónico</label>
                             <input type="email" class="form-control campo-formulario" id="email" name="email" placeholder="Ingresá tu correo" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="informacion-adicional" class="form-label etiqueta-formulario">Información adicional</label>
-                            <textarea class="form-control campo-formulario" id="informacion-adicional" name="informacion-adicional" rows="3" placeholder="Alergias, pedidos especiales, aclaraciones..."></textarea>
                         </div>
 
                         <button type="submit" class="btn boton-formulario w-100">Completar reserva</button>

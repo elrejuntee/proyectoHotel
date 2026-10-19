@@ -75,39 +75,54 @@ export class ResultadosBusquedaComponent {
   }
   
   buscarFechas(checkin: string, checkout: string, huespedes: string): void {
-    if (!checkin || !checkout || checkout <= checkin) {
-      this.checkin = null;
-      this.checkout = null;
-      this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
-      // Se saca el filtro de fechas y se vuelve a mostrar la lista
-      this.busquedaHecha = false;
-      this.idsOcupadas = [];
-      this.huespedesMinimos = 1;
-      this.aplicarFiltros();
-      return;
-    }
-    this.mensajeFechas = '';
-    this.checkin = checkin;
-    this.checkout = checkout;
+    this.huespedesMinimos = Number(huespedes) || 1;
 
-    this.reservasService.obtenerReservas().subscribe({
-      next: (reservas) => {
-        this.reservasService.obtenerReservasHabitacion().subscribe({
-          next: (reservasHabitacion) => {
-            this.filtrarDisponibles(reservas, reservasHabitacion, Number(huespedes));
-          },
-          error: (error: Error) => {
-            this.mensajeFechas = error.message;
-          }
-        });
-      },
-      error: (error: Error) => {
-        this.mensajeFechas = error.message;
-      }
-    });
+    const hayCheckin = !!checkin;
+    const hayCheckout = !!checkout;
+
+  // Si cargó alguna fecha, las dos tienen que ser válidas
+  if ((hayCheckin || hayCheckout) && (!hayCheckin || !hayCheckout || checkout <= checkin)) {
+    this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
+    this.checkin = null;
+    this.checkout = null;
+    this.busquedaHecha = false;
+    this.idsOcupadas = [];
+    this.aplicarFiltros();
+    return;
   }
 
-  private filtrarDisponibles(reservas: ReservaApi[], reservasHabitacion: ReservaHabitacionApi[], huespedes: number): void {
+  this.mensajeFechas = '';
+
+  if (!hayCheckin && !hayCheckout) {
+    // Sin fechas: filtramos solo por huéspedes/precio/disponibilidad general
+    this.checkin = null;
+    this.checkout = null;
+    this.busquedaHecha = false;
+    this.idsOcupadas = [];
+    this.aplicarFiltros();
+    return;
+  }
+
+  this.checkin = checkin;
+  this.checkout = checkout;
+
+  this.reservasService.obtenerReservas().subscribe({
+    next: (reservas) => {
+      this.reservasService.obtenerReservasHabitacion().subscribe({
+        next: (reservasHabitacion) => {
+          this.filtrarDisponibles(reservas, reservasHabitacion);
+        },
+        error: (error: Error) => {
+          this.mensajeFechas = error.message;
+        }
+      });
+    },
+    error: (error: Error) => {
+      this.mensajeFechas = error.message;
+    }
+  });
+}
+  private filtrarDisponibles(reservas: ReservaApi[], reservasHabitacion: ReservaHabitacionApi[]): void {
     // Solo cuentan las reservas Confirmadas (id 1)
     const idsConfirmadas = reservas
       .filter(r => String(r.id_estado_reserva) === '1')
@@ -119,20 +134,22 @@ export class ResultadosBusquedaComponent {
       .filter(rh => rh.fecha_hora_checkin.slice(0, 10) < this.checkout! && rh.fecha_hora_checkout.slice(0, 10) > this.checkin!)
       .map(rh => String(rh.id_habitacion));
 
-    this.huespedesMinimos = huespedes;
     this.busquedaHecha = true;
     this.aplicarFiltros();
   }
 
   // Aplica juntos el filtro de fechas/huéspedes y el de precio
   private aplicarFiltros(): void {
-    this.habitaciones = this.habitacionesOriginales.filter(h =>
-      (this.precioMaximo <= 0 || h.precio <= this.precioMaximo) &&
-      (!this.busquedaHecha || (
-        !this.idsOcupadas.includes(String(h.id)) &&
-        String(h.id_estado_habitacion) !== '3' && // 3 = Mantenimiento
-        h.capacidad >= this.huespedesMinimos
-      ))
-    );
-  }
+  this.habitaciones = this.habitacionesOriginales.filter(h =>
+    (this.precioMaximo <= 0 || h.precio <= this.precioMaximo) &&
+    h.capacidad >= this.huespedesMinimos &&
+    (this.busquedaHecha
+      ? (
+          !this.idsOcupadas.includes(String(h.id)) &&
+          String(h.id_estado_habitacion) !== '3' // 3 = Mantenimiento
+        )
+      : String(h.id_estado_habitacion) === '1' // Sin fechas elegidas: solo mostramos las Disponibles
+    )
+  );
+}
 }

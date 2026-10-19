@@ -1,0 +1,18 @@
+<!-- Modal de Bootstrap -->
+<div class="modal fade show d-block" id="authModal" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="authModalLabel">¡Atención!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <p class="mb-4">Para realizar una reserva en El Rejunte Hotel, necesitás iniciar sesión o registrarte en el sistema.</p>
+        <div class="d-grid gap-2">
+          <a [routerLink]="['/login']" [queryParams]="{ returnUrl: urlActual }" class="btn btn-primary" data-bs-dismiss="modal">Iniciar Sesión</a>
+          <a [routerLink]="['/registro']" [queryParams]="{ returnUrl: urlActual }" class="btn btn-outline-secondary" data-bs-dismiss="modal">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

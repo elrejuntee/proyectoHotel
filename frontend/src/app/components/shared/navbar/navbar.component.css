@@ -43,3 +43,9 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+.perfil-nav-nombre {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gris-800);
+}

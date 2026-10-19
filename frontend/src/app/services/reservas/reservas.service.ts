@@ -19,12 +19,27 @@ export interface ReservaHabitacionApi {
   fecha_hora_checkout: string;
 }
 
-// Servicio = Modelo (MVC): concentra las llamadas HTTP a json-server.
+export interface ReservaServicioApi {
+  id?: number | string;
+  id_reserva: number | string;
+  id_servicio: number | string;
+  capacidad_invitados: number;
+  pago_acordado: number;
+  fecha_hora_inicio: string;
+  fecha_hora_fin: string;
+}
+
+export interface EstadoReservaApi {
+  id?: number | string;
+  nombre: string;
+}
+
+// Servicio = Modelo (MVC): concentra las llamadas HTTP al backend Django.
 @Injectable({
   providedIn: 'root'
 })
 export class ReservasService {
-  url: string = 'http://localhost:3000';
+  url: string = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) { }
 
@@ -36,7 +51,13 @@ export class ReservasService {
   }
 
   crearReservaHabitacion(reservaHabitacion: ReservaHabitacionApi): Observable<ReservaHabitacionApi> {
-    return this.http.post<ReservaHabitacionApi>(this.url + '/reservas_habitacion', reservaHabitacion).pipe(
+    return this.http.post<ReservaHabitacionApi>(this.url + '/reservas-habitacion', reservaHabitacion).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  crearReservaServicio(reservaServicio: ReservaServicioApi): Observable<ReservaServicioApi> {
+    return this.http.post<ReservaServicioApi>(this.url + '/reservas-servicio', reservaServicio).pipe(
       catchError(this.handleError)
     );
   }
@@ -49,7 +70,13 @@ export class ReservasService {
   }
 
   obtenerReservasHabitacion(): Observable<ReservaHabitacionApi[]> {
-    return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas_habitacion').pipe(
+    return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas-habitacion').pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  obtenerEstadosReserva(): Observable<EstadoReservaApi[]> {
+    return this.http.get<EstadoReservaApi[]>(this.url + '/estados-reserva').pipe(
       catchError(this.handleError)
     );
   }
@@ -57,13 +84,10 @@ export class ReservasService {
   // ----- Manejo de errores -----
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      // Error del lado del cliente, como un error de red, etc.
       console.error('Ocurrió un error:', error.error);
     } else {
-      // El backend rechazó la petición y devolvió un código de estado.
       console.error(`El backend devolvió el código ${error.status}, el cuerpo fue: `, error.error);
     }
-    // El observable falla y retorna un mensaje genérico para el usuario.
-    return throwError(() => new Error('No se pudo completar la operación. Verificá que json-server esté corriendo e intentá de nuevo.'));
+    return throwError(() => new Error('No se pudo completar la operación. Verificá que el servidor esté corriendo e intentá de nuevo.'));
   }
 }

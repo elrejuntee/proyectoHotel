@@ -52,7 +52,7 @@
                                 <li>✓ Servicio de catering disponible</li>
                                 <li>✓ Capacidad hasta 50 personas</li>
                             </ul>
-                            <a routerLink="/formulario-servicio" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(2)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
@@ -73,8 +73,9 @@
                                 <li>✓ Menú variado para almuerzo y cena</li>
                                 <li>✓ Opciones vegetarianas y veganas</li>
                                 <li>✓ Servicio a la habitación disponible</li>
+                                <li>✓ Capacidad hasta 50 personas</li>
                             </ul>
-                            <a href="resultados-busqueda.html" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(4)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
@@ -96,7 +97,7 @@
                                 <li>✓ Decoración incluida para eventos</li>
                                 <li>✓ Acceso exclusivo durante la reserva</li>
                             </ul>
-                            <a href="resultados-busqueda.html" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(3)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
@@ -117,12 +118,15 @@
                                 <li>✓ Escritorios individuales y compartidos</li>
                                 <li>✓ Sala de reuniones reservable</li>
                                 <li>✓ Impresora y escáner disponibles</li>
+                                <li>✓ Capacidad hasta 10 personas</li>
                             </ul>
-                            <a href="resultados-busqueda.html" class="btn btn-primario mt-3">Reservar ahora</a>
+                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(1)">Reservar ahora</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
+    @if (mostrarModal) {
+        <app-modal-reserva [returnUrl]="'/formulario-servicio/' + idServicioSeleccionado"></app-modal-reserva>
+    }
