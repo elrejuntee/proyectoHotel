@@ -48,6 +48,10 @@ class EstadoHabitacion(models.Model):
         default = 'Disponible'
     )
 
+    def __str__(self):
+           return f'{self.nombre}'
+
+
 class Comodidad(models.Model):
     nombre = models.CharField(
         unique =  True,
@@ -59,7 +63,11 @@ class Comodidad(models.Model):
             ('Cocina equipada', 'Cocina equipada')
         ]
     )
-    
+
+    def __str__(self):
+        return f'{self.nombre}'
+
+
 class TipoHabitacion(models.Model):
     nombre = models.CharField(
         unique = True,
@@ -88,3 +96,17 @@ class TipoHabitacion(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class TipoHabitacionComodidad(models.Model): 
+    id_tipo_habitacion = models.ForeignKey(
+        'TipoHabitacion',
+        related_name = "TipoHabitacion",
+        on_delete = models.PROTECT
+    )
+
+    id_comodidad = models.ForeignKey(
+        'Comodidad',
+        related_name = "Comodidad",
+        on_delete = models.PROTECT
+    )
