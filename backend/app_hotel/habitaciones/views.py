@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from .models import Habitacion, EstadoHabitacion
-from .serializers import HabitacionSerializer, EstadoHabitacionSerializer
+from .models import Habitacion, EstadoHabitacion, Comodidad
+from .serializers import HabitacionSerializer, EstadoHabitacionSerializer, ComodidadSerializer
 
 class HabitacionesView(APIView):
     def get(self, request):
@@ -33,4 +33,11 @@ class EstadoHabitacionView(APIView):
     def get(self, request):
         estados_habitaciones = EstadoHabitacion.objects.all()
         serializer = EstadoHabitacionSerializer(estados_habitaciones, many = True)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+
+
+class ComodidadView(APIView):
+    def get(self, request):
+        comodidades = Comodidad.objects.all()
+        serializer = ComodidadSerializer(comodidades, many = True)
         return Response(serializer.data, status = status.HTTP_200_OK)
