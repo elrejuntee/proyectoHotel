@@ -28,15 +28,21 @@ class UsuarioView(ApiView):
     return Response(serializer.data)
 
   def post(self, request):
+    try:
+      rol_estandar = RolUsuario.objects.get(nombre="Usuario")
+    except RolUsuario.DoesNotExist:
+      return Response(
+          "El rol de usuario estándar no está configurado en la base de datos",
+          status=status.HTTP_400_BAD_REQUEST,
+      )
     serializer = UsuarioSerializer(data=request.data)
     if serializer.is_valid():
-      serializer.save()
-      return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
+       serializer.save(id_rol=rol_estandar)
+       return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsuarioDetailView(ApiView):
-  """Vista para manejar un usuario específico mediante su ID (PUT, GET individual, DELETE)"""
-
+  
   def put(self, request, pk):
     try:
       usuario = Usuario.objects.get(pk=pk)
@@ -45,7 +51,6 @@ class UsuarioDetailView(ApiView):
           {"error": "El usuario no existe"}, status=status.HTTP_404_NOT_FOUND
       )
 
-    # partial=True permite actualizar solo los campos enviados (ej: nombre, apellido, email)
     serializer = UsuarioSerializer(usuario, data=request.data, partial=True)
 
     if serializer.is_valid():
