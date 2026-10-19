@@ -10,7 +10,6 @@ class RolUsuarioSerializer(serializers.ModelSerializer):
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
-  # Serializador anidado opcional si se requiere la información del rol desde el lado "muchos"
   id_rol = RolUsuarioSerializer(read_only=True)
 
   class Meta:
