@@ -48,6 +48,10 @@ class EstadoHabitacion(models.Model):
         default = 'Disponible'
     )
 
+    def __str__(self):
+           return f'{self.nombre}'
+
+
 class Comodidad(models.Model):
     nombre = models.CharField(
         unique =  True,
@@ -59,7 +63,11 @@ class Comodidad(models.Model):
             ('Cocina equipada', 'Cocina equipada')
         ]
     )
-    
+
+    def __str__(self):
+        return f'{self.nombre}'
+
+
 class TipoHabitacion(models.Model):
     nombre = models.CharField(
         unique = True,
