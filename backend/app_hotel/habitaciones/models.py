@@ -47,3 +47,15 @@ class EstadoHabitacion(models.Model):
         ],
         default = 'Disponible'
     )
+
+class Comodidades(models.Model):
+    nombre = models.CharField(
+        unique =  True,
+        choices=[
+            ('Wi-Fi gratis', 'Wi-Fi gratis'),
+            ('Baño privado', 'Baño privado'),
+            ('Aire acondicionado', 'Aire acondicionado'),
+            ('TV con cable', 'TV con cable'),
+            ('Cocina equipada', 'Cocina equipada')
+        ]
+    )
