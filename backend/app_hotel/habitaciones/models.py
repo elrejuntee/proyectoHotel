@@ -61,8 +61,30 @@ class Comodidad(models.Model):
     )
     
 class TipoHabitacion(models.Model):
-    nombre = models.CharField(max_length=100)
-    cant_cama = models.IntegerField() 
+    nombre = models.CharField(
+        unique = True,
+        choices = [
+            ('Suite Premium', 'Suite Premium')
+            ('Suite ideal para familias', 'Suite ideal para familias')
+            ('Habitación Deluxe', 'Habitación Deluxe')
+            ('Habitación Estándar', 'Habitación Estándar')
+        ]
+    )
+    cant_cama = models.IntegerField(
+        validators = [
+            MinValueValidator(1, message="La capacidad debe ser un valor positivo."),
+            MaxValueValidator(4, message="La capacidad maxima es 4 camas"),
+        ]
+    ) 
+    descripcion = models.CharField(
+        unique = True,
+        choices = [
+            ('Suite de lujo con vista al mar', 'Suite de lujo con vista al mar'),
+            ('Suite ideal para familias', 'Suite ideal para familias'),
+            ('Habitación deluxe con vista al río', 'Habitación deluxe con vista al río'),
+            ('Habitación estándar con vista al patio', 'Habitación estándar con vista al patio')
+        ]
+    )
 
     def __str__(self):
         return self.nombre
