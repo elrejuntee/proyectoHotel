@@ -1,3 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import TipoServicio, Servicio
+admin.site.register(TipoServicio)
+admin.site.register(Servicio)
