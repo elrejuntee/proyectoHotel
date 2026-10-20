@@ -22,5 +22,5 @@ urlpatterns = [
     path('api/', include('reservas.urls')),
     path('api/', include('habitaciones.urls')),
     path('api/', include('servicios.urls')),
-    
+    path('api/', include('usuario.urls')),
 ]

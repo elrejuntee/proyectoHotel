@@ -29,7 +29,7 @@ class UsuarioView(ApiView):
 
   def post(self, request):
     try:
-      rol_estandar = RolUsuario.objects.get(nombre="Usuario")
+      rol_estandar = RolUsuario.objects.get(rol="usuario")
     except RolUsuario.DoesNotExist:
       return Response(
           "El rol de usuario estándar no está configurado en la base de datos",
