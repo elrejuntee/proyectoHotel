@@ -59,8 +59,8 @@ export class RegistroComponent {
     if (this.registroForm.valid) {
       const { passwordConfirmacion, ...datosUsuario } = this.registroForm.value;
       const nuevoUsuario: UsuarioRegistro = {
-    ...datosUsuario,
-    id_rol: "2" 
+      ...datosUsuario,
+      id_rol: "2" 
     };
 
       this.registroService.registrarUsuario(nuevoUsuario).subscribe({
