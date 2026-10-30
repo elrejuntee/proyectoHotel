@@ -59,8 +59,10 @@ class ReservaHabitacion(models.Model):
         related_name='reservas_habitacion',
         help_text="Habitación reservada.",
     )
-
-    pago_acordado = models.IntegerField(
+    #Que no pongan un numero negativo, y el pago tiene que ser un decimal.
+    pago_acordado = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
         help_text="Monto acordado por la estadía en esta habitación.",
     )
 
@@ -71,7 +73,7 @@ class ReservaHabitacion(models.Model):
     fecha_hora_checkout = models.DateTimeField(
         help_text="Fecha y hora de check-out.",
     )
-
+    #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
         return f"Habitación de la reserva Nº{self.id_reserva.numero_reserva}"
 
@@ -89,9 +91,9 @@ class ReservaServicio(models.Model):
         help_text="Servicio reservado.",
     )
     capacidad_invitados = models.IntegerField(help_text="Cantidad de invitados para el servicio.")
-    pago_acordado = models.IntegerField(help_text="Monto acordado por el servicio.")
+    pago_acordado = models.DecimalField(max_digits=10, decimal_places=2, help_text="Monto acordado por el servicio.")
     fecha_hora_inicio = models.DateTimeField(help_text="Fecha y hora de inicio del servicio.")
     fecha_hora_fin = models.DateTimeField(help_text="Fecha y hora de fin del servicio.")
-
+    #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
         return f"Servicio reservado para Reserva Nº{self.id_reserva.numero_reserva}"

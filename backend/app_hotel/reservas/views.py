@@ -38,10 +38,6 @@ class EstadoReservaDetailView(ApiView):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
 
-    def delete(self, request, pk):
-        estado = get_object_or_404(EstadoReserva, pk=pk)
-        estado.delete()
-        return Response(status=204)
 
 
 # ===== Reserva =====
@@ -76,11 +72,6 @@ class ReservaDetailView(ApiView):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
 
-    def delete(self, request, pk):
-        reserva = get_object_or_404(Reserva, pk=pk)
-        reserva.delete()
-        return Response(status=204)
-
 
 # ===== Reserva Habitación =====
 
@@ -114,10 +105,6 @@ class ReservaHabitacionDetailView(ApiView):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
 
-    def delete(self, request, pk):
-        reserva_habitacion = get_object_or_404(ReservaHabitacion, pk=pk)
-        reserva_habitacion.delete()
-        return Response(status=204)
 
 # ===== Reserva Servicio =====
 class ReservaServicioView(ApiView):
@@ -149,8 +136,3 @@ class ReservaServicioDetailView(ApiView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-
-    def delete(self, request, pk):
-        reserva_servicio = get_object_or_404(ReservaServicio, pk=pk)
-        reserva_servicio.delete()
-        return Response(status=204)
