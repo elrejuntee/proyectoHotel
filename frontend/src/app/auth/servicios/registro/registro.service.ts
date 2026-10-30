@@ -14,7 +14,7 @@ export interface UsuarioRegistro {
   providedIn: 'root'
 })
 export class RegistroService {
-  private url = 'http://localhost:3000/usuarios';
+  private url = 'http://localhost:3000/usuario';
   private httpClient = inject(HttpClient);
 
   registrarUsuario(usuario: UsuarioRegistro) {
