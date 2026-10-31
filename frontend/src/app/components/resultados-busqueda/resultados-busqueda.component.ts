@@ -131,7 +131,7 @@ export class ResultadosBusquedaComponent {
     // Habitaciones ocupadas: reserva confirmada cuyas fechas se superponen con la búsqueda
     this.idsOcupadas = reservasHabitacion
       .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
-      .filter(rh => rh.fecha_hora_checkin.slice(0, 10) < this.checkout! && rh.fecha_hora_checkout.slice(0, 10) > this.checkin!)
+      .filter(rh => rh.fecha_checkin.slice(0, 10) < this.checkout! && rh.fecha_checkout.slice(0, 10) > this.checkin!)
       .map(rh => String(rh.id_habitacion));
 
     this.busquedaHecha = true;

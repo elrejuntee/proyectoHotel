@@ -85,7 +85,7 @@ export class DetalleHabitacionComponent implements OnInit {
             const estaOcupada = reservasHabitacion
               .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
               .filter(rh => String(rh.id_habitacion) === String(this.id))
-              .some(rh => rh.fecha_hora_checkin.slice(0, 10) < checkout && rh.fecha_hora_checkout.slice(0, 10) > checkin);
+              .some(rh => rh.fecha_checkin.slice(0, 10) < checkout && rh.fecha_checkout.slice(0, 10) > checkin);
 
             if (estaOcupada) {
               this.mensajeFechas = 'Esta habitación ya está reservada para esas fechas. Elegí otras fechas.';
