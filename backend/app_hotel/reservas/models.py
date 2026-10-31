@@ -17,10 +17,10 @@ class EstadoReserva(models.Model):
 class Reserva(models.Model):
 
     id_usuario = models.ForeignKey(
-        'usuario.Usuario',
-        on_delete=models.PROTECT,
-        related_name='reservas',
-        help_text="Usuario que realizó la reserva.",
+      'usuario.Usuario',
+       on_delete=models.PROTECT,
+       related_name='reservas',
+       help_text="Usuario que realizó la reserva.",
     )
 
     id_estado_reserva = models.ForeignKey(
