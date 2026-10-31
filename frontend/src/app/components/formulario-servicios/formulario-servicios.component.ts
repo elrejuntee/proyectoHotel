@@ -32,7 +32,7 @@ export class FormularioServiciosComponent implements OnInit {
     return new Observable<ValidationErrors | null>(observer => {
       const checkin = this.formulario.get('checkin')?.value;
       const checkout = this.formulario.get('checkout')?.value;
-            const cantidadPersonas = control.value;
+      const cantidadPersonas = control.value;
 
       if (!this.servicio || !checkin || !checkout || !cantidadPersonas || checkout < checkin) {
         observer.next(null);
@@ -66,7 +66,7 @@ export class FormularioServiciosComponent implements OnInit {
       });
     });
   };
-  
+
   formulario: FormGroup = this.fb.group({
     checkin: ['', Validators.required],
     checkout: ['', Validators.required],
