@@ -16,11 +16,11 @@
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
                                 <label for="fecha_inicio" class="form-label etiqueta-formulario">Fecha inicio</label>
-                                <input type="date" class="form-control campo-formulario" id="fecha_inicio" name="fecha_inicio" required>
+                                <input type="date" class="form-control campo-formulario" id="fecha_inicio" formControlName="checkin" (change)="CantidadPersonas?.updateValueAndValidity()">
                             </div>
                             <div class="col-sm-6">
                                 <label for="fecha_fin" class="form-label etiqueta-formulario">Fecha fin</label>
-                                <input type="date" class="form-control campo-formulario" id="fecha_fin" name="fecha_fin" required>
+                                <input type="date" class="form-control campo-formulario" id="fecha_fin" formControlName="checkout" (change)="CantidadPersonas?.updateValueAndValidity()">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -60,7 +60,9 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label etiqueta-formulario">Correo electrónico</label>
-                            <input type="email" class="form-control campo-formulario" id="email" name="email" placeholder="Ingresá tu correo" required>
+                            <input type="email" class="form-control campo-formulario" id="email" formControlName="email" placeholder="Ingresá tu correo electrónico"
+                                [class.is-invalid]="Email?.errors && Email?.touched"
+                                [class.is-valid]="Email?.valid && Email?.touched">
                         </div>
 
                         <button type="submit" class="btn boton-formulario w-100">Completar reserva</button>
