@@ -113,7 +113,7 @@ export class FormularioServiciosComponent implements OnInit {
       id_usuario: this.loginService.usuarioLogueado!.id,
       id_estado_reserva: 1,
       numero_reserva: Math.floor(10000 + Math.random() * 90000),
-      fecha_hora_reserva: new Date().toISOString()
+      fecha_reserva: new Date().toLocaleTimeString('en-CA'),
     };
 
     this.reservasService.crearReserva(reserva).subscribe({
@@ -134,8 +134,8 @@ export class FormularioServiciosComponent implements OnInit {
       id_servicio: this.servicio!.id!,
       capacidad_invitados: this.formulario.value.cantidadPersonas,
       pago_acordado: this.precioTotal,
-      fecha_hora_inicio: checkin + 'T09:00:00Z',
-      fecha_hora_fin: checkout + 'T18:00:00Z'
+      fecha_inicio: checkin!,
+      fecha_fin: checkout!
     };
 
     this.reservasService.crearReservaServicio(reservaServicio).subscribe({
