@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class EstadoReserva(models.Model):
-    nombre = models.CharField(
+    estado_reserva = models.CharField(
         max_length=50,
         unique=True,
         help_text="Nombre del estado de la reserva.",
@@ -34,7 +34,7 @@ class Reserva(models.Model):
         help_text="Número identificador de la reserva.",
     )
 
-    fecha_reserva = models.DateTimeField(
+    fecha_reserva = models.DateField(
         help_text="Fecha en la que se realizó la reserva.",
     )
 
@@ -65,11 +65,11 @@ class ReservaHabitacion(models.Model):
         help_text="Monto acordado por la estadía en esta habitación.",
     )
 
-    fecha_checkin = models.DateTimeField(
+    fecha_checkin = models.DateField(
         help_text="Fecha de check-in.",
     )
 
-    fecha_checkout = models.DateTimeField(
+    fecha_checkout = models.DateField(
         help_text="Fecha de check-out.",
     )
     #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
@@ -97,10 +97,10 @@ class ReservaServicio(models.Model):
         decimal_places=2,
         help_text="Monto acordado por el servicio.")
     
-    fecha_inicio = models.DateTimeField(
+    fecha_inicio = models.DateField(
         help_text="Fecha de inicio del servicio.")
     
-    fecha_fin = models.DateTimeField(
+    fecha_fin = models.DateField(
         help_text="Fecha de fin del servicio.")
     #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
