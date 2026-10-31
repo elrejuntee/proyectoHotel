@@ -69,6 +69,12 @@ export class ReservasService {
     );
   }
 
+  obtenerReservasServicio(): Observable<ReservaServicioApi[]> {
+    return this.http.get<ReservaServicioApi[]>(this.url + '/reservas-servicio').pipe(
+      catchError(this.handleError)
+    );
+  }
+
   obtenerReservasHabitacion(): Observable<ReservaHabitacionApi[]> {
     return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas-habitacion').pipe(
       catchError(this.handleError)
