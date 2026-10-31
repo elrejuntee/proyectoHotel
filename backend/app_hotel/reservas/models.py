@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 
@@ -62,6 +63,7 @@ class ReservaHabitacion(models.Model):
     pago_acordado = models.DecimalField(
         max_digits=10,
         decimal_places=2,
+        validators=[MinValueValidator(0)],
         help_text="Monto acordado por la estadía en esta habitación.",
     )
 
@@ -74,7 +76,7 @@ class ReservaHabitacion(models.Model):
     )
     #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
-        return f"Habitación de la reserva Nº{self.id_reserva.numero_reserva}"
+        return f"Reserva Nº{self.id_reserva.numero_reserva} - Habitación {self.id_habitacion_id} ({self.fecha_checkin} a {self.fecha_checkout}) - ${self.pago_acordado}"
 
 class ReservaServicio(models.Model):
     id_reserva = models.ForeignKey(
@@ -90,11 +92,13 @@ class ReservaServicio(models.Model):
         help_text="Servicio reservado.",
     )
     capacidad_invitados = models.IntegerField(
+        validators=[MinValueValidator(1)],
         help_text="Cantidad de invitados para el servicio.")
     
     pago_acordado = models.DecimalField(
         max_digits=10,
         decimal_places=2,
+        validators=[MinValueValidator(0)],
         help_text="Monto acordado por el servicio.")
     
     fecha_inicio = models.DateField(
@@ -104,4 +108,4 @@ class ReservaServicio(models.Model):
         help_text="Fecha de fin del servicio.")
     #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
-        return f"Servicio reservado para Reserva Nº{self.id_reserva.numero_reserva}"
+        return f"Reserva Nº{self.id_reserva.numero_reserva} - Servicio {self.id_servicio_id} ({self.fecha_inicio} a {self.fecha_fin}) - {self.capacidad_invitados} invitados - ${self.pago_acordado}"
