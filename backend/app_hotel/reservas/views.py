@@ -15,30 +15,12 @@ class EstadoReservaView(ApiView):
         serializer = EstadoReservaSerializer(estados, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
-        serializer = EstadoReservaSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-
 class EstadoReservaDetailView(ApiView):
 
     def get(self, request, pk):
         estado = get_object_or_404(EstadoReserva, pk=pk)
         serializer = EstadoReservaSerializer(estado)
         return Response(serializer.data)
-
-    def put(self, request, pk):
-        estado = get_object_or_404(EstadoReserva, pk=pk)
-        serializer = EstadoReservaSerializer(estado, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-
-
 
 # ===== Reserva =====
 
@@ -47,14 +29,14 @@ class ReservaView(ApiView):
     def get(self, request):
         reservas = Reserva.objects.all()
         serializer = ReservaSerializer(reservas, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = ReservaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ReservaDetailView(ApiView):
@@ -70,7 +52,7 @@ class ReservaDetailView(ApiView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # ===== Reserva Habitación =====
@@ -86,8 +68,8 @@ class ReservaHabitacionView(ApiView):
         serializer = ReservaHabitacionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ReservaHabitacionDetailView(ApiView):
@@ -103,7 +85,7 @@ class ReservaHabitacionDetailView(ApiView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # ===== Reserva Servicio =====
@@ -118,8 +100,8 @@ class ReservaServicioView(ApiView):
         serializer = ReservaServicioSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ReservaServicioDetailView(ApiView):
@@ -135,4 +117,4 @@ class ReservaServicioDetailView(ApiView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
