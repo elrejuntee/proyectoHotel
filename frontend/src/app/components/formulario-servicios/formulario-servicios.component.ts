@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ServiciosService, ServicioApi, TipoServicioApi } from '../../services/servicios/servicios.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
@@ -26,10 +27,49 @@ export class FormularioServiciosComponent implements OnInit {
   mensajeError: string = '';
   guardando: boolean = false;
 
+  // Validación asíncrona: consulta al backend cuántos lugares quedan para esas fechas
+  capacidadDisponibleValidator = (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return new Observable<ValidationErrors | null>(observer => {
+      const checkin = this.formulario.get('checkin')?.value;
+      const checkout = this.formulario.get('checkout')?.value;
+      const personas = Number(control.value);
+
+      if (!this.servicio || !checkin || !checkout || !personas || checkout < checkin) {
+        observer.next(null);
+        observer.complete();
+        return;
+      }
+
+      this.reservasService.obtenerReservas().subscribe({
+        next: (reservas) => {
+          this.reservasService.obtenerReservasServicio().subscribe({
+            next: (reservasServicio) => {
+              const idsConfirmadas = reservas
+                .filter(r => String(r.id_estado_reserva) === '1')
+                .map(r => String(r.id));
+
+              const ocupadas = reservasServicio
+                .filter(rs => idsConfirmadas.includes(String(rs.id_reserva)))
+                .filter(rs => String(rs.id_servicio) === String(this.servicio!.id))
+                .filter(rs => rs.fecha_inicio.slice(0, 10) <= checkout && rs.fecha_fin.slice(0, 10) >= checkin)
+                .reduce((total, rs) => total + rs.capacidad_invitados, 0);
+
+              const disponibles = this.servicio!.capacidad_maxima - ocupadas;
+              observer.next(personas > disponibles ? { sinCapacidad: { disponibles } } : null);
+              observer.complete();
+            },
+            error: () => { observer.next(null); observer.complete(); }
+          });
+        },
+        error: () => { observer.next(null); observer.complete(); }
+      });
+    });
+  };
+
   formulario: FormGroup = this.fb.group({
     checkin: ['', Validators.required],
     checkout: ['', Validators.required],
-    cantidadPersonas: ['', [Validators.required, Validators.min(1)]],
+    cantidadPersonas: ['', [Validators.required, Validators.min(1)], [this.capacidadDisponibleValidator]],
     nombreCompleto: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]]
   });

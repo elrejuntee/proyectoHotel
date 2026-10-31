@@ -28,6 +28,9 @@
                             <input type="number" min="1" [attr.max]="servicio?.capacidad_maxima" formControlName="cantidadPersonas" class="form-control campo-formulario" id="cantidad-personas" placeholder="Ej: 4"
                                 [class.is-invalid]="CantidadPersonas?.errors && CantidadPersonas?.touched"
                                 [class.is-valid]="CantidadPersonas?.valid && CantidadPersonas?.touched">
+                            @if (CantidadPersonas?.pending) {
+                                <div class="text-muted">Verificando disponibilidad...</div>
+                            }
                             @if (CantidadPersonas?.errors && CantidadPersonas?.touched) {
                                 <div class="login-campo-error">
                                     @if (CantidadPersonas?.hasError('required')) {
@@ -35,6 +38,9 @@
                                     }
                                     @if (CantidadPersonas?.hasError('min')) {
                                         <span>Debe ser al menos 1 persona</span>
+                                    }
+                                    @if (CantidadPersonas?.hasError('sinCapacidad')) {
+                                        <span>Solo quedan {{ CantidadPersonas?.getError('sinCapacidad').disponibles }} lugares disponibles para esas fechas</span>
                                     }
                                     @if (CantidadPersonas?.hasError('max')) {
                                         <span>La capacidad máxima para este servicio es {{ servicio?.capacidad_maxima }} personas</span>
