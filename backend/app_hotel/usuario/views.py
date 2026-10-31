@@ -10,22 +10,14 @@ class RolUsuarioView(ApiView):
   def get(self, request):
     roles = RolUsuario.objects.all()
     serializer = RolUsuarioSerializer(roles, many=True)
-    return Response(serializer.data)
-
-  def post(self, request):
-    serializer = RolUsuarioSerializer(data=request.data)
-    if serializer.is_valid():
-      serializer.save()
-      return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
-
-
+    return Response(serializer.data, status=status.HTTP_200_OK)
+    
 class UsuarioView(ApiView):
 
   def get(self, request):
     usuarios = Usuario.objects.all()
     serializer = UsuarioSerializer(usuarios, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
   def post(self, request):
     try:
