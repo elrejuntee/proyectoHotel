@@ -15,13 +15,6 @@ class EstadoReservaView(ApiView):
         serializer = EstadoReservaSerializer(estados, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class EstadoReservaDetailView(ApiView):
-
-    def get(self, request, pk):
-        estado = get_object_or_404(EstadoReserva, pk=pk)
-        serializer = EstadoReservaSerializer(estado)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 # ===== Reserva =====
 
 class ReservaView(ApiView):
@@ -37,23 +30,6 @@ class ReservaView(ApiView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ReservaDetailView(ApiView):
-
-    def get(self, request, pk):
-        reserva = get_object_or_404(Reserva, pk=pk)
-        serializer = ReservaSerializer(reserva)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def put(self, request, pk):
-        reserva = get_object_or_404(Reserva, pk=pk)
-        serializer = ReservaSerializer(reserva, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # ===== Reserva Habitación =====
 
@@ -71,23 +47,6 @@ class ReservaHabitacionView(ApiView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class ReservaHabitacionDetailView(ApiView):
-
-    def get(self, request, pk):
-        reserva_habitacion = get_object_or_404(ReservaHabitacion, pk=pk)
-        serializer = ReservaHabitacionSerializer(reserva_habitacion)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def put(self, request, pk):
-        reserva_habitacion = get_object_or_404(ReservaHabitacion, pk=pk)
-        serializer = ReservaHabitacionSerializer(reserva_habitacion, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 # ===== Reserva Servicio =====
 class ReservaServicioView(ApiView):
 
@@ -103,18 +62,3 @@ class ReservaServicioView(ApiView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class ReservaServicioDetailView(ApiView):
-
-    def get(self, request, pk):
-        reserva_servicio = get_object_or_404(ReservaServicio, pk=pk)
-        serializer = ReservaServicioSerializer(reserva_servicio)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def put(self, request, pk):
-        reserva_servicio = get_object_or_404(ReservaServicio, pk=pk)
-        serializer = ReservaServicioSerializer(reserva_servicio, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
