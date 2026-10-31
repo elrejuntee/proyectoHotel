@@ -32,30 +32,31 @@ export class FormularioServiciosComponent implements OnInit {
     return new Observable<ValidationErrors | null>(observer => {
       const checkin = this.formulario.get('checkin')?.value;
       const checkout = this.formulario.get('checkout')?.value;
-      const personas = Number(control.value);
+            const cantidadPersonas = control.value;
 
-      if (!this.servicio || !checkin || !checkout || !personas || checkout < checkin) {
+      if (!this.servicio || !checkin || !checkout || !cantidadPersonas || checkout < checkin) {
         observer.next(null);
         observer.complete();
         return;
       }
-//sacar el casteo y usar singulares para las variables.
+
       this.reservasService.obtenerReservas().subscribe({
         next: (reservas) => {
           this.reservasService.obtenerReservasServicio().subscribe({
             next: (reservasServicio) => {
-              const idsConfirmadas = reservas
-                .filter(r => String(r.id_estado_reserva) === '1')
-                .map(r => String(r.id));
+              const idsConfirmados = reservas
+                .filter(reserva => reserva.id_estado_reserva === 1)
+                .map(reserva => reserva.id);
 
-              const ocupadas = reservasServicio
-                .filter(rs => idsConfirmadas.includes(String(rs.id_reserva)))
-                .filter(rs => String(rs.id_servicio) === String(this.servicio!.id))
-                .filter(rs => rs.fecha_inicio.slice(0, 10) <= checkout && rs.fecha_fin.slice(0, 10) >= checkin)
-                .reduce((total, rs) => total + rs.capacidad_invitados, 0);
+              // Único casteo que queda: el servicio viene de json-server con id texto y Django devuelve número.
+              const ocupados = reservasServicio
+                .filter(reservaServicio => idsConfirmados.includes(reservaServicio.id_reserva))
+                .filter(reservaServicio => reservaServicio.id_servicio === Number(this.servicio!.id))
+                .filter(reservaServicio => reservaServicio.fecha_inicio.slice(0, 10) <= checkout && reservaServicio.fecha_fin.slice(0, 10) >= checkin)
+                .reduce((total, reservaServicio) => total + reservaServicio.capacidad_invitados, 0);
 
-              const disponibles = this.servicio!.capacidad_maxima - ocupadas;
-              observer.next(personas > disponibles ? { sinCapacidad: { disponibles } } : null);
+              const disponibles = this.servicio!.capacidad_maxima - ocupados;
+              observer.next(cantidadPersonas > disponibles ? { sinCapacidad: { disponibles } } : null);
               observer.complete();
             },
             error: () => { observer.next(null); observer.complete(); }
@@ -65,7 +66,7 @@ export class FormularioServiciosComponent implements OnInit {
       });
     });
   };
-
+  
   formulario: FormGroup = this.fb.group({
     checkin: ['', Validators.required],
     checkout: ['', Validators.required],
