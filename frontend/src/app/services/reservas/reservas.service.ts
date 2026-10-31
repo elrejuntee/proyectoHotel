@@ -45,44 +45,44 @@ export class ReservasService {
 
   // ----- POST -----
   crearReserva(reserva: ReservaApi): Observable<ReservaApi> {
-    return this.http.post<ReservaApi>(this.url + '/reservas', reserva).pipe(
+    return this.http.post<ReservaApi>(this.url + '/reservas/', reserva).pipe(
       catchError(this.handleError)
     );
   }
 
   crearReservaHabitacion(reservaHabitacion: ReservaHabitacionApi): Observable<ReservaHabitacionApi> {
-    return this.http.post<ReservaHabitacionApi>(this.url + '/reservas-habitacion', reservaHabitacion).pipe(
+    return this.http.post<ReservaHabitacionApi>(this.url + '/reservas-habitacion/', reservaHabitacion).pipe(
       catchError(this.handleError)
     );
   }
 
   crearReservaServicio(reservaServicio: ReservaServicioApi): Observable<ReservaServicioApi> {
-    return this.http.post<ReservaServicioApi>(this.url + '/reservas-servicio', reservaServicio).pipe(
+    return this.http.post<ReservaServicioApi>(this.url + '/reservas-servicio/', reservaServicio).pipe(
       catchError(this.handleError)
     );
   }
 
   // ----- GET -----
   obtenerReservas(): Observable<ReservaApi[]> {
-    return this.http.get<ReservaApi[]>(this.url + '/reservas').pipe(
+    return this.http.get<ReservaApi[]>(this.url + '/reservas/').pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerReservasServicio(): Observable<ReservaServicioApi[]> {
-    return this.http.get<ReservaServicioApi[]>(this.url + '/reservas-servicio').pipe(
+    return this.http.get<ReservaServicioApi[]>(this.url + '/reservas-servicio/').pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerReservasHabitacion(): Observable<ReservaHabitacionApi[]> {
-    return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas-habitacion').pipe(
+    return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas-habitacion/').pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerEstadosReserva(): Observable<EstadoReservaApi[]> {
-    return this.http.get<EstadoReservaApi[]>(this.url + '/estados-reserva').pipe(
+    return this.http.get<EstadoReservaApi[]>(this.url + '/estados-reserva/').pipe(
       catchError(this.handleError)
     );
   }

@@ -70,13 +70,13 @@ private apiReservas = 'http://localhost:8000/api';
 
   obtenerReservas(): Observable<Reserva[]> {
     return this.httpClient.get<Reserva[]>(
-      this.apiReservas + '/reservas'
+      this.apiReservas + '/reservas/'
     );
   }
 
   obtenerReservasHabitacion(): Observable<ReservaHabitacion[]> {
     return this.httpClient.get<ReservaHabitacion[]>(
-      this.apiReservas + '/reservas-habitacion'
+      this.apiReservas + '/reservas-habitacion/'
     );
   }
 
@@ -94,7 +94,7 @@ private apiReservas = 'http://localhost:8000/api';
 
   obtenerReservasServicio(): Observable<ReservaServicio[]> {
     return this.httpClient.get<ReservaServicio[]>(
-      this.apiReservas + '/reservas-servicio'
+      this.apiReservas + '/reservas-servicio/'
     );
   }
 
