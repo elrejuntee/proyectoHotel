@@ -39,7 +39,7 @@ export class FormularioServiciosComponent implements OnInit {
         observer.complete();
         return;
       }
-
+//sacar el casteo y usar singulares para las variables.
       this.reservasService.obtenerReservas().subscribe({
         next: (reservas) => {
           this.reservasService.obtenerReservasServicio().subscribe({
