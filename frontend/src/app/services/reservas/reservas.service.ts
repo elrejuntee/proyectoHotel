@@ -7,7 +7,7 @@ export interface ReservaApi {
   id_usuario: number | string;
   id_estado_reserva: number | string;
   numero_reserva: number;
-  fecha_hora_reserva: string;
+  fecha_reserva: string;
 }
 
 export interface ReservaHabitacionApi {
@@ -15,8 +15,8 @@ export interface ReservaHabitacionApi {
   id_reserva: number | string;
   id_habitacion: number | string;
   pago_acordado: number;
-  fecha_hora_checkin: string;
-  fecha_hora_checkout: string;
+  fecha_checkin: string;
+  fecha_checkout: string;
 }
 
 export interface ReservaServicioApi {
@@ -25,13 +25,13 @@ export interface ReservaServicioApi {
   id_servicio: number | string;
   capacidad_invitados: number;
   pago_acordado: number;
-  fecha_hora_inicio: string;
-  fecha_hora_fin: string;
+  fecha_inicio: string;
+  fecha_fin: string;
 }
 
 export interface EstadoReservaApi {
   id?: number | string;
-  nombre: string;
+  estado_reserva: string;
 }
 
 // Servicio = Modelo (MVC): concentra las llamadas HTTP al backend Django.
