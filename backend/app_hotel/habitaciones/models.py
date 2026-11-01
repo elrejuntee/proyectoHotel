@@ -76,7 +76,7 @@ class TipoHabitacion(models.Model):
         unique = True,
         choices = [
             ('Suite Premium', 'Suite Premium'),
-            ('Suite ideal para familias', 'Suite ideal para familias'),
+            ('Suite Familiar', 'Suite Familiar'),
             ('Habitación Deluxe', 'Habitación Deluxe'),
             ('Habitación Estándar', 'Habitación Estándar'),
         ]

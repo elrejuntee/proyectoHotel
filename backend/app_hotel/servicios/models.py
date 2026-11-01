@@ -4,9 +4,9 @@ from django.core.validators import MinValueValidator
 class TipoServicio(models.Model):
     # Definimos la lista de opciones permitidas según el frontend
     OPCIONES_TIPO_SERVICIO = [
-        ('Sala Conferencia', 'Sala Conferencia'),
+        ('Sala de conferencias', 'Sala de conferencias'),
         ('Comedor', 'Comedor'),
-        ('Sala Privada', 'Sala Privada'),
+        ('Sala privada', 'Sala privada'),
         ('Co-working', 'Co-working'),
     ]
 

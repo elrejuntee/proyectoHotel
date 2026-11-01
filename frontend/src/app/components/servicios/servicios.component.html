@@ -1,132 +1,68 @@
-    <main>  
-        <!-- HERO -->
-        <section class="servicios-hero">
-            <div class="container text-center">
-                <h1>Nuestros servicios</h1>
-                <p>Todo lo que necesitás para una estadía perfecta, en un solo lugar.</p>
-            </div>
-        </section>
+<main>
+    <section class="servicios-hero">
+        <div class="container text-center">
+            <h1>Nuestros servicios</h1>
+            <p>Elegí y reservá uno de los servicios disponibles del hotel.</p>
+        </div>
+    </section>
 
-        <!-- ICONOS RESUMEN -->
-        <div class="seccion seccion-gris">
-            <div class="container seccion-inner">
-                <div class="row text-center gy-4 justify-content-center">
+    <div class="seccion seccion-gris">
+        <div class="container seccion-inner">
+            <div class="row text-center gy-4 justify-content-center">
+                @for (tipo of tiposServicio; track tipo.id) {
                     <div class="col-6 col-md-3">
-                        <span class="fs-1">🏢</span>
-                        <p>Sala Conferencia</p>
+                        <span class="fs-1">✦</span>
+                        <p>{{ tipo.nombre_servicio }}</p>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">🍽️</span>
-                        <p>Comedor</p>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">🚪</span>
-                        <p>Sala Privada</p>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">💻</span>
-                        <p>Co-working</p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
+    </div>
 
-        <!-- SERVICIOS DETALLE -->
-        <section class="seccion">
-            <div class="container seccion-inner">
+    <section class="seccion">
+        <div class="container seccion-inner">
+            <h2 class="seccion-titulo text-center mb-5">Servicios disponibles para reservar</h2>
 
-                <h2 class="seccion-titulo text-center mb-5">Todos nuestros servicios</h2>
-
-                <!-- SALA CONFERENCIA -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/sala-conferencia.webp" alt="Sala de conferencias El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Sala Conferencia</h3>
-                            <p>Espacios modernos y equipados para reuniones de negocios, eventos corporativos y presentaciones. Capacidad para hasta 50 personas.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Proyector y pantalla incluidos</li>
-                                <li>✓ Conexión wifi de alta velocidad</li>
-                                <li>✓ Servicio de catering disponible</li>
-                                <li>✓ Capacidad hasta 50 personas</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(2)">Reservar ahora</button>
+            @if (cargando) {
+                <p class="text-center" role="status">Cargando servicios...</p>
+            } @else if (mensajeError) {
+                <p class="text-center text-danger" role="alert">{{ mensajeError }}</p>
+            } @else if (servicios.length === 0) {
+                <p class="text-center">No hay servicios cargados para reservar en este momento.</p>
+            } @else {
+                @for (servicio of servicios; track servicio.id; let indice = $index) {
+                    <div class="servicio-detalle row g-4 align-items-center mb-5"
+                         [class.flex-md-row-reverse]="indice % 2 === 1">
+                        <div class="col-12 col-md-6">
+                            <img [src]="imagenTipo(servicio.id_tipo_servicio)"
+                                 [alt]="nombreTipo(servicio.id_tipo_servicio)"
+                                 class="servicio-detalle__img" loading="lazy">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="servicio-detalle__info">
+                                <h3>{{ nombreTipo(servicio.id_tipo_servicio) }}</h3>
+                                <p>Servicio disponible del hotel. La capacidad máxima es de
+                                    {{ servicio.capacidad_maxima }} personas.</p>
+                                <ul class="servicio-detalle__lista">
+                                    <li>✓ Capacidad máxima: {{ servicio.capacidad_maxima }} personas</li>
+                                    <li>✓ Precio: {{ servicio.precio | currency:'ARS':'symbol':'1.0-2' }}</li>
+                                </ul>
+                                <button type="button" class="btn btn-primario mt-3"
+                                        (click)="intentarReservar(servicio.id)">
+                                    Reservar ahora
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    @if (!$last) {
+                        <hr class="servicio-separador">
+                    }
+                }
+            }
+        </div>
+    </section>
+</main>
 
-                <hr class="servicio-separador">
-
-                <!-- COMEDOR -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5 flex-md-row-reverse">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/comedor.webp" alt="Comedor El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Comedor</h3>
-                            <p>Disfrutá de un desayuno completo y cenas gourmet elaboradas por nuestros chefs. Opciones para todos los gustos, con ingredientes frescos y de temporada.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Desayuno continental incluido</li>
-                                <li>✓ Menú variado para almuerzo y cena</li>
-                                <li>✓ Opciones vegetarianas y veganas</li>
-                                <li>✓ Servicio a la habitación disponible</li>
-                                <li>✓ Capacidad hasta 50 personas</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(4)">Reservar ahora</button>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="servicio-separador">
-
-                <!-- SALA PRIVADA -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/sala-privada.webp" alt="Sala privada El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Sala Privada</h3>
-                            <p>Un espacio exclusivo para reuniones íntimas, celebraciones especiales o cenas privadas. Ideal para grupos pequeños que buscan privacidad y confort.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Capacidad hasta 12 personas</li>
-                                <li>✓ Menú personalizado a pedido</li>
-                                <li>✓ Decoración incluida para eventos</li>
-                                <li>✓ Acceso exclusivo durante la reserva</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(3)">Reservar ahora</button>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="servicio-separador">
-
-                <!-- CO-WORKING -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5 flex-md-row-reverse">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/co-working.webp" alt="Co-working El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Co-working</h3>
-                            <p>Trabajá cómodamente desde el hotel en nuestro espacio de co-working equipado. Perfecto para viajeros de negocios que necesitan un ambiente productivo.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Wifi de alta velocidad dedicado</li>
-                                <li>✓ Escritorios individuales y compartidos</li>
-                                <li>✓ Sala de reuniones reservable</li>
-                                <li>✓ Impresora y escáner disponibles</li>
-                                <li>✓ Capacidad hasta 10 personas</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(1)">Reservar ahora</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    @if (mostrarModal) {
-        <app-modal-reserva [returnUrl]="'/formulario-servicio/' + idServicioSeleccionado"></app-modal-reserva>
-    }
+@if (mostrarModal && idServicioSeleccionado !== undefined) {
+    <app-modal-reserva [returnUrl]="'/formulario-servicio/' + idServicioSeleccionado"></app-modal-reserva>
+}
