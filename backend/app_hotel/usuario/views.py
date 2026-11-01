@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView as ApiView
 from .models import RolUsuario, Usuario
-from .serializers import RolUsuarioSerializer, UsuarioSerializer
+from .serializers import RolUsuarioSerializer, UsuarioSerializer, UsuarioConRolSerializer 
 
 
 class RolUsuarioView(ApiView):
@@ -10,6 +10,18 @@ class RolUsuarioView(ApiView):
   def get(self, request):
     roles = RolUsuario.objects.all()
     serializer = RolUsuarioSerializer(roles, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+class RolUsuarioDetailView(ApiView):
+  def get(self, request, pk):
+    try:
+      rol = RolUsuario.objects.get(pk=pk)
+    except RolUsuario.DoesNotExist:
+      return Response(
+          {"error": "El rol no existe"}, status=status.HTTP_404_NOT_FOUND
+      )
+    
+    serializer = RolUsuarioSerializer(rol)
     return Response(serializer.data, status=status.HTTP_200_OK)
     
 class UsuarioView(ApiView):
@@ -50,3 +62,19 @@ class UsuarioDetailView(ApiView):
       return Response(serializer.data, status=status.HTTP_200_OK)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UsuarioConRolView(ApiView):
+
+  def post(self, request):
+    email_request = request.data.get("email")
+    password_request = request.data.get("password")
+    
+    try:
+      usuario = Usuario.objects.get(email = email_request , password = password_request)
+    except Usuario.DoesNotExist:
+      return Response(
+          {"error": "El usuario no existe"}, status=status.HTTP_404_NOT_FOUND
+      )
+    serializer = UsuarioConRolSerializer(usuario, partial = True)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)

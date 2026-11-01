@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Usuario } from '../../../models';
+import { RolUsuario, Usuario } from '../../../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private apiUrl = 'http://localhost:8000/api/usuarios/';
+  private rolesUrl = 'http://localhost:8000/api/roles/';
   private httpClient = inject(HttpClient);
   public usuarioLogueado: Usuario | null = null;
 
@@ -23,6 +24,17 @@ export class LoginService {
 
         this.usuarioLogueado = usuario ?? null;
         return usuario;
+      })
+    );
+  }
+
+  obtenerIdRolPorNombre(nombreRol: string): Observable<number | undefined> {
+    return this.httpClient.get<RolUsuario[]>(this.rolesUrl).pipe(
+      map((roles: RolUsuario[]) => {
+        const rolEncontrado = roles.find(
+          (rol: RolUsuario) => rol.rol.toLowerCase() === nombreRol.toLowerCase()
+        );
+        return rolEncontrado?.id;
       })
     );
   }
