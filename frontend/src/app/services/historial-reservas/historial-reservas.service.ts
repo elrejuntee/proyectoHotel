@@ -2,6 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+export interface EstadoReserva {
+  id: number;
+  estado_reserva: string;
+}
+
 export interface Reserva {
   id: number;
   id_usuario: number;
@@ -69,6 +74,12 @@ export class HistorialReservasService {
   obtenerReservas(): Observable<Reserva[]> {
     return this.httpClient.get<Reserva[]>(
       this.apiUrl + '/reservas/'
+    );
+  }
+
+  obtenerEstadosReserva(): Observable<EstadoReserva[]> {
+    return this.httpClient.get<EstadoReserva[]>(
+      this.apiUrl + '/estados-reserva/'
     );
   }
 
