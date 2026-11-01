@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
 import { ListasVaciasComponent } from '../listas-vacias/listas-vacias.component';
-import { ReservasService, ReservaApi, ReservaHabitacionApi } from '../../services/reservas/reservas.service';
+import { EstadoReservaApi, ReservasService, ReservaApi, ReservaHabitacionApi } from '../../services/reservas/reservas.service';
 
 @Component({
   selector: 'app-resultados-busqueda',
@@ -16,6 +16,7 @@ export class ResultadosBusquedaComponent {
   habitaciones: HabitacionApi[] = [];
   habitacionesOriginales: HabitacionApi[] = [];
   tiposHabitacion: TipoHabitacionApi[] = [];
+  estadosReserva: EstadoReservaApi[] = [];
   cargando: boolean = true;
   mensajeError: string = '';
   checkin: string | null = null;
@@ -34,7 +35,7 @@ export class ResultadosBusquedaComponent {
 
   cargarDatosIniciales(): void {
     this.cargando = true;
-        this.habitacionesService.obtenerTiposHabitacion().subscribe({
+    this.habitacionesService.obtenerTiposHabitacion().subscribe({
       next: (tipos) => {
         this.tiposHabitacion = tipos;
         this.obtenerHabitaciones(); // Una vez obtenidos los tipos, traemos las habitaciones
@@ -108,9 +109,17 @@ export class ResultadosBusquedaComponent {
 
   this.reservasService.obtenerReservas().subscribe({
     next: (reservas) => {
-      this.reservasService.obtenerReservasHabitacion().subscribe({
-        next: (reservasHabitacion) => {
-          this.filtrarDisponibles(reservas, reservasHabitacion);
+      this.reservasService.obtenerEstadosReserva().subscribe({
+        next: (estados) => {
+          this.estadosReserva = estados;
+          this.reservasService.obtenerReservasHabitacion().subscribe({
+            next: (reservasHabitacion) => {
+              this.filtrarDisponibles(reservas, reservasHabitacion);
+            },
+            error: (error: Error) => {
+              this.mensajeFechas = error.message;
+            }
+          });
         },
         error: (error: Error) => {
           this.mensajeFechas = error.message;
@@ -123,9 +132,16 @@ export class ResultadosBusquedaComponent {
   });
 }
   private filtrarDisponibles(reservas: ReservaApi[], reservasHabitacion: ReservaHabitacionApi[]): void {
-    // Solo cuentan las reservas Confirmadas (id 1)
+    const confirmado = this.estadosReserva.find(estado =>
+      estado.nombre.toLowerCase() === 'confirmada'
+    );
+    if (!confirmado) {
+      this.mensajeFechas = 'No está configurado el estado de reserva confirmada en el backend.';
+      return;
+    }
+
     const idsConfirmadas = reservas
-      .filter(r => String(r.id_estado_reserva) === '1')
+      .filter(r => r.id_estado_reserva === confirmado.id)
       .map(r => String(r.id));
 
     // Habitaciones ocupadas: reserva confirmada cuyas fechas se superponen con la búsqueda

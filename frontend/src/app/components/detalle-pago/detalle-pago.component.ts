@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
 import { ReservasService, ReservaApi, ReservaHabitacionApi} from '../../services/reservas/reservas.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
@@ -118,39 +119,58 @@ export class DetallePagoComponent implements OnInit {
 // 0) Antes de guardar, chequea que nadie haya reservado esta habitación para estas fechas
 //    (por si la habitación se ocupó después de que se armó el listado de resultados)
   private verificarDisponibilidad(): void {
-    this.reservasService.obtenerReservas().subscribe({
-      next: (reservas) => {
-        this.reservasService.obtenerReservasHabitacion().subscribe({
-          next: (reservasHabitacion) => {
-            const idsConfirmadas = reservas
-              .filter(r => String(r.id_estado_reserva) === '1')
-              .map(r => String(r.id));
+    forkJoin({
+      estadosHabitacion: this.habitacionesService.obtenerEstadosHabitacion(),
+      estadosReserva: this.reservasService.obtenerEstadosReserva(),
+      reservas: this.reservasService.obtenerReservas(),
+      reservasHabitacion: this.reservasService.obtenerReservasHabitacion()
+    }).subscribe({
+      next: ({ estadosHabitacion, estadosReserva, reservas, reservasHabitacion }) => {
+        const estadoDisponible = estadosHabitacion.find(estado =>
+          estado.nombre.toLowerCase() === 'disponible'
+        );
+        const estadoConfirmado = estadosReserva.find(estado =>
+          estado.nombre.toLowerCase() === 'confirmada'
+        );
+        if (!estadoDisponible || !estadoConfirmado?.id) {
+          this.mostrarError(new Error('Falta configurar el estado de habitación disponible o reserva confirmada.'));
+          return;
+        }
+        if (this.habitacion!.id_estado_habitacion !== estadoDisponible.id) {
+          this.mostrarError(new Error('Esta habitación ya no está disponible para reservar.'));
+          return;
+        }
 
-            const yaReservada = reservasHabitacion
-              .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
-              .filter(rh => String(rh.id_habitacion) === String(this.habitacion!.id))
-              .some(rh => rh.fecha_hora_checkin.slice(0, 10) < this.checkout! && rh.fecha_hora_checkout.slice(0, 10) > this.checkin!);
+        const idsConfirmadas = new Set(
+          reservas
+            .filter(reserva => reserva.id_estado_reserva === estadoConfirmado.id)
+            .map(reserva => reserva.id)
+        );
+        const inicio = new Date(`${this.checkin}T14:00:00Z`).getTime();
+        const fin = new Date(`${this.checkout}T10:00:00Z`).getTime();
+        const yaReservada = reservasHabitacion
+          .filter(reserva => reserva.id_habitacion === this.habitacion!.id)
+          .filter(reserva => idsConfirmadas.has(reserva.id_reserva))
+          .some(reserva =>
+            new Date(reserva.fecha_hora_checkin).getTime() < fin &&
+            new Date(reserva.fecha_hora_checkout).getTime() > inicio
+          );
 
-            if (yaReservada) {
-              this.mensajeError = 'Esta habitación ya fue reservada para esas fechas. Volvé a los resultados y elegí otra.';
-              this.guardando = false;
-              return;
-            }
+        if (yaReservada) {
+          this.mostrarError(new Error('Esta habitación ya fue reservada para esas fechas. Volvé a los resultados y elegí otra.'));
+          return;
+        }
 
-            this.guardarReserva();
-          },
-          error: (error: Error) => this.mostrarError(error)
-        });
+        this.guardarReserva(estadoConfirmado.id);
       },
       error: (error: Error) => this.mostrarError(error)
     });
   }
 
-  // 1) Crea la reserva con estado "Confirmada" (id 1)
-  private guardarReserva(): void {
+  private guardarReserva(idEstadoConfirmado: number): void {
     const reserva: ReservaApi = {
       id_usuario: this.loginService.usuarioLogueado!.id,
-      id_estado_reserva: 1,
+      id_estado_reserva: idEstadoConfirmado,
       numero_reserva: Math.floor(10000 + Math.random() * 90000),
       fecha_hora_reserva: new Date().toISOString()
     };
@@ -164,7 +184,7 @@ export class DetallePagoComponent implements OnInit {
   }
 
   // 2) Vincula la habitación y las fechas a la reserva
-  private guardarReservaHabitacion(idReserva: number | string): void {
+  private guardarReservaHabitacion(idReserva: number): void {
     const reservaHabitacion: ReservaHabitacionApi = {
       id_reserva: idReserva,
       id_habitacion: this.habitacion!.id!,
@@ -175,23 +195,20 @@ export class DetallePagoComponent implements OnInit {
 
       this.reservasService.crearReservaHabitacion(reservaHabitacion).subscribe({
         next: () => {
-          this.ocuparHabitacion(idReserva);
+          this.guardando = false;
+          this.router.navigate(['/pago-confirmado', idReserva]);
         },
-        error: (error: Error) => this.mostrarError(error)
+        error: (error: Error) => {
+          this.reservasService.eliminarReserva(idReserva).subscribe({
+            next: () => this.mostrarError(error),
+            error: (rollbackError: Error) => {
+              this.mensajeError = `${error.message} No se pudo revertir la reserva incompleta: ${rollbackError.message}`;
+              this.guardando = false;
+            }
+          });
+        }
       });
     }
-      // Cambia el estado de la habitación a "Ocupada" (id 2) y navega a la confirmación
-  private ocuparHabitacion(idReserva: number | string): void {
-    const ocupada: HabitacionApi = { ...this.habitacion!, id_estado_habitacion: '2' };
-
-    this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
-      next: () => {
-        this.guardando = false;
-        this.router.navigate(['/pago-confirmado', idReserva]);
-      },
-      error: (error: Error) => this.mostrarError(error)
-    });
-  }
 
   private mostrarError(error: Error): void {
     this.mensajeError = error.message;

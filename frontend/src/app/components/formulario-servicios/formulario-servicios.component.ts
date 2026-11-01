@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { ServiciosService, ServicioApi, TipoServicioApi } from '../../services/servicios/servicios.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
+import { forkJoin } from 'rxjs';
 import { ReservasService, ReservaApi, ReservaServicioApi } from '../../services/reservas/reservas.service';
 
 @Component({
@@ -33,6 +34,13 @@ export class FormularioServiciosComponent implements OnInit {
     nombreCompleto: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]]
   });
+
+  get fechaMinima(): string {
+    const hoy = new Date();
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    return `${hoy.getFullYear()}-${mes}-${dia}`;
+  }
 
   ngOnInit(): void {
     // Si hay un usuario logueado, se precargan sus datos en el formulario
@@ -99,19 +107,71 @@ export class FormularioServiciosComponent implements OnInit {
   get Email() { return this.formulario.get('email'); }
 
   enviar(): void {
+    this.mensajeError = '';
     this.formulario.markAllAsTouched();
     if (this.formulario.invalid || !this.servicio) {
       return;
     }
-    this.guardando = true;
-    this.guardarReserva();
+    const { checkin, checkout, cantidadPersonas } = this.formulario.value;
+    if (checkout <= checkin) {
+      this.mensajeError = 'La fecha de fin debe ser posterior a la fecha de inicio.';
+      return;
+    }
+    if (Number(cantidadPersonas) > this.servicio.capacidad_maxima) {
+      this.mensajeError = `La capacidad máxima para este servicio es ${this.servicio.capacidad_maxima} personas.`;
+      return;
+    }
+
+    this.verificarDisponibilidad();
   }
 
-  // 1) Crea la reserva "madre" con estado "Confirmada" (id 1)
-  private guardarReserva(): void {
+  private verificarDisponibilidad(): void {
+    this.guardando = true;
+    forkJoin({
+      estados: this.reservasService.obtenerEstadosReserva(),
+      reservas: this.reservasService.obtenerReservas(),
+      reservasServicio: this.reservasService.obtenerReservasServicio()
+    }).subscribe({
+      next: ({ estados, reservas, reservasServicio }) => {
+        const estadoConfirmado = estados.find(estado =>
+          ['confirmada', 'confirmed'].includes(estado.nombre.toLowerCase())
+        );
+        if (!estadoConfirmado?.id) {
+          this.mostrarError(new Error('No está configurado el estado de reserva confirmada en el backend.'));
+          return;
+        }
+
+        const reservasConfirmadas = new Set(
+          reservas
+            .filter(reserva => reserva.id_estado_reserva === estadoConfirmado.id)
+            .map(reserva => reserva.id)
+        );
+        const { checkin, checkout } = this.formulario.value;
+        const inicioSolicitado = new Date(`${checkin}T09:00:00Z`).getTime();
+        const finSolicitado = new Date(`${checkout}T18:00:00Z`).getTime();
+        const ocupado = reservasServicio
+          .filter(reserva => reserva.id_servicio === this.servicio!.id)
+          .filter(reserva => reservasConfirmadas.has(reserva.id_reserva))
+          .some(reserva =>
+            new Date(reserva.fecha_hora_inicio).getTime() < finSolicitado &&
+            new Date(reserva.fecha_hora_fin).getTime() > inicioSolicitado
+          );
+
+        if (ocupado) {
+          this.mostrarError(new Error('Este servicio ya está reservado para esas fechas. Elegí otro período.'));
+          return;
+        }
+
+        this.guardarReserva(estadoConfirmado.id);
+      },
+      error: (error: Error) => this.mostrarError(error)
+    });
+  }
+
+  private guardarReserva(idEstadoConfirmado: number): void {
     const reserva: ReservaApi = {
       id_usuario: this.loginService.usuarioLogueado!.id,
-      id_estado_reserva: 1,
+      id_estado_reserva: idEstadoConfirmado,
       numero_reserva: Math.floor(10000 + Math.random() * 90000),
       fecha_hora_reserva: new Date().toISOString()
     };
@@ -125,14 +185,13 @@ export class FormularioServiciosComponent implements OnInit {
   }
 
   // 2) Vincula el servicio, las fechas y el precio total a la reserva
-  private guardarReservaServicio(idReserva: number | string): void {
-    const checkin = this.formulario.value.checkin;
-    const checkout = this.formulario.value.checkout;
+  private guardarReservaServicio(idReserva: number): void {
+    const { checkin, checkout, cantidadPersonas } = this.formulario.value;
 
     const reservaServicio: ReservaServicioApi = {
       id_reserva: idReserva,
-      id_servicio: this.servicio!.id!,
-      capacidad_invitados: this.formulario.value.cantidadPersonas,
+      id_servicio: this.servicio!.id,
+      capacidad_invitados: Number(cantidadPersonas),
       pago_acordado: this.precioTotal,
       fecha_hora_inicio: checkin + 'T09:00:00Z',
       fecha_hora_fin: checkout + 'T18:00:00Z'
@@ -143,7 +202,15 @@ export class FormularioServiciosComponent implements OnInit {
         this.guardando = false;
         this.router.navigate(['/pago-confirmado', idReserva]);
       },
-      error: (error: Error) => this.mostrarError(error)
+      error: (error: Error) => {
+        this.reservasService.eliminarReserva(idReserva).subscribe({
+          next: () => this.mostrarError(error),
+          error: (rollbackError: Error) => {
+            this.mensajeError = `${error.message} No se pudo revertir la reserva incompleta: ${rollbackError.message}`;
+            this.guardando = false;
+          }
+        });
+      }
     });
   }
 
