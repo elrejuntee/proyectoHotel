@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           return;
         }
 
-        if (usuario.id_rol === "2") {
+        if (usuario.id_rol.rol === "usuario") {
           console.log('Login exitoso (Cliente):', usuario);
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
           this.router.navigateByUrl(returnUrl || '/reservas');
