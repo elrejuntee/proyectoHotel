@@ -1,17 +1,17 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 
 class EstadoReserva(models.Model):
-    nombre = models.CharField(
+    estado_reserva = models.CharField(
         max_length=50,
         unique=True,
-        choices=[('confirmada', 'Confirmada'), ('cancelada', 'Cancelada')],
         help_text="Nombre del estado de la reserva.",
     )
 
     def __str__(self):
-        return self.nombre
+        return self.estado_reserva
 
 
 class Reserva(models.Model):
@@ -35,12 +35,12 @@ class Reserva(models.Model):
         help_text="Número identificador de la reserva.",
     )
 
-    fecha_hora_reserva = models.DateTimeField(
-        help_text="Fecha y hora en la que se realizó la reserva.",
+    fecha_reserva = models.DateField(
+        help_text="Fecha en la que se realizó la reserva.",
     )
 
     def __str__(self):
-        return f"Reserva Nº{self.numero_reserva} ({self.id_estado_reserva.nombre})"
+        return f"Reserva Nº{self.numero_reserva} ({self.id_estado_reserva.estado_reserva})"
 
 
 class ReservaHabitacion(models.Model):
@@ -59,21 +59,24 @@ class ReservaHabitacion(models.Model):
         related_name='reservas_habitacion',
         help_text="Habitación reservada.",
     )
-
-    pago_acordado = models.IntegerField(
+    #Que no pongan un numero negativo, y el pago tiene que ser un decimal.
+    pago_acordado = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
         help_text="Monto acordado por la estadía en esta habitación.",
     )
 
-    fecha_hora_checkin = models.DateTimeField(
-        help_text="Fecha y hora de check-in.",
+    fecha_checkin = models.DateField(
+        help_text="Fecha de check-in.",
     )
 
-    fecha_hora_checkout = models.DateTimeField(
-        help_text="Fecha y hora de check-out.",
+    fecha_checkout = models.DateField(
+        help_text="Fecha de check-out.",
     )
-
+    #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
-        return f"Habitación de la reserva Nº{self.id_reserva.numero_reserva}"
+        return f"Reserva Nº{self.id_reserva.numero_reserva} - Habitación {self.id_habitacion_id} ({self.fecha_checkin} a {self.fecha_checkout}) - ${self.pago_acordado}"
 
 class ReservaServicio(models.Model):
     id_reserva = models.ForeignKey(
@@ -88,10 +91,21 @@ class ReservaServicio(models.Model):
         related_name='reservas_servicio',
         help_text="Servicio reservado.",
     )
-    capacidad_invitados = models.IntegerField(help_text="Cantidad de invitados para el servicio.")
-    pago_acordado = models.IntegerField(help_text="Monto acordado por el servicio.")
-    fecha_hora_inicio = models.DateTimeField(help_text="Fecha y hora de inicio del servicio.")
-    fecha_hora_fin = models.DateTimeField(help_text="Fecha y hora de fin del servicio.")
-
+    capacidad_invitados = models.IntegerField(
+        validators=[MinValueValidator(1)],
+        help_text="Cantidad de invitados para el servicio.")
+    
+    pago_acordado = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        help_text="Monto acordado por el servicio.")
+    
+    fecha_inicio = models.DateField(
+        help_text="Fecha de inicio del servicio.")
+    
+    fecha_fin = models.DateField(
+        help_text="Fecha de fin del servicio.")
+    #tiene que retornar todos los datos de la reserva, no solo el numero de reserva.
     def __str__(self):
-        return f"Servicio reservado para Reserva Nº{self.id_reserva.numero_reserva}"
+        return f"Reserva Nº{self.id_reserva.numero_reserva} - Servicio {self.id_servicio_id} ({self.fecha_inicio} a {self.fecha_fin}) - {self.capacidad_invitados} invitados - ${self.pago_acordado}"

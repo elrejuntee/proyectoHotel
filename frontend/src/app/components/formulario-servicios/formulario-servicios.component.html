@@ -16,11 +16,11 @@
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
                                 <label for="fecha_inicio" class="form-label etiqueta-formulario">Fecha inicio</label>
-                                <input type="date" class="form-control campo-formulario" id="fecha_inicio" name="fecha_inicio" required>
+                                <input type="date" class="form-control campo-formulario" id="fecha_inicio" formControlName="checkin" (change)="CantidadPersonas?.updateValueAndValidity()">
                             </div>
                             <div class="col-sm-6">
                                 <label for="fecha_fin" class="form-label etiqueta-formulario">Fecha fin</label>
-                                <input type="date" class="form-control campo-formulario" id="fecha_fin" name="fecha_fin" required>
+                                <input type="date" class="form-control campo-formulario" id="fecha_fin" formControlName="checkout" (change)="CantidadPersonas?.updateValueAndValidity()">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -28,6 +28,9 @@
                             <input type="number" min="1" [attr.max]="servicio?.capacidad_maxima" formControlName="cantidadPersonas" class="form-control campo-formulario" id="cantidad-personas" placeholder="Ej: 4"
                                 [class.is-invalid]="CantidadPersonas?.errors && CantidadPersonas?.touched"
                                 [class.is-valid]="CantidadPersonas?.valid && CantidadPersonas?.touched">
+                            @if (CantidadPersonas?.pending) {
+                                <div class="text-muted">Verificando disponibilidad...</div>
+                            }
                             @if (CantidadPersonas?.errors && CantidadPersonas?.touched) {
                                 <div class="login-campo-error">
                                     @if (CantidadPersonas?.hasError('required')) {
@@ -35,6 +38,9 @@
                                     }
                                     @if (CantidadPersonas?.hasError('min')) {
                                         <span>Debe ser al menos 1 persona</span>
+                                    }
+                                    @if (CantidadPersonas?.hasError('sinCapacidad')) {
+                                        <span>Solo quedan {{ CantidadPersonas?.getError('sinCapacidad').disponibles }} lugares disponibles para esas fechas</span>
                                     }
                                     @if (CantidadPersonas?.hasError('max')) {
                                         <span>La capacidad máxima para este servicio es {{ servicio?.capacidad_maxima }} personas</span>
@@ -60,7 +66,9 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label etiqueta-formulario">Correo electrónico</label>
-                            <input type="email" class="form-control campo-formulario" id="email" name="email" placeholder="Ingresá tu correo" required>
+                            <input type="email" class="form-control campo-formulario" id="email" formControlName="email" placeholder="Ingresá tu correo electrónico"
+                                [class.is-invalid]="Email?.errors && Email?.touched"
+                                [class.is-valid]="Email?.valid && Email?.touched">
                         </div>
 
                         <button type="submit" class="btn boton-formulario w-100">Completar reserva</button>

@@ -136,8 +136,8 @@ export class HistorialReservasComponent {
             capacidad: habitacion.capacidad,
             numeroHabitacion: habitacion.numero,
             precio: reservaHabitacion.pago_acordado,
-            checkin: reservaHabitacion.fecha_hora_checkin,
-            checkout: reservaHabitacion.fecha_hora_checkout
+            checkin: reservaHabitacion.fecha_checkin,
+            checkout: reservaHabitacion.fecha_checkout
           });
         }
       }
@@ -170,8 +170,8 @@ export class HistorialReservasComponent {
             capacidadMaxima: servicio.capacidad_maxima,
             capacidadInvitados: reservaServicio.capacidad_invitados,
             precio: reservaServicio.pago_acordado,
-            fechaInicio: reservaServicio.fecha_hora_inicio,
-            fechaFin: reservaServicio.fecha_hora_fin
+            fechaInicio: reservaServicio.fecha_inicio,
+            fechaFin: reservaServicio.fecha_fin
           });
         }
       }

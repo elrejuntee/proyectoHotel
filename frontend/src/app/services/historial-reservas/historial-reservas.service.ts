@@ -7,7 +7,7 @@ export interface Reserva {
   id_usuario: string;
   id_estado_reserva: string;
   numero_reserva: number;
-  fecha_hora_reserva: string;
+  fecha_reserva: string;
 }
 
 export interface ReservaHabitacion {
@@ -15,8 +15,8 @@ export interface ReservaHabitacion {
   id_reserva: string;
   id_habitacion: string;
   pago_acordado: number;
-  fecha_hora_checkin: string;
-  fecha_hora_checkout: string;
+  fecha_checkin: string;
+  fecha_checkout: string;
 }
 
 export interface Habitacion {
@@ -42,8 +42,8 @@ export interface ReservaServicio {
   id_servicio: string;
   capacidad_invitados: number;
   pago_acordado: number;
-  fecha_hora_inicio: string;
-  fecha_hora_fin: string;
+  fecha_inicio: string;
+  fecha_fin: string;
 }
 
 export interface Servicio {
@@ -63,19 +63,20 @@ export interface TipoServicio {
   providedIn: 'root'
 })
 export class HistorialReservasService {
-   private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000';
+private apiReservas = 'http://localhost:8000/api';
 
   private httpClient = inject(HttpClient);
 
   obtenerReservas(): Observable<Reserva[]> {
     return this.httpClient.get<Reserva[]>(
-      this.apiUrl + '/reservas'
+      this.apiReservas + '/reservas/'
     );
   }
 
   obtenerReservasHabitacion(): Observable<ReservaHabitacion[]> {
     return this.httpClient.get<ReservaHabitacion[]>(
-      this.apiUrl + '/reservas_habitacion'
+      this.apiReservas + '/reservas-habitacion/'
     );
   }
 
@@ -93,7 +94,7 @@ export class HistorialReservasService {
 
   obtenerReservasServicio(): Observable<ReservaServicio[]> {
     return this.httpClient.get<ReservaServicio[]>(
-      this.apiUrl + '/reservas_servicio'
+      this.apiReservas + '/reservas-servicio/'
     );
   }
 

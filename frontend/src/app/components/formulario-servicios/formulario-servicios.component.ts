@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ServiciosService, ServicioApi, TipoServicioApi } from '../../services/servicios/servicios.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
@@ -26,10 +27,50 @@ export class FormularioServiciosComponent implements OnInit {
   mensajeError: string = '';
   guardando: boolean = false;
 
+  // Validación asíncrona: consulta al backend cuántos lugares quedan para esas fechas
+  capacidadDisponibleValidator = (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return new Observable<ValidationErrors | null>(observer => {
+      const checkin = this.formulario.get('checkin')?.value;
+      const checkout = this.formulario.get('checkout')?.value;
+            const cantidadPersonas = control.value;
+
+      if (!this.servicio || !checkin || !checkout || !cantidadPersonas || checkout < checkin) {
+        observer.next(null);
+        observer.complete();
+        return;
+      }
+
+      this.reservasService.obtenerReservas().subscribe({
+        next: (reservas) => {
+          this.reservasService.obtenerReservasServicio().subscribe({
+            next: (reservasServicio) => {
+              const idsConfirmados = reservas
+                .filter(reserva => reserva.id_estado_reserva === 1)
+                .map(reserva => reserva.id);
+
+              // Único casteo que queda: el servicio viene de json-server con id texto y Django devuelve número.
+              const ocupados = reservasServicio
+                .filter(reservaServicio => idsConfirmados.includes(reservaServicio.id_reserva))
+                .filter(reservaServicio => reservaServicio.id_servicio === Number(this.servicio!.id))
+                .filter(reservaServicio => reservaServicio.fecha_inicio.slice(0, 10) <= checkout && reservaServicio.fecha_fin.slice(0, 10) >= checkin)
+                .reduce((total, reservaServicio) => total + reservaServicio.capacidad_invitados, 0);
+
+              const disponibles = this.servicio!.capacidad_maxima - ocupados;
+              observer.next(cantidadPersonas > disponibles ? { sinCapacidad: { disponibles } } : null);
+              observer.complete();
+            },
+            error: () => { observer.next(null); observer.complete(); }
+          });
+        },
+        error: () => { observer.next(null); observer.complete(); }
+      });
+    });
+  };
+  
   formulario: FormGroup = this.fb.group({
     checkin: ['', Validators.required],
     checkout: ['', Validators.required],
-    cantidadPersonas: ['', [Validators.required, Validators.min(1)]],
+    cantidadPersonas: ['', [Validators.required, Validators.min(1)], [this.capacidadDisponibleValidator]],
     nombreCompleto: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]]
   });
@@ -113,7 +154,7 @@ export class FormularioServiciosComponent implements OnInit {
       id_usuario: this.loginService.usuarioLogueado!.id,
       id_estado_reserva: 1,
       numero_reserva: Math.floor(10000 + Math.random() * 90000),
-      fecha_hora_reserva: new Date().toISOString()
+      fecha_reserva: new Date().toLocaleDateString('en-CA'),
     };
 
     this.reservasService.crearReserva(reserva).subscribe({
@@ -134,8 +175,8 @@ export class FormularioServiciosComponent implements OnInit {
       id_servicio: this.servicio!.id!,
       capacidad_invitados: this.formulario.value.cantidadPersonas,
       pago_acordado: this.precioTotal,
-      fecha_hora_inicio: checkin + 'T09:00:00Z',
-      fecha_hora_fin: checkout + 'T18:00:00Z'
+      fecha_inicio: checkin!,
+      fecha_fin: checkout!
     };
 
     this.reservasService.crearReservaServicio(reservaServicio).subscribe({
