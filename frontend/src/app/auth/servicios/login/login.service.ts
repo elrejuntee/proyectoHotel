@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 
 export interface Usuario {
   id: number;
-  id_rol: { id: number; rol: string };
+  id_rol: number;
   nombre: string;
   apellido: string;
   email: string;
