@@ -46,23 +46,22 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(email, password).subscribe({
       next: (usuario) => {
-        if (!usuario) {
-          this.mensajeError = 'Correo o contraseña incorrectos.';
-          console.log(this.mensajeError);
-          return;
-        }
+        this.loginService.setUsuarioLogueado(usuario);
 
-        if (usuario.id_rol === "2") {
-          console.log('Login exitoso (Cliente):', usuario);
-          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-          this.router.navigateByUrl(returnUrl || '/reservas');
-        } else {
-          console.log('Login exitoso (Admin):', usuario);
+        if (usuario.rol.toLowerCase() === 'admin') {
           this.router.navigate(['/panel-admin']);
+        } else if (['usuario', 'huesped'].includes(usuario.rol.toLowerCase())) {
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          this.router.navigateByUrl(returnUrl || '/panel-usuario');
+        } else {
+          this.loginService.logout();
+          this.mensajeError = 'La cuenta no tiene un rol habilitado para acceder.';
         }
       },
       error: (err) => {
-        this.mensajeError = 'Error al conectar con el servidor.';
+        this.mensajeError = err.status === 401
+          ? 'Correo o contraseña incorrectos.'
+          : 'Error al conectar con el servidor.';
         console.error(err);
       }
     });

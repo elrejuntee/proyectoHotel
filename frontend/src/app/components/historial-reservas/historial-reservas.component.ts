@@ -107,7 +107,7 @@ export class HistorialReservasComponent {
     );
   }
 
-  armarHistorialHabitaciones(idReserva: string): void {
+  armarHistorialHabitaciones(idReserva: number): void {
 
     for (const reservaHabitacion of this.reservasHabitacion) {
 
@@ -144,7 +144,7 @@ export class HistorialReservasComponent {
     }
   }
 
-  armarHistorialServicios(idReserva: string): void {
+  armarHistorialServicios(idReserva: number): void {
 
     for (const reservaServicio of this.reservasServicio) {
 

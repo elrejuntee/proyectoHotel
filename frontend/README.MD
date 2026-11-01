@@ -1,89 +1,42 @@
-# El Rejunte Hotel — Aplicación Web (Angular)
+# El Rejunte Hotel — Angular
 
-## ¿Qué es este proyecto?
+Aplicación web para la gestión de habitaciones, reservas, servicios y usuarios del hotel. El frontend está desarrollado con Angular 19 y se conecta a una API Django REST.
 
-**El Rejunte Hotel** es una aplicación web desarrollada como sistema de gestión hotelera, construida utilizando componentes modernos y herramientas de desarrollo frontend.
+## Requisitos
 
-El propósito del desarrollo es permitir la optimización de procesos relacionados con reservas, control de habitaciones, registro de usuarios y gestión de servicios adicionales, proporcionando una interfaz rápida, modular y mantenible.
+- Node.js LTS y npm
+- Python y pip
+- MySQL
 
----
+## Ejecutar el backend
 
-## ¿Qué páginas tiene el sitio?
+Configura `backend/app_hotel/.env` con los datos de conexión a MySQL:
 
-### Para cualquier visitante
-- **Inicio:** foto principal del hotel, lista de servicios (comedor, piscina, WiFi, gimnasio, traslado) y las habitaciones disponibles con sus precios.
-- **Quiénes somos:** historia del hotel y presentación de los desarrolladores de la web.
-- **Iniciar sesión:** formulario para ingresar al área privada con correo y contraseña.
-- **Registrarse:** formulario para registrarse al sistema.
+```env
+DB_NAME=nombre_de_la_base
+DB_USER=usuario_mysql
+DB_PASSWORD=contraseña_mysql
+DB_HOST=localhost
+DB_PORT=3306
+```
 
-### Para huéspedes registrados
-- **Mi panel:** el cliente puede ver su información personal, las habitaciones que visitó recientemente y su historial de reservas con fechas y montos.
-- **Reservas:** sección interactiva para consultar disponibilidad, seleccionar fechas, elegir tipos de habitación y gestionar o concretar nuevas reservas.
+Desde la carpeta `backend/app_hotel`, instala las dependencias, aplica migraciones y levanta Django:
 
-### Para el personal del hotel
-- **Panel de administración:** vista completa del estado de las habitaciones (cuántas están disponibles, ocupadas o en mantenimiento), con buscador, filtros y opción de agregar nuevas habitaciones.
-
-### Control de errores y estados vacíos
-- **Error 404 / Listas vacías:** Componentes diseñados para mostrar una tarjeta centrada con imagen y mensaje descriptivo cuando una ruta no existe o cuando una búsqueda no arroja resultados.
-
----
-
-## Tecnologías y Herramientas Utilizadas
-
-- **Framework:** [Angular](https://angular.dev/) (v19)
-- **Estilos:** Bootstrap / CSS
-- **Control de versiones:** Git y GitHub
-- **Metodología / Organización:** Scrum
-
----
-
-## Utilización de las siguientes IA:
-- Claude
-- Gemini
-
----
-
-## ¿Cómo ver y ejecutar el proyecto en tu computadora?
-
-### Lo que necesitás tener instalado
-- [Git](https://git-scm.com/) — para clonar el repositorio.
-- [Node.js](https://nodejs.org/) (versión LTS recomendada) — incluye npm para gestionar las dependencias.
-- [Visual Studio Code](https://code.visualstudio.com/) — el entorno de desarrollo recomendado.
-
-### Pasos para ponerlo en marcha
-
-**1. Clonar el repositorio**
-
-Abrí tu terminal (Git Bash o la consola de tu preferencia) y ejecutá el siguiente comando:
 ```bash
-git clone [https://github.com/adriel1364/proyectoHotel.git](https://github.com/adriel1364/proyectoHotel.git)l1364/proyectoHotel.git)
+python -m pip install -r ../requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
 
-**2. Abrir la carpeta en Visual Studio Code:**
-Entra a Visual Studio Code, ve a Archivo > Abrir carpeta... y selecciona la carpeta del proyecto clonado.
+La API queda disponible en `http://localhost:8000/api`. La base debe contener los catálogos y roles necesarios para las operaciones del hotel.
 
-**3. Instalar las dependencias:**
-Abre la terminal integrada dentro de Visual Studio Code y ejecuta: npm install
+## Ejecutar el frontend
 
-**4. Ejecutar el servidor de desarrollo:**
-Escribe el siguiente comando en la terminal para poner en marcha la aplicación: ng serve
+Desde otra terminal, en la carpeta `frontend`:
 
-**5. Abrir el navegador**
-Una vez que el servidor compile correctamente, el mensaje en la terminal te indicará que la aplicación está lista. Abre tu navegador web de preferencia y entra a la dirección:
+```bash
+npm install
+npm start
+```
 
-http://localhost:4200/
-
-**6. Ejecutar la base de datos con json-server**
-En una nueva terminal escribe el siguiente comando: npm run db o con cualquier otro gestor de paquetes: <gestor-paquetes> db
-
-**7. Credenciales para el acceso**
-Administrador:
-Email: admin@gmail.com
-Password: admin123
-
-Usuario 1:
-Email: adridelosanto@gmail.com
-Password: 1234
-
-Usuario 2:
-Email: aguss.97@outlook.com
-password: 123456
+Abre `http://localhost:4200/`. Las llamadas del frontend se dirigen a `http://localhost:8000/api`; Django permite CORS para el origen local de Angular.

@@ -11,7 +11,7 @@ import {
 export type EstadoDisponibilidad = 'disponible' | 'ocupado' | 'mantenimiento';
 export type Vista = 'habitaciones' | 'servicios' | 'reservas';
 
-/** Imagen que se muestra cuando la habitación no tiene imagen_principal en db.json. */
+/** Imagen que se muestra cuando la habitación no tiene imagen propia. */
 const IMAGEN_POR_DEFECTO = 'imagenes/premium.webp';
 
 export interface Habitacion {
@@ -89,7 +89,7 @@ export class PanelAdminComponent {
   // ===== Estado del modal abierto  =====
   modal = signal<ModalActivo>(null);
 
-  // ===== Habitaciones: vienen de json-server a través de HabitacionesService =====
+  // ===== Habitaciones: vienen del backend a través de HabitacionesService =====
   habitaciones: Habitacion[] = [];
   get totalHabitaciones(): number {
   return this.habitaciones.length;
@@ -115,7 +115,7 @@ export class PanelAdminComponent {
   // Formulario reactivo de agregar / editar habitación
   formHabitacion: FormGroup;
 
-  // ===== Datos (servicios y reservas: sin cambios) =====
+  // ===== Datos de demostración para servicios y reservas =====
   servicios: Servicio[] = [
     {
       id: 'servConf', imagen: 'imagenes/premier.webp', nombre: 'Sala conferencia',
@@ -228,7 +228,7 @@ export class PanelAdminComponent {
     this.dropdownAbiertoId.set(null);
   }
 
-  // ===== Habitaciones: carga desde json-server (el componente se suscribe al observable del servicio) =====
+  // ===== Habitaciones: carga desde el backend =====
   cargarCatalogosYHabitaciones(): void {
     this.errorHabitaciones = null;
 
@@ -282,7 +282,7 @@ export class PanelAdminComponent {
   if (estadoInactiva) {
     const cuerpo: HabitacionApi = {
       ...hab.original,
-      id_estado_habitacion: estadoInactiva.id   //this.aIdApi(estadoInactiva.id)
+      id_estado_habitacion: estadoInactiva.id
     };
     this.habitacionesService.actualizarHabitacion(hab.idApi, cuerpo).subscribe({
       next: () => this.cargarHabitaciones(),
@@ -304,14 +304,14 @@ export class PanelAdminComponent {
     const item = m.item;
 
     if ('idApi' in item) {
-      // Es una habitación — persistir en db.json
+      // Es una habitación — persistir en el backend
       const estadoApi = this.estadosHabitacion.find(
         e => this.estadoSlug(e.nombre) === nuevoEstado
       );
       if (estadoApi) {
         const cuerpo: HabitacionApi = {
           ...item.original,
-          id_estado_habitacion: estadoApi.id   //this.aIdApi(estadoApi.id)
+          id_estado_habitacion: estadoApi.id
         };
         this.habitacionesService.actualizarHabitacion(item.idApi, cuerpo).subscribe({
           next: () => {
@@ -408,9 +408,9 @@ export class PanelAdminComponent {
       
       const cuerpo: HabitacionApi = editando
         ? { ...editando.original }
-        : { id_tipo_habitacion: '', id_estado_habitacion: '', numero: 0, piso: 0, precio: 0, capacidad: 0 };
-      cuerpo.id_tipo_habitacion = f.tipo;    //this.aIdApi(f.tipo);
-      cuerpo.id_estado_habitacion = f.estado;   //this.aIdApi(f.estado);
+        : { id_tipo_habitacion: 0, id_estado_habitacion: 0, numero: 0, piso: 0, precio: 0, capacidad: 0 };
+      cuerpo.id_tipo_habitacion = Number(f.tipo);
+      cuerpo.id_estado_habitacion = Number(f.estado);
       cuerpo.numero = Number(f.numero);
       cuerpo.piso = Number(f.piso);
       cuerpo.precio = Number(f.precio);
@@ -493,15 +493,9 @@ export class PanelAdminComponent {
     };
   }
 
-  /** json-server 1.x devuelve los ids como texto y en db.json hay claves numéricas: se comparan como texto. */
+  /** Compara IDs aunque los formularios los entreguen como texto. */
   private mismoId(a: number | string, b: number | string): boolean {
     return String(a) === String(b);
-  }
-
-  /** Al guardar, las claves foráneas se envían como número (formato original de db.json). */
-  private aIdApi(valor: number | string): number | string {
-    const n = Number(valor);
-    return isNaN(n) ? valor : n;
   }
 
   /** Traduce el nombre de estados_habitacion ("Ocupada", etc.) al slug usado para las clases CSS. */

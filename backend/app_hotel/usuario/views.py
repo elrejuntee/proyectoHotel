@@ -28,9 +28,10 @@ class UsuarioView(ApiView):
     return Response(serializer.data)
 
   def post(self, request):
-    try:
-      rol_estandar = RolUsuario.objects.get(rol="usuario")
-    except RolUsuario.DoesNotExist:
+    rol_estandar = RolUsuario.objects.filter(rol="usuario").first()
+    if rol_estandar is None:
+      rol_estandar = RolUsuario.objects.filter(rol__iexact="huesped").first()
+    if rol_estandar is None:
       return Response(
           "El rol de usuario estándar no está configurado en la base de datos",
           status=status.HTTP_400_BAD_REQUEST,
@@ -41,7 +42,39 @@ class UsuarioView(ApiView):
        return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class LoginView(ApiView):
+
+  def post(self, request):
+    email = request.data.get("email")
+    password = request.data.get("password")
+    if not isinstance(email, str) or not isinstance(password, str):
+      return Response(
+          {"error": "El correo y la contraseña son obligatorios"},
+          status=status.HTTP_400_BAD_REQUEST,
+      )
+
+    usuario = Usuario.objects.filter(email=email).first()
+    if usuario is None or usuario.contraseña != password:
+      return Response(
+          {"error": "Correo o contraseña incorrectos"},
+          status=status.HTTP_401_UNAUTHORIZED,
+      )
+
+    return Response(UsuarioSerializer(usuario).data, status=status.HTTP_200_OK)
+
+
 class UsuarioDetailView(ApiView):
+
+  def get(self, request, pk):
+    try:
+      usuario = Usuario.objects.get(pk=pk)
+    except Usuario.DoesNotExist:
+      return Response(
+          {"error": "El usuario no existe"}, status=status.HTTP_404_NOT_FOUND
+      )
+
+    return Response(UsuarioSerializer(usuario).data, status=status.HTTP_200_OK)
   
   def put(self, request, pk):
     try:

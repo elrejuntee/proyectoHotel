@@ -99,6 +99,7 @@
                                         formControlName="password" 
                                         type="password" 
                                         id="password" 
+                                        maxlength="10"
                                         placeholder="Ingresá tu contraseña"
                                         [class.is-invalid]="Password?.errors && Password?.touched"
                                         [class.is-valid]="Password?.valid && Password?.touched">
@@ -110,6 +111,9 @@
                                         }
                                         @if (Password?.hasError('minlength')) {
                                             <span>La contraseña debe tener al menos 6 caracteres</span>
+                                        }
+                                        @if (Password?.hasError('maxlength')) {
+                                            <span>La contraseña no puede superar los 10 caracteres</span>
                                         }
                                     </div>
                                 }

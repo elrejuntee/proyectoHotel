@@ -1,20 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { API_BASE_URL } from '../../../api.config';
 
 export interface UsuarioRegistro {
   nombre: string;
   apellido: string;
   email: string;
   password: string;
-  id_rol: string;
-  fecha_registro: Date;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroService {
-  private url = 'http://localhost:3000/usuario';
+  private readonly url = `${API_BASE_URL}/usuario/`;
   private httpClient = inject(HttpClient);
 
   registrarUsuario(usuario: UsuarioRegistro) {

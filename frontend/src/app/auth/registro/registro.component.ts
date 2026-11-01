@@ -27,7 +27,7 @@ export class RegistroComponent {
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
     passwordConfirmacion: ['', [Validators.required]]
   }, {
     validators: passwordsIgualesValidator
@@ -57,10 +57,9 @@ export class RegistroComponent {
     this.registroForm.markAllAsTouched();
 
     if (this.registroForm.valid) {
-      const { passwordConfirmacion, ...datosUsuario } = this.registroForm.value;
-      const nuevoUsuario: UsuarioRegistro = {
-      ...datosUsuario,
-      id_rol: "2" 
+    const { passwordConfirmacion, ...datosUsuario } = this.registroForm.value;
+    const nuevoUsuario: UsuarioRegistro = {
+      ...datosUsuario
     };
 
       this.registroService.registrarUsuario(nuevoUsuario).subscribe({

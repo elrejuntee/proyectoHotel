@@ -10,8 +10,19 @@ class RolUsuarioSerializer(serializers.ModelSerializer):
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
-  id_rol = RolUsuarioSerializer(read_only=True)
+  id_rol = serializers.PrimaryKeyRelatedField(
+    queryset=RolUsuario.objects.all(),
+    required=False,
+  )
+  rol = serializers.CharField(source='id_rol.rol', read_only=True)
+  password = serializers.CharField(
+    source='contraseña',
+    write_only=True,
+    min_length=6,
+    max_length=10,
+  )
 
   class Meta:
     model = Usuario
-    fields = '__all__'
+    fields = ('id', 'id_rol', 'rol', 'nombre', 'apellido', 'email', 'password', 'fecha_registro')
+    read_only_fields = ('id', 'fecha_registro')
