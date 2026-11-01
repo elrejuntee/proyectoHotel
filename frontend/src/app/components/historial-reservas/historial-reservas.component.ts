@@ -4,6 +4,7 @@ import { LoginService } from '../../auth/servicios/login/login.service';
 import { HistorialReservasService } from '../../services/historial-reservas/historial-reservas.service';
 import { DatePipe } from '@angular/common';
 
+
 import {
   Reserva,
   ReservaHabitacion,
@@ -11,7 +12,8 @@ import {
   TipoHabitacion,
   ReservaServicio,
   Servicio,
-  TipoServicio
+  TipoServicio,
+  EstadoReserva
 } from '../../services/historial-reservas/historial-reservas.service';
 
 @Component({
@@ -35,6 +37,7 @@ export class HistorialReservasComponent {
   historialHabitaciones: any[] = [];
   historialServicios: any[] = [];
   mensajeError: string = '';
+  estadosReserva: EstadoReserva[] = [];
 
   ngOnInit(): void {
     const usuarioLogueado = this.loginService.usuarioLogueado;
@@ -46,11 +49,19 @@ export class HistorialReservasComponent {
       next: (reservas) => {
         // Solo las reservas del usuario logueado
         this.reservas = reservas.filter(reserva => reserva.id_usuario === idUsuario);
-        this.cargarHabitaciones();
-        this.cargarServicios();
+        this.historialService.obtenerEstadosReserva().subscribe({
+          next: (estadosReserva) => {
+            this.estadosReserva = estadosReserva;
+            this.cargarHabitaciones();
+            this.cargarServicios();
+          },
+          error: () => {
+            this.mensajeError = 'No se pudo cargar el estado de reserva.';
+          }
+        });
       },
       error: () => {
-        this.mensajeError = 'No se pudo cargar el historial. Verificá que el servidor esté en funcionamiento.';
+        this.mensajeError = 'No se pudo cargar el historial de reservas.';
       }
     });
   }
@@ -110,6 +121,14 @@ export class HistorialReservasComponent {
       }
     });
   }
+  obtenerNombreEstado(idEstadoReserva: number): string {
+    for (const estadoReserva of this.estadosReserva) {
+      if (estadoReserva.id === idEstadoReserva) {
+        return estadoReserva.estado_reserva;
+      }
+    }
+    return '';
+  }
 // Revisar!
   armarHistorialHabitaciones(): void {
     this.historialHabitaciones = [];
@@ -128,6 +147,7 @@ export class HistorialReservasComponent {
             }
             this.historialHabitaciones.push({
               idReserva: reserva.id,
+              estado: this.obtenerNombreEstado(reserva.id_estado_reserva),
               idHabitacion: habitacion.id,
               nombre: tipoHabitacion.nombre,
               descripcion: tipoHabitacion.descripcion,
@@ -156,12 +176,12 @@ export class HistorialReservasComponent {
             continue;
           }
           for (const tipoServicio of this.tiposServicio) {
-
             if (tipoServicio.id !== servicio.id_tipo_servicio) {
               continue;
             }
             this.historialServicios.push({
               idReserva: reserva.id,
+              estado: this.obtenerNombreEstado(reserva.id_estado_reserva),
               nombre: tipoServicio.nombre_servicio,
               capacidadMaxima: servicio.capacidad_maxima,
               capacidadInvitados: reservaServicio.capacidad_invitados,
