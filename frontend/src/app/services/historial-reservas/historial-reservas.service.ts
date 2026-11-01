@@ -63,20 +63,18 @@ export interface TipoServicio {
   providedIn: 'root'
 })
 export class HistorialReservasService {
-  private apiUrl = 'http://localhost:3000';
-private apiReservas = 'http://localhost:8000/api';
-
-  private httpClient = inject(HttpClient);
+private apiUrl = 'http://localhost:8000/api';
+private httpClient = inject(HttpClient);
 
   obtenerReservas(): Observable<Reserva[]> {
     return this.httpClient.get<Reserva[]>(
-      this.apiReservas + '/reservas/'
+      this.apiUrl + '/reservas/'
     );
   }
 
   obtenerReservasHabitacion(): Observable<ReservaHabitacion[]> {
     return this.httpClient.get<ReservaHabitacion[]>(
-      this.apiReservas + '/reservas-habitacion/'
+      this.apiUrl + '/reservas-habitacion/'
     );
   }
 
@@ -94,7 +92,7 @@ private apiReservas = 'http://localhost:8000/api';
 
   obtenerReservasServicio(): Observable<ReservaServicio[]> {
     return this.httpClient.get<ReservaServicio[]>(
-      this.apiReservas + '/reservas-servicio/'
+      this.apiUrl + '/reservas-servicio/'
     );
   }
 
