@@ -5,7 +5,7 @@ export interface RolUsuario {
 }
  
 export interface Usuario {
-  id_usuario: number;
+  id: number;
   id_rol: number;
   nombre: string;
   apellido: string;
