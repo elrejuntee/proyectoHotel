@@ -1,0 +1,364 @@
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Habitaciones</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Todas las habitaciones</li>
+      </ol>
+    </nav>
+    <h1 class="fs-3 fw-bold text-dark m-0">Habitaciones</h1>
+  </div>
+  <button type="button" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2" (click)="abrirModalAgregar()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+    Agregar habitación
+  </button>
+</div>
+
+@if (errorHabitaciones) {
+  <div class="alert alert-danger">{{ errorHabitaciones }}</div>
+}
+
+<div class="row g-4 mb-4">
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="stat-icono stat-icono-azul d-flex align-items-center justify-content-center flex-shrink-0 rounded-3">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-3 fw-bold lh-1 text-dark">{{ totalHabitaciones }}</span>
+          <span class="small fw-semibold text-dark">Total de habitaciones</span>
+          <small class="text-secondary">Todas las habitaciones</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="stat-icono stat-icono-verde d-flex align-items-center justify-content-center flex-shrink-0 rounded-3">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-3 fw-bold lh-1 text-dark">{{ totalDisponibles }}</span>
+          <span class="small fw-semibold text-dark">Disponibles</span>
+          <small class="text-secondary">Listas para reservar</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="stat-icono stat-icono-amarillo d-flex align-items-center justify-content-center flex-shrink-0 rounded-3">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-3 fw-bold lh-1 text-dark">{{ totalOcupadas }}</span>
+          <span class="small fw-semibold text-dark">Ocupadas</span>
+          <small class="text-secondary">Actualmente reservadas</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="stat-icono stat-icono-rojo d-flex align-items-center justify-content-center flex-shrink-0 rounded-3">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-3 fw-bold lh-1 text-dark">{{ totalMantenimiento }}</span>
+          <span class="small fw-semibold text-dark">Mantenimiento</span>
+          <small class="text-secondary">En reparación</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="p-4 bg-white border rounded-3">
+  <div class="row g-3 align-items-center mb-4">
+    <div class="col-12 col-lg-5 position-relative">
+      <input type="text" class="form-control" placeholder="Buscar habitaciones...">
+    </div>
+    <div class="col-12 col-lg-4 d-none d-lg-block"></div>
+    <div class="col-12 col-md-4 col-lg-3">
+      <select class="form-select">
+        <option>Todos los estados</option>
+        <option>Disponible</option>
+        <option>Ocupada</option>
+        <option>Mantenimiento</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-responsive" [class.con-menu-abierto]="dropdownAbiertoIndice !== null">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Nombre de habitación</th>
+          <th>Categoría</th>
+          <th>Precio / Noche</th>
+          <th>Estado</th>
+          <th>Ocupación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (habitacion of habitaciones; track habitacion.id) {
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <img [src]="obtenerImagen(habitacion)" [alt]="obtenerNombreTipo(habitacion)" class="hab-celda-img rounded" loading="lazy">
+                <div class="lh-sm">
+                  <strong class="d-block text-dark">{{ obtenerNombreTipo(habitacion) }}</strong>
+                  <small class="text-secondary">Habitación {{ habitacion.numero }}</small>
+                </div>
+              </div>
+            </td>
+            <td><span class="etiqueta" [ngClass]="obtenerClaseCategoria(habitacion)">{{ obtenerNombreTipo(habitacion) }}</span></td>
+            <td class="fw-semibold text-dark">${{ habitacion.precio }}</td>
+            <td><span class="etiqueta" [ngClass]="obtenerClaseEstado(habitacion)">{{ obtenerNombreEstado(habitacion) }}</span></td>
+            <td>
+              <div class="ocupacion d-flex flex-column gap-1">
+                <span class="small">{{ obtenerOcupacion(habitacion) }}%</span>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" [style.width.%]="obtenerOcupacion(habitacion)"
+                        [attr.aria-valuenow]="obtenerOcupacion(habitacion)" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="dropdown-acciones position-relative d-inline-block">
+                <button type="button" class="tabla-btn" title="Acciones" (click)="toggleDropdown($index)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="5" r="1"></circle>
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="12" cy="19" r="1"></circle>
+                  </svg>
+                </button>
+                @if (dropdownAbiertoIndice === $index) {
+                  <div class="dropdown-overlay" (click)="cerrarDropdown()"></div>
+                  <ul class="dropdown-menu dropdown-menu-end show">
+                    <li><button type="button" class="dropdown-item" (click)="verHabitacion(habitacion)">Ver</button></li>
+                    <li><button type="button" class="dropdown-item" (click)="editarHabitacion(habitacion)">Editar</button></li>
+                    <li><button type="button" class="dropdown-item" (click)="cambiarEstadoHabitacion(habitacion)">Cambiar estado</button></li>
+                    <li><button type="button" class="dropdown-item text-secondary" (click)="cerrarDropdown()">Cancelar</button></li>
+                  </ul>
+                }
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MODAL: AGREGAR / EDITAR HABITACIÓN ===== -->
+@if (modalActivo === 'formulario') {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom px-4 py-3">
+          <h2 class="modal-title fs-5 fw-bold text-dark">{{ esEdicion ? 'Editar habitación' : 'Agregar habitación' }}</h2>
+          <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          @if (errorFormularioHabitacion) {
+            <div class="alert alert-danger py-2 small">{{ errorFormularioHabitacion }}</div>
+          }
+          <form [formGroup]="formHabitacion" (ngSubmit)="guardarHabitacion()">
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
+                <input type="number" class="form-control" id="habPiso" formControlName="piso" placeholder="Ej: 1"
+                        [readonly]="esEdicion" [class.bg-light]="esEdicion"
+                        [class.is-invalid]="Piso?.invalid && Piso?.touched" [class.is-valid]="Piso?.valid && Piso?.touched">
+                @if (Piso?.touched && Piso?.hasError('required')) {
+                  <p class="text-danger small mb-0">El piso es requerido.</p>
+                }
+                @if (Piso?.touched && Piso?.hasError('min')) {
+                  <p class="text-danger small mb-0">El piso no puede ser negativo.</p>
+                }
+              </div>
+              <div class="col-6">
+                <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
+                <input type="number" class="form-control" id="habNumero" formControlName="numero" placeholder="Ej: 101"
+                        [readonly]="esEdicion" [class.bg-light]="esEdicion"
+                        [class.is-invalid]="Numero?.invalid && Numero?.touched" [class.is-valid]="Numero?.valid && Numero?.touched">
+                @if (Numero?.touched && Numero?.hasError('required')) {
+                  <p class="text-danger small mb-0">El número es requerido.</p>
+                }
+                @if (Numero?.touched && Numero?.hasError('min')) {
+                  <p class="text-danger small mb-0">El número debe ser mayor a 0.</p>
+                }
+                @if (Numero?.pending) {
+                  <p class="text-secondary small mb-0">Verificando número...</p>
+                }
+                @if (Numero?.touched && Numero?.hasError('numeroEnUso')) {
+                  <p class="text-danger small mb-0">Ya existe una habitación con ese número.</p>
+                }
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
+              <select class="form-select text-dark" id="habTipo" formControlName="tipo"
+                      [class.is-invalid]="Tipo?.invalid && Tipo?.touched" [class.is-valid]="Tipo?.valid && Tipo?.touched">
+                <option value="" disabled>Seleccioná un tipo</option>
+                @for (tipoHabitacion of tiposHabitacion; track tipoHabitacion.id_tipo_habitacion_id) {
+                  <option [value]="tipoHabitacion.id_tipo_habitacion_id">{{ tipoHabitacion.nombre }}</option>
+                }
+              </select>
+              @if (Tipo?.touched && Tipo?.hasError('required')) {
+                <p class="text-danger small mb-0">Elegí un tipo de habitación.</p>
+              }
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
+                <input type="number" class="form-control" id="habPrecio" formControlName="precio" placeholder="Ej: 80000"
+                        [class.is-invalid]="Precio?.invalid && Precio?.touched" [class.is-valid]="Precio?.valid && Precio?.touched">
+                @if (Precio?.touched && Precio?.hasError('required')) {
+                  <p class="text-danger small mb-0">El precio es requerido.</p>
+                }
+                @if (Precio?.touched && Precio?.hasError('min')) {
+                  <p class="text-danger small mb-0">El precio debe ser mayor a 0.</p>
+                }
+              </div>
+              <div class="col-6">
+                <label for="habCapacidad" class="form-label fw-semibold text-secondary small">Capacidad</label>
+                <input type="number" class="form-control" id="habCapacidad" formControlName="capacidad" placeholder="Ej: 2"
+                        [class.is-invalid]="Capacidad?.invalid && Capacidad?.touched" [class.is-valid]="Capacidad?.valid && Capacidad?.touched">
+                @if (Capacidad?.touched && Capacidad?.hasError('required')) {
+                  <p class="text-danger small mb-0">La capacidad es requerida.</p>
+                }
+                @if (Capacidad?.touched && Capacidad?.hasError('min')) {
+                  <p class="text-danger small mb-0">La capacidad debe ser mayor a 0.</p>
+                }
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="habEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
+              <select class="form-select text-dark" id="habEstado" formControlName="estado"
+                      [class.is-invalid]="Estado?.invalid && Estado?.touched" [class.is-valid]="Estado?.valid && Estado?.touched">
+                <option value="" disabled>Seleccioná un estado</option>
+                @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id_estado_habitacion_id) {
+                  <option [value]="estadoHabitacion.id_estado_habitacion_id">{{ estadoHabitacion.estado_habitacion }}</option>
+                }
+              </select>
+              @if (Estado?.touched && Estado?.hasError('required')) {
+                <p class="text-danger small mb-0">Elegí un estado.</p>
+              }
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-top px-4 py-3 bg-light">
+          <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" [disabled]="guardandoHabitacion || formHabitacion.pending" (click)="guardarHabitacion()">
+            {{ esEdicion ? 'Guardar cambios' : 'Guardar habitación' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ===== MODAL: VER HABITACIÓN ===== -->
+@if (modalActivo === 'ver' && habitacionSeleccionada) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom px-4 py-3">
+          <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+          <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="mb-3">
+            <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+            <p class="mb-0 fw-semibold text-dark">{{ obtenerNombreTipo(habitacionSeleccionada) }}</p>
+            <small class="text-secondary">Habitación {{ habitacionSeleccionada.numero }}</small>
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+              <p class="mb-0 text-dark">{{ obtenerNombreTipo(habitacionSeleccionada) }}</p>
+            </div>
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+              <p class="mb-0 text-dark">${{ habitacionSeleccionada.precio }}</p>
+            </div>
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+              <p class="mb-0 text-dark">{{ obtenerNombreEstado(habitacionSeleccionada) }}</p>
+            </div>
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+              <p class="mb-0 text-dark">{{ obtenerOcupacion(habitacionSeleccionada) }}%</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-top px-4 py-3 bg-light">
+          <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ===== MODAL: CAMBIAR ESTADO HABITACIÓN ===== -->
+@if (modalActivo === 'estado' && habitacionSeleccionada) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom px-4 py-3">
+          <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+          <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form>
+            <div class="mb-1">
+              <label for="estadoElemento" class="form-label fw-semibold text-secondary small">Elemento</label>
+              <input type="text" class="form-control" id="estadoElemento" name="estadoElemento"
+                      [value]="obtenerNombreTipo(habitacionSeleccionada) + ' - Habitación ' + habitacionSeleccionada.numero" readonly>
+            </div>
+            <div class="mb-1 mt-3">
+              <label for="estadoNuevo" class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+              <select class="form-select text-dark" id="estadoNuevo" name="estadoNuevo" [(ngModel)]="idNuevoEstado">
+                @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id_estado_habitacion_id) {
+                  <option [value]="estadoHabitacion.id_estado_habitacion_id">{{ estadoHabitacion.estado_habitacion }}</option>
+                }
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-top px-4 py-3 bg-light">
+          <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="guardarNuevoEstado()">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
