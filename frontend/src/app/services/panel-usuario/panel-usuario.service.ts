@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PanelUsuarioService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class PanelUsuarioService {
     return this.http.get<any[]>(`${this.apiUrl}/reservas?id_usuario=${idUsuario}`);
   }
 
-  actualizarUsuario(id: string, datos: any): Observable<any> {
+  actualizarUsuario(id: number, datos: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/usuarios/${id}`, datos);
   }
 }
