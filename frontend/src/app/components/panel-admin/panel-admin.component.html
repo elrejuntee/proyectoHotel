@@ -48,7 +48,6 @@
 
       <main class="admin-main col-12 col-md-9 col-xl-10 p-4">
 
-        <!-- ===== HABITACIONES ===== -->
         <div *ngIf="vistaActiva() === 'habitaciones'">
           <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
             <div>
@@ -214,7 +213,7 @@
           </div>
         </div>
 
-        <!-- ===== SERVICIOS ===== -->
+        
         <div *ngIf="vistaActiva() === 'servicios'">
           <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
             <div>
@@ -386,7 +385,7 @@
           </div>
         </div>
 
-        <!-- ===== RESERVAS ===== -->
+        
         <div *ngIf="vistaActiva() === 'reservas'">
           <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
             <div>
@@ -455,7 +454,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL: AGREGAR / EDITAR HABITACIÓN ===== -->
+
 <div class="modal" *ngIf="mostrarFormularioHabitacion">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
@@ -528,7 +527,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL: AGREGAR SERVICIO ===== -->
+
 <div class="modal" *ngIf="mostrarAgregarServicio">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
@@ -584,7 +583,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL: VER HABITACIÓN / SERVICIO (compartido) ===== -->
+
 <div class="modal" *ngIf="modalVerItem as item">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
@@ -624,7 +623,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL: CAMBIAR ESTADO HABITACIÓN / SERVICIO (compartido) ===== -->
+
 <div class="modal" *ngIf="modalEstadoItem as item">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
@@ -656,7 +655,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL: VER RESERVA ===== -->
+
 <div class="modal" *ngIf="modalVerReserva as reserva">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
@@ -700,7 +699,7 @@
   </div>
 </div>
 
-<!-- ===== MODAL: CAMBIAR ESTADO RESERVA ===== -->
+
 <div class="modal" *ngIf="modalEstadoReserva as reserva">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
