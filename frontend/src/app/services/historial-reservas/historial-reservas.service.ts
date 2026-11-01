@@ -104,7 +104,7 @@ export class HistorialReservasService {
 
   obtenerTiposServicio(): Observable<TipoServicio[]> {
     return this.httpClient.get<TipoServicio[]>(
-      this.apiUrl + '/tipos-servicio/'
+      this.apiUrl + '/tipo-servicio/'
     );
   }
 }
