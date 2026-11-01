@@ -61,11 +61,11 @@
                       <span class="etiqueta etiqueta-deluxe">
                         Habitación
                       </span>
-                      <span class="badge">
+                      <span class="badge"
                         [class.bg-success]="historial.estado === 'Confirmada'"
                         [class.bg-danger]="historial.estado === 'Cancelada'"
                         [class.bg-secondary]="historial.estado !== 'Confirmada' && historial.estado !== 'Cancelada'"
-                        {{ historial.estado }}
+                        {{ historial.estado }}>
                       </span>
                     </div>
                     <div class="hab-item-detalles">
@@ -139,11 +139,11 @@
                       <span class="etiqueta etiqueta-estandar">
                         Servicio
                       </span>
-                      <span class="badge">
+                      <span class="badge"
                         [class.bg-success]="historial.estado === 'Confirmada'"
                         [class.bg-danger]="historial.estado === 'Cancelada'"
                         [class.bg-secondary]="historial.estado !== 'Confirmada' && historial.estado !== 'Cancelada'"
-                        {{ historial.estado }}
+                        {{ historial.estado }}>
                       </span>
                     </div>
                     <div class="hab-item-detalles">
