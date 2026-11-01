@@ -16,11 +16,18 @@ export class PanelUsuarioComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private usuarioservice = inject(PanelUsuarioService);
 
+  mensajeError: string = '';
+  mensajeExito: string = '';
+
   perfilForm = this.formBuilder.group({
-    nombre: [''],
-    apellido: [''],
+    nombre: ['', [Validators.maxLength(50)]],
+    apellido: ['', [Validators.maxLength(30)]],
     email: ['', [Validators.email]]
   });
+
+  get Nombre() { return this.perfilForm.get('nombre'); }
+  get Apellido() { return this.perfilForm.get('apellido'); }
+  get Email() { return this.perfilForm.get('email'); }
 
   ngOnInit() {
     this.cargarDatosFormulario();
@@ -37,33 +44,38 @@ export class PanelUsuarioComponent implements OnInit {
     }
   }
 
-  actualizarPerfil() {
-    if (this.perfilForm.valid) {
-      const usuarioActual = this.loginService.usuarioLogueado;
-      if (!usuarioActual) return;
+    actualizarPerfil() {
+      this.mensajeError = '';
+      this.mensajeExito = '';
+      if (this.perfilForm.valid) {
+        const usuarioActual = this.loginService.usuarioLogueado;
+        if (!usuarioActual) return;
 
-      const formValues = this.perfilForm.value;
+        const formValues = this.perfilForm.value;
 
-      const datosAActualizar = {
-        nombre: formValues.nombre ? formValues.nombre : usuarioActual.nombre,
-        apellido: formValues.apellido ? formValues.apellido : usuarioActual.apellido,
-        email: formValues.email ? formValues.email : usuarioActual.email,
-      };
+        const datosAActualizar = {
+          nombre: formValues.nombre ? formValues.nombre : usuarioActual.nombre,
+          apellido: formValues.apellido ? formValues.apellido : usuarioActual.apellido,
+          email: formValues.email ? formValues.email : usuarioActual.email,
+        };
 
-      const usuarioActualizado = {
-        ...usuarioActual,
-        ...datosAActualizar
-      };
-
-      this.usuarioservice.actualizarUsuario(usuarioActual.id, usuarioActualizado).subscribe({
-        next: (usuarioNuevo) => {
-          console.log('Usuario actualizado en BD:', usuarioNuevo);
-          this.loginService.setUsuarioLogueado(usuarioActualizado);
-          this.perfilForm.patchValue(usuarioActualizado);
-        },
-        error: (error) => {
-          console.error('Error al actualizar el usuario:', error);
-        }
+        this.usuarioservice.actualizarUsuario(usuarioActual.id, datosAActualizar).subscribe({
+          next: () => {
+            const usuarioActualizado = {
+              ...usuarioActual,
+              ...datosAActualizar
+            };
+            this.loginService.setUsuarioLogueado(usuarioActualizado);
+            this.perfilForm.patchValue(datosAActualizar);
+            this.mensajeExito = 'Los cambios se guardaron correctamente.';
+          },
+          error: (error) => {
+            if (error.error?.email) {
+              this.mensajeError = 'Ya existe un usuario con ese correo electrónico.';
+            } else {
+              this.mensajeError = 'No se pudieron guardar los cambios. Intentá de nuevo.';
+            }
+          }
       });
     }
   }

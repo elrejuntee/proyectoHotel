@@ -58,20 +58,37 @@
                 <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
                     <div class="mb-3 campo">
                         <label class="form-label">Nombre</label>
-                        <input type="text" class="form-control" formControlName="nombre">
+                        <input type="text" class="form-control" formControlName="nombre"
+                            [class.is-invalid]="Nombre?.errors && Nombre?.touched">
+                        @if (Nombre?.hasError('maxlength')) {
+                            <div class="text-danger">El nombre no puede superar los 50 caracteres</div>
+                            }
                     </div>
                     <div class="mb-3 campo">
                         <label class="form-label">Apellido</label>
-                        <input type="text" class="form-control" formControlName="apellido">
+                        <input type="text" class="form-control" formControlName="apellido"
+                            [class.is-invalid]="Apellido?.errors && Apellido?.touched">
+                        @if (Apellido?.hasError('maxlength')) {
+                            <div class="text-danger">El apellido no puede superar los 30 caracteres</div>
+                        }
                     </div>
                     <div class="mb-3 campo">
                         <label class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" formControlName="email">
+                        <input type="email" class="form-control" formControlName="email"
+                            [class.is-invalid]="Email?.errors && Email?.touched">
+                        @if (Email?.hasError('email')) {
+                            <div class="text-danger">Ingresá un correo electrónico válido</div>
+                        }
                     </div>
-                    
+                    @if (mensajeError) {
+                        <p class="text-danger">{{ mensajeError }}</p>
+                    }
+                    @if (mensajeExito) {
+                        <p class="text-success">{{ mensajeExito }}</p>
+                    }
                     <div class="modal-footer border-0 px-0 pb-0">
-                        <button type="button" class="btn btn-secundario btn-chico" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primario btn-chico" data-bs-dismiss="modal" [disabled]="perfilForm.invalid">Guardar cambios</button>
+                        <button type="button" class="btn btn-secundario btn-chico" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primario btn-chico" [disabled]="perfilForm.invalid">Guardar cambios</button>
                     </div>
                 </form>
             </div>
