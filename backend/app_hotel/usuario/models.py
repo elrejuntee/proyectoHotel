@@ -34,7 +34,7 @@ class Usuario(models.Model):
         unique=True, 
         help_text="Correo electrónico único."
     )
-    contraseña = models.CharField(
+    password = models.CharField(
         max_length=10,
         validators=[RegexValidator(regex=r'^.{6,}$')],
         help_text='La contraseña debe tener al menos 6 caracteres.',

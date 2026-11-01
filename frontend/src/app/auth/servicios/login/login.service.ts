@@ -1,21 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-
-export interface Usuario {
-  id: number;
-  id_rol: number;
-  nombre: string;
-  apellido: string;
-  email: string;
-  password?: string;
-}
+import { Usuario } from '../../../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:8000/api/usuarios';
+  private apiUrl = 'http://localhost:8000/api/usuarios/';
   private httpClient = inject(HttpClient);
   public usuarioLogueado: Usuario | null = null;
 
