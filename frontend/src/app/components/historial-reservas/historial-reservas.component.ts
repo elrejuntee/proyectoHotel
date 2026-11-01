@@ -110,7 +110,7 @@ export class HistorialReservasComponent {
       }
     });
   }
-
+// Revisar!
   armarHistorialHabitaciones(): void {
     this.historialHabitaciones = [];
     for (const reserva of this.reservas) {
