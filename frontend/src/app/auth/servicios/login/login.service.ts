@@ -27,7 +27,7 @@ export class LoginService {
     );
   }
 
-  setUsuarioLogueado(usuario: Usuario) {
+  setUsuarioLogueado(usuario: Usuario | null): void {
     this.usuarioLogueado = usuario;
   }
 
