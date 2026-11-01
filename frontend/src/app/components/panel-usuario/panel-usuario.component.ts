@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../auth/servicios/login/login.service';
 import { PanelUsuarioService } from '../../services/panel-usuario/panel-usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panel-usuario',
@@ -15,6 +16,7 @@ export class PanelUsuarioComponent implements OnInit {
   public loginService = inject(LoginService);
   private formBuilder = inject(FormBuilder);
   private usuarioservice = inject(PanelUsuarioService);
+  private router = inject(Router); 
 
   mensajeError: string = '';
   mensajeExito: string = '';
@@ -65,9 +67,10 @@ export class PanelUsuarioComponent implements OnInit {
               ...usuarioActual,
               ...datosAActualizar
             };
-            this.loginService.setUsuarioLogueado(usuarioActualizado);
-            this.perfilForm.patchValue(datosAActualizar);
-            this.mensajeExito = 'Los cambios se guardaron correctamente.';
+            this.loginService.setUsuarioLogueado(null);
+            //this.perfilForm.patchValue(datosAActualizar);
+            //this.mensajeExito = 'Los cambios se guardaron correctamente.';
+            this.router.navigate(['/login']);
           },
           error: (error) => {
             if (error.error?.email) {

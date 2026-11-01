@@ -25,6 +25,9 @@
                     <h2 class="seccion-panel-titulo mb-0">Información personal</h2>
                     <button type="button" class="btn btn-secundario btn-chico" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar perfil</button>
                 </div>
+                @if (mensajeError) {
+                    <p class="text-danger">{{ mensajeError }}</p>
+                    }
                 <div class="bloque">
                     <dl class="bloque-lista">
                         <dt>Nombre</dt>
@@ -88,7 +91,7 @@
                     }
                     <div class="modal-footer border-0 px-0 pb-0">
                         <button type="button" class="btn btn-secundario btn-chico" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primario btn-chico" [disabled]="perfilForm.invalid">Guardar cambios</button>
+                        <button type="submit" class="btn btn-primario btn-chico" data-bs-dismiss="modal" [disabled]="perfilForm.invalid">Guardar cambios</button>
                     </div>
                 </form>
             </div>
