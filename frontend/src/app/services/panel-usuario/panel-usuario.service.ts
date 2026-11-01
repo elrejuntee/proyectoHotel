@@ -11,6 +11,6 @@ export class PanelUsuarioService {
   constructor(private http: HttpClient) { }
 
   actualizarUsuario(id: number, datos: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/usuarios/${id}`, datos);
+    return this.http.put(`${this.apiUrl}/usuario/${id}`, datos);
   }
 }
