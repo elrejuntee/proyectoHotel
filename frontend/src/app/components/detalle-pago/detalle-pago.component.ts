@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
-import { ReservasService, ReservaApi, ReservaHabitacionApi} from '../../services/reservas/reservas.service';
+import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
+import { ReservasService } from '../../services/reservas/reservas.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
+import { Habitacion, TipoHabitacion, ReservaHabitacion, ReservaServicio, Reserva } from '../../models';
 
 @Component({
   selector: 'app-detalle-pago',
@@ -13,12 +14,12 @@ import { LoginService } from '../../auth/servicios/login/login.service';
   styleUrl: './detalle-pago.component.css'
 })
 export class DetallePagoComponent implements OnInit {
-  @Input() id!: string; // llega desde la ruta /detalle-pago/:id
+  @Input() id!: number; // llega desde la ruta /detalle-pago/:id
   @Input() checkin?: string;  // llega desde la URL: ?checkin=YYYY-MM-DD
   @Input() checkout?: string; // llega desde la URL: ?checkout=YYYY-MM-DD
 
-  habitacion?: HabitacionApi;
-  tipo?: TipoHabitacionApi;
+  habitacion?: Habitacion;
+  tipo?: TipoHabitacion;
   mensajeError: string = '';
   guardando: boolean = false;
   form: FormGroup;
@@ -58,7 +59,7 @@ export class DetallePagoComponent implements OnInit {
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
         this.habitacion = habitacion;
-        this.obtenerTipo(habitacion.id_tipo_habitacion);
+        this.obtenerTipoHabitacionPorId(habitacion.id_tipo_habitacion_id);
       },
       error: (error) => {
         this.mensajeError = error.message;
@@ -66,7 +67,7 @@ export class DetallePagoComponent implements OnInit {
     });
   }
 
-  obtenerTipo(idTipo: number | string): void {
+  obtenerTipoHabitacionPorId(idTipo: number): void {
     this.habitacionesService.obtenerTipoHabitacionPorId(idTipo).subscribe({
       next: (tipo) => {
         this.tipo = tipo;
@@ -78,7 +79,7 @@ export class DetallePagoComponent implements OnInit {
   }
   
   imagenPrincipal(): string {
-    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion) : '';
+    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion_id) : '';
   }
 
   // Cantidad de noches entre check-in y check-out
@@ -123,12 +124,12 @@ export class DetallePagoComponent implements OnInit {
         this.reservasService.obtenerReservasHabitacion().subscribe({
           next: (reservasHabitacion) => {
             const idsConfirmadas = reservas
-              .filter(r => String(r.id_estado_reserva) === '1')
-              .map(r => String(r.id));
+              .filter(r => r.id_estado_reserva === 1)
+              .map(r => r.id);
 
             const yaReservada = reservasHabitacion
-              .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
-              .filter(rh => String(rh.id_habitacion) === String(this.habitacion!.id))
+              .filter(rh => idsConfirmadas.includes(rh.id_reserva))
+              .filter(rh => rh.id_habitacion === this.habitacion!.id)
               .some(rh => rh.fecha_checkin.slice(0, 10) < this.checkout! && rh.fecha_checkout.slice(0, 10) > this.checkin!);
 
             if (yaReservada) {
@@ -148,7 +149,7 @@ export class DetallePagoComponent implements OnInit {
 
   // 1) Crea la reserva con estado "Confirmada" (id 1)
   private guardarReserva(): void {
-    const reserva: ReservaApi = {
+    const reserva: Reserva = {
       id_usuario: this.loginService.usuarioLogueado!.id,
       id_estado_reserva: 1,
       numero_reserva: Math.floor(10000 + Math.random() * 90000),
@@ -164,8 +165,8 @@ export class DetallePagoComponent implements OnInit {
   }
 
   // 2) Vincula la habitación y las fechas a la reserva
-  private guardarReservaHabitacion(idReserva: number | string): void {
-    const reservaHabitacion: ReservaHabitacionApi = {
+  private guardarReservaHabitacion(idReserva: number): void {
+    const reservaHabitacion: ReservaHabitacion = {
       id_reserva: idReserva,
       id_habitacion: this.habitacion!.id!,
       pago_acordado: this.total,
@@ -181,8 +182,8 @@ export class DetallePagoComponent implements OnInit {
       });
     }
       // Cambia el estado de la habitación a "Ocupada" (id 2) y navega a la confirmación
-  private ocuparHabitacion(idReserva: number | string): void {
-    const ocupada: HabitacionApi = { ...this.habitacion!, id_estado_habitacion: '2' };
+  private ocuparHabitacion(idReserva: number): void {
+    const ocupada: Habitacion = { ...this.habitacion!, id_estado_habitacion_id: 2 };
 
     this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
       next: () => {

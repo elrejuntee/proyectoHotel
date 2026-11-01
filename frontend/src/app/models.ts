@@ -5,7 +5,7 @@ export interface RolUsuario {
 }
  
 export interface Usuario {
-  id_usuario: number;
+  id: number;
   id_rol: number;
   nombre: string;
   apellido: string;
@@ -68,7 +68,7 @@ export interface EstadoReserva {
 }
  
 export interface Reserva {
-  id_reserva: number;
+  id?: number;
   id_usuario: number;
   id_estado_reserva: number;
   numero_reserva: number;
@@ -76,7 +76,7 @@ export interface Reserva {
 }
  
 export interface ReservaHabitacion {
-  id_reserva_habitacion: number;
+  id?: number;
   id_habitacion: number;
   id_reserva: number;
   pago_acordado: number;
@@ -85,7 +85,7 @@ export interface ReservaHabitacion {
 }
  
 export interface ReservaServicio {
-  id_reserva_servicio: number;
+  id: number;
   id_servicio: number;
   id_reserva: number;
   pago_acordado: number;
