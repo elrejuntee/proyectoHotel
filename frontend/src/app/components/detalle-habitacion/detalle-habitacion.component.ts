@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
+import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
 import { ReservasService } from '../../services/reservas/reservas.service';
 import { ModalReservaComponent } from '../modal-reserva/modal-reserva.component';
 import { LoginService } from '../../auth/servicios/login/login.service';
 import { Router } from '@angular/router';
+import { Habitacion, TipoHabitacion } from '../../models';
 
 @Component({
   selector: 'app-detalle-habitacion',
@@ -14,12 +15,12 @@ import { Router } from '@angular/router';
   styleUrl: './detalle-habitacion.component.css'
 })
 export class DetalleHabitacionComponent implements OnInit {
-  @Input() id!: string; // llega desde la ruta /detalle-habitacion/:id
+  @Input() id!: number; // llega desde la ruta /detalle-habitacion/:id
   @Input() checkin?: string;  // llega como parametro de ruta: /detalle-habitacion/:Id/:checkin/:checkout
   @Input() checkout?: string; // llega como parametro de ruta: /detalle-habitacion/:Id/:checkin/:checkout
 
-  habitacion?: HabitacionApi;
-  tipo?: TipoHabitacionApi;
+  habitacion?: Habitacion;
+  tipo?: TipoHabitacion;
   mensajeError: string = '';
 
   mensajeFechas: string = '';
@@ -41,7 +42,7 @@ export class DetalleHabitacionComponent implements OnInit {
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
         this.habitacion = habitacion;
-        this.obtenerTipo(habitacion.id_tipo_habitacion);
+        this.obtenerTipo(habitacion.id_tipo_habitacion_id);
       },
       error: (error) => {
         this.mensajeError = error.message;
@@ -49,7 +50,7 @@ export class DetalleHabitacionComponent implements OnInit {
     });
   }
 
-  obtenerTipo(idTipo: number | string): void {
+  obtenerTipo(idTipo: number): void {
     this.habitacionesService.obtenerTipoHabitacionPorId(idTipo).subscribe({
       next: (tipo) => {
         this.tipo = tipo;
@@ -60,11 +61,11 @@ export class DetalleHabitacionComponent implements OnInit {
     });
   }
   imagenPrincipal(): string {
-    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion) : '';
+    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion_id) : '';
   }
 
   imagenesComplementarias(): string[] {
-    return this.habitacion ? this.habitacionesService.obtenerImagenesComplementarias(this.habitacion.id_tipo_habitacion) : [];
+    return this.habitacion ? this.habitacionesService.obtenerImagenesComplementarias(this.habitacion.id_tipo_habitacion_id) : [];
   }
 
   buscarFechas(checkin: string, checkout: string): void {
