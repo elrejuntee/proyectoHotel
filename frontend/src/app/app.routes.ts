@@ -14,6 +14,7 @@ import { FormularioServiciosComponent } from './components/formulario-servicios/
 import { DetalleHabitacionComponent } from './components/detalle-habitacion/detalle-habitacion.component';
 import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
 import { PagoConfirmadoComponent } from './components/pago-confirmado/pago-confirmado.component';
+import { PanelAdminComponent as PanelAdminPage } from './pages/panel-admin/panel-admin.component';
 
 
 export const routes: Routes = [
@@ -35,5 +36,6 @@ export const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "registro", component: RegistroComponent },
     { path: "panel-admin", component: PanelAdminComponent },
+    { path: "panel-test", component: PanelAdminPage },
     { path: "**", component: Pagina404Component },
 ];
