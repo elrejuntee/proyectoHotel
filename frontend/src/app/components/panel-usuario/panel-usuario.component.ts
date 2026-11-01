@@ -68,8 +68,6 @@ export class PanelUsuarioComponent implements OnInit {
               ...datosAActualizar
             };
             this.loginService.setUsuarioLogueado(null);
-            //this.perfilForm.patchValue(datosAActualizar);
-            //this.mensajeExito = 'Los cambios se guardaron correctamente.';
             this.router.navigate(['/login']);
           },
           error: (error) => {
