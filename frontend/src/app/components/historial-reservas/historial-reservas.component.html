@@ -6,6 +6,9 @@
           Historial de reservas
         </h2>
       </div>
+      @if (mensajeError) {
+        <p class="text-danger">{{ mensajeError }}</p>
+        }
       <ul class="nav nav-tabs mb-4" id="historialTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button
@@ -41,7 +44,7 @@
           role="tabpanel"
           aria-labelledby="hab-tab">
           <div class="habitaciones-lista">
-            @for (historial of historialHabitaciones; track historial.idHabitacion) {
+            @for (historial of historialHabitaciones; track $index) {
               <div class="hab-item">
                 <div class="row">
                   <div class="col-auto d-flex">
@@ -98,7 +101,7 @@
                 </div>
               </div>
             }
-            @if (historialHabitaciones.length === 0) {
+            @if (historialHabitaciones.length === 0 && !mensajeError) {
 
               <p class="text-muted">
                 No hay habitaciones reservadas.
@@ -113,7 +116,7 @@
           role="tabpanel"
           aria-labelledby="serv-tab">
           <div class="habitaciones-lista">
-            @for (historial of historialServicios; track historial.idReserva) {
+            @for (historial of historialServicios; track $index) {
               <div class="hab-item">
                 <div class="row">
                   <div class="col-auto d-flex">
@@ -166,7 +169,7 @@
                 </div>
               </div>
             }
-            @if (historialServicios.length === 0) {
+            @if (historialServicios.length === 0 && !mensajeError) {
               <p class="text-muted">
                 No hay servicios reservados.
               </p>

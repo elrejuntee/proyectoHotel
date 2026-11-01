@@ -29,150 +29,147 @@ export class HistorialReservasComponent {
   reservasHabitacion: ReservaHabitacion[] = [];
   habitaciones: Habitacion[] = [];
   tiposHabitacion: TipoHabitacion[] = [];
-
   reservasServicio: ReservaServicio[] = [];
   servicios: Servicio[] = [];
   tiposServicio: TipoServicio[] = [];
-
   historialHabitaciones: any[] = [];
   historialServicios: any[] = [];
+  mensajeError: string = '';
 
   ngOnInit(): void {
-
     const usuarioLogueado = this.loginService.usuarioLogueado;
-
     if (usuarioLogueado === null) {
       return;
     }
-
     const idUsuario = usuarioLogueado.id;
-
-    this.historialService.obtenerReservas().subscribe(
-      (reservas) => {
-
-        this.reservas = reservas;
-
-        for (const reserva of reservas) {
-
-          if (reserva.id_usuario === idUsuario) {
-
-            this.historialService.obtenerReservasHabitacion().subscribe(
-              (reservasHabitacion) => {
-
-                this.reservasHabitacion = reservasHabitacion;
-
-                this.historialService.obtenerHabitaciones().subscribe(
-                  (habitaciones) => {
-
-                    this.habitaciones = habitaciones;
-
-                    this.historialService.obtenerTiposHabitacion().subscribe(
-                      (tiposHabitacion) => {
-
-                        this.tiposHabitacion = tiposHabitacion;
-
-                        this.armarHistorialHabitaciones(reserva.id);
-                      }
-                    );
-                  }
-                );
-              }
-            );
-
-            this.historialService.obtenerReservasServicio().subscribe(
-              (reservasServicio) => {
-
-                this.reservasServicio = reservasServicio;
-
-                this.historialService.obtenerServicios().subscribe(
-                  (servicios) => {
-
-                    this.servicios = servicios;
-
-                    this.historialService.obtenerTiposServicio().subscribe(
-                      (tiposServicio) => {
-
-                        this.tiposServicio = tiposServicio;
-
-                        this.armarHistorialServicios(reserva.id);
-                      }
-                    );
-                  }
-                );
-              }
-            );
-          }
-        }
+    this.historialService.obtenerReservas().subscribe({
+      next: (reservas) => {
+        // Solo las reservas del usuario logueado
+        this.reservas = reservas.filter(reserva => reserva.id_usuario === idUsuario);
+        this.cargarHabitaciones();
+        this.cargarServicios();
+      },
+      error: () => {
+        this.mensajeError = 'No se pudo cargar el historial. Verificá que el servidor esté en funcionamiento.';
       }
-    );
+    });
   }
 
-  armarHistorialHabitaciones(idReserva: number): void {
-
-    for (const reservaHabitacion of this.reservasHabitacion) {
-
-      if (reservaHabitacion.id_reserva !== idReserva) {
-        continue;
+  cargarHabitaciones(): void {
+    this.historialService.obtenerReservasHabitacion().subscribe({
+      next: (reservasHabitacion) => {
+        this.reservasHabitacion = reservasHabitacion;
+        this.historialService.obtenerHabitaciones().subscribe({
+          next: (habitaciones) => {
+            this.habitaciones = habitaciones;
+            this.historialService.obtenerTiposHabitacion().subscribe({
+              next: (tiposHabitacion) => {
+                this.tiposHabitacion = tiposHabitacion;
+                this.armarHistorialHabitaciones();
+              },
+              error: () => {
+                this.mensajeError = 'No se pudo cargar el historial de habitaciones.';
+              }
+            });
+          },
+          error: () => {
+            this.mensajeError = 'No se pudo cargar el historial de habitaciones.';
+          }
+        });
+      },
+      error: () => {
+        this.mensajeError = 'No se pudo cargar el historial de habitaciones.';
       }
+    });
+  }
 
-      for (const habitacion of this.habitaciones) {
+  cargarServicios(): void {
+    this.historialService.obtenerReservasServicio().subscribe({
+      next: (reservasServicio) => {
+        this.reservasServicio = reservasServicio;
+        this.historialService.obtenerServicios().subscribe({
+          next: (servicios) => {
+            this.servicios = servicios;
+            this.historialService.obtenerTiposServicio().subscribe({
+              next: (tiposServicio) => {
+                this.tiposServicio = tiposServicio;
+                this.armarHistorialServicios();
+              },
+              error: () => {
+                this.mensajeError = 'No se pudo cargar el historial de servicios.';
+              }
+            });
+          },
+          error: () => {
+            this.mensajeError = 'No se pudo cargar el historial de servicios.';
+          }
+        });
+      },
+      error: () => {
+        this.mensajeError = 'No se pudo cargar el historial de servicios.';
+      }
+    });
+  }
 
-        if (habitacion.id !== reservaHabitacion.id_habitacion) {
+  armarHistorialHabitaciones(): void {
+    this.historialHabitaciones = [];
+    for (const reserva of this.reservas) {
+      for (const reservaHabitacion of this.reservasHabitacion) {
+        if (reservaHabitacion.id_reserva !== reserva.id) {
           continue;
         }
-
-        for (const tipoHabitacion of this.tiposHabitacion) {
-
-          if (tipoHabitacion.id !== habitacion.id_tipo_habitacion) {
+        for (const habitacion of this.habitaciones) {
+          if (habitacion.id !== reservaHabitacion.id_habitacion) {
             continue;
           }
-
-          this.historialHabitaciones.push({
-            idReserva: idReserva,
-            idHabitacion: habitacion.id,
-            nombre: tipoHabitacion.nombre,
-            descripcion: tipoHabitacion.descripcion,
-            cantidadCamas: tipoHabitacion.cant_cama,
-            capacidad: habitacion.capacidad,
-            numeroHabitacion: habitacion.numero,
-            precio: reservaHabitacion.pago_acordado,
-            checkin: reservaHabitacion.fecha_checkin,
-            checkout: reservaHabitacion.fecha_checkout
-          });
+          for (const tipoHabitacion of this.tiposHabitacion) {
+            if (tipoHabitacion.id !== habitacion.id_tipo_habitacion) {
+              continue;
+            }
+            this.historialHabitaciones.push({
+              idReserva: reserva.id,
+              idHabitacion: habitacion.id,
+              nombre: tipoHabitacion.nombre,
+              descripcion: tipoHabitacion.descripcion,
+              cantidadCamas: tipoHabitacion.cant_cama,
+              capacidad: habitacion.capacidad,
+              numeroHabitacion: habitacion.numero,
+              precio: reservaHabitacion.pago_acordado,
+              checkin: reservaHabitacion.fecha_checkin,
+              checkout: reservaHabitacion.fecha_checkout
+            });
+          }
         }
       }
     }
   }
 
-  armarHistorialServicios(idReserva: number): void {
-
-    for (const reservaServicio of this.reservasServicio) {
-
-      if (reservaServicio.id_reserva !== idReserva) {
-        continue;
-      }
-
-      for (const servicio of this.servicios) {
-
-        if (servicio.id !== reservaServicio.id_servicio) {
+  armarHistorialServicios(): void {
+    this.historialServicios = [];
+    for (const reserva of this.reservas) {
+      for (const reservaServicio of this.reservasServicio) {
+        if (reservaServicio.id_reserva !== reserva.id) {
           continue;
         }
-
-        for (const tipoServicio of this.tiposServicio) {
-
-          if (tipoServicio.id !== servicio.id_tipo_servicio) {
+        for (const servicio of this.servicios) {
+          if (servicio.id !== reservaServicio.id_servicio) {
             continue;
           }
+          for (const tipoServicio of this.tiposServicio) {
 
-          this.historialServicios.push({
-            idReserva: idReserva,
-            nombre: tipoServicio.nombre_servicio,
-            capacidadMaxima: servicio.capacidad_maxima,
-            capacidadInvitados: reservaServicio.capacidad_invitados,
-            precio: reservaServicio.pago_acordado,
-            fechaInicio: reservaServicio.fecha_inicio,
-            fechaFin: reservaServicio.fecha_fin
-          });
+            if (tipoServicio.id !== servicio.id_tipo_servicio) {
+              continue;
+            }
+            this.historialServicios.push({
+              idReserva: reserva.id,
+              nombre: tipoServicio.nombre_servicio,
+              capacidadMaxima: servicio.capacidad_maxima,
+              capacidadInvitados: reservaServicio.capacidad_invitados,
+              precio: reservaServicio.pago_acordado,
+              fechaInicio: reservaServicio.fecha_inicio,
+              fechaFin: reservaServicio.fecha_fin
+            });
+          }
         }
       }
     }
