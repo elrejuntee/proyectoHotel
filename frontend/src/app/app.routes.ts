@@ -16,6 +16,7 @@ import { PagoConfirmadoComponent } from './components/pago-confirmado/pago-confi
 import { PanelAdminComponent } from './pages/panel-admin/panel-admin.component';
 import { HabitacionesAdminComponent } from './components/habitaciones-admin/habitaciones-admin.component';
 import { ServiciosAdminComponent } from './components/servicios-admin/servicios-admin.component';
+import { ReservasAdminComponent } from './components/reservas-admin/reservas-admin.component';
 
 
 export const routes: Routes = [
@@ -38,7 +39,8 @@ export const routes: Routes = [
     { path: "registro", component: RegistroComponent },
     { path: "panel-admin", component: PanelAdminComponent, children: [
             { path: 'habitaciones', component: HabitacionesAdminComponent },
-            { path: 'servicios', component: ServiciosAdminComponent }
+            { path: 'servicios', component: ServiciosAdminComponent },
+            { path: 'reservas', component: ReservasAdminComponent },
         ]
     },
     { path: "**", component: Pagina404Component },
