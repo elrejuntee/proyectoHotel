@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
+import { ESTADO_HABITACION_DISPONIBLE, ESTADO_HABITACION_MANTENIMIENTO, HabitacionesService } from '../../services/habitaciones/habitaciones.service';
 import { ListasVaciasComponent } from '../listas-vacias/listas-vacias.component';
 import { ReservasService } from '../../services/reservas/reservas.service';
-import { Habitacion, TipoHabitacion, Reserva, ReservaHabitacion } from '../../models';
+import { EstadoHabitacion, Habitacion, TipoHabitacion, Reserva, ReservaHabitacion } from '../../models';
 
 @Component({
   selector: 'app-resultados-busqueda',
@@ -17,6 +17,7 @@ export class ResultadosBusquedaComponent {
   habitaciones: Habitacion[] = [];
   habitacionesOriginales: Habitacion[] = [];
   tiposHabitacion: TipoHabitacion[] = [];
+  estadosHabitacion: EstadoHabitacion[] = [];
   cargando: boolean = true;
   mensajeError: string = '';
   checkin: string | null = null;
@@ -38,10 +39,23 @@ export class ResultadosBusquedaComponent {
     this.habitacionesService.obtenerTiposHabitacion().subscribe({
       next: (tipos) => {
         this.tiposHabitacion = tipos;
-        this.obtenerHabitaciones(); // Una vez obtenidos los tipos, traemos las habitaciones
+        this.cargarEstadosHabitacion(); // Una vez obtenidos los tipos, traemos los estados
       },
       error: (error) => {
         console.error('Error al obtener los tipos', error);
+        this.cargarEstadosHabitacion(); // Intentamos seguir igual
+      }
+    });
+  }
+
+  cargarEstadosHabitacion(): void {
+    this.habitacionesService.obtenerEstadosHabitacion().subscribe({
+      next: (estados) => {
+        this.estadosHabitacion = estados;
+        this.obtenerHabitaciones(); // Con los estados cargados, traemos las habitaciones
+      },
+      error: (error) => {
+        console.error('Error al obtener los estados', error);
         this.obtenerHabitaciones(); // Intentamos traer las habitaciones igual
       }
     });
@@ -52,9 +66,8 @@ export class ResultadosBusquedaComponent {
     this.habitacionesService.obtenerHabitaciones().subscribe({
       next: (data) => {
         this.habitacionesOriginales = data;
-        this.habitaciones = data;
         this.cargando = false;
-        console.log('Habitaciones disponibles', this.habitaciones)
+        this.aplicarFiltros();
       },
       error: (error) => {
         console.error('Error al obtener las habitaciones', error);
@@ -142,16 +155,23 @@ export class ResultadosBusquedaComponent {
   }
 
   private aplicarFiltros(): void {
-    this.habitaciones = this.habitacionesOriginales.filter(habitacion =>
-      (this.precioMaximo <= 0 || habitacion.precio <= this.precioMaximo) &&
-      habitacion.capacidad >= this.huespedesMinimos &&
-      (this.busquedaHecha
-        ? (
-            !this.idsOcupadas.includes(habitacion.id) &&
-            habitacion.id_estado_habitacion !== 3 // 3 = Mantenimiento
-          )
-        : habitacion.id_estado_habitacion === 1 // Sin fechas elegidas: solo mostramos las Disponibles
-      )
-    );
+    this.habitaciones = this.habitacionesOriginales.filter(habitacion => {
+      const nombreEstado = this.obtenerNombreEstado(habitacion);
+
+      return (this.precioMaximo <= 0 || habitacion.precio <= this.precioMaximo) &&
+        habitacion.capacidad >= this.huespedesMinimos &&
+        (this.busquedaHecha
+          // Con fechas: sirven las que no tienen una reserva que se superponga y no están en mantenimiento
+          ? (!this.idsOcupadas.includes(habitacion.id) && nombreEstado !== ESTADO_HABITACION_MANTENIMIENTO)
+          // Sin fechas elegidas: solo mostramos las Disponibles
+          : nombreEstado === ESTADO_HABITACION_DISPONIBLE
+        );
+    });
+  }
+
+  /** Nombre del estado de la habitación, buscado en la lista de estados que vino de la base. */
+  private obtenerNombreEstado(habitacion: Habitacion): string {
+    const estadoEncontrado = this.estadosHabitacion.find(estadoHabitacion => estadoHabitacion.id === habitacion.id_estado_habitacion);
+    return estadoEncontrado ? estadoEncontrado.estado_habitacion : '';
   }
 }

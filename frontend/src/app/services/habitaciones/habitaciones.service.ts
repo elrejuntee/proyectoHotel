@@ -13,6 +13,11 @@ const IMAGENES_POR_TIPO: Record<string, { principal: string; complementarias: st
 };
 const IMAGEN_POR_DEFECTO = 'imagenes/premium.webp';
 
+
+// Nombres de los estados de habitación que el front necesita reconocer. Tienen que existir en la tabla estado_habitacion.
+export const ESTADO_HABITACION_DISPONIBLE = 'Disponible';
+export const ESTADO_HABITACION_MANTENIMIENTO = 'Mantenimiento';
+
 // Habitación nueva: todavía no tiene id, lo asigna el backend
 interface NuevaHabitacion {
   id_tipo_habitacion: number;
