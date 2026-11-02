@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.validators import MinValueValidator
 
 class TipoServicio(models.Model):
     # Definimos la lista de opciones permitidas según el frontend
