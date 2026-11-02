@@ -43,7 +43,7 @@ export interface Habitacion {
 }
 
 export interface TipoHabitacionesComodidades {
-    id_tipo_habitacion_comodidad: number;
+    id: number;
     id_tipo_habitacion: number;
     id_comodidad: number;
 }
@@ -63,7 +63,7 @@ export interface Servicio {
 
 // RESERVAS
 export interface EstadoReserva {
-  id_estado_reserva: number;
+  id: number;
   estado_reserva: string;
 }
 
