@@ -3,6 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Servicio, TipoServicio } from '../../models';
 
+
+// Servicio nuevo: todavía no tiene id, lo asigna el backend
+interface NuevoServicio {
+    id_tipo_servicio: number;
+    precio: number;
+    capacidad_maxima: number;
+}
+
 @Injectable({
     providedIn: 'root'
     })
@@ -32,6 +40,13 @@ export class ServiciosService {
 
     obtenerTipoServicioPorId(id: number): Observable<TipoServicio> {
         return this.http.get<TipoServicio>(this.url + '/tipo-servicios/' + id + '/').pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    // ----- POST -----
+    crearServicio(servicio: NuevoServicio): Observable<Servicio> {
+        return this.http.post<Servicio>(this.url + '/servicios/', servicio).pipe(
             catchError(this.handleError)
         );
     }
