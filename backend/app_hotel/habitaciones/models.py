@@ -38,7 +38,7 @@ class Habitacion(models.Model):
 
 
 class EstadoHabitacion(models.Model):
-    nombre = models.CharField(
+    estado_habitacion = models.CharField(
         max_length=50,
         choices = [
             ('Disponible', 'disponibel'),
@@ -50,11 +50,11 @@ class EstadoHabitacion(models.Model):
     )
 
     def __str__(self):
-            return f'{self.nombre}'
+            return f'{self.estado_habitacion}'
 
 
 class Comodidad(models.Model):
-    nombre = models.CharField(
+    comodidad = models.CharField(
         max_length=50,
         unique =  True,
         choices=[
@@ -67,7 +67,7 @@ class Comodidad(models.Model):
     )
 
     def __str__(self):
-        return f'{self.nombre}'
+        return f'{self.comodidad}'
 
 
 class TipoHabitacion(models.Model):
