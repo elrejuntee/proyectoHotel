@@ -13,7 +13,7 @@ import { EstadoHabitacion, Habitacion, TipoHabitacion, Reserva, ReservaHabitacio
   templateUrl: './resultados-busqueda.component.html',
   styleUrl: './resultados-busqueda.component.css'
 })
-export class ResultadosBusquedaComponent {
+export class ResultadosBusquedaComponent implements OnInit {
   habitaciones: Habitacion[] = [];
   habitacionesOriginales: Habitacion[] = [];
   tiposHabitacion: TipoHabitacion[] = [];

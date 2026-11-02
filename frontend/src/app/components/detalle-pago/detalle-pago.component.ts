@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
 import { ESTADO_RESERVA_CONFIRMADA, ReservasService } from '../../services/reservas/reservas.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
-import { Habitacion, TipoHabitacion, ReservaHabitacion, ReservaServicio, Reserva } from '../../models';
+import { Habitacion, TipoHabitacion, ReservaHabitacion, Reserva } from '../../models';
 
 @Component({
   selector: 'app-detalle-pago',
