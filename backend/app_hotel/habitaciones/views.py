@@ -53,6 +53,12 @@ class TipoHabitacionAPIView(APIView):
         serializer = TipoHabitacionSerializer(tipos, many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
 
+class TipoHabitacionDetailView(APIView):
+    def get(self, request, pk):
+        tipo_habitacion = get_object_or_404(TipoHabitacion, pk=pk)
+        serializer = TipoHabitacionSerializer(tipo_habitacion)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class TipoHabitacionComodidadView(APIView):
     def get(self, request):
