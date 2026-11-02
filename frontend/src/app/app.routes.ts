@@ -4,7 +4,6 @@ import { ServiciosComponent } from './components/servicios/servicios.component';
 import { ResultadosBusquedaComponent } from './components/resultados-busqueda/resultados-busqueda.component';
 import { PanelUsuarioComponent } from './components/panel-usuario/panel-usuario.component';
 import { HistorialReservasComponent } from './components/historial-reservas/historial-reservas.component';
-import { PanelAdminComponent } from './components/panel-admin/panel-admin.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { Pagina404Component } from './pages/pagina-404/pagina-404.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -14,7 +13,9 @@ import { FormularioServiciosComponent } from './components/formulario-servicios/
 import { DetalleHabitacionComponent } from './components/detalle-habitacion/detalle-habitacion.component';
 import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
 import { PagoConfirmadoComponent } from './components/pago-confirmado/pago-confirmado.component';
-import { PanelAdminComponent as PanelAdminPage } from './pages/panel-admin/panel-admin.component';
+import { PanelAdminComponent } from './pages/panel-admin/panel-admin.component';
+import { HabitacionesAdminComponent } from './components/habitaciones-admin/habitaciones-admin.component';
+import { ServiciosAdminComponent } from './components/servicios-admin/servicios-admin.component';
 
 
 export const routes: Routes = [
@@ -35,7 +36,10 @@ export const routes: Routes = [
     },
     { path: "login", component: LoginComponent },
     { path: "registro", component: RegistroComponent },
-    { path: "panel-admin", component: PanelAdminComponent },
-    { path: "panel-test", component: PanelAdminPage },
+    { path: "panel-admin", component: PanelAdminComponent, children: [
+            { path: 'habitaciones', component: HabitacionesAdminComponent },
+            { path: 'servicios', component: ServiciosAdminComponent }
+        ]
+    },
     { path: "**", component: Pagina404Component },
 ];

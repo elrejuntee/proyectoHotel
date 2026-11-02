@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
           console.log(this.mensajeError);
           return;
         }
-               
       this.loginService.obtenerIdRolPorNombre('usuario').subscribe({
         next: (idRolUsuario) => {
           if (idRolUsuario == null) {
@@ -64,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/reservas']);
         } else {
           console.log('Login exitoso (Admin):', usuario);
-          this.router.navigate(['/panel-admin']);
+          this.router.navigate(['/panel-admin/habitaciones']);
         }
       },
       error: (err) => {
