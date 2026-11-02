@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HabitacionesService, HabitacionApi, TipoHabitacionApi } from '../../services/habitaciones/habitaciones.service';
+import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
 import { ListasVaciasComponent } from '../listas-vacias/listas-vacias.component';
-import { ReservasService, ReservaApi, ReservaHabitacionApi } from '../../services/reservas/reservas.service';
+import { ReservasService } from '../../services/reservas/reservas.service';
+import { Habitacion, TipoHabitacion, Reserva, ReservaHabitacion } from '../../models';
 
 @Component({
   selector: 'app-resultados-busqueda',
@@ -13,15 +14,15 @@ import { ReservasService, ReservaApi, ReservaHabitacionApi } from '../../service
   styleUrl: './resultados-busqueda.component.css'
 })
 export class ResultadosBusquedaComponent {
-  habitaciones: HabitacionApi[] = [];
-  habitacionesOriginales: HabitacionApi[] = [];
-  tiposHabitacion: TipoHabitacionApi[] = [];
+  habitaciones: Habitacion[] = [];
+  habitacionesOriginales: Habitacion[] = [];
+  tiposHabitacion: TipoHabitacion[] = [];
   cargando: boolean = true;
   mensajeError: string = '';
   checkin: string | null = null;
   checkout: string | null = null;
   mensajeFechas: string = '';
-  idsOcupadas: string[] = [];
+  idsOcupadas: number[] = [];
   huespedesMinimos: number = 1;
   precioMaximo: number = 0;
   busquedaHecha: boolean = false;
@@ -65,13 +66,13 @@ export class ResultadosBusquedaComponent {
     this.precioMaximo = Number(valorInput) || 0;
     this.aplicarFiltros();
   }
-  obtenerNombreTipo(idTipo: number | string): string {
-    const tipoEncontrado = this.tiposHabitacion.find(t => t.id == idTipo);
+  obtenerNombreTipo(idTipo: number): string {
+    const tipoEncontrado = this.tiposHabitacion.find(tiposHabitacion => tiposHabitacion.id === idTipo);
     return tipoEncontrado ? tipoEncontrado.nombre : 'Habitación';
   }
 
-    imagenPrincipal(hab: HabitacionApi): string {
-    return this.habitacionesService.obtenerImagenPrincipal(hab.id_tipo_habitacion);
+    imagenPrincipal(habitacion: Habitacion): string {
+    return this.habitacionesService.obtenerImagenPrincipal(habitacion.id_tipo_habitacion);
   }
   
   buscarFechas(checkin: string, checkout: string, huespedes: string): void {
@@ -122,34 +123,33 @@ export class ResultadosBusquedaComponent {
     }
   });
 }
-  private filtrarDisponibles(reservas: ReservaApi[], reservasHabitacion: ReservaHabitacionApi[]): void {
+  private filtrarDisponibles(reservas: Reserva[], reservasHabitacion: ReservaHabitacion[]): void {
     // Solo cuentan las reservas Confirmadas (id 1)
     const idsConfirmadas = reservas
-      .filter(r => String(r.id_estado_reserva) === '1')
-      .map(r => String(r.id));
+      .filter(reserva => reserva.id_estado_reserva === 1)
+      .map(reserva => reserva.id);
 
     // Habitaciones ocupadas: reserva confirmada cuyas fechas se superponen con la búsqueda
     this.idsOcupadas = reservasHabitacion
-      .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
-      .filter(rh => rh.fecha_checkin.slice(0, 10) < this.checkout! && rh.fecha_checkout.slice(0, 10) > this.checkin!)
-      .map(rh => String(rh.id_habitacion));
+      .filter(reservaHabitacion => idsConfirmadas.includes(reservaHabitacion.id_reserva))
+      .filter(reservaHabitacion => reservaHabitacion.fecha_checkin.slice(0, 10) < this.checkout! && reservaHabitacion.fecha_checkout.slice(0, 10) > this.checkin!)
+      .map(reservaHabitacion => reservaHabitacion.id_habitacion);
 
     this.busquedaHecha = true;
     this.aplicarFiltros();
   }
 
-  // Aplica juntos el filtro de fechas/huéspedes y el de precio
   private aplicarFiltros(): void {
-  this.habitaciones = this.habitacionesOriginales.filter(h =>
-    (this.precioMaximo <= 0 || h.precio <= this.precioMaximo) &&
-    h.capacidad >= this.huespedesMinimos &&
-    (this.busquedaHecha
-      ? (
-          !this.idsOcupadas.includes(String(h.id)) &&
-          String(h.id_estado_habitacion) !== '3' // 3 = Mantenimiento
-        )
-      : String(h.id_estado_habitacion) === '1' // Sin fechas elegidas: solo mostramos las Disponibles
-    )
-  );
-}
+    this.habitaciones = this.habitacionesOriginales.filter(habitacion =>
+      (this.precioMaximo <= 0 || habitacion.precio <= this.precioMaximo) &&
+      habitacion.capacidad >= this.huespedesMinimos &&
+      (this.busquedaHecha
+        ? (
+            !this.idsOcupadas.includes(habitacion.id) &&
+            habitacion.id_estado_habitacion !== 3 // 3 = Mantenimiento
+          )
+        : habitacion.id_estado_habitacion === 1 // Sin fechas elegidas: solo mostramos las Disponibles
+      )
+    );
+  }
 }
