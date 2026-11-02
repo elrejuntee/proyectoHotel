@@ -128,9 +128,9 @@ export class DetallePagoComponent implements OnInit {
               .map(reserva => reserva.id);
 
             const yaReservada = reservasHabitacion
-              .filter(reservasHabitacion => idsConfirmadas.includes(reservasHabitacion.id_reserva))
-              .filter(reservasHabitacion => reservasHabitacion.id_habitacion === this.habitacion!.id)
-              .some(reservasHabitacion => reservasHabitacion.fecha_checkin.slice(0, 10) < this.checkout! && reservasHabitacion.fecha_checkout.slice(0, 10) > this.checkin!);
+              .filter(reservaHabitacion => idsConfirmadas.includes(reservaHabitacion.id_reserva))
+              .filter(reservaHabitacion => reservaHabitacion.id_habitacion === this.habitacion!.id)
+              .some(reservaHabitacion => reservaHabitacion.fecha_checkin.slice(0, 10) < this.checkout! && reservaHabitacion.fecha_checkout.slice(0, 10) > this.checkin!);
 
             if (yaReservada) {
               this.mensajeError = 'Esta habitación ya fue reservada para esas fechas. Volvé a los resultados y elegí otra.';
