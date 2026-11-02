@@ -35,7 +35,7 @@ export class ResultadosBusquedaComponent {
 
   cargarDatosIniciales(): void {
     this.cargando = true;
-        this.habitacionesService.obtenerTiposHabitacion().subscribe({
+    this.habitacionesService.obtenerTiposHabitacion().subscribe({
       next: (tipos) => {
         this.tiposHabitacion = tipos;
         this.obtenerHabitaciones(); // Una vez obtenidos los tipos, traemos las habitaciones
@@ -46,7 +46,8 @@ export class ResultadosBusquedaComponent {
       }
     });
   }
-  obtenerHabitaciones(): void{
+
+  obtenerHabitaciones(): void {
     this.cargando = true;
     this.habitacionesService.obtenerHabitaciones().subscribe({
       next: (data) => {
@@ -59,75 +60,76 @@ export class ResultadosBusquedaComponent {
         console.error('Error al obtener las habitaciones', error);
         this.habitaciones = [];
         this.cargando = false;
-        }
+      }
     })
   }
+
   filtrarPorPrecio(valorInput: string) {
     this.precioMaximo = Number(valorInput) || 0;
     this.aplicarFiltros();
   }
+
   obtenerNombreTipo(idTipo: number): string {
     const tipoEncontrado = this.tiposHabitacion.find(tiposHabitacion => tiposHabitacion.id === idTipo);
     return tipoEncontrado ? tipoEncontrado.nombre : 'Habitación';
   }
 
-    imagenPrincipal(habitacion: Habitacion): string {
+  imagenPrincipal(habitacion: Habitacion): string {
     return this.habitacionesService.obtenerImagenPrincipal(habitacion.id_tipo_habitacion);
   }
-  
+
   buscarFechas(checkin: string, checkout: string, huespedes: string): void {
     this.huespedesMinimos = Number(huespedes) || 1;
 
     const hayCheckin = !!checkin;
     const hayCheckout = !!checkout;
 
-  // Si cargó alguna fecha, las dos tienen que ser válidas
-  if ((hayCheckin || hayCheckout) && (!hayCheckin || !hayCheckout || checkout <= checkin)) {
-    this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
-    this.checkin = null;
-    this.checkout = null;
-    this.busquedaHecha = false;
-    this.idsOcupadas = [];
-    this.aplicarFiltros();
-    return;
-  }
-
-  this.mensajeFechas = '';
-
-  if (!hayCheckin && !hayCheckout) {
-    // Sin fechas: filtramos solo por huéspedes/precio/disponibilidad general
-    this.checkin = null;
-    this.checkout = null;
-    this.busquedaHecha = false;
-    this.idsOcupadas = [];
-    this.aplicarFiltros();
-    return;
-  }
-
-  this.checkin = checkin;
-  this.checkout = checkout;
-
-  this.reservasService.obtenerReservas().subscribe({
-    next: (reservas) => {
-      this.reservasService.obtenerReservasHabitacion().subscribe({
-        next: (reservasHabitacion) => {
-          this.filtrarDisponibles(reservas, reservasHabitacion);
-        },
-        error: (error: Error) => {
-          this.mensajeFechas = error.message;
-        }
-      });
-    },
-    error: (error: Error) => {
-      this.mensajeFechas = error.message;
+    // Si cargó alguna fecha, las dos tienen que ser válidas
+    if ((hayCheckin || hayCheckout) && (!hayCheckin || !hayCheckout || checkout <= checkin)) {
+      this.mensajeFechas = 'Elegí un check-in y un check-out válidos (el check-out debe ser posterior al check-in).';
+      this.checkin = null;
+      this.checkout = null;
+      this.busquedaHecha = false;
+      this.idsOcupadas = [];
+      this.aplicarFiltros();
+      return;
     }
-  });
-}
-  private filtrarDisponibles(reservas: Reserva[], reservasHabitacion: ReservaHabitacion[]): void {
-    // Solo cuentan las reservas Confirmadas (id 1)
-    const idsConfirmadas = reservas
-      .filter(reserva => reserva.id_estado_reserva === 1)
-      .map(reserva => reserva.id);
+
+    this.mensajeFechas = '';
+
+    if (!hayCheckin && !hayCheckout) {
+      // Sin fechas: filtramos solo por huéspedes/precio/disponibilidad general
+      this.checkin = null;
+      this.checkout = null;
+      this.busquedaHecha = false;
+      this.idsOcupadas = [];
+      this.aplicarFiltros();
+      return;
+    }
+
+    this.checkin = checkin;
+    this.checkout = checkout;
+
+    this.reservasService.obtenerReservasConfirmadas().subscribe({
+      next: (reservasConfirmadas) => {
+        this.reservasService.obtenerReservasHabitacion().subscribe({
+          next: (reservasHabitacion) => {
+            this.filtrarDisponibles(reservasConfirmadas, reservasHabitacion);
+          },
+          error: (error: Error) => {
+            this.mensajeFechas = error.message;
+          }
+        });
+      },
+      error: (error: Error) => {
+        this.mensajeFechas = error.message;
+      }
+    });
+  }
+
+  private filtrarDisponibles(reservasConfirmadas: Reserva[], reservasHabitacion: ReservaHabitacion[]): void {
+    // Las reservas ya vienen filtradas: solo las Confirmadas
+    const idsConfirmadas = reservasConfirmadas.map(reserva => reserva.id);
 
     // Habitaciones ocupadas: reserva confirmada cuyas fechas se superponen con la búsqueda
     this.idsOcupadas = reservasHabitacion

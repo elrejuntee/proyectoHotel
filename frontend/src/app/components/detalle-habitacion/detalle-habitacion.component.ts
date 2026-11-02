@@ -75,13 +75,11 @@ export class DetalleHabitacionComponent implements OnInit {
       return;
     }
     // Antes de aceptar las fechas, chequeamos que nadie haya reservado esta habitación para ese rango
-    this.reservasService.obtenerReservas().subscribe({
-      next: (reservas) => {
+    this.reservasService.obtenerReservasConfirmadas().subscribe({
+      next: (reservasConfirmadas) => {
         this.reservasService.obtenerReservasHabitacion().subscribe({
           next: (reservasHabitacion) => {
-            const idsConfirmadas = reservas
-              .filter(reserva => reserva.id_estado_reserva === 1)
-              .map(reserva => reserva.id);
+            const idsConfirmadas = reservasConfirmadas.map(reserva => reserva.id);
 
             const estaOcupada = reservasHabitacion
               .filter(reservaHabitacion => idsConfirmadas.includes(reservaHabitacion.id_reserva))
