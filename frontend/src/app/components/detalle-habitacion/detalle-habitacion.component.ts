@@ -80,13 +80,13 @@ export class DetalleHabitacionComponent implements OnInit {
         this.reservasService.obtenerReservasHabitacion().subscribe({
           next: (reservasHabitacion) => {
             const idsConfirmadas = reservas
-              .filter(r => String(r.id_estado_reserva) === '1')
-              .map(r => String(r.id));
+              .filter(reserva => reserva.id_estado_reserva === 1)
+              .map(reserva => reserva.id);
 
             const estaOcupada = reservasHabitacion
-              .filter(rh => idsConfirmadas.includes(String(rh.id_reserva)))
-              .filter(rh => String(rh.id_habitacion) === String(this.id))
-              .some(rh => rh.fecha_checkin.slice(0, 10) < checkout && rh.fecha_checkout.slice(0, 10) > checkin);
+              .filter(reservasHabitacion => idsConfirmadas.includes(reservasHabitacion.id_reserva))
+              .filter(reservasHabitacion => reservasHabitacion.id_habitacion === Number(this.id))
+              .some(reservasHabitacion => reservasHabitacion.fecha_checkin.slice(0, 10) < checkout && reservasHabitacion.fecha_checkout.slice(0, 10) > checkin);
 
             if (estaOcupada) {
               this.mensajeFechas = 'Esta habitación ya está reservada para esas fechas. Elegí otras fechas.';
