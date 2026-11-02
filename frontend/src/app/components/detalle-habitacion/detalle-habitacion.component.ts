@@ -84,9 +84,9 @@ export class DetalleHabitacionComponent implements OnInit {
               .map(reserva => reserva.id);
 
             const estaOcupada = reservasHabitacion
-              .filter(reservasHabitacion => idsConfirmadas.includes(reservasHabitacion.id_reserva))
-              .filter(reservasHabitacion => reservasHabitacion.id_habitacion === Number(this.id))
-              .some(reservasHabitacion => reservasHabitacion.fecha_checkin.slice(0, 10) < checkout && reservasHabitacion.fecha_checkout.slice(0, 10) > checkin);
+              .filter(reservaHabitacion => idsConfirmadas.includes(reservaHabitacion.id_reserva))
+              .filter(reservaHabitacion => reservaHabitacion.id_habitacion === Number(this.id))
+              .some(reservaHabitacion => reservaHabitacion.fecha_checkin.slice(0, 10) < checkout && reservaHabitacion.fecha_checkout.slice(0, 10) > checkin);
 
             if (estaOcupada) {
               this.mensajeFechas = 'Esta habitación ya está reservada para esas fechas. Elegí otras fechas.';
