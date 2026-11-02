@@ -3,7 +3,7 @@ export interface RolUsuario {
   id: number;
   rol: string;
 }
- 
+
 export interface Usuario {
   id: number;
   id_rol: number;
@@ -13,29 +13,29 @@ export interface Usuario {
   fecha_registro: string; 
   password: string;     
 }
- 
+
 // HABITACIONES
 export interface EstadoHabitacion {
-  id_estado_habitacion_id: number;
+  id: number;
   estado_habitacion: string;
 }
- 
+
 export interface Comodidad {
-  id_comodidad: number;
+  id: number;
   comodidad: string;
 }
- 
+
 export interface TipoHabitacion {
-  id_tipo_habitacion_id: number;
+  id: number;
   nombre: string;
   cant_cama: number;
   descripcion: string;
 }
- 
+
 export interface Habitacion {
   id: number;
-  id_tipo_habitacion_id: number;
-  id_estado_habitacion_id: number;
+  id_tipo_habitacion: number;
+  id_estado_habitacion: number;
   numero: number;
   piso: number;
   precio: number;  
@@ -47,26 +47,26 @@ export interface TipoHabitacionesComodidades {
     id_tipo_habitacion: number;
     id_comodidad: number;
 }
- 
+
 // SERVICIOS
 export interface TipoServicio {
-  id_tipo_servicio: number;
+  id: number;
   nombre_servicio: string;
 }
- 
+
 export interface Servicio {
-  id_servicio: number;
+  id: number;
   id_tipo_servicio: number;
   precio: number;
   capacidad_maxima: number;
 }
- 
+
 // RESERVAS
 export interface EstadoReserva {
   id_estado_reserva: number;
   estado_reserva: string;
 }
- 
+
 export interface Reserva {
   id?: number;
   id_usuario: number;
@@ -74,7 +74,7 @@ export interface Reserva {
   numero_reserva: number;
   fecha_reserva: string;
 }
- 
+
 export interface ReservaHabitacion {
   id?: number;
   id_habitacion: number;
@@ -83,9 +83,9 @@ export interface ReservaHabitacion {
   fecha_checkin: string;
   fecha_checkout: string;
 }
- 
+
 export interface ReservaServicio {
-  id: number;
+  id?: number;
   id_servicio: number;
   id_reserva: number;
   pago_acordado: number;
