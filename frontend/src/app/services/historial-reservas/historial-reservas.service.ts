@@ -1,68 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-export interface EstadoReserva {
-  id: number;
-  estado_reserva: string;
-}
-
-export interface Reserva {
-  id: number;
-  id_usuario: number;
-  id_estado_reserva: number;
-  numero_reserva: number;
-  fecha_reserva: string;
-}
-
-export interface ReservaHabitacion {
-  id: number;
-  id_reserva: number;
-  id_habitacion: number;
-  pago_acordado: number;
-  fecha_checkin: string;
-  fecha_checkout: string;
-}
-
-export interface Habitacion {
-  id: number;
-  id_tipo_habitacion: number;
-  id_estado_habitacion: number;
-  numero: number;
-  piso: number;
-  precio: number;
-  capacidad: number;
-}
-
-export interface TipoHabitacion {
-  id: number;
-  nombre: string;
-  cant_cama: number;
-  descripcion: string;
-}
-
-export interface ReservaServicio {
-  id: number;
-  id_reserva: number;
-  id_servicio: number;
-  capacidad_invitados: number;
-  pago_acordado: number;
-  fecha_inicio: string;
-  fecha_fin: string;
-}
-
-export interface Servicio {
-  id: number;
-  id_tipo_servicio: number;
-  precio: number;
-  capacidad_maxima: number;
-}
-
-export interface TipoServicio {
-  id: number;
-  nombre_servicio: string;
-}
-
+import {
+  EstadoReserva,
+  Habitacion,
+  Reserva,
+  ReservaHabitacion,
+  ReservaServicio,
+  Servicio,
+  TipoHabitacion,
+  TipoServicio
+} from '../../models';
 
 @Injectable({
   providedIn: 'root'

@@ -3,18 +3,16 @@ import { RouterLink } from '@angular/router';
 import { LoginService } from '../../auth/servicios/login/login.service';
 import { HistorialReservasService } from '../../services/historial-reservas/historial-reservas.service';
 import { DatePipe } from '@angular/common';
-
-
 import {
+  EstadoReserva,
+  Habitacion,
   Reserva,
   ReservaHabitacion,
-  Habitacion,
-  TipoHabitacion,
   ReservaServicio,
   Servicio,
-  TipoServicio,
-  EstadoReserva
-} from '../../services/historial-reservas/historial-reservas.service';
+  TipoHabitacion,
+  TipoServicio
+} from '../../models';
 
 @Component({
   selector: 'app-historial-reservas',
