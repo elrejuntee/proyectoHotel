@@ -43,25 +43,25 @@ const IMAGEN_POR_DEFECTO = 'imagenes/premium.webp';
   providedIn: 'root'
 })
 export class HabitacionesService {
-  url: string = 'http://localhost:3000';
+  url: string = 'http://localhost:8000/api'; // URL base de la API (json-server)
 
   constructor(private http: HttpClient) { }
 
   // ----- GET -----
   obtenerHabitaciones(): Observable<HabitacionApi[]> {
-    return this.http.get<HabitacionApi[]>(this.url + '/habitaciones').pipe(
+    return this.http.get<HabitacionApi[]>(this.url + '/habitaciones/').pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerTiposHabitacion(): Observable<TipoHabitacionApi[]> {
-    return this.http.get<TipoHabitacionApi[]>(this.url + '/tipos_habitacion').pipe(
+    return this.http.get<TipoHabitacionApi[]>(this.url + '/tipos-habitaciones/').pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerEstadosHabitacion(): Observable<EstadoHabitacionApi[]> {
-    return this.http.get<EstadoHabitacionApi[]>(this.url + '/estados_habitacion').pipe(
+    return this.http.get<EstadoHabitacionApi[]>(this.url + '/estados-habitaciones/').pipe(
       catchError(this.handleError)
     );
   }
@@ -73,14 +73,14 @@ export class HabitacionesService {
   }
 
   obtenerTipoHabitacionPorId(id: number | string): Observable<TipoHabitacionApi> {
-    return this.http.get<TipoHabitacionApi>(this.url + '/tipos_habitacion/' + id).pipe(
+    return this.http.get<TipoHabitacionApi>(this.url + '/tipos-habitaciones/' + id).pipe(
       catchError(this.handleError)
     );
   }
 
   // ----- POST -----
   crearHabitacion(habitacion: HabitacionApi): Observable<HabitacionApi> {
-    return this.http.post<HabitacionApi>(this.url + '/habitaciones', habitacion).pipe(
+    return this.http.post<HabitacionApi>(this.url + '/habitaciones/', habitacion).pipe(
       catchError(this.handleError)
     );
   }
@@ -111,6 +111,6 @@ export class HabitacionesService {
       console.error(`El backend devolvió el código ${error.status}, el cuerpo fue: `, error.error);
     }
     // El observable falla y retorna un mensaje genérico para el usuario.
-    return throwError(() => new Error('Algo salió mal con json-server. Verificá que esté corriendo en http://localhost:3000 e intentá de nuevo.'));
+    return throwError(() => new Error('Algo salió mal; por favor, inténtalo de nuevo más tarde: ' + error.message));
   }
 }
