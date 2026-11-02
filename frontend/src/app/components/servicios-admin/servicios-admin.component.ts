@@ -16,6 +16,9 @@ export class ServiciosAdminComponent {
   tiposServicio: TipoServicio[] = [];
   errorServicios: string | null = null;
 
+  // ===== Filtro de la tabla (select de tipo de servicio) =====
+  idTipoFiltro: string = '';
+
   // ===== Menú de acciones abierto (número de fila de la tabla) =====
   dropdownAbiertoIndice: number | null = null;
 
@@ -41,6 +44,13 @@ export class ServiciosAdminComponent {
 
   get capacidadTotal(): number {
     return this.servicios.reduce((total, servicio) => total + servicio.capacidad_maxima, 0);
+  }
+
+  // ===== Servicios que se muestran en la tabla según el filtro =====
+  get serviciosFiltrados(): Servicio[] {
+    return this.servicios.filter(servicio =>
+      this.idTipoFiltro === '' || servicio.id_tipo_servicio === Number(this.idTipoFiltro)
+    );
   }
 
   // ===== Carga de datos: el componente se suscribe al observable del servicio =====
