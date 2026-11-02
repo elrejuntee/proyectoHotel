@@ -35,7 +35,7 @@ export class DetallePagoComponent implements OnInit {
         nombre: ['', [Validators.required]],
         apellido: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        metodoPago: ['1'], // 1 = Tarjeta, 2 = Transferencia (ids de metodos_pago)
+        metodoPago: ['tarjeta'], // 1 = Tarjeta, 2 = Transferencia (ids de metodos_pago)
         numeroTarjeta: ['', [Validators.required,]],
         nombreTarjeta: ['', [Validators.required]],
         vencimiento: ['', [Validators.required]],
