@@ -13,6 +13,16 @@ const IMAGENES_POR_TIPO: Record<string, { principal: string; complementarias: st
 };
 const IMAGEN_POR_DEFECTO = 'imagenes/premium.webp';
 
+// Habitación nueva: todavía no tiene id, lo asigna el backend
+interface NuevaHabitacion {
+  id_tipo_habitacion: number;
+  id_estado_habitacion: number;
+  numero: number;
+  piso: number;
+  precio: number;
+  capacidad: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,20 +44,20 @@ export class HabitacionesService {
   }
 
   obtenerEstadosHabitacion(): Observable<EstadoHabitacion[]> {
-    return this.http.get<EstadoHabitacion[]>(this.url + '/estados_habitacion/').pipe(
+    return this.http.get<EstadoHabitacion[]>(this.url + '/estados-habitacion/').pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerHabitacionPorId(id: number): Observable<Habitacion> {
-    return this.http.get<Habitacion>(this.url + '/habitaciones/' + id).pipe(
+    return this.http.get<Habitacion>(this.url + '/habitaciones/' + id + '/').pipe(
       catchError(this.handleError)
     );
   }
 
 
   obtenerTipoHabitacionPorId(id: number): Observable<TipoHabitacion> {
-    return this.http.get<TipoHabitacion>(this.url + '/tipos_habitacion/' + id).pipe(
+    return this.http.get<TipoHabitacion>(this.url + '/tipos-habitacion/' + id + '/').pipe(
       catchError(this.handleError)
     );
   }
