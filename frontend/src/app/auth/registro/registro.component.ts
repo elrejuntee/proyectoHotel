@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { RegistroService } from '../servicios/registro/registro.service';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 function passwordsIgualesValidator(form: AbstractControl): ValidationErrors | null {
   const password = form.get('password')?.value;
@@ -23,10 +24,34 @@ export class RegistroComponent {
   private registroService = inject(RegistroService);
   private router = inject(Router);
 
+  // Validador asíncrono: consulta al backend si el email ya está registrado.
+  // Emite null si está libre, o { emailEnUso: true } si ya existe.
+  emailDisponibleValidator = (control: AbstractControl): Observable<ValidationErrors | null> => {
+    const email = control.value;
+
+    return new Observable<ValidationErrors | null>(observer => {
+      const consulta = this.registroService.obtenerUsuarios().subscribe({
+        next: (usuarios) => {
+          const usuarioRepetido = usuarios.find(usuario => usuario.email === email);
+          observer.next(usuarioRepetido ? { emailEnUso: true } : null);
+          observer.complete();
+        },
+        error: () => {
+          // Si el backend no responde no se bloquea el formulario: el error se verá al enviar
+          observer.next(null);
+          observer.complete();
+        }
+      });
+
+      // Si el valor cambia, se cancela la consulta anterior
+      return () => consulta.unsubscribe();
+    });
+  };
+
   registroForm: FormGroup = this.formBuilder.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email], [this.emailDisponibleValidator]],
     password: ['', [Validators.required]],
     passwordConfirmacion: ['', [Validators.required]]
   }, {
@@ -52,7 +77,6 @@ export class RegistroComponent {
   get PasswordConfirmacion() {
     return this.registroForm.get('passwordConfirmacion');
   }
-
   enviar() {
     this.registroForm.markAllAsTouched();
 

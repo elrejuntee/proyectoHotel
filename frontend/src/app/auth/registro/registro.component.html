@@ -84,6 +84,14 @@
                                         @if (Email?.hasError('email')) {
                                             <span>El formato del correo no es válido</span>
                                         }
+                                        @if (Email?.hasError('emailEnUso')) {
+                                            <span>Ya existe una cuenta con ese correo electrónico</span>
+                                        }
+                                    </div>
+                                }
+                                @if (Email?.pending) {
+                                    <div class="login-campo-error">
+                                        <span>Verificando correo...</span>
                                     </div>
                                 }
                             </div>
