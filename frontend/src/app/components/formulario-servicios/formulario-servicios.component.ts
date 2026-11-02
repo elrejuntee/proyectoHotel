@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ServiciosService, ServicioApi, TipoServicioApi } from '../../services/servicios/servicios.service';
+import { ServiciosService } from '../../services/servicios/servicios.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
 import { ReservasService } from '../../services/reservas/reservas.service';
-import { Reserva, ReservaServicio } from '../../models';
+import { Reserva, ReservaServicio, Servicio, TipoServicio } from '../../models';
 
 @Component({
   selector: 'app-formulario-servicios',
@@ -15,7 +15,7 @@ import { Reserva, ReservaServicio } from '../../models';
   styleUrl: './formulario-servicios.component.css'
 })
 export class FormularioServiciosComponent implements OnInit {
-  @Input() id!: string; // llega desde la ruta /formulario-servicio/:id
+  @Input() id!: number; // llega desde la ruta /formulario-servicio/:id
 
   private serviciosService = inject(ServiciosService);
   private fb = inject(FormBuilder);
@@ -23,8 +23,8 @@ export class FormularioServiciosComponent implements OnInit {
   private loginService = inject(LoginService);
   private reservasService = inject(ReservasService);
 
-  servicio?: ServicioApi;
-  tipo?: TipoServicioApi;
+  servicio?: Servicio;
+  tipo?: TipoServicio;
   mensajeError: string = '';
   guardando: boolean = false;
 
@@ -49,7 +49,6 @@ export class FormularioServiciosComponent implements OnInit {
                 .filter(reserva => reserva.id_estado_reserva === 1)
                 .map(reserva => reserva.id);
 
-              // Único casteo que queda: el servicio viene de json-server con id texto y Django devuelve número.
               const ocupados = reservasServicio
                 .filter(reservaServicio => idsConfirmados.includes(reservaServicio.id_reserva))
                 .filter(reservaServicio => reservaServicio.id_servicio === Number(this.servicio!.id))
@@ -107,7 +106,7 @@ export class FormularioServiciosComponent implements OnInit {
     });
   }
 
-  obtenerTipo(idTipo: number | string): void {
+  obtenerTipo(idTipo: number): void {
     this.serviciosService.obtenerTipoServicioPorId(idTipo).subscribe({
       next: (tipo) => {
         this.tipo = tipo;
@@ -173,7 +172,7 @@ export class FormularioServiciosComponent implements OnInit {
 
     const reservaServicio: ReservaServicio = {
       id_reserva: idReserva,
-      id_servicio: Number(this.servicio!.id!),
+      id_servicio: this.servicio!.id!,
       capacidad_invitados: this.formulario.value.cantidadPersonas,
       pago_acordado: this.precioTotal,
       fecha_inicio: checkin!,
