@@ -16,7 +16,7 @@ export interface Usuario {
  
 // HABITACIONES
 export interface EstadoHabitacion {
-  id_estado_habitacion: number;
+  id_estado_habitacion_id: number;
   estado_habitacion: string;
 }
  
@@ -26,16 +26,16 @@ export interface Comodidad {
 }
  
 export interface TipoHabitacion {
-  id_tipo_habitacion: number;
+  id_tipo_habitacion_id: number;
   nombre: string;
   cant_cama: number;
   descripcion: string;
 }
  
 export interface Habitacion {
-  id_habitacion: number;
-  id_tipo_habitacion: number;
-  id_estado_habitacion: number;
+  id: number;
+  id_tipo_habitacion_id: number;
+  id_estado_habitacion_id: number;
   numero: number;
   piso: number;
   precio: number;  
@@ -68,7 +68,7 @@ export interface EstadoReserva {
 }
  
 export interface Reserva {
-  id_reserva: number;
+  id?: number;
   id_usuario: number;
   id_estado_reserva: number;
   numero_reserva: number;
@@ -76,7 +76,7 @@ export interface Reserva {
 }
  
 export interface ReservaHabitacion {
-  id_reserva_habitacion: number;
+  id?: number;
   id_habitacion: number;
   id_reserva: number;
   pago_acordado: number;
@@ -85,7 +85,7 @@ export interface ReservaHabitacion {
 }
  
 export interface ReservaServicio {
-  id_reserva_servicio: number;
+  id: number;
   id_servicio: number;
   id_reserva: number;
   pago_acordado: number;

@@ -1,33 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-
-export interface ReservaApi {
-  id?: number | string;
-  id_usuario: number | string;
-  id_estado_reserva: number | string;
-  numero_reserva: number;
-  fecha_reserva: string;
-}
-
-export interface ReservaHabitacionApi {
-  id?: number | string;
-  id_reserva: number | string;
-  id_habitacion: number | string;
-  pago_acordado: number;
-  fecha_checkin: string;
-  fecha_checkout: string;
-}
-
-export interface ReservaServicioApi {
-  id?: number | string;
-  id_reserva: number | string;
-  id_servicio: number | string;
-  capacidad_invitados: number;
-  pago_acordado: number;
-  fecha_inicio: string;
-  fecha_fin: string;
-}
+import { Reserva, ReservaHabitacion, ReservaServicio, EstadoReserva } from '../../models';
 
 export interface EstadoReservaApi {
   id?: number | string;
@@ -44,39 +18,39 @@ export class ReservasService {
   constructor(private http: HttpClient) { }
 
   // ----- POST -----
-  crearReserva(reserva: ReservaApi): Observable<ReservaApi> {
-    return this.http.post<ReservaApi>(this.url + '/reservas/', reserva).pipe(
+  crearReserva(reserva: Reserva): Observable<Reserva> {
+    return this.http.post<Reserva>(this.url + '/reservas/', reserva).pipe(
       catchError(this.handleError)
     );
   }
 
-  crearReservaHabitacion(reservaHabitacion: ReservaHabitacionApi): Observable<ReservaHabitacionApi> {
-    return this.http.post<ReservaHabitacionApi>(this.url + '/reservas-habitacion/', reservaHabitacion).pipe(
+  crearReservaHabitacion(reservaHabitacion: ReservaHabitacion): Observable<ReservaHabitacion> {
+    return this.http.post<ReservaHabitacion>(this.url + '/reservas-habitacion/', reservaHabitacion).pipe(
       catchError(this.handleError)
     );
   }
 
-  crearReservaServicio(reservaServicio: ReservaServicioApi): Observable<ReservaServicioApi> {
-    return this.http.post<ReservaServicioApi>(this.url + '/reservas-servicio/', reservaServicio).pipe(
+  crearReservaServicio(reservaServicio: ReservaServicio): Observable<ReservaServicio> {
+    return this.http.post<ReservaServicio>(this.url + '/reservas-servicio/', reservaServicio).pipe(
       catchError(this.handleError)
     );
   }
 
   // ----- GET -----
-  obtenerReservas(): Observable<ReservaApi[]> {
-    return this.http.get<ReservaApi[]>(this.url + '/reservas/').pipe(
+  obtenerReservas(): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(this.url + '/reservas/').pipe(
       catchError(this.handleError)
     );
   }
 
-  obtenerReservasServicio(): Observable<ReservaServicioApi[]> {
-    return this.http.get<ReservaServicioApi[]>(this.url + '/reservas-servicio/').pipe(
+  obtenerReservasServicio(): Observable<ReservaServicio[]> {
+    return this.http.get<ReservaServicio[]>(this.url + '/reservas-servicio/').pipe(
       catchError(this.handleError)
     );
   }
 
-  obtenerReservasHabitacion(): Observable<ReservaHabitacionApi[]> {
-    return this.http.get<ReservaHabitacionApi[]>(this.url + '/reservas-habitacion/').pipe(
+  obtenerReservasHabitacion(): Observable<ReservaHabitacion[]> {
+    return this.http.get<ReservaHabitacion[]>(this.url + '/reservas-habitacion/').pipe(
       catchError(this.handleError)
     );
   }

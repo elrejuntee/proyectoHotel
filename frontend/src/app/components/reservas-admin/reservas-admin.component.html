@@ -1,0 +1,153 @@
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-2">
+        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Reservas</li>
+      </ol>
+    </nav>
+    <h1 class="fs-3 fw-bold text-dark m-0">Reservas</h1>
+  </div>
+</div>
+
+@if (errorReservas) {
+  <div class="alert alert-danger">{{ errorReservas }}</div>
+}
+
+<div class="p-4 bg-white border rounded-3">
+  <div class="table-responsive" [class.con-menu-abierto]="dropdownAbiertoIndice !== null">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Nombre habitación</th>
+          <th>Huésped</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (reservaHabitacion of reservasHabitacion; track reservaHabitacion.id) {
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <img [src]="obtenerImagen(reservaHabitacion)" [alt]="obtenerNombreHabitacion(reservaHabitacion)" class="hab-celda-img rounded" loading="lazy">
+                <div class="lh-sm">
+                  <strong class="d-block text-dark">{{ obtenerNombreHabitacion(reservaHabitacion) }}</strong>
+                  <small class="text-secondary">{{ obtenerNumeroHabitacion(reservaHabitacion) }}</small>
+                </div>
+              </div>
+            </td>
+            <td>{{ obtenerHuesped(reservaHabitacion) }}</td>
+            <td>{{ reservaHabitacion.fecha_checkin | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ reservaHabitacion.fecha_checkout | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <div class="dropdown-acciones position-relative d-inline-block">
+                <button type="button" class="tabla-btn" title="Acciones" (click)="toggleDropdown($index)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="5" r="1"></circle>
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="12" cy="19" r="1"></circle>
+                  </svg>
+                </button>
+                @if (dropdownAbiertoIndice === $index) {
+                  <div class="dropdown-overlay" (click)="cerrarDropdown()"></div>
+                  <ul class="dropdown-menu dropdown-menu-end show">
+                    <li><button type="button" class="dropdown-item" (click)="verReserva(reservaHabitacion)">Ver</button></li>
+                    <li><button type="button" class="dropdown-item" (click)="cambiarEstadoReserva(reservaHabitacion)">Cambiar estado</button></li>
+                    <li><button type="button" class="dropdown-item text-secondary" (click)="cerrarDropdown()">Cancelar</button></li>
+                  </ul>
+                }
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MODAL: VER RESERVA ===== -->
+@if (modalActivo === 'ver' && reservaSeleccionada) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom px-4 py-3">
+          <h2 class="modal-title fs-5 fw-bold text-dark">Detalle</h2>
+          <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="mb-3">
+            <span class="form-label fw-semibold text-secondary small d-block">Nombre</span>
+            <p class="mb-0 fw-semibold text-dark">{{ obtenerNombreHabitacion(reservaSeleccionada) }}</p>
+            <small class="text-secondary">{{ obtenerNumeroHabitacion(reservaSeleccionada) }}</small>
+          </div>
+          <div class="mb-3">
+            <span class="form-label fw-semibold text-secondary small d-block">Huésped</span>
+            <p class="mb-0 text-dark">{{ obtenerHuesped(reservaSeleccionada) }}</p>
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Categoría</span>
+              <p class="mb-0 text-dark">Reserva</p>
+            </div>
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Precio</span>
+              <p class="mb-0 text-dark">${{ reservaSeleccionada.pago_acordado }}</p>
+            </div>
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Estado</span>
+              <p class="mb-0 text-dark">{{ obtenerNombreEstado(reservaSeleccionada) }}</p>
+            </div>
+            <div class="col-6">
+              <span class="form-label fw-semibold text-secondary small d-block">Ocupación</span>
+              <p class="mb-0 text-dark">
+                {{ reservaSeleccionada.fecha_checkin | date: 'dd/MM/yyyy' }} - {{ reservaSeleccionada.fecha_checkout | date: 'dd/MM/yyyy' }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-top px-4 py-3 bg-light">
+          <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ===== MODAL: CAMBIAR ESTADO RESERVA ===== -->
+@if (modalActivo === 'estado' && reservaSeleccionada) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom px-4 py-3">
+          <h2 class="modal-title fs-5 fw-bold text-dark">Cambiar estado</h2>
+          <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form>
+            <div class="mb-1">
+              <label for="estadoElemento" class="form-label fw-semibold text-secondary small">Elemento</label>
+              <input type="text" class="form-control" id="estadoElemento" name="estadoElemento"
+                      [value]="obtenerNombreHabitacion(reservaSeleccionada) + ' - ' + obtenerNumeroHabitacion(reservaSeleccionada)" readonly>
+            </div>
+            <div class="mb-1 mt-3">
+              <label for="estadoNuevo" class="form-label fw-semibold text-secondary small">Nuevo estado</label>
+              <select class="form-select text-dark" id="estadoNuevo" name="estadoNuevo" [(ngModel)]="idNuevoEstado">
+                @for (estadoReserva of estadosReserva; track estadoReserva.id_estado_reserva) {
+                  <option [value]="estadoReserva.id_estado_reserva">{{ estadoReserva.estado_reserva }}</option>
+                }
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-top px-4 py-3 bg-light">
+          <button type="button" class="btn btn-secondary border px-3 py-2 btn-sm fw-medium" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn btn-primary px-3 py-2 btn-sm fw-medium" (click)="guardarNuevoEstado()">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
