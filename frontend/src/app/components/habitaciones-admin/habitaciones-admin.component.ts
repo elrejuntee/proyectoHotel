@@ -19,16 +19,17 @@ export class HabitacionesAdminComponent {
   estadosHabitacion: EstadoHabitacion[] = [];
   errorHabitaciones: string | null = null;
 
+  // ===== Filtros de la tabla =====
+  numeroBuscado: string = '';
+  idTipoFiltro: string = '';
+  idEstadoFiltro: string = '';
+
   // ===== Menú de acciones abierto (número de fila de la tabla) =====
   dropdownAbiertoIndice: number | null = null;
 
   // ===== Modal abierto + habitación sobre la que se está trabajando =====
   modalActivo: 'ver' | 'estado' | 'formulario' | null = null;
   habitacionSeleccionada: Habitacion | null = null;
-  // ===== Filtros de la tabla =====
-  numeroBuscado: string = '';
-  idTipoFiltro: string = '';
-  idEstadoFiltro: string = '';
 
   // ===== Modal "Cambiar estado" =====
   idNuevoEstado: string = '';
@@ -71,10 +72,7 @@ export class HabitacionesAdminComponent {
     return this.habitaciones.filter(habitacion => this.obtenerSlugEstado(habitacion) === 'mantenimiento').length;
   }
 
-  /** El mismo modal sirve para agregar (sin habitación seleccionada) y para editar. */
-  get esEdicion(): boolean {
-    return this.habitacionSeleccionada !== null;
-  }
+  // ===== Getter de los filtros =====
   /** Habitaciones que cumplen los tres filtros a la vez: número, tipo y estado. */
   get habitacionesFiltradas(): Habitacion[] {
     return this.habitaciones.filter(habitacion => {
@@ -83,6 +81,12 @@ export class HabitacionesAdminComponent {
       const coincideEstado = this.idEstadoFiltro === '' || habitacion.id_estado_habitacion === Number(this.idEstadoFiltro);
       return coincideNumero && coincideTipo && coincideEstado;
     });
+  }
+
+  // ===== Getter del modal Agregar / Editar =====
+  /** El mismo modal sirve para agregar (sin habitación seleccionada) y para editar. */
+  get esEdicion(): boolean {
+    return this.habitacionSeleccionada !== null;
   }
 
   // ===== Carga de datos: el componente se suscribe al observable del servicio =====
@@ -222,12 +226,15 @@ export class HabitacionesAdminComponent {
     if (this.guardandoHabitacion) {
       return;
     }
+
     // Mientras el validador asíncrono está consultando, el formulario no es válido todavía
     if (!this.formHabitacion.valid) {
       this.formHabitacion.markAllAsTouched();
       return;
     }
+
     const formulario = this.formHabitacion.value;
+
     // Los inputs numéricos ya entregan números; solo los selects entregan el id como texto
     const datosHabitacion = {
       id_tipo_habitacion: Number(formulario.tipo),
@@ -262,6 +269,7 @@ export class HabitacionesAdminComponent {
     });
   }
 
+  // ===== Cierre de cualquier modal =====
   cerrarModal(): void {
     this.modalActivo = null;
     this.habitacionSeleccionada = null;
@@ -277,7 +285,7 @@ export class HabitacionesAdminComponent {
    *  - emite { numeroEnUso: true } -> el número ya existe (inválido)
    */
   validarNumeroDisponible = (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const numero = control.value;
+    const numero = control.value;
 
     return new Observable<ValidationErrors | null>(observer => {
       const consulta = this.habitacionesService.obtenerHabitaciones().subscribe({
