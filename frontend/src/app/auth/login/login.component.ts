@@ -47,32 +47,31 @@ export class LoginComponent implements OnInit {
       next: (usuario) => {
         if (!usuario) {
           this.mensajeError = 'Correo o contraseña incorrectos.';
-          console.log(this.mensajeError);
           return;
         }
-      this.loginService.obtenerIdRolPorNombre('usuario').subscribe({
-        next: (idRolUsuario) => {
-          if (idRolUsuario == null) {
-            this.mensajeError = 'No se pudo obtener el rol del usuario.';
-            console.error(this.mensajeError);
-            return;
-          }
 
-          if (usuario.id_rol === idRolUsuario) {
-          console.log('Login exitoso (usuario):', usuario);
-          this.router.navigate(['/reservas']);
-        } else {
-          console.log('Login exitoso (Admin):', usuario);
-          this.router.navigate(['/panel-admin/habitaciones']);
-        }
+        this.loginService.obtenerIdRolPorNombre('usuario').subscribe({
+          next: (idRolUsuario) => {
+            if (idRolUsuario == null) {
+              this.mensajeError = 'No se pudo obtener el rol del usuario.';
+              console.error(this.mensajeError);
+              return;
+            }
+
+            // Un usuario común va a las reservas; cualquier otro rol (admin) va al panel de administración
+            if (usuario.id_rol === idRolUsuario) {
+              this.router.navigate(['/reservas']);
+            } else {
+              this.router.navigate(['/panel-admin/habitaciones']);
+            }
+          },
+          error: (err) => {
+            this.mensajeError = 'Error al obtener el rol.';
+            console.error(err);
+          }
+        });
       },
       error: (err) => {
-        this.mensajeError = 'Error al obtener el rol.';
-        console.error(err);
-        }
-      });
-    },
-    error: (err) => {
         this.mensajeError = 'Error al conectar con el servidor.';
         console.error(err);
       }

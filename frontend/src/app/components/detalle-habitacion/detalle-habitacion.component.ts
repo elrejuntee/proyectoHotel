@@ -114,8 +114,7 @@ export class DetalleHabitacionComponent implements OnInit {
       return;
     }
     if (this.loginService.usuarioLogueado) {
-      console.log('Usuario autenticado, avanzando...');
-    // Redirigimos por código usando el Router, pasando checkin y checkout como parametros de ruta
+      // Redirigimos por código usando el Router, pasando checkin y checkout como parametros de ruta
       this.router.navigate(['/detalle-pago', this.id, this.checkin, this.checkout]);
     } else {
       // Si NO está logueado, activamos la variable para que se muestre el modal

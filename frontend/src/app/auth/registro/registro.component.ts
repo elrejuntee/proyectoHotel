@@ -92,8 +92,7 @@ export class RegistroComponent {
       };
 
       this.registroService.registrarUsuario(nuevoUsuario).subscribe({
-        next: (usuario) => {
-          console.log('Usuario registrado con éxito:', usuario);
+        next: () => {
           this.router.navigate(['/login']);
         },
         error: (error) => {
