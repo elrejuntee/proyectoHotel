@@ -97,8 +97,27 @@ export class ServiciosAdminComponent {
   }
 
   guardarServicio(): void {
-    // TODO: falta un método crearServicio (POST /servicios) en ServiciosService
-    this.cerrarModal();
+    if (!this.idTipoNuevoServicio || this.precioNuevoServicio === null || this.capacidadNuevoServicio === null) {
+      this.errorServicios = 'Completá el tipo, el precio y la capacidad del servicio.';
+      return;
+    }
+
+    const nuevoServicio = {
+      id_tipo_servicio: Number(this.idTipoNuevoServicio),
+      precio: this.precioNuevoServicio,
+      capacidad_maxima: this.capacidadNuevoServicio
+    };
+
+    this.serviciosService.crearServicio(nuevoServicio).subscribe({
+      next: () => {
+        this.errorServicios = null;
+        this.cargarServicios();
+        this.cerrarModal();
+      },
+      error: (error) => {
+        this.errorServicios = error.message;
+      }
+    });
   }
 
   cerrarModal(): void {
