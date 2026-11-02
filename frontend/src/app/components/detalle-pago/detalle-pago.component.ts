@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
-import { ReservasService } from '../../services/reservas/reservas.service';
+import { ESTADO_RESERVA_CONFIRMADA, ReservasService } from '../../services/reservas/reservas.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
 import { Habitacion, TipoHabitacion, ReservaHabitacion, ReservaServicio, Reserva } from '../../models';
 
@@ -116,16 +116,14 @@ export class DetallePagoComponent implements OnInit {
     this.verificarDisponibilidad();
   }
 
-// 0) Antes de guardar, chequea que nadie haya reservado esta habitación para estas fechas
-//    (por si la habitación se ocupó después de que se armó el listado de resultados)
+  // 0) Antes de guardar, chequea que nadie haya reservado esta habitación para estas fechas
+  //    (por si la habitación se ocupó después de que se armó el listado de resultados)
   private verificarDisponibilidad(): void {
-    this.reservasService.obtenerReservas().subscribe({
-      next: (reservas) => {
+    this.reservasService.obtenerReservasConfirmadas().subscribe({
+      next: (reservasConfirmadas) => {
         this.reservasService.obtenerReservasHabitacion().subscribe({
           next: (reservasHabitacion) => {
-            const idsConfirmadas = reservas
-              .filter(reserva => reserva.id_estado_reserva === 1)
-              .map(reserva => reserva.id);
+            const idsConfirmadas = reservasConfirmadas.map(reserva => reserva.id);
 
             const yaReservada = reservasHabitacion
               .filter(reservaHabitacion => idsConfirmadas.includes(reservaHabitacion.id_reserva))
@@ -147,18 +145,23 @@ export class DetallePagoComponent implements OnInit {
     });
   }
 
-  // 1) Crea la reserva con estado "Confirmada" (id 1)
+  // 1) Crea la reserva con estado "Confirmada" (el id se busca por nombre en la base)
   private guardarReserva(): void {
-    const reserva: Reserva = {
-      id_usuario: this.loginService.usuarioLogueado!.id,
-      id_estado_reserva: 1,
-      numero_reserva: Math.floor(10000 + Math.random() * 90000),
-      fecha_reserva: new Date().toLocaleDateString('en-CA'), 
-    };
+    this.reservasService.obtenerIdEstadoReserva(ESTADO_RESERVA_CONFIRMADA).subscribe({
+      next: (idEstadoConfirmada) => {
+        const reserva: Reserva = {
+          id_usuario: this.loginService.usuarioLogueado!.id,
+          id_estado_reserva: idEstadoConfirmada,
+          numero_reserva: Math.floor(10000 + Math.random() * 90000),
+          fecha_reserva: new Date().toLocaleDateString('en-CA'),
+        };
 
-    this.reservasService.crearReserva(reserva).subscribe({
-      next: (reservaCreada) => {
-        this.guardarReservaHabitacion(reservaCreada.id!);
+        this.reservasService.crearReserva(reserva).subscribe({
+          next: (reservaCreada) => {
+            this.guardarReservaHabitacion(reservaCreada.id!);
+          },
+          error: (error: Error) => this.mostrarError(error)
+        });
       },
       error: (error: Error) => this.mostrarError(error)
     });

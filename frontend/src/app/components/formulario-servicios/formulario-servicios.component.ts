@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../../services/servicios/servicios.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
-import { ReservasService } from '../../services/reservas/reservas.service';
+import { ESTADO_RESERVA_CONFIRMADA, ReservasService } from '../../services/reservas/reservas.service';
 import { Reserva, ReservaServicio, Servicio, TipoServicio } from '../../models';
 
 @Component({
@@ -28,7 +28,7 @@ export class FormularioServiciosComponent implements OnInit {
   mensajeError: string = '';
   guardando: boolean = false;
 
-  // Validación asíncrona: consulta al backend cuántos lugares quedan para esas fechas
+    // Validación asíncrona: consulta al backend cuántos lugares quedan para esas fechas
   capacidadDisponibleValidator = (control: AbstractControl): Observable<ValidationErrors | null> => {
     return new Observable<ValidationErrors | null>(observer => {
       const checkin = this.formulario.get('checkin')?.value;
@@ -41,13 +41,11 @@ export class FormularioServiciosComponent implements OnInit {
         return;
       }
 
-      this.reservasService.obtenerReservas().subscribe({
-        next: (reservas) => {
+      this.reservasService.obtenerReservasConfirmadas().subscribe({
+        next: (reservasConfirmadas) => {
           this.reservasService.obtenerReservasServicio().subscribe({
             next: (reservasServicio) => {
-              const idsConfirmados = reservas
-                .filter(reserva => reserva.id_estado_reserva === 1)
-                .map(reserva => reserva.id);
+              const idsConfirmados = reservasConfirmadas.map(reserva => reserva.id);
 
               const ocupados = reservasServicio
                 .filter(reservaServicio => idsConfirmados.includes(reservaServicio.id_reserva))
@@ -148,18 +146,23 @@ export class FormularioServiciosComponent implements OnInit {
     this.guardarReserva();
   }
 
-  // 1) Crea la reserva "madre" con estado "Confirmada" (id 1)
+   // 1) Crea la reserva "madre" con estado "Confirmada" (el id se busca por nombre en la base)
   private guardarReserva(): void {
-    const reserva: Reserva = {
-      id_usuario: this.loginService.usuarioLogueado!.id,
-      id_estado_reserva: 1,
-      numero_reserva: Math.floor(10000 + Math.random() * 90000),
-      fecha_reserva: new Date().toLocaleDateString('en-CA'),
-    };
+    this.reservasService.obtenerIdEstadoReserva(ESTADO_RESERVA_CONFIRMADA).subscribe({
+      next: (idEstadoConfirmada) => {
+        const reserva: Reserva = {
+          id_usuario: this.loginService.usuarioLogueado!.id,
+          id_estado_reserva: idEstadoConfirmada,
+          numero_reserva: Math.floor(10000 + Math.random() * 90000),
+          fecha_reserva: new Date().toLocaleDateString('en-CA'),
+        };
 
-    this.reservasService.crearReserva(reserva).subscribe({
-      next: (reservaCreada) => {
-        this.guardarReservaServicio(reservaCreada.id!);
+        this.reservasService.crearReserva(reserva).subscribe({
+          next: (reservaCreada) => {
+            this.guardarReservaServicio(reservaCreada.id!);
+          },
+          error: (error: Error) => this.mostrarError(error)
+        });
       },
       error: (error: Error) => this.mostrarError(error)
     });
