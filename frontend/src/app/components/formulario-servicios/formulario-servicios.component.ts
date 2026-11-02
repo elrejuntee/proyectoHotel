@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ServiciosService, ServicioApi, TipoServicioApi } from '../../services/servicios/servicios.service';
 import { LoginService } from '../../auth/servicios/login/login.service';
-import { ReservasService, ReservaApi, ReservaServicioApi } from '../../services/reservas/reservas.service';
+import { ReservasService } from '../../services/reservas/reservas.service';
+import { Reserva, ReservaServicio } from '../../models';
 
 @Component({
   selector: 'app-formulario-servicios',
@@ -150,7 +151,7 @@ export class FormularioServiciosComponent implements OnInit {
 
   // 1) Crea la reserva "madre" con estado "Confirmada" (id 1)
   private guardarReserva(): void {
-    const reserva: ReservaApi = {
+    const reserva: Reserva = {
       id_usuario: this.loginService.usuarioLogueado!.id,
       id_estado_reserva: 1,
       numero_reserva: Math.floor(10000 + Math.random() * 90000),
@@ -166,13 +167,13 @@ export class FormularioServiciosComponent implements OnInit {
   }
 
   // 2) Vincula el servicio, las fechas y el precio total a la reserva
-  private guardarReservaServicio(idReserva: number | string): void {
+  private guardarReservaServicio(idReserva: number): void {
     const checkin = this.formulario.value.checkin;
     const checkout = this.formulario.value.checkout;
 
-    const reservaServicio: ReservaServicioApi = {
+    const reservaServicio: ReservaServicio = {
       id_reserva: idReserva,
-      id_servicio: this.servicio!.id!,
+      id_servicio: Number(this.servicio!.id!),
       capacidad_invitados: this.formulario.value.cantidadPersonas,
       pago_acordado: this.precioTotal,
       fecha_inicio: checkin!,
