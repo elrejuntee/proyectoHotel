@@ -77,13 +77,21 @@ export class RegistroComponent {
   get PasswordConfirmacion() {
     return this.registroForm.get('passwordConfirmacion');
   }
+  
   enviar() {
     this.registroForm.markAllAsTouched();
 
     if (this.registroForm.valid) {
-      const { passwordConfirmacion, ...datosUsuario } = this.registroForm.value;
+      const formulario = this.registroForm.value;
 
-      this.registroService.registrarUsuario(datosUsuario).subscribe({
+      const nuevoUsuario = {
+        nombre: formulario.nombre!,
+        apellido: formulario.apellido!,
+        email: formulario.email!,
+        password: formulario.password!
+      };
+
+      this.registroService.registrarUsuario(nuevoUsuario).subscribe({
         next: (usuario) => {
           console.log('Usuario registrado con éxito:', usuario);
           this.router.navigate(['/login']);
@@ -92,6 +100,6 @@ export class RegistroComponent {
           console.error('Error al registrar usuario:', error);
         }
       });
-    } 
+    }
   }
 }
