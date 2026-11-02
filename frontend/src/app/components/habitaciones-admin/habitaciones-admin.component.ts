@@ -6,7 +6,7 @@ import { EstadoHabitacion, Habitacion, TipoHabitacion } from '../../models';
 import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
 
 @Component({
-  selector: 'app-habitaciones',
+  selector: 'app-habitaciones-admin',
   imports: [NgClass, FormsModule, ReactiveFormsModule],
   templateUrl: './habitaciones-admin.component.html',
   styleUrl: './habitaciones-admin.component.css'

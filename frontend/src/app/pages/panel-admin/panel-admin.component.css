@@ -1,0 +1,4 @@
+.admin-body {
+    min-height: 100vh;
+    background: var(--gris-50);
+}

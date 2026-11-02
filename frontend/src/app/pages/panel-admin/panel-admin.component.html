@@ -1,2 +1,10 @@
-<app-sidebar-admin></app-sidebar-admin>
-<app-habitaciones></app-habitaciones>
+<div class="admin-body">
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <app-sidebar-admin class="col-12 col-md-3 col-xl-2 p-0"></app-sidebar-admin>
+            <main class="col-12 col-md-9 col-xl-10 p-4">
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </div>
+</div>
