@@ -201,19 +201,24 @@
                 <label for="habPiso" class="form-label fw-semibold text-secondary small">Piso</label>
                 <input type="number" class="form-control" id="habPiso" formControlName="piso" placeholder="Ej: 1"
                         [readonly]="esEdicion" [class.bg-light]="esEdicion"
-                        [class.is-invalid]="Piso?.invalid && Piso?.touched" [class.is-valid]="Piso?.valid && Piso?.touched">
+                        [class.is-invalid]="(Piso?.invalid && Piso?.touched) || obtenerErrorBackend('piso') !== ''"
+                        [class.is-valid]="Piso?.valid && Piso?.touched && obtenerErrorBackend('piso') === ''">
                 @if (Piso?.touched && Piso?.hasError('required')) {
                   <p class="text-danger small mb-0">El piso es requerido.</p>
                 }
                 @if (Piso?.touched && Piso?.hasError('min')) {
                   <p class="text-danger small mb-0">El piso no puede ser negativo.</p>
                 }
+                @if (obtenerErrorBackend('piso') !== '') {
+                  <p class="text-danger small mb-0">{{ obtenerErrorBackend('piso') }}</p>
+                }
               </div>
               <div class="col-6">
                 <label for="habNumero" class="form-label fw-semibold text-secondary small">Número de habitación</label>
                 <input type="number" class="form-control" id="habNumero" formControlName="numero" placeholder="Ej: 101"
                         [readonly]="esEdicion" [class.bg-light]="esEdicion"
-                        [class.is-invalid]="Numero?.invalid && Numero?.touched" [class.is-valid]="Numero?.valid && Numero?.touched">
+                        [class.is-invalid]="(Numero?.invalid && Numero?.touched) || obtenerErrorBackend('numero') !== ''"
+                        [class.is-valid]="Numero?.valid && Numero?.touched && obtenerErrorBackend('numero') === ''">
                 @if (Numero?.touched && Numero?.hasError('required')) {
                   <p class="text-danger small mb-0">El número es requerido.</p>
                 }
@@ -226,12 +231,16 @@
                 @if (Numero?.touched && Numero?.hasError('numeroEnUso')) {
                   <p class="text-danger small mb-0">Ya existe una habitación con ese número.</p>
                 }
+                @if (obtenerErrorBackend('numero') !== '') {
+                  <p class="text-danger small mb-0">{{ obtenerErrorBackend('numero') }}</p>
+                }
               </div>
             </div>
             <div class="mb-3">
               <label for="habTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
               <select class="form-select text-dark" id="habTipo" formControlName="tipo"
-                      [class.is-invalid]="Tipo?.invalid && Tipo?.touched" [class.is-valid]="Tipo?.valid && Tipo?.touched">
+                      [class.is-invalid]="(Tipo?.invalid && Tipo?.touched) || obtenerErrorBackend('id_tipo_habitacion') !== ''"
+                      [class.is-valid]="Tipo?.valid && Tipo?.touched && obtenerErrorBackend('id_tipo_habitacion') === ''">
                 <option value="" disabled>Seleccioná un tipo</option>
                 @for (tipoHabitacion of tiposHabitacion; track tipoHabitacion.id) {
                   <option [value]="tipoHabitacion.id">{{ tipoHabitacion.nombre }}</option>
@@ -240,35 +249,47 @@
               @if (Tipo?.touched && Tipo?.hasError('required')) {
                 <p class="text-danger small mb-0">Elegí un tipo de habitación.</p>
               }
+              @if (obtenerErrorBackend('id_tipo_habitacion') !== '') {
+                <p class="text-danger small mb-0">{{ obtenerErrorBackend('id_tipo_habitacion') }}</p>
+              }
             </div>
             <div class="row g-3 mb-3">
               <div class="col-6">
                 <label for="habPrecio" class="form-label fw-semibold text-secondary small">Precio por noche ($)</label>
                 <input type="number" class="form-control" id="habPrecio" formControlName="precio" placeholder="Ej: 80000"
-                        [class.is-invalid]="Precio?.invalid && Precio?.touched" [class.is-valid]="Precio?.valid && Precio?.touched">
+                        [class.is-invalid]="(Precio?.invalid && Precio?.touched) || obtenerErrorBackend('precio') !== ''"
+                        [class.is-valid]="Precio?.valid && Precio?.touched && obtenerErrorBackend('precio') === ''">
                 @if (Precio?.touched && Precio?.hasError('required')) {
                   <p class="text-danger small mb-0">El precio es requerido.</p>
                 }
                 @if (Precio?.touched && Precio?.hasError('min')) {
                   <p class="text-danger small mb-0">El precio debe ser mayor a 0.</p>
                 }
+                @if (obtenerErrorBackend('precio') !== '') {
+                  <p class="text-danger small mb-0">{{ obtenerErrorBackend('precio') }}</p>
+                }
               </div>
               <div class="col-6">
                 <label for="habCapacidad" class="form-label fw-semibold text-secondary small">Capacidad</label>
                 <input type="number" class="form-control" id="habCapacidad" formControlName="capacidad" placeholder="Ej: 2"
-                        [class.is-invalid]="Capacidad?.invalid && Capacidad?.touched" [class.is-valid]="Capacidad?.valid && Capacidad?.touched">
+                        [class.is-invalid]="(Capacidad?.invalid && Capacidad?.touched) || obtenerErrorBackend('capacidad') !== ''"
+                        [class.is-valid]="Capacidad?.valid && Capacidad?.touched && obtenerErrorBackend('capacidad') === ''">
                 @if (Capacidad?.touched && Capacidad?.hasError('required')) {
                   <p class="text-danger small mb-0">La capacidad es requerida.</p>
                 }
                 @if (Capacidad?.touched && Capacidad?.hasError('min')) {
                   <p class="text-danger small mb-0">La capacidad debe ser mayor a 0.</p>
                 }
+                @if (obtenerErrorBackend('capacidad') !== '') {
+                  <p class="text-danger small mb-0">{{ obtenerErrorBackend('capacidad') }}</p>
+                }
               </div>
             </div>
             <div class="mb-3">
               <label for="habEstado" class="form-label fw-semibold text-secondary small">Estado de disponibilidad</label>
               <select class="form-select text-dark" id="habEstado" formControlName="estado"
-                      [class.is-invalid]="Estado?.invalid && Estado?.touched" [class.is-valid]="Estado?.valid && Estado?.touched">
+                      [class.is-invalid]="(Estado?.invalid && Estado?.touched) || obtenerErrorBackend('id_estado_habitacion') !== ''"
+                      [class.is-valid]="Estado?.valid && Estado?.touched && obtenerErrorBackend('id_estado_habitacion') === ''">
                 <option value="" disabled>Seleccioná un estado</option>
                 @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id) {
                   <option [value]="estadoHabitacion.id">{{ estadoHabitacion.estado_habitacion }}</option>
@@ -276,6 +297,9 @@
               </select>
               @if (Estado?.touched && Estado?.hasError('required')) {
                 <p class="text-danger small mb-0">Elegí un estado.</p>
+              }
+              @if (obtenerErrorBackend('id_estado_habitacion') !== '') {
+                <p class="text-danger small mb-0">{{ obtenerErrorBackend('id_estado_habitacion') }}</p>
               }
             </div>
           </form>

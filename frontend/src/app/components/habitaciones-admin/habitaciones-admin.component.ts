@@ -3,7 +3,7 @@ import { NgClass } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { EstadoHabitacion, Habitacion, TipoHabitacion } from '../../models';
-import { HabitacionesService } from '../../services/habitaciones/habitaciones.service';
+import { ErrorApi, HabitacionesService } from '../../services/habitaciones/habitaciones.service';
 
 @Component({
   selector: 'app-habitaciones-admin',
@@ -37,6 +37,8 @@ export class HabitacionesAdminComponent {
   // ===== Modal "Agregar / Editar" (formulario reactivo) =====
   formHabitacion: FormGroup;
   errorFormularioHabitacion: string | null = null;
+  // Errores que devuelve el backend por cada campo (ej.: { capacidad: ['...'] })
+  erroresBackend: { [campo: string]: string[] } = {};
   guardandoHabitacion: boolean = false;
 
   // Se inyectan el FormBuilder y el servicio en el constructor
@@ -207,6 +209,7 @@ export class HabitacionesAdminComponent {
     this.habitacionSeleccionada = null;
     this.formHabitacion = this.crearFormularioHabitacion('', '', '', '', '', estadoDisponible ? estadoDisponible.id : '');
     this.errorFormularioHabitacion = null;
+    this.erroresBackend = {};
     this.modalActivo = 'formulario';
   }
 
@@ -219,6 +222,7 @@ export class HabitacionesAdminComponent {
       habitacion.precio, habitacion.capacidad, habitacion.id_estado_habitacion
     );
     this.errorFormularioHabitacion = null;
+    this.erroresBackend = {};
     this.modalActivo = 'formulario';
   }
 
@@ -255,6 +259,7 @@ export class HabitacionesAdminComponent {
 
     this.guardandoHabitacion = true;
     this.errorFormularioHabitacion = null;
+    this.erroresBackend = {};
 
     peticion.subscribe({
       next: () => {
@@ -262,11 +267,18 @@ export class HabitacionesAdminComponent {
         this.cerrarModal();
         this.cargarHabitaciones();
       },
-      error: (error) => {
+      error: (error: ErrorApi) => {
         this.guardandoHabitacion = false;
         this.errorFormularioHabitacion = error.message;
+        this.erroresBackend = error.errores;
       }
     });
+  }
+
+  /** Primer error que el backend devolvió para un campo (o '' si no hay), para mostrarlo debajo del campo. */
+  obtenerErrorBackend(campo: string): string {
+    const mensajes = this.erroresBackend[campo];
+    return mensajes ? mensajes[0] : '';
   }
 
   // ===== Cierre de cualquier modal =====

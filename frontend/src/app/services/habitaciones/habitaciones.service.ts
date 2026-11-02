@@ -23,6 +23,14 @@ interface NuevaHabitacion {
   capacidad: number;
 }
 
+// Error que devuelve este servicio: un mensaje claro para el usuario y,
+// cuando el backend rechaza los datos (400), los errores de cada campo.
+// Ejemplo: { message: 'Revisá los datos ingresados.', errores: { capacidad: ['...'] } }
+export interface ErrorApi {
+  message: string;
+  errores: { [campo: string]: string[] };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -86,14 +94,28 @@ export class HabitacionesService {
 
   // ----- Manejo de errores -----
   private handleError(error: HttpErrorResponse) {
+    let mensaje = 'Algo salió mal; por favor, inténtalo de nuevo más tarde.';
+    let errores: { [campo: string]: string[] } = {};
+
     if (error.status === 0) {
       // Error del lado del cliente, como un error de red, etc.
       console.error('Ocurrió un error:', error.error);
+      mensaje = 'No se pudo conectar con el servidor. Verificá que el backend esté corriendo.';
     } else {
       // El backend rechazó la petición y devolvió un código de estado.
       console.error(`El backend devolvió el código ${error.status}, el cuerpo fue: `, error.error);
+
+      if (error.status === 400) {
+        mensaje = 'Revisá los datos ingresados.';
+        // Django devuelve un objeto con una lista de errores por cada campo: { capacidad: ['...'] }
+        if (error.error && typeof error.error === 'object') {
+          errores = error.error;
+        }
+      }
     }
-    // El observable falla y retorna un mensaje genérico para el usuario.
-    return throwError(() => new Error('Algo salió mal; por favor, inténtalo de nuevo más tarde: ' + error.message));
+
+    // El observable falla con un mensaje claro y, si los hay, los errores por campo.
+    const errorApi: ErrorApi = { message: mensaje, errores: errores };
+    return throwError(() => errorApi);
   }
 }
