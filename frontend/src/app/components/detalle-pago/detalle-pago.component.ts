@@ -164,7 +164,9 @@ export class DetallePagoComponent implements OnInit {
     });
   }
 
-  // 2) Vincula la habitación y las fechas a la reserva
+  // 2) Vincula la habitación y las fechas a la reserva y navega a la confirmación.
+  //    El estado de la habitación (Reservada / Ocupada) se calcula con las fechas de las reservas,
+  //    por eso ya no se modifica la habitación al pagar.
   private guardarReservaHabitacion(idReserva: number): void {
     const reservaHabitacion: ReservaHabitacion = {
       id_reserva: idReserva,
@@ -174,18 +176,7 @@ export class DetallePagoComponent implements OnInit {
       fecha_checkout: this.checkout!
     };
 
-      this.reservasService.crearReservaHabitacion(reservaHabitacion).subscribe({
-        next: () => {
-          this.ocuparHabitacion(idReserva);
-        },
-        error: (error: Error) => this.mostrarError(error)
-      });
-    }
-      // Cambia el estado de la habitación a "Ocupada" (id 2) y navega a la confirmación
-  private ocuparHabitacion(idReserva: number): void {
-    const ocupada: Habitacion = { ...this.habitacion!, id_estado_habitacion: 2 };
-
-    this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
+    this.reservasService.crearReservaHabitacion(reservaHabitacion).subscribe({
       next: () => {
         this.guardando = false;
         this.router.navigate(['/pago-confirmado', idReserva]);
