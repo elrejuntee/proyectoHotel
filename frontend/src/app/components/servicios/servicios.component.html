@@ -1,4 +1,4 @@
-    <main>  
+    <main>
         <!-- HERO -->
         <section class="servicios-hero">
             <div class="container text-center">
@@ -11,22 +11,12 @@
         <div class="seccion seccion-gris">
             <div class="container seccion-inner">
                 <div class="row text-center gy-4 justify-content-center">
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">🏢</span>
-                        <p>Sala Conferencia</p>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">🍽️</span>
-                        <p>Comedor</p>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">🚪</span>
-                        <p>Sala Privada</p>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <span class="fs-1">💻</span>
-                        <p>Co-working</p>
-                    </div>
+                    @for (tipoServicio of tiposServicio; track tipoServicio.id) {
+                        <div class="col-6 col-md-3">
+                            <span class="fs-1">{{ obtenerIcono(tipoServicio) }}</span>
+                            <p>{{ tipoServicio.nombre_servicio }}</p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -37,93 +27,36 @@
 
                 <h2 class="seccion-titulo text-center mb-5">Todos nuestros servicios</h2>
 
-                <!-- SALA CONFERENCIA -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/sala-conferencia.webp" alt="Sala de conferencias El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Sala Conferencia</h3>
-                            <p>Espacios modernos y equipados para reuniones de negocios, eventos corporativos y presentaciones. Capacidad para hasta 50 personas.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Proyector y pantalla incluidos</li>
-                                <li>✓ Conexión wifi de alta velocidad</li>
-                                <li>✓ Servicio de catering disponible</li>
-                                <li>✓ Capacidad hasta 50 personas</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(2)">Reservar ahora</button>
+                @if (mensajeError) {
+                    <div class="alert alert-danger text-center">{{ mensajeError }}</div>
+                } @else if (servicios.length === 0) {
+                    <p class="text-center text-muted">Por el momento no hay servicios disponibles.</p>
+                }
+
+                @for (servicio of servicios; track servicio.id) {
+                    <div class="servicio-detalle row g-4 align-items-center mb-5" [class.flex-md-row-reverse]="$odd">
+                        <div class="col-12 col-md-6">
+                            <img [src]="obtenerDetalle(servicio).imagen" [alt]="obtenerNombreTipo(servicio) + ' El Rejunte Hotel'" class="servicio-detalle__img" loading="lazy">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="servicio-detalle__info">
+                                <h3>{{ obtenerNombreTipo(servicio) }}</h3>
+                                <p>{{ obtenerDetalle(servicio).descripcion }}</p>
+                                <ul class="servicio-detalle__lista">
+                                    @for (beneficio of obtenerDetalle(servicio).beneficios; track beneficio) {
+                                        <li>✓ {{ beneficio }}</li>
+                                    }
+                                    <li>✓ Capacidad hasta {{ servicio.capacidad_maxima }} personas</li>
+                                </ul>
+                                <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(servicio.id)">Reservar ahora</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <hr class="servicio-separador">
-
-                <!-- COMEDOR -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5 flex-md-row-reverse">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/comedor.webp" alt="Comedor El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Comedor</h3>
-                            <p>Disfrutá de un desayuno completo y cenas gourmet elaboradas por nuestros chefs. Opciones para todos los gustos, con ingredientes frescos y de temporada.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Desayuno continental incluido</li>
-                                <li>✓ Menú variado para almuerzo y cena</li>
-                                <li>✓ Opciones vegetarianas y veganas</li>
-                                <li>✓ Servicio a la habitación disponible</li>
-                                <li>✓ Capacidad hasta 50 personas</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(4)">Reservar ahora</button>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="servicio-separador">
-
-                <!-- SALA PRIVADA -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/sala-privada.webp" alt="Sala privada El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Sala Privada</h3>
-                            <p>Un espacio exclusivo para reuniones íntimas, celebraciones especiales o cenas privadas. Ideal para grupos pequeños que buscan privacidad y confort.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Capacidad hasta 12 personas</li>
-                                <li>✓ Menú personalizado a pedido</li>
-                                <li>✓ Decoración incluida para eventos</li>
-                                <li>✓ Acceso exclusivo durante la reserva</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(3)">Reservar ahora</button>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="servicio-separador">
-
-                <!-- CO-WORKING -->
-                <div class="servicio-detalle row g-4 align-items-center mb-5 flex-md-row-reverse">
-                    <div class="col-12 col-md-6">
-                        <img src="imagenes/co-working.webp" alt="Co-working El Rejunte Hotel" class="servicio-detalle__img" loading="lazy">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="servicio-detalle__info">
-                            <h3>Co-working</h3>
-                            <p>Trabajá cómodamente desde el hotel en nuestro espacio de co-working equipado. Perfecto para viajeros de negocios que necesitan un ambiente productivo.</p>
-                            <ul class="servicio-detalle__lista">
-                                <li>✓ Wifi de alta velocidad dedicado</li>
-                                <li>✓ Escritorios individuales y compartidos</li>
-                                <li>✓ Sala de reuniones reservable</li>
-                                <li>✓ Impresora y escáner disponibles</li>
-                                <li>✓ Capacidad hasta 10 personas</li>
-                            </ul>
-                            <button type="button" class="btn btn-primario mt-3" (click)="intentarReservar(1)">Reservar ahora</button>
-                        </div>
-                    </div>
-                </div>
+                    @if (!$last) {
+                        <hr class="servicio-separador">
+                    }
+                }
             </div>
         </section>
     </main>
