@@ -13,4 +13,7 @@ export class RegistroService {
   registrarUsuario(usuario: Partial<Usuario>): Observable<Usuario> {
     return this.httpClient.post<Usuario>(this.url, usuario);
   }
+    obtenerUsuarios(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.url);
+  }
 }
