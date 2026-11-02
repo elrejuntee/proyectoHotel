@@ -39,10 +39,12 @@ class UsuarioView(ApiView):
           "El rol de usuario estándar no está configurado en la base de datos",
           status=status.HTTP_400_BAD_REQUEST,
       )
-    serializer = UsuarioSerializer(data=request.data)
+    datos = request.data.copy()
+    datos['id_rol'] = rol_estandar.id
+    serializer = UsuarioSerializer(data=datos)
     if serializer.is_valid():
-       serializer.save(id_rol=rol_estandar)
-       return Response(serializer.data, status=status.HTTP_201_CREATED)
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsuarioDetailView(ApiView):
