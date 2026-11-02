@@ -44,7 +44,7 @@ export class HabitacionesService {
   }
 
   obtenerEstadosHabitacion(): Observable<EstadoHabitacion[]> {
-    return this.http.get<EstadoHabitacion[]>(this.url + '/estados-habitacion/').pipe(
+    return this.http.get<EstadoHabitacion[]>(this.url + '/estados-habitaciones/').pipe(
       catchError(this.handleError)
     );
   }
@@ -55,16 +55,14 @@ export class HabitacionesService {
     );
   }
 
-
   obtenerTipoHabitacionPorId(id: number): Observable<TipoHabitacion> {
-    return this.http.get<TipoHabitacion>(this.url + '/tipos-habitacion/' + id + '/').pipe(
+    return this.http.get<TipoHabitacion>(this.url + '/tipos-habitaciones/' + id + '/').pipe(
       catchError(this.handleError)
     );
   }
 
   // ----- POST -----
-  // Al crear, la habitación todavía no tiene id: lo asigna el backend
-  crearHabitacion(habitacion: Omit<Habitacion, 'id_habitacion'>): Observable<Habitacion> {
+  crearHabitacion(habitacion: NuevaHabitacion): Observable<Habitacion> {
     return this.http.post<Habitacion>(this.url + '/habitaciones/', habitacion).pipe(
       catchError(this.handleError)
     );
