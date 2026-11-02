@@ -30,7 +30,7 @@ class Habitacion(models.Model):
     
     )
     capacidad = models.IntegerField(
-        validators = [MinValueValidator(1, message="La capacidad debe ser un valor positivo."), MaxValueValidator(4, message="La capacidad máxima es de 4 personas.")]
+        validators = [MinValueValidator(1, message="La capacidad debe ser un valor positivo."), MaxValueValidator(5, message="La capacidad máxima es de 5 personas.")]
     )
 
     def __str__(self): 

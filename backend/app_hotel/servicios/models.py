@@ -13,7 +13,7 @@ class TipoServicio(models.Model):
     nombre_servicio = models.CharField(
         max_length=100, 
         unique=True, 
-        choices=OPCIONES_TIPO_SERVICIO, # Acá aplicamos el límite
+        choices=OPCIONES_TIPO_SERVICIO,
         help_text="Nombre único del tipo de servicio."
     )
 
