@@ -28,6 +28,11 @@ class HabitacionesView(APIView):
             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class HabitacionDetailView(APIView):
+    def get(self, request, pk):
+        habitacion = get_object_or_404(Habitacion, pk=pk)
+        serializer = HabitacionSerializer(habitacion)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class EstadoHabitacionView(APIView):
     def get(self, request):
