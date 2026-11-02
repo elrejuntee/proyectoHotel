@@ -226,8 +226,8 @@
               <select class="form-select text-dark" id="habTipo" formControlName="tipo"
                       [class.is-invalid]="Tipo?.invalid && Tipo?.touched" [class.is-valid]="Tipo?.valid && Tipo?.touched">
                 <option value="" disabled>Seleccioná un tipo</option>
-                @for (tipoHabitacion of tiposHabitacion; track tipoHabitacion.id_tipo_habitacion_id) {
-                  <option [value]="tipoHabitacion.id_tipo_habitacion_id">{{ tipoHabitacion.nombre }}</option>
+                @for (tipoHabitacion of tiposHabitacion; track tipoHabitacion.id) {
+                  <option [value]="tipoHabitacion.id">{{ tipoHabitacion.nombre }}</option>
                 }
               </select>
               @if (Tipo?.touched && Tipo?.hasError('required')) {
@@ -263,8 +263,8 @@
               <select class="form-select text-dark" id="habEstado" formControlName="estado"
                       [class.is-invalid]="Estado?.invalid && Estado?.touched" [class.is-valid]="Estado?.valid && Estado?.touched">
                 <option value="" disabled>Seleccioná un estado</option>
-                @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id_estado_habitacion_id) {
-                  <option [value]="estadoHabitacion.id_estado_habitacion_id">{{ estadoHabitacion.estado_habitacion }}</option>
+                @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id) {
+                  <option [value]="estadoHabitacion.id">{{ estadoHabitacion.estado_habitacion }}</option>
                 }
               </select>
               @if (Estado?.touched && Estado?.hasError('required')) {
@@ -347,8 +347,8 @@
             <div class="mb-1 mt-3">
               <label for="estadoNuevo" class="form-label fw-semibold text-secondary small">Nuevo estado</label>
               <select class="form-select text-dark" id="estadoNuevo" name="estadoNuevo" [(ngModel)]="idNuevoEstado">
-                @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id_estado_habitacion_id) {
-                  <option [value]="estadoHabitacion.id_estado_habitacion_id">{{ estadoHabitacion.estado_habitacion }}</option>
+                @for (estadoHabitacion of estadosHabitacion; track estadoHabitacion.id) {
+                  <option [value]="estadoHabitacion.id">{{ estadoHabitacion.estado_habitacion }}</option>
                 }
               </select>
             </div>

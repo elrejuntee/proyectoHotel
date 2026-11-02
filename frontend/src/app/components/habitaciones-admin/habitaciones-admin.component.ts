@@ -108,12 +108,12 @@ export class HabitacionesAdminComponent {
 
   // ===== Datos derivados de cada habitación (se consultan desde la vista) =====
   obtenerNombreTipo(habitacion: Habitacion): string {
-    const tipoEncontrado = this.tiposHabitacion.find(tipoHabitacion => tipoHabitacion.id_tipo_habitacion_id === habitacion.id_tipo_habitacion_id);
+    const tipoEncontrado = this.tiposHabitacion.find(tipoHabitacion => tipoHabitacion.id === habitacion.id_tipo_habitacion);
     return tipoEncontrado ? tipoEncontrado.nombre : '';
   }
 
   obtenerNombreEstado(habitacion: Habitacion): string {
-    const estadoEncontrado = this.estadosHabitacion.find(estadoHabitacion => estadoHabitacion.id_estado_habitacion_id === habitacion.id_estado_habitacion_id);
+    const estadoEncontrado = this.estadosHabitacion.find(estadoHabitacion => estadoHabitacion.id === habitacion.id_estado_habitacion);
     return estadoEncontrado ? estadoEncontrado.estado_habitacion : '';
   }
 
@@ -130,7 +130,7 @@ export class HabitacionesAdminComponent {
   }
 
   obtenerImagen(habitacion: Habitacion): string {
-    return this.habitacionesService.obtenerImagenPrincipal(habitacion.id_tipo_habitacion_id);
+    return this.habitacionesService.obtenerImagenPrincipal(habitacion.id_tipo_habitacion);
   }
 
   // ===== Menú de acciones por fila =====
@@ -153,7 +153,7 @@ export class HabitacionesAdminComponent {
   cambiarEstadoHabitacion(habitacion: Habitacion): void {
     this.cerrarDropdown();
     this.habitacionSeleccionada = habitacion;
-    this.idNuevoEstado = String(habitacion.id_estado_habitacion_id);
+    this.idNuevoEstado = String(habitacion.id_estado_habitacion);
     this.modalActivo = 'estado';
   }
 
@@ -167,7 +167,7 @@ export class HabitacionesAdminComponent {
 
     const habitacionActualizada: Habitacion = {
       ...habitacion,
-      id_estado_habitacion_id: Number(this.idNuevoEstado)
+      id_estado_habitacion: Number(this.idNuevoEstado)
     };
 
     this.habitacionesService.actualizarHabitacion(habitacion.id, habitacionActualizada).subscribe({
@@ -188,7 +188,7 @@ export class HabitacionesAdminComponent {
     const estadoDisponible = this.estadosHabitacion.find(estadoHabitacion => estadoHabitacion.estado_habitacion === 'Disponible');
 
     this.habitacionSeleccionada = null;
-    this.formHabitacion = this.crearFormularioHabitacion('', '', '', '', '', estadoDisponible ? estadoDisponible.id_estado_habitacion_id : '');
+    this.formHabitacion = this.crearFormularioHabitacion('', '', '', '', '', estadoDisponible ? estadoDisponible.id : '');
     this.errorFormularioHabitacion = null;
     this.modalActivo = 'formulario';
   }
@@ -198,8 +198,8 @@ export class HabitacionesAdminComponent {
     // Se guarda primero la habitación: el validador asíncrono la necesita para ignorarse a sí misma
     this.habitacionSeleccionada = habitacion;
     this.formHabitacion = this.crearFormularioHabitacion(
-      habitacion.piso, habitacion.numero, habitacion.id_tipo_habitacion_id,
-      habitacion.precio, habitacion.capacidad, habitacion.id_estado_habitacion_id
+      habitacion.piso, habitacion.numero, habitacion.id_tipo_habitacion,
+      habitacion.precio, habitacion.capacidad, habitacion.id_estado_habitacion
     );
     this.errorFormularioHabitacion = null;
     this.modalActivo = 'formulario';
@@ -217,8 +217,8 @@ export class HabitacionesAdminComponent {
     // Mientras el validador asíncrono está consultando, el formulario no es válido todavía
     if (this.formHabitacion.valid) {
       const datosHabitacion = {
-        id_tipo_habitacion_id: this.formHabitacion.value.tipo,
-        id_estado_habitacion_id: Number(this.formHabitacion.value.estado),
+        id_tipo_habitacion: this.formHabitacion.value.tipo,
+        id_estado_habitacion: Number(this.formHabitacion.value.estado),
         numero: Number(this.formHabitacion.value.numero),
         piso: Number(this.formHabitacion.value.piso),
         precio: Number(this.formHabitacion.value.precio),
