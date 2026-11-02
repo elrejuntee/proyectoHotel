@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { EstadoHabitacion, Habitacion, TipoHabitacion } from '../../models';
+import { EstadoHabitacion, EstadoReserva, Habitacion, Reserva, ReservaHabitacion, TipoHabitacion } from '../../models';
 import { ErrorApi, HabitacionesService } from '../../services/habitaciones/habitaciones.service';
+import { ReservasService } from '../../services/reservas/reservas.service';
 
 @Component({
   selector: 'app-habitaciones-admin',
@@ -13,16 +14,19 @@ import { ErrorApi, HabitacionesService } from '../../services/habitaciones/habit
 })
 export class HabitacionesAdminComponent {
 
-  // ===== Datos: vienen del backend a través de HabitacionesService =====
+  // ===== Datos: vienen del backend a través de los servicios =====
   habitaciones: Habitacion[] = [];
   tiposHabitacion: TipoHabitacion[] = [];
   estadosHabitacion: EstadoHabitacion[] = [];
+  reservas: Reserva[] = [];
+  reservasHabitacion: ReservaHabitacion[] = [];
+  estadosReserva: EstadoReserva[] = [];
   errorHabitaciones: string | null = null;
 
   // ===== Filtros de la tabla =====
   numeroBuscado: string = '';
   idTipoFiltro: string = '';
-  idEstadoFiltro: string = '';
+  estadoFiltro: string = '';
 
   // ===== Menú de acciones abierto (número de fila de la tabla) =====
   dropdownAbiertoIndice: number | null = null;
@@ -41,12 +45,19 @@ export class HabitacionesAdminComponent {
   erroresBackend: { [campo: string]: string[] } = {};
   guardandoHabitacion: boolean = false;
 
-  // Se inyectan el FormBuilder y el servicio en el constructor
-  constructor(private formBuilder: FormBuilder, private habitacionesService: HabitacionesService) {
+  // Se inyectan el FormBuilder y los servicios en el constructor
+  constructor(
+    private formBuilder: FormBuilder,
+    private habitacionesService: HabitacionesService,
+    private reservasService: ReservasService
+  ) {
     this.formHabitacion = this.crearFormularioHabitacion('', '', '', '', '', '');
     this.cargarTiposHabitacion();
     this.cargarEstadosHabitacion();
     this.cargarHabitaciones();
+    this.cargarReservas();
+    this.cargarReservasHabitacion();
+    this.cargarEstadosReserva();
   }
 
   // ===== Getters para acceder a los form controls desde la vista =====
@@ -70,6 +81,10 @@ export class HabitacionesAdminComponent {
     return this.habitaciones.filter(habitacion => this.obtenerSlugEstado(habitacion) === 'ocupado').length;
   }
 
+  get totalReservadas(): number {
+    return this.habitaciones.filter(habitacion => this.obtenerSlugEstado(habitacion) === 'reservada').length;
+  }
+
   get totalMantenimiento(): number {
     return this.habitaciones.filter(habitacion => this.obtenerSlugEstado(habitacion) === 'mantenimiento').length;
   }
@@ -80,7 +95,7 @@ export class HabitacionesAdminComponent {
     return this.habitaciones.filter(habitacion => {
       const coincideNumero = habitacion.numero.toString().includes(this.numeroBuscado.trim());
       const coincideTipo = this.idTipoFiltro === '' || habitacion.id_tipo_habitacion === Number(this.idTipoFiltro);
-      const coincideEstado = this.idEstadoFiltro === '' || habitacion.id_estado_habitacion === Number(this.idEstadoFiltro);
+      const coincideEstado = this.estadoFiltro === '' || this.obtenerNombreEstado(habitacion) === this.estadoFiltro;
       return coincideNumero && coincideTipo && coincideEstado;
     });
   }
@@ -125,15 +140,65 @@ export class HabitacionesAdminComponent {
     });
   }
 
+  cargarReservas(): void {
+    this.reservasService.obtenerReservas().subscribe({
+      next: (reservas) => {
+        this.reservas = reservas;
+      },
+      error: (error) => {
+        this.errorHabitaciones = error.message;
+      }
+    });
+  }
+
+  cargarReservasHabitacion(): void {
+    this.reservasService.obtenerReservasHabitacion().subscribe({
+      next: (reservasHabitacion) => {
+        this.reservasHabitacion = reservasHabitacion;
+      },
+      error: (error) => {
+        this.errorHabitaciones = error.message;
+      }
+    });
+  }
+
+  cargarEstadosReserva(): void {
+    this.reservasService.obtenerEstadosReserva().subscribe({
+      next: (estadosReserva) => {
+        this.estadosReserva = estadosReserva;
+      },
+      error: (error) => {
+        this.errorHabitaciones = error.message;
+      }
+    });
+  }
+
   // ===== Datos derivados de cada habitación (se consultan desde la vista) =====
   obtenerNombreTipo(habitacion: Habitacion): string {
     const tipoEncontrado = this.tiposHabitacion.find(tipoHabitacion => tipoHabitacion.id === habitacion.id_tipo_habitacion);
     return tipoEncontrado ? tipoEncontrado.nombre : '';
   }
 
+  /**
+   * Estado que se muestra de la habitación:
+   *  - Mantenimiento: siempre manda el estado guardado.
+   *  - Con una reserva confirmada que ya empezó: Ocupada.
+   *  - Con una reserva confirmada cuyo check-in todavía no llegó: Reservada.
+   *  - Si no, el estado guardado (Disponible).
+   */
   obtenerNombreEstado(habitacion: Habitacion): string {
-    const estadoEncontrado = this.estadosHabitacion.find(estadoHabitacion => estadoHabitacion.id === habitacion.id_estado_habitacion);
-    return estadoEncontrado ? estadoEncontrado.estado_habitacion : '';
+    const nombreGuardado = this.obtenerNombreEstadoGuardado(habitacion);
+
+    if (nombreGuardado === 'Mantenimiento') {
+      return nombreGuardado;
+    }
+
+    const reservaVigente = this.obtenerReservaVigente(habitacion);
+    if (reservaVigente) {
+      return reservaVigente.fecha_checkin.slice(0, 10) <= this.obtenerHoy() ? 'Ocupada' : 'Reservada';
+    }
+
+    return nombreGuardado;
   }
 
   obtenerClaseEstado(habitacion: Habitacion): string {
@@ -150,6 +215,32 @@ export class HabitacionesAdminComponent {
 
   obtenerImagen(habitacion: Habitacion): string {
     return this.habitacionesService.obtenerImagenPrincipal(habitacion.id_tipo_habitacion);
+  }
+
+  /** Reserva confirmada de la habitación que está en curso o es la próxima (undefined si no tiene). */
+  obtenerReservaVigente(habitacion: Habitacion): ReservaHabitacion | undefined {
+    const hoy = this.obtenerHoy();
+    const estadoConfirmada = this.estadosReserva.find(estadoReserva => estadoReserva.estado_reserva === 'Confirmada');
+
+    const idsConfirmadas = this.reservas
+      .filter(reserva => estadoConfirmada && reserva.id_estado_reserva === estadoConfirmada.id)
+      .map(reserva => reserva.id);
+
+    // Solo las reservas que todavía no terminaron, la que empieza primero va primera
+    return this.reservasHabitacion
+      .filter(reservaHabitacion => reservaHabitacion.id_habitacion === habitacion.id)
+      .filter(reservaHabitacion => idsConfirmadas.includes(reservaHabitacion.id_reserva))
+      .filter(reservaHabitacion => reservaHabitacion.fecha_checkout.slice(0, 10) > hoy)
+      .sort((reservaA, reservaB) => reservaA.fecha_checkin.localeCompare(reservaB.fecha_checkin))[0];
+  }
+
+  /** Fechas de la reserva vigente con formato dd/mm/aaaa ('' si la habitación no tiene reserva). */
+  obtenerFechasReserva(habitacion: Habitacion): string {
+    const reservaVigente = this.obtenerReservaVigente(habitacion);
+    if (!reservaVigente) {
+      return '';
+    }
+    return this.formatearFecha(reservaVigente.fecha_checkin) + ' al ' + this.formatearFecha(reservaVigente.fecha_checkout);
   }
 
   // ===== Menú de acciones por fila =====
@@ -341,7 +432,23 @@ export class HabitacionesAdminComponent {
     });
   }
 
-  /** Traduce el nombre de estado_habitacion al slug usado para las clases CSS. */
+  /** Nombre del estado que tiene guardado la habitación en la base de datos. */
+  private obtenerNombreEstadoGuardado(habitacion: Habitacion): string {
+    const estadoEncontrado = this.estadosHabitacion.find(estadoHabitacion => estadoHabitacion.id === habitacion.id_estado_habitacion);
+    return estadoEncontrado ? estadoEncontrado.estado_habitacion : '';
+  }
+
+  /** Fecha de hoy como aaaa-mm-dd, el mismo formato en que el backend guarda las fechas. */
+  private obtenerHoy(): string {
+    return new Date().toLocaleDateString('en-CA');
+  }
+
+  /** De aaaa-mm-dd a dd/mm/aaaa. */
+  private formatearFecha(fecha: string): string {
+    return fecha.slice(0, 10).split('-').reverse().join('/');
+  }
+
+  /** Traduce el nombre del estado que se muestra al slug usado para las clases CSS. */
   private obtenerSlugEstado(habitacion: Habitacion): string {
     const nombre = this.obtenerNombreEstado(habitacion);
     if (nombre === 'Disponible') return 'disponible';
