@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './detalle-habitacion.component.css'
 })
 export class DetalleHabitacionComponent implements OnInit {
-  @Input() id!: string; // llega desde la ruta /detalle-habitacion/:id
+  @Input() id!: number; // llega desde la ruta /detalle-habitacion/:id
   @Input() checkin?: string;  // llega como parametro de ruta: /detalle-habitacion/:Id/:checkin/:checkout
   @Input() checkout?: string; // llega como parametro de ruta: /detalle-habitacion/:Id/:checkin/:checkout
 
