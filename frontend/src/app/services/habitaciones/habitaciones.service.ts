@@ -65,14 +65,14 @@ export class HabitacionesService {
   // ----- POST -----
   // Al crear, la habitación todavía no tiene id: lo asigna el backend
   crearHabitacion(habitacion: Omit<Habitacion, 'id_habitacion'>): Observable<Habitacion> {
-    return this.http.post<Habitacion>(this.url + '/habitaciones', habitacion).pipe(
+    return this.http.post<Habitacion>(this.url + '/habitaciones/', habitacion).pipe(
       catchError(this.handleError)
     );
   }
 
   // ----- PUT -----
   actualizarHabitacion(id: number, habitacion: Habitacion): Observable<Habitacion> {
-    return this.http.put<Habitacion>(this.url + '/habitaciones/' + id, habitacion).pipe(
+    return this.http.put<Habitacion>(this.url + '/habitaciones/' + id + '/', habitacion).pipe(
       catchError(this.handleError)
     );
   }
