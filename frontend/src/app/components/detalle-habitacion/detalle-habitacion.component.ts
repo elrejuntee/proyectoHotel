@@ -42,7 +42,7 @@ export class DetalleHabitacionComponent implements OnInit {
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
         this.habitacion = habitacion;
-        this.obtenerTipo(habitacion.id_tipo_habitacion_id);
+        this.obtenerTipo(habitacion.id_tipo_habitacion);
       },
       error: (error) => {
         this.mensajeError = error.message;
@@ -61,11 +61,11 @@ export class DetalleHabitacionComponent implements OnInit {
     });
   }
   imagenPrincipal(): string {
-    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion_id) : '';
+    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion) : '';
   }
 
   imagenesComplementarias(): string[] {
-    return this.habitacion ? this.habitacionesService.obtenerImagenesComplementarias(this.habitacion.id_tipo_habitacion_id) : [];
+    return this.habitacion ? this.habitacionesService.obtenerImagenesComplementarias(this.habitacion.id_tipo_habitacion) : [];
   }
 
   buscarFechas(checkin: string, checkout: string): void {

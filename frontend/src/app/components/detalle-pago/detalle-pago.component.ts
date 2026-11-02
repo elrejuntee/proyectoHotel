@@ -59,7 +59,7 @@ export class DetallePagoComponent implements OnInit {
     this.habitacionesService.obtenerHabitacionPorId(this.id).subscribe({
       next: (habitacion) => {
         this.habitacion = habitacion;
-        this.obtenerTipoHabitacionPorId(habitacion.id_tipo_habitacion_id);
+        this.obtenerTipoHabitacionPorId(habitacion.id_tipo_habitacion);
       },
       error: (error) => {
         this.mensajeError = error.message;
@@ -79,7 +79,7 @@ export class DetallePagoComponent implements OnInit {
   }
   
   imagenPrincipal(): string {
-    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion_id) : '';
+    return this.habitacion ? this.habitacionesService.obtenerImagenPrincipal(this.habitacion.id_tipo_habitacion) : '';
   }
 
   // Cantidad de noches entre check-in y check-out
@@ -183,7 +183,7 @@ export class DetallePagoComponent implements OnInit {
     }
       // Cambia el estado de la habitación a "Ocupada" (id 2) y navega a la confirmación
   private ocuparHabitacion(idReserva: number): void {
-    const ocupada: Habitacion = { ...this.habitacion!, id_estado_habitacion_id: 2 };
+    const ocupada: Habitacion = { ...this.habitacion!, id_estado_habitacion: 2 };
 
     this.habitacionesService.actualizarHabitacion(this.habitacion!.id!, ocupada).subscribe({
       next: () => {
