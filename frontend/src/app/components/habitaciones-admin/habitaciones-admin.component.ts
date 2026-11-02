@@ -25,6 +25,10 @@ export class HabitacionesAdminComponent {
   // ===== Modal abierto + habitación sobre la que se está trabajando =====
   modalActivo: 'ver' | 'estado' | 'formulario' | null = null;
   habitacionSeleccionada: Habitacion | null = null;
+  // ===== Filtros de la tabla =====
+  numeroBuscado: string = '';
+  idTipoFiltro: string = '';
+  idEstadoFiltro: string = '';
 
   // ===== Modal "Cambiar estado" =====
   idNuevoEstado: string = '';
@@ -70,6 +74,15 @@ export class HabitacionesAdminComponent {
   /** El mismo modal sirve para agregar (sin habitación seleccionada) y para editar. */
   get esEdicion(): boolean {
     return this.habitacionSeleccionada !== null;
+  }
+  /** Habitaciones que cumplen los tres filtros a la vez: número, tipo y estado. */
+  get habitacionesFiltradas(): Habitacion[] {
+    return this.habitaciones.filter(habitacion => {
+      const coincideNumero = habitacion.numero.toString().includes(this.numeroBuscado.trim());
+      const coincideTipo = this.idTipoFiltro === '' || habitacion.id_tipo_habitacion === Number(this.idTipoFiltro);
+      const coincideEstado = this.idEstadoFiltro === '' || habitacion.id_estado_habitacion === Number(this.idEstadoFiltro);
+      return coincideNumero && coincideTipo && coincideEstado;
+    });
   }
 
   // ===== Carga de datos: el componente se suscribe al observable del servicio =====
@@ -209,45 +222,44 @@ export class HabitacionesAdminComponent {
     if (this.guardandoHabitacion) {
       return;
     }
-
-    if (!this.habitacionSeleccionada) {
-      throw new Error('No hay una habitación seleccionada para actualizar');
-    }
-
     // Mientras el validador asíncrono está consultando, el formulario no es válido todavía
-    if (this.formHabitacion.valid) {
-      const datosHabitacion = {
-        id_tipo_habitacion: this.formHabitacion.value.tipo,
-        id_estado_habitacion: Number(this.formHabitacion.value.estado),
-        numero: Number(this.formHabitacion.value.numero),
-        piso: Number(this.formHabitacion.value.piso),
-        precio: Number(this.formHabitacion.value.precio),
-        capacidad: Number(this.formHabitacion.value.capacidad)
-      };
-
-      const peticion = this.habitacionesService.actualizarHabitacion(
-        this.habitacionSeleccionada.id, 
-        { ...datosHabitacion, id: this.habitacionSeleccionada.id }
-      );
-
-      this.guardandoHabitacion = true;
-      this.errorFormularioHabitacion = null;
-
-      peticion.subscribe({
-        next: () => {
-          this.guardandoHabitacion = false;
-          this.cerrarModal();
-          this.cargarHabitaciones();
-        },
-        error: (error) => {
-          this.guardandoHabitacion = false;
-          this.errorFormularioHabitacion = error.message;
-        }
-      });
-    }
-    else {
+    if (!this.formHabitacion.valid) {
       this.formHabitacion.markAllAsTouched();
+      return;
     }
+    const formulario = this.formHabitacion.value;
+    // Los inputs numéricos ya entregan números; solo los selects entregan el id como texto
+    const datosHabitacion = {
+      id_tipo_habitacion: Number(formulario.tipo),
+      id_estado_habitacion: Number(formulario.estado),
+      numero: formulario.numero,
+      piso: formulario.piso,
+      precio: formulario.precio,
+      capacidad: formulario.capacidad
+    };
+
+    // El mismo modal agrega (sin habitación seleccionada) o edita (con una seleccionada)
+    const peticion = this.habitacionSeleccionada
+      ? this.habitacionesService.actualizarHabitacion(
+          this.habitacionSeleccionada.id,
+          { ...datosHabitacion, id: this.habitacionSeleccionada.id }
+        )
+      : this.habitacionesService.crearHabitacion(datosHabitacion);
+
+    this.guardandoHabitacion = true;
+    this.errorFormularioHabitacion = null;
+
+    peticion.subscribe({
+      next: () => {
+        this.guardandoHabitacion = false;
+        this.cerrarModal();
+        this.cargarHabitaciones();
+      },
+      error: (error) => {
+        this.guardandoHabitacion = false;
+        this.errorFormularioHabitacion = error.message;
+      }
+    });
   }
 
   cerrarModal(): void {
@@ -265,7 +277,7 @@ export class HabitacionesAdminComponent {
    *  - emite { numeroEnUso: true } -> el número ya existe (inválido)
    */
   validarNumeroDisponible = (control: AbstractControl): Observable<ValidationErrors | null> => {
-    const numero = Number(control.value);
+      const numero = control.value;
 
     return new Observable<ValidationErrors | null>(observer => {
       const consulta = this.habitacionesService.obtenerHabitaciones().subscribe({
