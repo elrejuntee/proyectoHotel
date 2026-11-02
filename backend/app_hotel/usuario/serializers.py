@@ -10,8 +10,13 @@ class RolUsuarioSerializer(serializers.ModelSerializer):
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
-  id_rol = RolUsuarioSerializer(read_only=True)
+ 
+  class Meta:
+    model = Usuario
+    fields = '__all__'
 
+class UsuarioConRolSerializer(serializers.ModelSerializer):
+  rol = RolUsuarioSerializer(source='id_rol', read_only = True)
   class Meta:
     model = Usuario
     fields = '__all__'

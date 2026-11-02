@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { RegistroService, UsuarioRegistro } from '../servicios/registro/registro.service';
+import { RegistroService } from '../servicios/registro/registro.service';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 function passwordsIgualesValidator(form: AbstractControl): ValidationErrors | null {
@@ -58,12 +58,8 @@ export class RegistroComponent {
 
     if (this.registroForm.valid) {
       const { passwordConfirmacion, ...datosUsuario } = this.registroForm.value;
-      const nuevoUsuario: UsuarioRegistro = {
-      ...datosUsuario,
-      id_rol: "2" 
-    };
 
-      this.registroService.registrarUsuario(nuevoUsuario).subscribe({
+      this.registroService.registrarUsuario(datosUsuario).subscribe({
         next: (usuario) => {
           console.log('Usuario registrado con éxito:', usuario);
           this.router.navigate(['/login']);

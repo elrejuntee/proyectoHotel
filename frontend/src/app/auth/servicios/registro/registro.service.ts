@@ -1,23 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-
-export interface UsuarioRegistro {
-  nombre: string;
-  apellido: string;
-  email: string;
-  password: string;
-  id_rol: string;
-  fecha_registro: Date;
-}
+import { Usuario } from '../../../models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroService {
-  private url = 'http://localhost:3000/usuario';
+  private url = 'http://localhost:8000/api/usuarios/';
   private httpClient = inject(HttpClient);
 
-  registrarUsuario(usuario: UsuarioRegistro) {
-    return this.httpClient.post<UsuarioRegistro>(this.url, usuario);
+  registrarUsuario(usuario: Partial<Usuario>): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.url, usuario);
   }
 }

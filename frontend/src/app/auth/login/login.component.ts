@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarAuthComponent } from '../navbar-auth/navbar-auth.component';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { LoginService } from '../servicios/login/login.service';
 
 @Component({
@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private loginService = inject(LoginService);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
 
   mensajeError = '';
 
@@ -51,17 +50,30 @@ export class LoginComponent implements OnInit {
           console.log(this.mensajeError);
           return;
         }
+               
+      this.loginService.obtenerIdRolPorNombre('usuario').subscribe({
+        next: (idRolUsuario) => {
+          if (idRolUsuario == null) {
+            this.mensajeError = 'No se pudo obtener el rol del usuario.';
+            console.error(this.mensajeError);
+            return;
+          }
 
-        if (usuario.id_rol === 2) {
-          console.log('Login exitoso (Cliente):', usuario);
-          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-          this.router.navigateByUrl(returnUrl || '/reservas');
+          if (usuario.id_rol === idRolUsuario) {
+          console.log('Login exitoso (usuario):', usuario);
+          this.router.navigate(['/reservas']);
         } else {
           console.log('Login exitoso (Admin):', usuario);
           this.router.navigate(['/panel-admin']);
         }
       },
       error: (err) => {
+        this.mensajeError = 'Error al obtener el rol.';
+        console.error(err);
+        }
+      });
+    },
+    error: (err) => {
         this.mensajeError = 'Error al conectar con el servidor.';
         console.error(err);
       }
