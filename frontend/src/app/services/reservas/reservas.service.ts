@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Reserva, ReservaHabitacion, ReservaServicio, EstadoReserva } from '../../models';
+import { Reserva, ReservaHabitacion, ReservaServicio, EstadoReserva, Usuario } from '../../models';
 
-export interface EstadoReservaApi {
-  id?: number | string;
-  estado_reserva: string;
-}
 
 // Servicio = Modelo (MVC): concentra las llamadas HTTP al backend Django.
 @Injectable({
@@ -55,8 +51,14 @@ export class ReservasService {
     );
   }
 
-  obtenerEstadosReserva(): Observable<EstadoReservaApi[]> {
-    return this.http.get<EstadoReservaApi[]>(this.url + '/estados-reserva/').pipe(
+  obtenerEstadosReserva(): Observable<EstadoReserva[]> {
+    return this.http.get<EstadoReserva[]>(this.url + '/estados-reserva/').pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.url + '/usuarios/').pipe(
       catchError(this.handleError)
     );
   }
