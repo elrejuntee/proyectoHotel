@@ -1,4 +1,3 @@
-<p>servicios-admin works!</p>
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
   <div>
     <nav aria-label="breadcrumb">
@@ -80,7 +79,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (servicio of servicios; track servicio.id_servicio) {
+        @for (servicio of servicios; track servicio.id) {
           <tr>
             <td>
               <strong class="text-dark">{{ obtenerNombreServicio(servicio) }}</strong>
@@ -139,8 +138,8 @@
             <label for="servTipo" class="form-label fw-semibold text-secondary small">Tipo</label>
             <select class="form-select text-dark" id="servTipo" name="servTipo" [(ngModel)]="idTipoNuevoServicio">
               <option value="" disabled>Seleccioná un tipo</option>
-              @for (tipoServicio of tiposServicio; track tipoServicio.id_tipo_servicio) {
-                <option [value]="tipoServicio.id_tipo_servicio">{{ tipoServicio.nombre_servicio }}</option>
+              @for (tipoServicio of tiposServicio; track tipoServicio.id) {
+                <option [value]="tipoServicio.id">{{ tipoServicio.nombre_servicio }}</option>
               }
             </select>
           </div>

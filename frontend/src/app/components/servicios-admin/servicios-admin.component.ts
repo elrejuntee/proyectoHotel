@@ -11,7 +11,7 @@ import { ServiciosService } from '../../services/servicios/servicios.service';
 })
 export class ServiciosAdminComponent {
 
-  // ===== Datos: vienen de json-server a través de ServiciosService =====
+  // ===== Datos: vienen de Django a través de ServiciosService =====
   servicios: Servicio[] = [];
   tiposServicio: TipoServicio[] = [];
   errorServicios: string | null = null;
@@ -68,7 +68,7 @@ export class ServiciosAdminComponent {
 
   // ===== Datos derivados de cada servicio (se consultan desde la vista) =====
   obtenerNombreServicio(servicio: Servicio): string {
-    const tipoEncontrado = this.tiposServicio.find(tipoServicio => tipoServicio.id_tipo_servicio === servicio.id_tipo_servicio);
+    const tipoEncontrado = this.tiposServicio.find(tipoServicio => tipoServicio.id === servicio.id_tipo_servicio);
     return tipoEncontrado ? tipoEncontrado.nombre_servicio : '';
   }
 
